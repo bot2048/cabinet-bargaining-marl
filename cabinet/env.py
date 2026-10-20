@@ -146,7 +146,7 @@ class CabinetEnv:
         if rule == "uniform":
             return np.full(self.n, 1.0 / self.n)
         if rule == "seat":
-            return self.w / self.W
+            return self.w / self.w.sum()     # modelled parties only (real parliaments)
         # largest-first: k-th round since term start / last collapse -> k-th largest
         order = self._largest_order()
         p = np.zeros(self.n)

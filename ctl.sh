@@ -15,7 +15,7 @@ cd "$(dirname "$0")"
 PY=$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo python3 )
 Q=runs/queue
 
-runner_pid() { pgrep -f "scripts/queue_runner.py" | head -1; }
+runner_pid() { pgrep -f "python[0-9.]* scripts/queue_runner\.py$" | head -1; }
 
 case "${1:-status}" in
   status) $PY scripts/status.py ;;

@@ -60,7 +60,8 @@ def total_minutes():
 
 
 def runner_alive():
-    out = subprocess.run(["pgrep", "-f", "scripts/queue_runner.py"], capture_output=True, text=True)
+    out = subprocess.run(["pgrep", "-f", r"python[0-9.]* scripts/queue_runner\.py$"],
+                         capture_output=True, text=True)
     return bool(out.stdout.strip())
 
 

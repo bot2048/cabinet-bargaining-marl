@@ -165,6 +165,11 @@ EMERGENCY_MB = 600         # below this, the newest job is stopped and re-queued
 DEFAULT_MB = {"cuda": 1900, "cpu": 800}   # job sizes before any is measured
 GPU_JOB_MB = 600           # GPU memory a job needs
 THREADS = 2                # PyTorch threads per job (CPU budget)
+LOAD_MAX = 24              # never start a job above this load (physical cores)
+CPU_LOAD_MAX = 20          # CPU-only jobs (whose update also runs on the CPU) only below this
+CPU_JOBS_MAX = 6           # ... and at most this many at once
+# Measured on this laptop: 14 mostly CPU-only jobs finished 0.18 jobs/min,
+# 6 GPU jobs 0.27 jobs/min; past the core count, more jobs means less work done.
 
 
 def gpu_free_mb():
@@ -293,18 +298,21 @@ def main():
             avail_plan = avail - growth
         stop = os.path.exists(os.path.join(QDIR, "STOP"))
         gpu_free = gpu_free_mb()
+        started_now = 0
         while not stop and len(running) < parallel():
             # as many jobs as resources allow: GPU if RAM and GPU memory permit,
             # else a lighter CPU-only job, else wait for memory to free up
-            load = os.getloadavg()[0]
-            if load + THREADS > (os.cpu_count() or 4):
+            load = os.getloadavg()[0] + THREADS * started_now
+            if load + THREADS > LOAD_MAX:
                 break
+            n_cpu = sum(1 for _, j in running if j.get("device") == "cpu")
             if avail_plan - job_mb["cuda"] >= reserve_mb() and gpu_free - GPU_JOB_MB >= 512:
                 dev = "cuda"
-            elif avail_plan - job_mb["cpu"] >= reserve_mb():
+            elif (avail_plan - job_mb["cpu"] >= reserve_mb() and load + THREADS <= CPU_LOAD_MAX
+                  and n_cpu < CPU_JOBS_MAX):
                 dev = "cpu"
             else:
-                break                       # starting another job would leave < reserve free
+                break                       # no room: memory reserve, CPU or GPU limit
             job = pop_job()
             if job is None:
                 break
@@ -319,6 +327,7 @@ def main():
             print(f"[{time.ctime()}] started {job['tag']} on {dev} (pid {p.pid}, {avail} MB free)",
                   flush=True)
             avail_plan -= job_mb[dev]       # count it before its memory shows up
+            started_now += 1
             if dev == "cuda":
                 gpu_free -= GPU_JOB_MB
         write_state(running, avail_mb=mem_available_mb(), job_mb=job_mb)
