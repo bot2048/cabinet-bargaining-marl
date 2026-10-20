@@ -107,18 +107,20 @@ configuration (mean, 95\% CI over seeds).}\label{fig:mech}
 \end{figure}
 
 \textbf{Which mechanisms remove the formateur premium (RQ2).} The base game keeps a clear premium
-($\tilde\Phi=\BasePhi$, regression $\hat\gamma=\BaseGamma$). Switched on alone (Fig.~\ref{fig:mech}),
-\emph{private types} ($\tilde\Phi=\MfourPhi$) and \emph{ministerial policy} ($\MninePhi$) each remove
-it; seat-proportional recognition nearly does ($\MtenPhi$); repeated terms ($\MonePhi$), exits
-($\MeightPhi$) and heterogeneous values ($\MfivePhi$) do not. Repetition fails because, with a
-discount of 0.9 per period and 6-period terms, agents are too impatient across terms to sustain
-reciprocity. In E* the premium is gone ($\tilde\Phi=\EstarPhi$, $\hat\gamma=\EstarGamma$) but
-\emph{moves into quality}: measured in the formateur's own valuation it is $\EstarPhiNu$, i.e.\ the
-formateur takes the ministries it values most rather than more of them, a pattern hypothesised in the
-empirical literature. Allocations are flatter than seats ($\hat\beta=\EstarBeta$): small partners are
-over-paid, the small-party bias of real cabinets, and voting power explains shares better than seats
-($R^2$ \EstarRtwoBz{} vs \EstarRtwo, Banzhaf vs seat shares; H4). The Gamson region
-($\tilde D_G\le0.05$) is not reached ($\tilde D_G=\EstarDg$).
+($\tilde\Phi=\BasePhi$, regression $\hat\gamma=\BaseGamma$). Switched on alone (Fig.~\ref{fig:mech},
+blue), \emph{private types} ($\tilde\Phi=\MfourPhi$) and \emph{ministerial policy} ($\MninePhi$) are each
+sufficient to remove it; seat-proportional recognition nearly is ($\MtenPhi$); repeated terms
+($\MonePhi$), exits ($\MeightPhi$) and heterogeneous values ($\MfivePhi$) are not. Repetition fails
+because agents discount the next term heavily; with patient agents (cross-term discount 0.78 instead
+of 0.35) it gives \MpatientPhi{} (\MpatientrecPhi{} with GRU memory). Switched off one at a time from
+E* (orange), removing private types brings the premium back (\LooMfourPhi), so private information is
+also \emph{necessary}; removing heterogeneous values, exits or seat recognition partly restores it.
+In E* the premium is gone ($\tilde\Phi=\EstarPhi$, $\hat\gamma=\EstarGamma$) but \emph{moves into
+quality}: in the formateur's own valuation it is $\EstarPhiNu$, i.e.\ the formateur takes the
+ministries it values most rather than more of them, as the empirical literature has hypothesised.
+Allocations are flatter than seats ($\hat\beta=\EstarBeta$), the small-party bias of real cabinets,
+and voting power explains shares better than seats ($R^2$ \EstarRtwoBz{} vs \EstarRtwo{} for Banzhaf vs
+seat shares; H4). The Gamson region ($\tilde D_G\le0.05$) is not reached ($\tilde D_G=\EstarDg$).
 
 \begin{table}[t]\centering\footnotesize\setlength{\tabcolsep}{2.6pt}
 \caption{E* under different learners and memory (mean over seeds).}\label{tab:algo}
@@ -131,13 +133,14 @@ IPPO + GRU memory & \RecPhi & \RecDg & \RecBeta & \RecGamma & \RecPhiNu\\
 IPPO, memoryless & \LamzeroPhi & \LamzeroDg & \LamzeroBeta & \LamzeroGamma & \LamzeroPhiNu\\
 \bottomrule\end{tabular}\end{table}
 
-\textbf{Learners, memory and equilibrium checks (RQ5--6).} Table~\ref{tab:algo}: the qualitative result
-holds across three learning regimes and three memory variants. Cross-play mismatch between seeds of the
-same algorithm is \CmSame{} and across algorithms \CmAcross{} per period, i.e.\ the runs reach
-compatible conventions. Exploitability (gain of a trained best response, office units per period) is
-\GainEstar{} for E* and \GainBASE{} for the base game, against \GainBASEGamson{} for a scripted
-Gamson profile used as a positive control. A higher final entropy temperature (bounded rationality,
-H9) changes the base premium from \EntLow{} to \EntHigh.
+\textbf{Learners, memory and equilibrium checks (RQ5--6).} Table~\ref{tab:algo}: the result holds
+across learning regimes and memory variants, and symmetric PSRO (LA4) reaches $\tilde\Phi=\PsroEstarPhi$
+on E*. Cross-play mismatch is \CmSame{} within and \CmAcross{} across algorithms per period, so the runs
+reach compatible conventions. Trained best responses gain \GainEstar{} (E*, IPPO), \GainMappo{} (E*,
+MAPPO) and \GainBASE{} (base) office units per period, the order of the 0.01 tolerance; but they also
+barely exploit a scripted Gamson profile (\GainBASEGamson), so at our budget the test has little power
+and we claim approximate, not certified, equilibrium play. A higher entropy temperature (bounded
+rationality, H9) lowers the base premium only slightly (\EntLow{} to \EntHigh).
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_parlgov.pdf}
@@ -145,23 +148,26 @@ H9) changes the base premium from \EntLow{} to \EntHigh.
 governed.}\label{fig:pg}
 \end{figure}
 
-\textbf{Real-world test (RQ4, RQ7).} We placed policies trained on random parliaments (never on real ones)
-into the 242 post-1945 Western European majority coalitions of ParlGov, with the real prime minister's
-party as formateur (Fig.~\ref{fig:pg}). The learned formateur proposes the coalition that actually
-governed in \PgLearned{} of cases, versus \PgRiker{} for Riker's minimal-seat rule, \PgRandom{} for a
-random minimal winning coalition and \PgIdeology{} for the ideologically closest one, which uses
-left--right scores the agents cannot see. Given public positions set from ParlGov's left--right scores,
-the learned formateur reaches \PgIdeoLearned. On these real seat distributions the learned allocations
-show no formateur premium ($\tilde\Phi=\PgPhi$, $\hat\gamma=\PgGamma$) and again follow voting power
-more than seats ($R^2$ \PgRtwoBz{} vs \PgRtwo).
+\textbf{Real-world test (RQ4, RQ7).} Policies trained only on random parliaments were placed into the
+242 post-1945 Western European majority coalitions of ParlGov, with the real prime minister's party as
+formateur (Fig.~\ref{fig:pg}). The learned formateur proposes the coalition that actually governed in
+\PgLearned{} of cases, versus \PgRiker{} for Riker's minimal-seat rule, \PgRandom{} for a random
+minimal winning coalition and \PgIdeology{} for the ideologically closest one, which uses left--right
+scores the agents cannot see; with public positions set from those scores it reaches
+\PgIdeoLearned. Across \PgAllN{} coalitions in 33 parliamentary democracies: \PgAllLearned{}
+(minimal-seat \PgAllRiker, ideology \PgAllIdeology). Agents thus match size-based theories but miss
+ideological connectedness. On real seat distributions the learned allocations again show no premium
+($\tilde\Phi=\PgPhi$, $\hat\gamma=\PgGamma$) and follow voting power more than seats ($R^2$
+\PgRtwoBz{} vs \PgRtwo).
 
 \section{Conclusions and limitations}
 Learning parties reproduce Baron--Ferejohn bargaining where theory applies, and two features absent
 from that model, private information and policy motivation, are each enough to make the formateur
-premium vanish, as in real cabinets; the premium survives in the \emph{quality} of portfolios.
+premium vanish, as in real cabinets, with private information also necessary; the premium survives in
+the \emph{quality} of portfolios.
 Limitations: scaled-down sizes and budgets; exploitability tests can refute but not prove equilibrium
-play; the stored-state GRU is trained without back-propagation through time; LA4 (PSRO) and the
-demand/pre-electoral modules were not run; ParlGov has no portfolio counts, so real allocations are
+play; the stored-state GRU is trained without back-propagation through time; opponent shaping (LA5) and
+the demand/pre-electoral modules were not run; ParlGov has no portfolio counts, so real allocations are
 compared only through coalitions. Coverage of every specification item:
 \code{docs/SPEC\_COVERAGE.md}.
 

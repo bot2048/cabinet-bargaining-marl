@@ -99,15 +99,21 @@ def fig_e1():
 
 
 # ------------------------------------------------------------------ Fig. 3
-MECH_ORDER = [("BASE", "base (all off)"),
-              ("BASE+M1_repeat", "+M1 repeated terms"),
-              ("BASE+M4_private", "+M4 private types"),
-              ("BASE+M5_hetero", "+M5 heterog. values"),
-              ("BASE+M8_exits", "+M8 exits"),
-              ("BASE+M9_policy", "+M9 policy"),
-              ("BASE+M10_seatrho", "+M10 seat recognition"),
+MECH_ORDER = [("BASE", "base game (all off)"),
+              ("BASE+M1_repeat", "+ repeated terms"),
+              ("BASE+M1_patient", "+ repeated, patient"),
+              ("BASE+M4_private", "+ private types"),
+              ("BASE+M5_hetero", "+ heterog. values"),
+              ("BASE+M8_exits", "+ exits"),
+              ("BASE+M9_policy", "+ ministerial policy"),
+              ("BASE+M10_seatrho", "+ seat recognition"),
               ("Estar", "E* (all on)"),
-              ("Estar_Lam0", "E*, memoryless"),
+              ("Estar-M1_repeat", "E* - repeated terms"),
+              ("Estar-M4_private", "E* - private types"),
+              ("Estar-M5_hetero", "E* - heterog. values"),
+              ("Estar-M8_exits", "E* - exits"),
+              ("Estar-M9_policy", "E* - ministerial policy"),
+              ("Estar-M10_seatrho", "E* - seat recognition"),
               ]
 
 
@@ -116,29 +122,26 @@ def fig_mech(baselines):
     found = [x for x in found if x[2]]
     if not found:
         return None
-    fig, ax = plt.subplots(figsize=(3.4, 2.5))
+    fig, ax = plt.subplots(figsize=(3.4, 0.17 * len(found) + 0.75))
     y = np.arange(len(found))[::-1]
     table = []
     for k, (c, lab, runs) in enumerate(found):
         phi, phi_ci = mean_ci([r["overall"]["phi_adj"] for r in runs])
         dg, dg_ci = mean_ci([r["overall"]["dg_adj"] for r in runs])
-        ax.barh(y[k] + 0.19, phi, height=0.36, color=BLUE, xerr=phi_ci,
-                error_kw=dict(ecolor=INK, lw=0.8, capsize=1.5), label="premium $\\tilde\\Phi$" if k == 0 else None)
-        ax.barh(y[k] - 0.19, dg, height=0.36, color=ORANGE, xerr=dg_ci,
-                error_kw=dict(ecolor=INK, lw=0.8, capsize=1.5), label="Gamson dist. $\\tilde D_G$" if k == 0 else None)
+        col = MUTED if c in ("BASE", "Estar") else (BLUE if c.startswith("BASE+") else ORANGE)
+        ax.barh(y[k], phi, height=0.62, color=col, xerr=phi_ci,
+                error_kw=dict(ecolor=INK, lw=0.7, capsize=1.2))
         o = {key: np.mean([r["overall"].get(key) or 0 for r in runs]) for key in
              ("reg_beta", "reg_gamma", "fail_rate", "collapse_rate", "delay")}
         table.append((c, lab, phi, phi_ci, dg, dg_ci, len(runs), o))
-    if baselines and "BASE/myopic" in baselines:
-        ax.axvline(baselines["BASE/myopic"]["phi_adj"], color=MUTED, ls=":", lw=1)
-        ax.text(baselines["BASE/myopic"]["phi_adj"], y[0] + 0.62, "myopic BF\nbaseline",
-                fontsize=6, color=MUTED, ha="center", va="bottom")
+    sep = [k for k, (c, _, _) in enumerate(found) if c == "Estar"]
+    if sep:
+        ax.axhline(y[sep[0]] + 0.5, color=GRID, lw=1.0)
     ax.set_yticks(y)
     ax.set_yticklabels([lab for _, lab, _ in found])
     ax.axvline(0, color=MUTED, lw=0.8)
-    ax.set_xlabel("floor-adjusted statistic (mean, 95% CI over seeds)")
-    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.45, -0.17), ncol=2)
-    ax.set_title("Mechanisms: formateur premium vs proportionality", loc="left")
+    ax.set_xlabel("formateur premium $\\tilde\\Phi$ (mean, 95% CI over seeds)")
+    ax.set_title("Add-one-in (blue) and leave-one-out (orange)", loc="left")
     fig.savefig(os.path.join(FIG, "fig_mechanisms.png"))
     fig.savefig(os.path.join(FIG, "fig_mechanisms.pdf"))
     plt.close(fig)
@@ -255,7 +258,12 @@ def macros():
                       ("fsp_Estar", "Fsp"), ("rec_Estar", "Rec"), ("mech_Estar_Lam0", "Lamzero"),
                       ("mech_BASE+M1_repeat", "Mone"), ("mech_BASE+M4_private", "Mfour"),
                       ("mech_BASE+M5_hetero", "Mfive"), ("mech_BASE+M8_exits", "Meight"),
-                      ("mech_BASE+M9_policy", "Mnine"), ("mech_BASE+M10_seatrho", "Mten")):
+                      ("mech_BASE+M9_policy", "Mnine"), ("mech_BASE+M10_seatrho", "Mten"),
+                      ("mech_BASE+M1_patient", "Mpatient"), ("rec_BASE+M1_patient", "Mpatientrec"),
+                      ("mech_Estar-M1_repeat", "LooMone"), ("mech_Estar-M4_private", "LooMfour"),
+                      ("mech_Estar-M5_hetero", "LooMfive"), ("mech_Estar-M8_exits", "LooMeight"),
+                      ("mech_Estar-M9_policy", "LooMnine"), ("mech_Estar-M10_seatrho", "LooMten"),
+                      ("mech_EstarWidePub", "Pub")):
         for key, short in (("phi_adj", "Phi"), ("dg_adj", "Dg"), ("reg_beta", "Beta"),
                            ("reg_gamma", "Gamma"), ("phi_nu", "PhiNu"), ("reg_r2", "Rtwo"),
                            ("regbz_r2", "RtwoBz"), ("fail_rate", "Fail"), ("collapse_rate", "Collapse")):
@@ -271,17 +279,32 @@ def macros():
                            ("reg_r2", "Rtwo"), ("regbz_r2", "RtwoBz"), ("phi_nu", "PhiNu")):
             put(f"Pg{short}", float(np.mean([r["allocation"][key] for r in pg])),
                 "{:.2f}" if short in ("Rtwo", "RtwoBz") else "{:+.3f}")
+    pga = load("parlgov_mech_EstarWide_all")
+    if pga:
+        for key, name in (("learned", "PgAllLearned"), ("min_seat", "PgAllRiker"),
+                          ("random_mwc", "PgAllRandom"), ("ideology_mwc", "PgAllIdeology")):
+            put(name, float(np.mean([r["prediction"][key]["exact"] for r in pga])), "{:.1%}")
+        put("PgAllN", pga[0]["prediction"]["learned"]["n"], "{:d}")
     pgi = load("parlgov_mech_EstarWidePub_ideology")
     if pgi:
         put("PgIdeoLearned", float(np.mean([r["prediction"]["learned"]["exact"] for r in pgi])), "{:.1%}")
     for c in ("BASE", "Estar"):
         ex = load(f"exploit_{c}")
         if ex:
-            put(f"Gain{c}", float(np.mean([r["gain"] for r in ex])), "{:+.4f}")
+            put(f"Gain{c}", float(np.mean([r["gain"] for r in ex])), "{:+.3f}")
+            put(f"Gain{c}Max", float(np.max([r["gain"] for r in ex])), "{:+.3f}")
             ctrl = [r["controls"] for r in ex if r.get("controls")]
             if ctrl:
                 for b in ctrl[0]:
-                    put(f"Gain{c}{b.capitalize()}", ctrl[0][b]["gain"], "{:+.4f}")
+                    put(f"Gain{c}{b.capitalize()}", ctrl[0][b]["gain"], "{:+.3f}")
+    for c, name in (("BASE", "Base"), ("Estar", "Estar")):
+        ps = load(f"psro_{c}")
+        if ps:
+            put(f"Psro{name}Phi", float(np.mean([r["overall"]["phi_adj"] for r in ps])))
+            put(f"Psro{name}Gain", float(np.mean([r["last_gain"] for r in ps])), "{:+.3f}")
+    exm = load("exploit_mappo_Estar")
+    if exm:
+        put("GainMappo", float(np.mean([r["gain"] for r in exm])), "{:+.3f}")
     for e in ("0.002", "0.02", "0.05"):
         put("Ent" + {"0.002": "Low", "0.02": "Mid", "0.05": "High"}[e],
             avg(f"entropy_BASE_{e}", "phi_adj")[0])
@@ -293,6 +316,8 @@ def macros():
         put("CmAcross", c.get("mismatch_across_algorithms"), "{:+.4f}")
     # numbers whose experiments may not have finished yet: placeholder "--"
     for name in ("CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
+                 "GainMappo", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
+                 "PgAllIdeology", "PgAllN", "PsroBasePhi", "PsroEstarPhi", "PsroBaseGain", "PsroEstarGain",
                  "GainEstarGamson", "GainEstarMyopic", "PgIdeoLearned", "EntLow", "EntMid", "EntHigh"):
         M.setdefault(name, "--")
     os.makedirs(os.path.join(ROOT, "report"), exist_ok=True)
