@@ -87,13 +87,17 @@ class CabinetEnv:
         if not c.divisible:
             self.lead[: min(c.d, m)] = np.arange(min(c.d, m))
         # seats
-        if c.seat_mode == "equal":
+        if c.seats is not None:                       # fixed (real) parliament
+            self.w = np.array(c.seats, dtype=int)
+            self.W = int(c.house or self.w.sum())
+        elif c.seat_mode == "equal":
             self.W = n
             self.w = np.ones(n, dtype=int)
         else:
             self.W = c.house_size
-            self.w = self._draw_seats(r.dirichlet(np.full(n, c.alpha_seat)))
-        self.chi_bar = self.w / self.W
+            self.alpha = float(r.choice(c.alpha_seat_choices)) if c.alpha_seat_choices else c.alpha_seat
+            self.w = self._draw_seats(r.dirichlet(np.full(n, self.alpha)))
+        self.chi_bar = self.w / self.w.sum()
         self.q = self.W // 2 + 1
         # clock and records
         self.t, self.ell, self.period = 0, 0, 0
@@ -122,14 +126,15 @@ class CabinetEnv:
             w = hamilton(self.W, shares, self.rng)
             if w.max() < self.W // 2 + 1:
                 return w
-            shares = self.rng.dirichlet(np.full(self.n, self.cfg.alpha_seat))
+            shares = self.rng.dirichlet(np.full(self.n, getattr(self, "alpha", self.cfg.alpha_seat)))
         raise RuntimeError("could not draw a parliament without a majority party")
 
     def _start_term(self, first=False):
         c = self.cfg
         if not first:
             chi = self.rng.dirichlet(c.kappa_w * self.chi_bar + 1e-6)
-            self.w = self._draw_seats(chi)
+            self.w = self._draw_seats(chi) if c.seats is None else hamilton(
+                int(np.sum(c.seats)), chi, self.rng)
         self.ell = 0
         self.rounds_this_term = 0
         self.rounds_since = 0
@@ -158,7 +163,10 @@ class CabinetEnv:
     def _begin_period(self):
         if self.cabinet is None:
             self.phase = PROPOSE
-            self.f = int(self.rng.choice(self.n, p=self.recognition_probs()))
+            if self.cfg.first_formateur is not None and self.ep_stats["rounds"] == 0:
+                self.f = int(self.cfg.first_formateur)
+            else:
+                self.f = int(self.rng.choice(self.n, p=self.recognition_probs()))
             self.proposal = None
             self.ep_stats["rounds"] += 1
             self._pending = [Decision(self, self.f, PROPOSE)]

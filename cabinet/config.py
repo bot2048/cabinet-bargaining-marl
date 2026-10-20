@@ -16,6 +16,12 @@ class EnvConfig:
     seat_mode: str = "equal"                 # "equal" (w_i = 1) or "random"
     house_size: int = 100                    # W for random parliaments
     alpha_seat: float = 1.5                  # Dirichlet concentration of vote shares
+    alpha_seat_choices: Optional[Sequence[float]] = None   # drawn per episode if given
+    # a fixed (e.g. real) parliament: seats of the modelled parties and the
+    # full house size that sets the quota; the first formateur may be fixed
+    seats: Optional[Sequence[int]] = None
+    house: Optional[int] = None
+    first_formateur: Optional[int] = None
     # good being divided
     divisible: bool = True                   # unit surplus (E0-E1) or ministries (E2+)
     m: int = 6                               # number of ministries
@@ -107,6 +113,20 @@ def add_one_in(mech: str) -> EnvConfig:
 
 def full_estar() -> EnvConfig:
     return BASE.with_(name="Estar", **_merge(MECHANISMS))
+
+
+def estar_wide() -> EnvConfig:
+    """E* over 3-8 parties with more varied seat distributions, for transfer
+    to real parliaments (spec RQ7); real parliaments are held out."""
+    return full_estar().with_(name="EstarWide", n_choices=(3, 4, 5, 6, 7, 8),
+                              alpha_seat_choices=(0.5, 1.0, 2.0, 3.0), house_size=150)
+
+
+def real_parliament(base: EnvConfig, cab: dict) -> EnvConfig:
+    """One ParlGov cabinet as a fixed parliament with the PM party as formateur."""
+    return base.with_(name=f"{cab['country']}-{cab['start']}", seats=tuple(cab["seats"]),
+                      house=cab["house"], n_choices=(len(cab["seats"]),), seat_mode="fixed",
+                      first_formateur=cab["pm"], T=1.0)
 
 
 def leave_one_out(mech: str) -> EnvConfig:
