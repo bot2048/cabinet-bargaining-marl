@@ -361,9 +361,13 @@ class CabinetEnv:
             P[:, 5] = cab.C
             P[:, 7] = cab.p
             P[:, 12] = np.where(cab.C, self.w / self.w[cab.C].sum(), 0.0)
-        P[:, 8] = self.last_vote
-        P[:, 9] = self.last_offer[i, :, 0]
-        P[:, 10] = self.last_offer[i, :, 1]
+        if c.Lam > 0:
+            # last votes and own last offers are history, so they belong to the
+            # memory window: with Lambda = 0 the policy is memoryless (H7) and
+            # cannot run "reject until someone has rejected" delay conventions
+            P[:, 8] = self.last_vote
+            P[:, 9] = self.last_offer[i, :, 0]
+            P[:, 10] = self.last_offer[i, :, 1]
         if pub and c.lam > 0:
             P[:, 13] = np.abs(self.z - self.z[i]).mean(axis=1)
         if c.Lam > 0:
@@ -410,7 +414,8 @@ class CabinetEnv:
         ctx[13] = m / 10
         ctx[14] = float(c.divisible)
         ctx[15] = float(c.L is None)
-        ctx[16] = min(self.rounds_this_term, 10) / 10
+        # ctx[16] is reserved: a failed-round counter is not part of the
+        # observation (spec Def. 2.4); with it, learners adopt delay conventions
 
         X = np.zeros(FX, np.float32)
         if kind == VOTE:
