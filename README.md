@@ -23,7 +23,8 @@ targets, no hard-coded fairness); the scripted agents in `cabinet/baselines.py` 
 | Reward | per period, office value of held ministries minus λ × policy distance; exit bonus on walking out; zero otherwise. Discount δ per period |
 | Algorithm | PPO (clipped) with GAE on each agent's own decision sequence (semi-MDP), shared-parameter self-play (IPPO); best-response PPO for exploitability |
 
-Full details: `report/report.pdf` and the specification it implements.
+Full details: `report/report.pdf`; how every requirement, research question and hypothesis of the
+specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/SPEC_COVERAGE.md).
 
 ## Repository map
 
