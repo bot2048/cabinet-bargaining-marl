@@ -162,8 +162,13 @@ def ppo_update(net, opt, S, N, M, hp):
             ob = {k: v[mb] for k, v in T.items()}
             act = {k: ob[k] for k in ("bit", "inc", "mu", "shares")}
             _, logp, ent, value = net(ob, act=act)
-            a = adv_t[mb]
-            a = (a - a.mean()) / (a.std(unbiased=False) + 1e-8)
+            # normalise advantages per decision type: voters' stakes are much
+            # smaller than formateurs', and a pooled normalisation drowns them
+            a = adv_t[mb].clone()
+            for k in range(3):
+                sel = ob["kind"] == k
+                if sel.sum() > 1:
+                    a[sel] = (a[sel] - a[sel].mean()) / (a[sel].std(unbiased=False) + 1e-8)
             ratio = torch.exp((logp - old_logp[mb]).clamp(-20, 20))
             pg = -torch.min(ratio * a, ratio.clamp(1 - hp["clip"], 1 + hp["clip"]) * a).mean()
             vl = ((value - ret_t[mb]) ** 2).mean()
@@ -180,7 +185,7 @@ def ppo_update(net, opt, S, N, M, hp):
 
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
-                  ent_start=1e-2, ent_end=1e-3, n_envs=64, rollout=4096, d=64)
+                  ent_start=2e-2, ent_end=2e-3, n_envs=64, rollout=4096, d=64)
 
 
 def all_learn(env, rng):
