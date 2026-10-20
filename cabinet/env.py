@@ -101,7 +101,10 @@ class CabinetEnv:
         self.acc_r = np.zeros(n)
         self.acc_disc = np.ones(n)
         self.done = False
-        self.ep_stats = dict(rounds=0, failed=0, collapses=0, periods=0, governed=0)
+        self.ep_stats = dict(rounds=0, failed=0, collapses=0, periods=0, governed=0,
+                             omega=0.0)
+        self.disc_global = 1.0
+        self.ret = np.zeros(n)          # discounted return per seat (evaluation)
         self.bonus = np.zeros(n)
         self._start_term(first=True)
         return self
@@ -281,6 +284,7 @@ class CabinetEnv:
 
     def _reward(self, j, x):
         self.acc_r[j] += self.acc_disc[j] * x
+        self.ret[j] += self.disc_global * x
 
     def _close_cabinet(self, collapsed_by=None):
         cab = self.cabinet
@@ -293,6 +297,8 @@ class CabinetEnv:
         c = self.cfg
         self.period += 1
         self.ep_stats["periods"] += 1
+        self.ep_stats["omega"] += self.disc_global
+        self.disc_global *= self.delta
         self.acc_disc *= self.delta
         if c.L is None:
             self.rounds_this_term += 1
@@ -318,9 +324,12 @@ class CabinetEnv:
             self._begin_period()
 
     def _finish(self):
+        if self.cfg.L is None:
+            # returns are already per-period equivalents (Prop. 2.6)
+            self.ep_stats["omega"] = 1.0
         self.done = True
         self._pending = []
-        self.episode_log.append(dict(self.ep_stats, n=self.n, delta=self.delta))
+        self.episode_log.append(dict(self.ep_stats, n=self.n, delta=self.delta, ret=self.ret.copy()))
 
     # --------------------------------------------------------- SMDP rewards
     def take_interval(self, j):
