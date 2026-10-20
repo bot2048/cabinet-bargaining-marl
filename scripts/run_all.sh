@@ -1,66 +1,62 @@
 #!/usr/bin/env bash
-# Run every experiment of the report.  Jobs run in parallel (JOBS at a time,
-# THREADS PyTorch threads each); each job writes results/<tag>/seed<k>.json
-# and models/<tag>/seed<k>.pt.  Re-running skips cells whose result exists.
+# Queue every experiment of the report and start the queue runner.
+# Jobs whose result already exists (or that are already queued) are skipped,
+# so this is safe to re-run.  Progress: bash scripts/status.sh
 #
-#   JOBS=6 THREADS=2 SEEDS="0 1 2" bash scripts/run_all.sh
+#   SEEDS="0 1 2" bash scripts/run_all.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
-PY=${PY:-$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo python )}
-JOBS=${JOBS:-6}
-THREADS=${THREADS:-2}
+PY=$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo python3 )
 SEEDS=${SEEDS:-"0 1 2"}
 ITERS_E0=${ITERS_E0:-700}
 ITERS_MECH=${ITERS_MECH:-500}
-mkdir -p runs/logs
+EST_E0=${EST_E0:-60}        # estimated minutes per job (used for the ETA only)
+EST_MECH=${EST_MECH:-55}
+EST_EXPLOIT=${EST_EXPLOIT:-70}
 
-jobs_file=$(mktemp)
-add() {  # add <result tag> <args...>
-  local tag=$1; shift
+q() {  # q <tag> <est> <run_experiment args...>
+  local tag=$1 est=$2; shift 2
   local seed=${@: -1}
-  [ -f "results/$tag/seed$seed.json" ] && return 0
-  echo "$PY scripts/run_experiment.py $* --threads $THREADS > runs/logs/${tag}_s${seed}.log 2>&1" >> "$jobs_file"
+  local res=${RES:-$tag}
+  [ -f "results/$res/seed$seed.json" ] && return 0
+  $PY scripts/jobs.py add "${tag}_s$seed" "$est" -- "$@" > /dev/null
 }
 
 for s in $SEEDS; do
   # RQ1: benchmark recovery
-  add e0 --exp e0 --iters "$ITERS_E0" --seed "$s"
-  add e1 --exp e1 --iters "$ITERS_E0" --seed "$s"
+  q e0 "$EST_E0" --exp e0 --iters "$ITERS_E0" --seed "$s"
+  q e1 "$EST_E0" --exp e1 --iters "$ITERS_E0" --seed "$s"
   # RQ2: add-one-in from the base configuration, full E*, memoryless E*
-  for c in BASE BASE+M1_repeat BASE+M4_private BASE+M5_hetero BASE+M8_exits \
-           BASE+M9_policy BASE+M10_seatrho Estar Estar_Lam0; do
-    add "mech_$c" --exp mech --config "$c" --iters "$ITERS_MECH" --seed "$s"
+  for c in BASE Estar BASE+M1_repeat BASE+M4_private BASE+M5_hetero BASE+M8_exits \
+           BASE+M9_policy BASE+M10_seatrho Estar_Lam0; do
+    q "mech_$c" "$EST_MECH" --exp mech --config "$c" --iters "$ITERS_MECH" --seed "$s"
+  done
+done
+# RQ6: learning algorithms on E* (LA2 MAPPO, LA3 fictitious self-play)
+for s in $SEEDS; do
+  for a in mappo fsp; do
+    q "${a}_Estar" "$EST_MECH" --exp mech --algo "$a" --config Estar --iters "$ITERS_MECH" --seed "$s"
   done
 done
 # RQ2 necessity: leave-one-out from E* (two seeds)
 for s in 0 1; do
   for m in M1_repeat M4_private M5_hetero M8_exits M9_policy M10_seatrho; do
-    add "mech_Estar-$m" --exp mech --config "Estar-$m" --iters "$ITERS_MECH" --seed "$s"
+    q "mech_Estar-$m" "$EST_MECH" --exp mech --config "Estar-$m" --iters "$ITERS_MECH" --seed "$s"
   done
 done
 # H9: entropy temperature (bounded rationality)
 for s in 0 1; do
   for e in 0.002 0.02 0.05; do
-    add "entropy_BASE_$e" --exp entropy --config BASE --ent-end "$e" --iters "$ITERS_MECH" --seed "$s"
+    q "entropy_BASE_$e" "$EST_MECH" --exp entropy --config BASE --ent-end "$e" --iters "$ITERS_MECH" --seed "$s"
   done
 done
-# scripted baselines
-[ -f results/baselines/seed0.json ] || echo "$PY scripts/run_experiment.py --exp baselines > runs/logs/baselines.log 2>&1" >> "$jobs_file"
-
-echo "$(wc -l < "$jobs_file") jobs, $JOBS in parallel"
-# manifest read by scripts/status.sh to estimate the time of completion
-{ echo "start $(date +%s)"; echo "parallel $JOBS"; cat "$jobs_file"; } > runs/logs/_queue.txt
-xargs -P "$JOBS" -I CMD bash -c CMD < "$jobs_file"
-
-# exploitability needs the trained models
-ex_file=$(mktemp)
+# exploitability (waits for the trained model) and scripted baselines
 for c in BASE Estar; do
-  for s in 0 1 2; do
-    [ -f "results/exploit_$c/seed$s.json" ] || \
-      echo "$PY scripts/run_experiment.py --exp exploit --config $c --seed $s --br-iters 150 --threads $THREADS > runs/logs/exploit_${c}_s$s.log 2>&1" >> "$ex_file"
+  for s in $SEEDS; do
+    q "exploit_$c" "$EST_EXPLOIT" --exp exploit --config "$c" --br-iters 150 --seed "$s"
   done
 done
-{ echo "start $(date +%s)"; echo "parallel $JOBS"; cat "$ex_file"; } > runs/logs/_queue.txt
-xargs -P "$JOBS" -I CMD bash -c CMD < "$ex_file"
-rm -f "$jobs_file" "$ex_file"
-$PY scripts/make_figures.py
+q baselines 10 --exp baselines --seed 0
+
+$PY scripts/jobs.py list | tail -1
+$PY scripts/jobs.py start

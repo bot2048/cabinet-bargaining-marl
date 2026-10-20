@@ -4,8 +4,9 @@
     watch -n 30 python scripts/status.py
 
 Each training log line has the form  "it= k/total ... t=<elapsed>s eta=<s>s".
-``scripts/run_all.sh`` writes runs/logs/_queue.txt (start time, parallelism,
-one command per job); from it we estimate when the whole queue finishes.
+The queue runner (scripts/queue_runner.py) writes runs/queue/state.json; with
+the estimated minutes of the jobs still in runs/queue/todo.txt this gives the
+time at which the whole queue should be finished.
 """
 import glob
 import os
@@ -63,35 +64,50 @@ def main():
         print(f"{'job':34s} {'progress':>10s} {'elapsed':>8s} {'left':>8s} {'done at':>10s}  latest")
         for eta, name, it, tot, t, keep in sorted(rows):
             print(f"{name:34s} {it + 1:>4d}/{tot:<5d} {hm(t):>8s} {hm(eta):>8s} {clock(eta):>10s}  {keep}")
-    q = os.path.join("runs", "logs", "_queue.txt")
-    if os.path.exists(q):
-        with open(q) as f:
-            lines = f.read().splitlines()
-        start = int(lines[0].split()[1])
-        par = int(lines[1].split()[1])
-        jobs = [l for l in lines[2:] if l.strip()]
-        logs = [re.search(r"> (\S+\.log)", j).group(1) for j in jobs]
-        done, active, durations, remaining_active = 0, 0, [], []
-        for lg in logs:
-            p = parse(lg)
-            if p is None:
-                continue
-            if p[0]:
-                done += 1
-                if p[3] is not None:
-                    durations.append(p[3] + p[4])
-            elif p[1] is not None:
-                active += 1
-                remaining_active.append(p[4])
-                durations.append(p[3] + p[4])
-        pending = len(jobs) - done - active
-        avg = sum(durations) / len(durations) if durations else None
-        print(f"\n== queue: {done} done, {active} running, {pending} waiting "
-              f"(of {len(jobs)}; started {hm(time.time() - start)} ago, {par} in parallel)")
-        if avg:
-            left = (sum(remaining_active) + pending * avg) / par
-            print(f"   average job ~{hm(avg)}; queue expected to finish in ~{hm(left)} "
-                  f"(around {clock(left)})")
+    qd = os.path.join("runs", "queue")
+    state_p, todo_p = os.path.join(qd, "state.json"), os.path.join(qd, "todo.txt")
+    if os.path.exists(state_p):
+        import json
+        with open(state_p) as f:
+            st = json.load(f)
+        alive = time.time() - st["updated"] < 60
+        par = st.get("parallel", 5)
+        print(f"\n== queue runner: {'RUNNING' if alive else 'NOT RUNNING (start: python scripts/jobs.py start)'}"
+              f", {len(st['running'])} jobs active, {par} slots")
+        left_active = []
+        for j in st["running"]:
+            p = parse(os.path.join("runs", "logs", f"{j['tag']}.log"))
+            el = time.time() - j["start"]
+            eta = p[4] if p and p[4] is not None else max(j["est"] * 60 - el, 0)
+            left_active.append(eta)
+        queued = []
+        if os.path.exists(todo_p):
+            with open(todo_p) as f:
+                for line in f:
+                    parts = [x.strip() for x in line.split("|", 2)]
+                    if len(parts) == 3 and not line.startswith("#"):
+                        try:
+                            queued.append((parts[0], float(parts[1])))
+                        except ValueError:
+                            queued.append((parts[0], 30.0))
+        work = sum(left_active) + sum(m * 60 for _, m in queued)
+        left = work / par
+        print(f"   {len(queued)} jobs waiting (~{sum(m for _, m in queued) / 60:.1f} job-hours); "
+              f"everything done in ~{hm(left)} (around {clock(left)})")
+        if left < 3 * 3600:
+            print("   WARNING: less than 3 hours of work queued")
+        for tag, m in queued[:8]:
+            print(f"   next: {tag} (~{m:.0f} min)")
+        if len(queued) > 8:
+            print(f"   ... and {len(queued) - 8} more")
+        done_p = os.path.join(qd, "done.txt")
+        if os.path.exists(done_p):
+            with open(done_p) as f:
+                done = f.read().splitlines()
+            fails = [d for d in done if "exit=0" not in d]
+            print(f"   finished: {len(done)} jobs ({len(fails)} failed)")
+            for d in fails[-3:]:
+                print("   FAILED:", d[:140])
     res = sorted(glob.glob("results/*/"))
     if res:
         print("\n== results on disk: " + ", ".join(
