@@ -10,9 +10,9 @@ PY=$( [ -x .venv/bin/python ] && echo .venv/bin/python || echo python3 )
 SEEDS=${SEEDS:-"0 1 2"}
 ITERS_E0=${ITERS_E0:-700}
 ITERS_MECH=${ITERS_MECH:-500}
-EST_E0=${EST_E0:-60}        # estimated minutes per job (used for the ETA only)
-EST_MECH=${EST_MECH:-55}
-EST_EXPLOIT=${EST_EXPLOIT:-70}
+EST_E0=${EST_E0:-50}        # estimated minutes per job (used for the ETA only)
+EST_MECH=${EST_MECH:-45}
+EST_EXPLOIT=${EST_EXPLOIT:-60}
 
 q() {  # q <tag> <est> <run_experiment args...>
   local tag=$1 est=$2; shift 2

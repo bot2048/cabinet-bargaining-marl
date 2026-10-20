@@ -209,7 +209,7 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
 
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
-                  ent_start=2e-2, ent_end=2e-3, ent_vote_mult=1.0, n_envs=64, rollout=4096, d=64,
+                  ent_start=2e-2, ent_end=2e-3, ent_vote_mult=5.0, n_envs=64, rollout=8192, d=64,
                   algo="ippo", snap_every=10, pool_size=10, p_learner=0.5, device="cpu")
 
 
