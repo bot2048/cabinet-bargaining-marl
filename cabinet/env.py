@@ -78,7 +78,10 @@ class CabinetEnv:
         if c.xi > 0 and not c.divisible:
             dirich = r.dirichlet(np.full(m, c.kappa_nu / m), size=n)
             nu = (1 - c.xi) * nu + c.xi * dirich
-        self.nu = np.stack([self._round_simplex(v, 100) for v in nu])
+            # finite support (R20); common valuations stay exact so that the
+            # welfare identity (Prop. 2.11) holds without rounding error
+            nu = np.stack([self._round_simplex(v, 100) for v in nu])
+        self.nu = nu
         self.z = np.round(r.random((n, c.d)) * 20) / 20
         self.lead = np.full(m, -1)
         if not c.divisible:
