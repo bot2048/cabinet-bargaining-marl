@@ -62,7 +62,7 @@ mapping to the specification's Table 4 is in the docstring there.
 | LA1 shared-parameter IPPO self-play | done (default) |
 | LA2 MAPPO with a centralised critic | done (`--algo mappo`) |
 | LA3 fictitious self-play | done (`--algo fsp`; checkpoint pool, no separate average policy) |
-| LA4 symmetric PSRO | **not done** |
+| LA4 symmetric PSRO | done (`--exp psro`, `cabinet/psro.py`; pairwise surrogate for the restricted game, as the spec allows) |
 | LA5 opponent shaping (exploratory in the spec) | **not done** |
 | BL1-BL4 scripted baselines | done (`cabinet/baselines.py`) |
 | Curriculum K0-K6 | **not done**: every level is trained from scratch (the spec's from-scratch arm, OD8) |

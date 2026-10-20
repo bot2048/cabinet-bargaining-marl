@@ -165,6 +165,21 @@ def exp_exploit(config, seed, iters, br_iters, model_tag=None):
     save(name, seed, dict(config=config, model=tag, gain=gain, runs=out, controls=controls))
 
 
+def exp_psro(config, seed, iters, br_iters):
+    """LA4: symmetric PSRO; the result is a meta-mixture over a policy population."""
+    from cabinet.psro import run_psro
+    cfg = get_config(config)
+    t0 = time.time()
+    res, nets = run_psro(cfg, iters=iters, br_iters=br_iters, seed=seed,
+                         log=lambda m: print(m, flush=True))
+    d = os.path.join(ROOT, "models", f"psro_{config}", f"seed{seed}")
+    os.makedirs(d, exist_ok=True)
+    for name, net in nets.items():
+        torch.save(net.state_dict(), os.path.join(d, f"{name}.pt"))
+    res["seconds"] = time.time() - t0
+    save(f"psro_{config}", seed, res)
+
+
 def exp_baselines():
     """Allocation statistics of the scripted agents (reference points)."""
     out = {}
@@ -182,7 +197,7 @@ def exp_baselines():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--exp", required=True,
-                    choices=["e0", "e1", "mech", "exploit", "baselines", "entropy"])
+                    choices=["e0", "e1", "mech", "exploit", "baselines", "entropy", "psro"])
     ap.add_argument("--config", default="BASE")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--iters", type=int, default=400)
@@ -211,6 +226,8 @@ def main():
     elif a.exp == "entropy":     # H9: non-vanishing entropy temperature
         exp_mech(a.config, a.seed, a.iters, hp=dict(ent_end=a.ent_end),
                  tag=f"entropy_{a.config}_{a.ent_end:g}")
+    elif a.exp == "psro":
+        exp_psro(a.config, a.seed, a.iters, a.br_iters)
     elif a.exp == "exploit":
         exp_exploit(a.config, a.seed, a.iters, a.br_iters, a.model_tag)
     else:
