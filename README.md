@@ -67,12 +67,32 @@ python scripts/run_experiment.py --exp e0 --seed 0 --threads 4
 # one mechanism configuration, e.g. base + repeated terms
 python scripts/run_experiment.py --exp mech --config BASE+M1_repeat --seed 0
 
-# everything in the report (parallel; see the header of the script for the job list)
+# everything in the report: queues every missing experiment and starts the queue runner
 bash scripts/run_all.sh
 
 # figures and tables -> figures/*.png|pdf, results/summary.json
 python scripts/make_figures.py
 ```
+
+### Long campaigns: the job queue
+
+`scripts/run_all.sh` does not run jobs itself; it appends them to a persistent queue
+(`runs/queue/todo.txt`, one line per job: `tag | estimated minutes | command`) that
+`scripts/queue_runner.py` works through, a few jobs at a time, in the background. The runner keeps
+going when the terminal closes, re-reads the queue whenever a slot frees (so jobs can be added,
+removed or reordered while it runs) and waits instead of exiting when the queue is empty.
+
+```bash
+bash scripts/status.sh                 # running jobs, ETAs, queued hours, expected finish time
+watch -n 30 bash scripts/status.sh     # live view
+python scripts/jobs.py list            # queued jobs
+python scripts/jobs.py remove <tag>    # drop queued jobs whose tag contains <tag>
+python scripts/jobs.py parallel 4      # jobs at a time
+touch runs/queue/STOP                  # stop the runner after the current jobs
+```
+
+With a CUDA build of PyTorch in `.venv-gpu`, queued jobs run the PPO update on the GPU
+(`--device cuda`, about 2x faster per iteration in the main environment); rollouts always run on the CPU.
 
 Configurations: `E0`...`E6`, `BASE`, `BASE+<M>` (add-one-in), `Estar` (all mechanisms on), `Estar-<M>`
 (leave-one-out) and `Estar_Lam0` (memoryless), with `<M>` one of `M1_repeat`, `M4_private`, `M5_hetero`,
