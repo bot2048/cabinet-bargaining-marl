@@ -83,6 +83,9 @@ class CabinetEnv:
             nu = np.stack([self._round_simplex(v, 100) for v in nu])
         self.nu = nu
         self.z = np.round(r.random((n, c.d)) * 20) / 20
+        if c.ideal_points is not None:
+            known = np.array(c.ideal_points, float)
+            self.z[:, :known.shape[1]] = known
         self.lead = np.full(m, -1)
         if not c.divisible:
             self.lead[: min(c.d, m)] = np.arange(min(c.d, m))

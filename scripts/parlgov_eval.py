@@ -28,7 +28,7 @@ import numpy as np
 import torch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from cabinet.config import estar_wide, real_parliament         # noqa: E402
+from cabinet.config import estar_wide, estar_wide_public, real_parliament         # noqa: E402
 from cabinet.env import CabinetEnv, PROPOSE                    # noqa: E402
 from cabinet.metrics import summarise                          # noqa: E402
 from cabinet.policy import load_policy, pad_obs, to_torch       # noqa: E402
@@ -78,6 +78,9 @@ def main():
     ap.add_argument("--episodes", type=int, default=64)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--limit", type=int, default=0, help="evaluate only the first k cabinets (testing)")
+    ap.add_argument("--ideology", action="store_true",
+                    help="public types, with each party's ParlGov left-right score as its "
+                         "position on the first policy dimension (calibrated environment)")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--scope", default="western", choices=["western", "all"],
                     help="western: 13 Western European countries (spec OD4); all: every "
@@ -101,12 +104,15 @@ def main():
     if a.limit:
         cabinets = cabinets[:a.limit]
     lr = left_right()
-    base = estar_wide()
+    base = estar_wide_public() if a.ideology else estar_wide()
     acc = defaultdict(list)
     jac = defaultdict(list)
     per_cab, cab_log, ep_log = [], [], []
     for i, cab in enumerate(cabinets):
-        cfg = real_parliament(base, cab)
+        pos = np.array([lr.get((cab["cabinet_id"], p), np.nan) for p in cab["parties"]])
+        if a.ideology and np.isnan(pos).any():
+            continue                        # needs every party's left-right score
+        cfg = real_parliament(base, cab, left_right=pos.tolist() if a.ideology else None)
         actual = np.array(cab["coalition"], bool)
         w = np.array(cab["seats"])
         q, f = cab["quota"], cab["pm"]
@@ -130,7 +136,6 @@ def main():
         jac["min_seat"].append(np.mean([jaccard(C, actual) for C in riker]))
         acc["random_mwc"].append(np.mean([np.array_equal(C, actual) for C in mwc]))
         jac["random_mwc"].append(np.mean([jaccard(C, actual) for C in mwc]))
-        pos = np.array([lr.get((cab["cabinet_id"], p), np.nan) for p in cab["parties"]])
         if not np.isnan(pos).any():
             spread = [pos[C].max() - pos[C].min() for C in mwc]
             close = [C for C, s in zip(mwc, spread) if s == min(spread)]
@@ -152,7 +157,8 @@ def main():
     summary = {k: dict(exact=float(np.mean(v)), jaccard=float(np.mean(jac[k])), n=len(v))
                for k, v in acc.items()}
     alloc = summarise(cab_log, ep_log, base.m, base.divisible)
-    out_tag = f"parlgov_{a.tag}" + ("" if a.scope == "western" else "_all")
+    out_tag = f"parlgov_{a.tag}" + ("" if a.scope == "western" else "_all") + (
+        "_ideology" if a.ideology else "")
     os.makedirs(os.path.join(ROOT, "results", out_tag), exist_ok=True)
     with open(os.path.join(ROOT, "results", out_tag, f"seed{a.seed}.json"), "w") as f:
         json.dump(dict(prediction=summary, allocation={k: (None if isinstance(v, float) and np.isnan(v) else v)

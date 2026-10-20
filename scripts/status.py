@@ -57,6 +57,8 @@ def main():
             continue
         done, it, tot, t, eta, keep = p
         name = os.path.basename(path)[:-4]
+        if ".failed" in name:
+            continue
         if done or it + 1 >= tot:
             continue
         rows.append((eta, name, it, tot, t, keep))

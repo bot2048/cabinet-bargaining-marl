@@ -22,6 +22,9 @@ class EnvConfig:
     seats: Optional[Sequence[int]] = None
     house: Optional[int] = None
     first_formateur: Optional[int] = None
+    # known policy positions (e.g. ParlGov left-right / 10) for the first
+    # dimensions of each party's ideal point; the rest stay random
+    ideal_points: Optional[Sequence[Sequence[float]]] = None
     # good being divided
     divisible: bool = True                   # unit surplus (E0-E1) or ministries (E2+)
     m: int = 6                               # number of ministries
@@ -122,11 +125,19 @@ def estar_wide() -> EnvConfig:
                               alpha_seat_choices=(0.5, 1.0, 2.0, 3.0), house_size=150)
 
 
-def real_parliament(base: EnvConfig, cab: dict) -> EnvConfig:
-    """One ParlGov cabinet as a fixed parliament with the PM party as formateur."""
+def estar_wide_public() -> EnvConfig:
+    """EstarWide with public policy positions, so formateurs can see ideology
+    (used with real left-right positions on ParlGov parliaments)."""
+    return estar_wide().with_(name="EstarWidePub", public_types=True)
+
+
+def real_parliament(base: EnvConfig, cab: dict, left_right=None) -> EnvConfig:
+    """One ParlGov cabinet as a fixed parliament with the PM party as formateur.
+    ``left_right`` (0-10 per party) sets the first policy dimension."""
+    ideal = None if left_right is None else tuple((x / 10.0,) for x in left_right)
     return base.with_(name=f"{cab['country']}-{cab['start']}", seats=tuple(cab["seats"]),
                       house=cab["house"], n_choices=(len(cab["seats"]),), seat_mode="fixed",
-                      first_formateur=cab["pm"], T=1.0)
+                      first_formateur=cab["pm"], T=1.0, ideal_points=ideal)
 
 
 def leave_one_out(mech: str) -> EnvConfig:

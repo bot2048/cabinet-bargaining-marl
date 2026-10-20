@@ -44,6 +44,8 @@ def get_config(name):
         return C.full_estar().with_(name=name, Lam=0)
     if name == "EstarWide":
         return C.estar_wide()
+    if name == "EstarWidePub":
+        return C.estar_wide_public()
     raise KeyError(name)
 
 
