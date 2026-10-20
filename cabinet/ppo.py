@@ -13,6 +13,7 @@
   best response for a random focal seat against a frozen profile.
 """
 import copy
+import os
 import time
 from collections import defaultdict
 
@@ -218,7 +219,9 @@ def all_learn(env, rng):
 
 
 def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=True,
-                   controllers=None, assign=all_learn):
+                   controllers=None, assign=all_learn, ckpt=None, ckpt_every=25):
+    """PPO self-play.  With ``ckpt`` (a file path) the run saves its state every
+    ``ckpt_every`` iterations and, if the file exists, resumes from it."""
     hp = {**DEFAULT_HP, **(hp or {})}
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -249,8 +252,23 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
         copt = torch.optim.Adam(critic.parameters(), lr=hp["lr"])
         runner.store_global = True
     history = []
-    t0, steps = time.time(), 0
-    for it in range(iters):
+    t0, steps, start = time.time(), 0, 0
+    if ckpt and os.path.exists(ckpt):
+        st = torch.load(ckpt, map_location=dev, weights_only=False)
+        learner.load_state_dict(st["net"])
+        opt.load_state_dict(st["opt"])
+        if critic is not None and st.get("critic"):
+            critic.load_state_dict(st["critic"])
+            copt.load_state_dict(st["copt"])
+        if actor is not learner:
+            actor.load_state_dict({k: v.cpu() for k, v in learner.state_dict().items()})
+        start, steps, history = st["it"] + 1, st["steps"], st["history"]
+        t0 -= st["elapsed"]
+        torch.manual_seed(seed + start)
+        runner.rng = np.random.default_rng(seed * 7919 + start)
+        if verbose:
+            print(f"[{cfg.name} s{seed}] resumed from checkpoint at it={start}", flush=True)
+    for it in range(start, iters):
         frac = it / max(iters - 1, 1)
         hp["ent"] = hp["ent_start"] + frac * (hp["ent_end"] - hp["ent_start"])
         for g in opt.param_groups:
@@ -278,6 +296,15 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
                       f"phi~={summ.get('phi_adj', np.nan):+.3f} "
                       f"dg~={summ.get('dg_adj', np.nan):.3f} gapBF={summ.get('gap_bf', np.nan):+.3f} "
                       f"fail={summ.get('fail_rate', np.nan):.2f} ent={st['ent']:.2f}", flush=True)
+        if ckpt and (it + 1) % ckpt_every == 0 and it + 1 < iters:
+            tmp = ckpt + ".tmp"
+            torch.save(dict(net=learner.state_dict(), opt=opt.state_dict(), it=it, steps=steps,
+                            history=history, elapsed=time.time() - t0,
+                            critic=critic.state_dict() if critic is not None else None,
+                            copt=copt.state_dict() if copt is not None else None), tmp)
+            os.replace(tmp, ckpt)
+    if ckpt and os.path.exists(ckpt):
+        os.remove(ckpt)
     return actor, history
 
 

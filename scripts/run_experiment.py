@@ -74,7 +74,10 @@ def model_path(tag, seed):
 
 def train(cfg, tag, seed, iters, hp=None):
     t0 = time.time()
-    net, hist = train_selfplay(cfg, iters, seed=seed, hp=hp, log_every=10)
+    ck = os.path.join(ROOT, "runs", "ckpt")
+    os.makedirs(ck, exist_ok=True)
+    net, hist = train_selfplay(cfg, iters, seed=seed, hp=hp, log_every=10,
+                               ckpt=os.path.join(ck, f"{tag}_s{seed}.pt"))
     torch.save(net.state_dict(), model_path(tag, seed))
     return net, hist, time.time() - t0
 

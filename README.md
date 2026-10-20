@@ -83,13 +83,21 @@ going when the terminal closes, re-reads the queue whenever a slot frees (so job
 removed or reordered while it runs) and waits instead of exiting when the queue is empty.
 
 ```bash
-bash scripts/status.sh                 # running jobs, ETAs, queued hours, expected finish time
-watch -n 30 bash scripts/status.sh     # live view
-python scripts/jobs.py list            # queued jobs
-python scripts/jobs.py remove <tag>    # drop queued jobs whose tag contains <tag>
-python scripts/jobs.py parallel 4      # jobs at a time
-touch runs/queue/STOP                  # stop the runner after the current jobs
+./ctl.sh             # progress of every job, queued hours, expected finish time
+./ctl.sh watch       # live view (refreshes every 30 s)
+./ctl.sh eta         # just the expected finish time
+./ctl.sh check       # anything wrong? tells you whether a restart is needed
+./ctl.sh restart     # after a crash or reboot: interrupted jobs are re-queued and resume
+./ctl.sh log <tag>   # follow one job's log
+./ctl.sh stop        # finish the running jobs, then stop
+python scripts/jobs.py list | remove <tag> | parallel <k>   # edit the queue
 ```
+
+**Robustness.** Training saves a checkpoint every 25 iterations (`runs/ckpt/`) and resumes from it
+when restarted, so a power cut costs at most a few minutes per job. The runner keeps at least 1 GB of
+RAM free: it starts a job only if enough memory remains afterwards, and if free memory drops below
+600 MB it stops the newest job and re-queues it (`runs/queue/reserve_mb` changes the reserve).
+Restarting the runner while jobs are running is safe: it adopts them instead of starting them again.
 
 With a CUDA build of PyTorch in `.venv-gpu`, queued jobs run the PPO update on the GPU
 (`--device cuda`, about 2x faster per iteration in the main environment); rollouts always run on the CPU.
