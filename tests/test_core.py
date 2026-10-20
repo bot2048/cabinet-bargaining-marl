@@ -139,3 +139,30 @@ def test_welfare_identity():
     env = play(cfg, Scripted("random", 1), 50, seed=2)
     for ep in env.episode_log:
         assert ep["ret"].sum() <= ep["omega"] + 1e-9
+
+
+def test_recurrent_memory_and_logp():
+    """Def. 3.1 memory core: memory changes outputs, and teacher-forced
+    log-probabilities with the stored memory match sampling exactly."""
+    torch.manual_seed(0)
+    cfg = full_estar()
+    net = PolicyNet(d=16, heads=2, blocks=1, recurrent=True)
+    env = CabinetEnv(cfg, seed=3).reset()
+    obs = []
+    while len(obs) < 30 and not env.done:
+        acts = {}
+        for d in env.pending():
+            o = env.observe(d.agent, d.kind)
+            o["mem"] = np.random.default_rng(len(obs)).normal(size=16).astype(np.float32)
+            obs.append(o)
+            acts[d.agent] = Scripted("random", 0).act(env, d.agent, d.kind)
+        env.act(acts)
+    batch = to_torch(pad_obs(obs, cfg.n_max, cfg.m))
+    with torch.no_grad():
+        out, logp, _, v1 = net(batch)
+        _, logp2, _, _ = net(batch, act=out)
+        zero = dict(batch, mem=torch.zeros_like(batch["mem"]))
+        _, _, _, v2 = net(zero)
+    assert out["mem"].shape == (len(obs), 16)
+    assert torch.allclose(logp, logp2, atol=1e-5)
+    assert not torch.allclose(v1, v2)

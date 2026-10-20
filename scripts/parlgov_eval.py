@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from cabinet.config import estar_wide, real_parliament         # noqa: E402
 from cabinet.env import CabinetEnv, PROPOSE                    # noqa: E402
 from cabinet.metrics import summarise                          # noqa: E402
-from cabinet.policy import PolicyNet, pad_obs, to_torch       # noqa: E402
+from cabinet.policy import load_policy, pad_obs, to_torch       # noqa: E402
 from cabinet.ppo import _env_action, evaluate                  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -93,8 +93,7 @@ def main():
         time.sleep(60)
         waited += 60
     time.sleep(5)
-    net = PolicyNet()
-    net.load_state_dict(torch.load(path))
+    net = load_policy(path)
     net.eval()
     fname = "cabinets.json" if a.scope == "western" else "cabinets_all.json"
     with open(os.path.join(ROOT, "data", "parlgov", fname)) as f:

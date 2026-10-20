@@ -53,9 +53,10 @@ class Block(nn.Module):
 
 
 class PolicyNet(nn.Module):
-    def __init__(self, d=64, heads=4, blocks=2):
+    def __init__(self, d=64, heads=4, blocks=2, recurrent=False):
         super().__init__()
         self.d = d
+        self.recurrent = recurrent
         self.fp, self.fm = mlp(FP, d, d), mlp(FM, d, d)
         self.fc, self.fx = mlp(FC, d, d), mlp(FX, d, d)
         self.blocks = nn.ModuleList([Block(d, heads) for _ in range(blocks)])
@@ -66,6 +67,11 @@ class PolicyNet(nn.Module):
         self.include = mlp(2 * d + 3, d, 1)
         self.minister = mlp(3 * d + FPAIR + 4, d, 1)
         self.offer = mlp(2 * d + 2, d, GRID + 1)
+        if recurrent:
+            # memory core M_u = GRU(M_{u-1}, [pooled, own, context]) (spec Def. 3.1 iii);
+            # it carries information across periods and terms
+            self.gru = nn.GRUCell(3 * d, d)
+            self.mix = mlp(2 * d, d, d)
 
     # ------------------------------------------------------------ encoder
     def encode(self, ob):
@@ -81,7 +87,18 @@ class PolicyNet(nn.Module):
         pm = pmask.unsqueeze(-1).float()
         pooled = (u * pm).sum(1) / pm.sum(1).clamp(min=1)
         own = u[torch.arange(u.shape[0]), ob["self_idx"]]
-        h = self.trunk(torch.cat([own, pooled, self.fc(ob["ctx"]), self.fx(ob["X"])], -1))
+        xc = self.fc(ob["ctx"])
+        h = self.trunk(torch.cat([own, pooled, xc, self.fx(ob["X"])], -1))
+        mem = None
+        if self.recurrent:
+            # stored-state recurrence: the previous memory is an input (no
+            # back-propagation through earlier decisions)
+            prev = ob.get("mem")
+            if prev is None:
+                prev = torch.zeros(h.shape[0], self.d)
+            mem = self.gru(torch.cat([pooled, own, xc], -1), prev)
+            h = self.mix(torch.cat([h, mem], -1))
+        self._mem = mem
         return u, v, h
 
     # ------------------------------------------------------------ heads
@@ -97,6 +114,7 @@ class PolicyNet(nn.Module):
         u, v, h = self._encode(ob)
         B = h.shape[0]
         value = self.value(h).squeeze(-1)
+        mem = self._mem
         kind = ob["kind"]
         logp = torch.zeros(B)
         ent = torch.zeros(B)
@@ -104,6 +122,8 @@ class PolicyNet(nn.Module):
                "inc": torch.zeros(B, ob["P"].shape[1] - 1, dtype=torch.long),
                "mu": torch.zeros(B, ob["M"].shape[1], dtype=torch.long),
                "shares": torch.zeros(B, ob["P"].shape[1])}
+        if mem is not None:
+            out["mem"] = mem.detach()
         for k, head in ((VOTE, self.vote), (GOVERN, self.exit)):
             idx = (kind == k).nonzero(as_tuple=True)[0]
             if len(idx):
@@ -248,6 +268,14 @@ class PolicyNet(nn.Module):
 
 
 # ---------------------------------------------------------------- batching
+def load_policy(path, map_location="cpu"):
+    """Load a saved policy, recurrent or not (inferred from its parameters)."""
+    sd = torch.load(path, map_location=map_location)
+    net = PolicyNet(recurrent=any(k.startswith("gru.") for k in sd))
+    net.load_state_dict(sd)
+    return net
+
+
 def pad_obs(obs, N, M):
     """Stack a list of environment observations into padded numpy arrays."""
     B = len(obs)
@@ -270,6 +298,9 @@ def pad_obs(obs, N, M):
         if o["order"] is not None:
             out["order"][b, :n - 1] = o["order"]
         out["divisible"][b] = o["divisible"]
+    if any("mem" in o for o in obs):
+        H = next(len(o["mem"]) for o in obs if "mem" in o)
+        out["mem"] = np.stack([o.get("mem", np.zeros(H, np.float32)) for o in obs]).astype(np.float32)
     return out
 
 

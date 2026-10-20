@@ -22,7 +22,7 @@ from cabinet import config as C                                  # noqa: E402
 from cabinet.baselines import Scripted                           # noqa: E402
 from cabinet.diagnostics import acceptance_curve, midpoint       # noqa: E402
 from cabinet.metrics import cabinet_rows, summarise              # noqa: E402
-from cabinet.policy import PolicyNet                             # noqa: E402
+from cabinet.policy import load_policy                             # noqa: E402
 from cabinet.ppo import evaluate, exploitability, train_selfplay  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -145,8 +145,7 @@ def exp_exploit(config, seed, iters, br_iters):
         time.sleep(60)
         waited += 60
     time.sleep(5)
-    net = PolicyNet()
-    net.load_state_dict(torch.load(path))
+    net = load_policy(path)
     out = {}
     for init in ("warm", "scratch"):
         res = exploitability(cfg, net, br_iters, seed=seed + 50,
@@ -188,6 +187,7 @@ def main():
     ap.add_argument("--ent-end", type=float, default=None)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--algo", default="ippo", choices=["ippo", "mappo", "fsp"])
+    ap.add_argument("--rec", action="store_true", help="recurrent memory core (spec Def. 3.1)")
     ap.add_argument("--device", default="cpu", help="cpu or cuda (PPO update only)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
@@ -197,6 +197,9 @@ def main():
         exp_e0(a.seed, a.iters)
     elif a.exp == "e1":
         exp_e1(a.seed, a.iters)
+    elif a.exp == "mech" and a.rec:                # memory core on (Corollary 2.20, H7)
+        exp_mech(a.config, a.seed, a.iters, hp=dict(algo=a.algo, recurrent=True),
+                 tag=f"rec_{a.config}" + ("" if a.algo == "ippo" else f"_{a.algo}"))
     elif a.exp == "mech" and a.algo != "ippo":     # RQ6: LA2 / LA3 instead of LA1
         exp_mech(a.config, a.seed, a.iters, hp=dict(algo=a.algo), tag=f"{a.algo}_{a.config}")
     elif a.exp == "mech":

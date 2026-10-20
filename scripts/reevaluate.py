@@ -18,7 +18,7 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.dirname(__file__))
 from cabinet.metrics import summarise                     # noqa: E402
-from cabinet.policy import PolicyNet                      # noqa: E402
+from cabinet.policy import load_policy                      # noqa: E402
 from cabinet.ppo import evaluate                          # noqa: E402
 from run_experiment import ALL, ROOT, get_config, jsonable  # noqa: E402
 
@@ -28,6 +28,8 @@ def config_for(tag):
         return get_config("E0")
     if tag == "e1":
         return get_config("E1")
+    if tag.startswith("rec_"):
+        return get_config(tag[4:].split("_mappo")[0].split("_fsp")[0])
     for prefix in ("mech_", "mappo_", "fsp_"):
         if tag.startswith(prefix):
             return get_config(tag[len(prefix):])
@@ -63,8 +65,7 @@ def main():
         cfg = config_for(tag)
         if a.only not in tag or cfg is None or not os.path.exists(res):
             continue
-        net = PolicyNet()
-        net.load_state_dict(torch.load(path))
+        net = load_policy(path)
         cab, ep = evaluate(cfg, {"learn": net}, ALL, episodes=a.episodes, seed=1000 + seed)
         with open(res) as f:
             data = json.load(f)

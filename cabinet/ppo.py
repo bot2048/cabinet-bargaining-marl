@@ -37,12 +37,15 @@ class Runner:
         self.M = 1 if cfg.divisible else cfg.m
         self.seq_counter = 0
         self.store_global = False
+        self.mem = {}                           # (env, seat) -> recurrent memory
 
     def _reset(self, e):
         env = self.envs[e].reset()
         env.seats = self.assign(env, self.rng)
         env.seq_base = self.seq_counter
         self.seq_counter += env.n
+        for j in range(env.n):                  # memory spans one episode
+            self.mem.pop((e, j), None)
 
     def collect(self, min_decisions, learner="learn"):
         S = defaultdict(list)                   # storage of learner decisions
@@ -68,12 +71,17 @@ class Runner:
                     for e, d, _ in items:
                         actions[e][d.agent] = ctrl.act(self.envs[e], d.agent, d.kind)
                     continue
+                if getattr(ctrl, "recurrent", False):
+                    for e, d, o in items:
+                        o["mem"] = self.mem.get((e, d.agent), np.zeros(ctrl.d, np.float32))
                 batch = pad_obs([o for _, _, o in items], self.N, self.M)
                 with torch.no_grad():
                     out, logp, _, value = ctrl(to_torch(batch))
                 out = {k: v.numpy() for k, v in out.items()}
                 for b, (e, d, o) in enumerate(items):
                     actions[e][d.agent] = _env_action(o, out, b)
+                    if "mem" in out:
+                        self.mem[(e, d.agent)] = out["mem"][b]
                     if name == learner:
                         last[(e, d.agent)] = len(S["kind"])
                         S["obs"].append(o)
@@ -211,7 +219,8 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
                   ent_start=2e-2, ent_end=2e-3, ent_vote_mult=5.0, n_envs=64, rollout=8192, d=64,
-                  algo="ippo", snap_every=10, pool_size=10, p_learner=0.5, device="cpu")
+                  algo="ippo", snap_every=10, pool_size=10, p_learner=0.5, device="cpu",
+                  recurrent=False)
 
 
 def all_learn(env, rng):
@@ -225,7 +234,7 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
     hp = {**DEFAULT_HP, **(hp or {})}
     torch.manual_seed(seed)
     np.random.seed(seed)
-    net = net or PolicyNet(d=hp["d"])
+    net = net or PolicyNet(d=hp["d"], recurrent=hp["recurrent"])
     # Rollouts run on the CPU (the game is pure Python); with device="cuda"
     # the PPO update runs on the GPU and the weights are copied back.
     dev = torch.device(hp["device"] if hp["device"] != "cuda" or torch.cuda.is_available() else "cpu")
