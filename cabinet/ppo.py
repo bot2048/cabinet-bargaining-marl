@@ -172,7 +172,11 @@ def ppo_update(net, opt, S, N, M, hp):
             ratio = torch.exp((logp - old_logp[mb]).clamp(-20, 20))
             pg = -torch.min(ratio * a, ratio.clamp(1 - hp["clip"], 1 + hp["clip"]) * a).mean()
             vl = ((value - ret_t[mb]) ** 2).mean()
-            loss = pg + hp["vf"] * vl - hp["ent"] * ent.mean()
+            # voters and governing members get a larger entropy weight so that
+            # rejecting / exiting keeps being tried until its value is learned
+            ent_w = torch.where(ob["kind"] == PROPOSE, torch.tensor(1.0),
+                                torch.tensor(float(hp["ent_vote_mult"])))
+            loss = pg + hp["vf"] * vl - hp["ent"] * (ent_w * ent).mean()
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(net.parameters(), 0.5)
@@ -185,7 +189,7 @@ def ppo_update(net, opt, S, N, M, hp):
 
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
-                  ent_start=2e-2, ent_end=2e-3, n_envs=64, rollout=4096, d=64)
+                  ent_start=2e-2, ent_end=2e-3, ent_vote_mult=1.0, n_envs=64, rollout=4096, d=64)
 
 
 def all_learn(env, rng):

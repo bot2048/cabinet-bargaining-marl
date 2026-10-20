@@ -414,8 +414,9 @@ class CabinetEnv:
         ctx[13] = m / 10
         ctx[14] = float(c.divisible)
         ctx[15] = float(c.L is None)
-        # ctx[16] is reserved: a failed-round counter is not part of the
-        # observation (spec Def. 2.4); with it, learners adopt delay conventions
+        # patience on a usable scale: delta varies only in [0.8, 0.95]
+        # (a failed-round counter is deliberately absent: spec Def. 2.4)
+        ctx[16] = 10 * (1 - self.delta)
 
         X = np.zeros(FX, np.float32)
         if kind == VOTE:
