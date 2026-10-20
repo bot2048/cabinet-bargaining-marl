@@ -11,3 +11,4 @@ runs/
 *.synctex.gz
 .venv-gpu/
 models/*/seed99.pt
+data/parlgov/raw/
