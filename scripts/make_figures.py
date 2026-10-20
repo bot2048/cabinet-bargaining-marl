@@ -263,7 +263,7 @@ def macros():
                       ("mech_Estar-M1_repeat", "LooMone"), ("mech_Estar-M4_private", "LooMfour"),
                       ("mech_Estar-M5_hetero", "LooMfive"), ("mech_Estar-M8_exits", "LooMeight"),
                       ("mech_Estar-M9_policy", "LooMnine"), ("mech_Estar-M10_seatrho", "LooMten"),
-                      ("mech_EstarWidePub", "Pub")):
+                      ("mech_EstarWidePub", "Pub"), ("mech_Estar_m12", "Mtwelve")):
         for key, short in (("phi_adj", "Phi"), ("dg_adj", "Dg"), ("reg_beta", "Beta"),
                            ("reg_gamma", "Gamma"), ("phi_nu", "PhiNu"), ("reg_r2", "Rtwo"),
                            ("regbz_r2", "RtwoBz"), ("fail_rate", "Fail"), ("collapse_rate", "Collapse")):

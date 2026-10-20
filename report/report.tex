@@ -24,158 +24,153 @@
 \begin{document}
 \maketitle
 
-\section{Problem}
-After an election without a majority, parties bargain over who governs and how ministries are divided.
-Real cabinets split portfolios almost exactly in proportion to seats (\emph{Gamson's law}), yet the
-standard bargaining theory (Baron--Ferejohn, BF) predicts that the \emph{formateur}, the party that
-proposes the cabinet, captures a premium. We model parties as learning agents in an environment that
-encodes the rules of government formation, \emph{validate} the learners against the closed-form BF
-equilibrium, and then switch institutional mechanisms on one at a time to see which of them push
-learned allocations towards proportionality. Agents learn only from environment rewards; no fairness
-term is built in, so any proportionality must emerge.
+\section{Problem and findings}
+After an election without a majority, parties bargain over who governs and how ministries are split.
+Real coalition cabinets divide portfolios almost exactly in proportion to seats (\emph{Gamson's law},
+slope $\approx1$ in $p=\alpha+\beta s+\gamma F$), whereas the leading bargaining theory, Baron--Ferejohn
+(BF), predicts that the \emph{formateur} (the party proposing the cabinet) captures a large premium:
+the \emph{portfolio allocation paradox}. We model parties as reinforcement-learning agents in a
+multi-agent environment that encodes government formation, rewarded only by their own office and
+policy payoffs (no fairness term), check them against the exact BF equilibrium, then switch
+institutional features on and off to find out which ones make the premium disappear. Findings:
+\begin{enumerate}[label=\textbf{F\arabic*}]
+\item \textbf{Validated learner.} In the BF game, learned formateur shares match the closed form within
+\EzeroAbsGap{} on average (\EzeroSeeds{} seeds).
+\item \textbf{Private information removes the formateur premium.} Making parties' valuations private removes
+the formateur premium (from \BasePhi{} to \MfourPhi) and removing it from the full game restores the
+premium (\LooMfourPhi): it is sufficient \emph{and} necessary. Policy motivation is also sufficient.
+\item \textbf{The premium moves into portfolio quality and shares follow power.} With all mechanisms
+the formateur gets no extra ministries ($\tilde\Phi=\EstarPhi$) but takes the ones it values most
+(premium \EstarPhiNu{} in its own valuation), and shares track Banzhaf voting power better than seats.
+\item \textbf{Transfer to real parliaments.} Without training on real data, agents placed in 242
+real post-war Western European parliaments pick the governing coalition as often as classic
+size-based theories (\PgLearned{} vs \PgRiker), and their allocations show no formateur premium.
+\end{enumerate}
 
 \section{RL formulation}
-\textbf{Environment} (\code{cabinet/env.py}). A partially observable stochastic game with $n$ parties
-(seats $w_i$, quota $q=\lfloor W/2\rfloor+1$) and $m$ ministries. Each period without a cabinet is a
-formation round: nature draws a formateur $f\sim\rho$; $f$ proposes a winning coalition $C\ni f$ and an
-allocation $\mu:\{1..m\}\to C$; all partners vote simultaneously and the cabinet forms only if all accept.
-A sitting cabinet pays per-period flows; members may walk out (cabinet collapses). Optional mechanisms:
-repeated terms with elections (M1), private types (M4), heterogeneous ministry values (M5), exits (M8),
-ministerial policy (M9), seat-proportional recognition (M10). Levels E0--E6 are parameter restrictions of
-one class (\code{cabinet/config.py}); E0 is exactly the symmetric BF game.
+\textbf{Environment} (\code{cabinet/env.py}): a partially observable stochastic game with $n$ parties
+(seats $w_i$, majority quota $q$) and $m$ ministries. Each period without a cabinet is a formation round:
+nature draws a formateur $f\sim\rho$, $f$ proposes a winning coalition $C\ni f$ and an allocation
+$\mu:\{1..m\}\to C$, and the cabinet forms only if every partner accepts. A cabinet pays per-period flows
+until the term ends or a member walks out. Switchable mechanisms (\code{cabinet/config.py}): repeated
+terms with elections (M1), private types (M4), heterogeneous ministry values (M5), exits (M8),
+ministerial policy (M9), seat-proportional recognition (M10); level E0 is exactly the symmetric BF game.
 
-\textbf{State / observation space $\mathcal S$.} Agent $i$ sees a \emph{set} of $n$ party tokens
-(26 features: seat share, recognition probability, self/formateur/member flags, pending and current
-shares, history of the last $\Lambda$ cabinets), $m$ ministry tokens (8: salience, own valuation,
-policy dimension led), $m\times n$ pair features (4: partners' valuations and policy costs when
-types are public), a context vector (17: phase, quota, $\delta$, horizon, $\lambda$, ...) and 8
-decision-specific features (offer, exit bonus). Tokens carry no party labels, so one network handles
-any $n\in\{3..12\}$, $m\le25$ and is permutation-equivariant.
+\textbf{State $\mathcal S$.} Agent $i$ observes a \emph{set} of $n$ party tokens (26 features: seat share,
+recognition probability, roles, pending/current shares, last $\Lambda$ cabinets), $m$ ministry tokens
+(8: salience, own valuation, policy dimension led), $m{\times}n$ pair features (4; partners' valuations
+and policy costs when types are public), a 17-dim context (phase, quota, $\delta$, horizon, $\lambda$,
+\ldots) and 8 decision features. Tokens carry no labels: one network serves any $n$ and $m$ and is
+permutation-equivariant.
 
-\textbf{Action space $\mathcal A$} (masked, mixed discrete). Formateur: $n-1$ binary include/exclude
-decisions (masks guarantee the coalition stays winning; $|\mathcal A|$ up to $10^{19}$ proposals is
-decoded in $n-1+m$ small steps), then for each ministry a pointer over coalition members, or, for a
-divisible surplus, an offer on a 1\% grid (101 bins) per partner. Voter: accept/reject. Member: stay/exit.
+\textbf{Action $\mathcal A$} (masked, discrete). Formateur: include/exclude each other party (masks keep
+the coalition winning), then a pointer to a coalition member for each ministry; up to $10^{19}$ proposals
+are decoded in $n{-}1{+}m$ steps (a divisible surplus uses a 1\% offer grid per partner). Voter:
+accept/reject. Governing member: stay/exit.
 
-\textbf{Reward $\mathcal R$.} In a governed period, member $i$ receives
-\[ r_i=\textstyle\sum_{k:\mu(k)=i}\nu_{ik}\;-\;\lambda\,\frac1d\sum_{h=1}^{d}|y_h-z_{ih}|, \]
-office value of held ministries minus a policy loss (minister of the lead ministry sets policy $y_h$);
-outsiders get only the policy term, an exiting member its bonus $e_i$; failed rounds pay nothing.
-Discount $\delta$ per period. With $\lambda=0$ the game is constant-sum up to delay, so a team reward
-would erase the conflict under study: every agent maximises its \emph{own} return.
+\textbf{Reward $\mathcal R$.} In a governed period member $i$ receives
+$r_i=\sum_{k:\mu(k)=i}\nu_{ik}-\lambda\frac1d\sum_h|y_h-z_{ih}|$: the value of its ministries minus a
+policy loss (the minister holding the lead ministry of dimension $h$ sets $y_h$). Outsiders get the policy
+term, an exiting member a bonus, failed rounds nothing; discount $\delta$ per period. Rewards are
+individual: a team reward would erase the conflict under study.
 
-\textbf{Algorithm} (\code{cabinet/policy.py}, \code{cabinet/ppo.py}). One shared network
-(set encoder: 2 attention blocks over parties with cross-attention to ministries) with masked
-autoregressive proposal heads, vote/exit heads and a value head. Each agent acts only at some steps, so
-we run PPO with GAE on every agent's own decision sequence (semi-MDP: interval rewards and discounts
-between its decisions). Regimes: LA1 shared-parameter IPPO self-play; LA2 MAPPO with a centralised
-critic that sees all private types; Fict. self-play (LA3) against a pool of past checkpoints.
-Rollouts run on CPU, updates on GPU. \textbf{Baselines} (\code{cabinet/baselines.py}): BL1 exact BF
-equilibrium strategy (from our certified solver, \code{cabinet/bf\_solver.py}), BL2 Gamson agent
-(minimal-seat coalition, proportional split), BL3 myopic BF heuristic, BL4 random feasible agent.
+\textbf{Algorithm} (\code{cabinet/policy.py}, \code{cabinet/ppo.py}). One shared attention network with
+masked autoregressive proposal heads, vote/exit heads and a value head. Agents act only at some steps, so
+PPO with GAE runs on each agent's own decision sequence (semi-MDP). Learners: shared-parameter IPPO
+self-play (main), MAPPO with a centralised critic, fictitious self-play, PSRO; optional GRU memory.
+Baselines (\code{cabinet/baselines.py}): exact BF strategy from our solver (\code{cabinet/bf\_solver.py}),
+a Gamson agent, a myopic BF heuristic and a random agent. Metrics (\code{cabinet/metrics.py}):
+formateur premium $\tilde\Phi=\mathbb E[p_f-s_f]$ and Gamson distance $\tilde D_G$, floor-adjusted for
+indivisible ministries, and regression (1). Scaled to one laptop: $n\le5$ ($3$--$8$ for real
+parliaments), $m=6$, 6-period terms, 500--700 PPO iterations (4--6M decisions) per run, $\ge3$ seeds.
 
-\textbf{Metrics} (\code{cabinet/metrics.py}). Formateur premium $\Phi=\mathbb E[p_f-s_f]$ and
-Gamson distance $D_G=\mathbb E[\tfrac12\sum_i|p_i-s_i|]$ ($s_i$: seat share within the coalition),
-both \emph{floor-adjusted} ($\tilde\Phi,\tilde D_G$) against the most proportional feasible assignment
-(Hamilton's rule), the BF gap $\GapBF=\mathbb E[p_f]-x^{\mathrm{BF}}_f$, the regression
-$p=\alpha+\beta s+\gamma F$, and exploitability (gain of a trained best response, per period).
-
-
-\section{Experiments and results}
-\textbf{Setup.} Scaled-down sizes for one laptop (i9 CPU + RTX 4060): $n\le5$ parties ($3$--$8$ for
-real parliaments), $m=6$ ministries, 6-period terms, 3 expected terms, 500--700 PPO iterations
-($\approx$4--6M decisions) per run, $\ge3$ seeds per cell (10 where the success criteria demand it).
-Every configuration is a parameter restriction of one environment; mechanisms are switched on one at a
-time from a base game (BF with indivisible ministries) and off one at a time from E* (all on).
-
+\section{Results}
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_e0_benchmark.pdf}
-\caption{Benchmark recovery (E0). Lines: closed-form BF formateur share; dots: learned (mean over
-\EzeroSeeds{} seeds). Dashed: Gamson's equal split.}\label{fig:e0}
+\caption{F1: learned formateur share (dots) vs the BF closed form (lines) in the symmetric game;
+dashed: Gamson's equal split.}\label{fig:e0}
 \end{figure}
 
-\textbf{Validation against theory (RQ1).} In the symmetric BF game the learned formateur share is within
-\EzeroAbsGap{} of the closed form on average (mean gap \EzeroGap; \EzeroCellsOK/9 cells within the 0.02
-tolerance; failure rate \EzeroFail), Fig.~\ref{fig:e0}. Errors grow with $n$: with more partners each
-voter's threshold is learned less precisely. With weighted seats (E1) the gap to the certified solver is
-\EoneGap. The pipeline therefore reproduces BF bargaining, the precondition for trusting it elsewhere.
+\textbf{F1, validation.} Learned shares follow the BF closed form (Fig.~\ref{fig:e0}; mean gap
+\EzeroGap, \EzeroCellsOK/9 cells within 0.02), including its decrease with patience $\delta$; errors
+grow with $n$, where each voter's threshold is learned less precisely. The same code then produces all
+other results, so differences between configurations come from the institutions, not the learner.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_mechanisms.pdf}
-\caption{Floor-adjusted formateur premium $\tilde\Phi$ and Gamson distance $\tilde D_G$ per
-configuration (mean, 95\% CI over seeds).}\label{fig:mech}
+\caption{F2: formateur premium when one mechanism is added to the base game (blue: sufficiency) or
+removed from the full game E* (orange: necessity); mean and 95\% CI over seeds.}\label{fig:mech}
 \end{figure}
 
-\textbf{Which mechanisms remove the formateur premium (RQ2).} The base game keeps a clear premium
-($\tilde\Phi=\BasePhi$, regression $\hat\gamma=\BaseGamma$). Switched on alone (Fig.~\ref{fig:mech},
-blue), \emph{private types} ($\tilde\Phi=\MfourPhi$) and \emph{ministerial policy} ($\MninePhi$) are each
-sufficient to remove it; seat-proportional recognition nearly is ($\MtenPhi$); repeated terms
-($\MonePhi$), exits ($\MeightPhi$) and heterogeneous values ($\MfivePhi$) are not. Repetition fails
-because agents discount the next term heavily; with patient agents (cross-term discount 0.78 instead
-of 0.35) it gives \MpatientPhi{} (\MpatientrecPhi{} with GRU memory). Switched off one at a time from
-E* (orange), removing private types brings the premium back (\LooMfourPhi), so private information is
-also \emph{necessary}; removing heterogeneous values, exits or seat recognition partly restores it.
-In E* the premium is gone ($\tilde\Phi=\EstarPhi$, $\hat\gamma=\EstarGamma$) but \emph{moves into
-quality}: in the formateur's own valuation it is $\EstarPhiNu$, i.e.\ the formateur takes the
-ministries it values most rather than more of them, as the empirical literature has hypothesised.
-Allocations are flatter than seats ($\hat\beta=\EstarBeta$), the small-party bias of real cabinets,
-and voting power explains shares better than seats ($R^2$ \EstarRtwoBz{} vs \EstarRtwo{} for Banzhaf vs
-seat shares; H4). The Gamson region ($\tilde D_G\le0.05$) is not reached ($\tilde D_G=\EstarDg$).
+\textbf{F2, what removes the premium.} The base game keeps the BF premium ($\tilde\Phi=\BasePhi$,
+$\hat\gamma=\BaseGamma$). Added alone (Fig.~\ref{fig:mech}, blue), private types ($\MfourPhi$) and
+ministerial policy ($\MninePhi$) each remove it and seat-proportional recognition nearly does
+($\MtenPhi$), while repetition, exits and heterogeneous values do not. Removed from E* (orange),
+private types bring it back ($\LooMfourPhi$); removing values, exits or recognition restores part of it.
+The mechanism: when a formateur cannot see what partners value, it must over-offer to secure
+acceptance, which erodes its advantage. Repetition fails because agents discount the next term
+heavily (with patient agents: \MpatientPhi; with GRU memory as well: \MpatientrecPhi).
 
 \begin{table}[t]\centering\footnotesize\setlength{\tabcolsep}{2.6pt}
-\caption{E* under different learners and memory (mean over seeds).}\label{tab:algo}
+\caption{F3: the full game E* under different learners, memory and ministry counts.}\label{tab:algo}
 \begin{tabular}{@{}lrrrrr@{}}\toprule
  & $\tilde\Phi$ & $\tilde D_G$ & $\hat\beta$ & $\hat\gamma$ & $\Phi_\nu$\\\midrule
 IPPO, window $\Lambda{=}4$ & \EstarPhi & \EstarDg & \EstarBeta & \EstarGamma & \EstarPhiNu\\
-MAPPO (LA2) & \MappoPhi & \MappoDg & \MappoBeta & \MappoGamma & \MappoPhiNu\\
-Fict. self-play (LA3) & \FspPhi & \FspDg & \FspBeta & \FspGamma & \FspPhiNu\\
+MAPPO (central critic) & \MappoPhi & \MappoDg & \MappoBeta & \MappoGamma & \MappoPhiNu\\
+Fictitious self-play & \FspPhi & \FspDg & \FspBeta & \FspGamma & \FspPhiNu\\
 IPPO + GRU memory & \RecPhi & \RecDg & \RecBeta & \RecGamma & \RecPhiNu\\
 IPPO, memoryless & \LamzeroPhi & \LamzeroDg & \LamzeroBeta & \LamzeroGamma & \LamzeroPhiNu\\
+IPPO, 12 ministries & \MtwelvePhi & \MtwelveDg & \MtwelveBeta & \MtwelveGamma & \MtwelvePhiNu\\
 \bottomrule\end{tabular}\end{table}
 
-\textbf{Learners, memory and equilibrium checks (RQ5--6).} Table~\ref{tab:algo}: the result holds
-across learning regimes and memory variants, and symmetric PSRO (LA4) reaches $\tilde\Phi=\PsroEstarPhi$
-on E*. Cross-play mismatch is \CmSame{} within and \CmAcross{} across algorithms per period, so the runs
-reach compatible conventions. Trained best responses gain \GainEstar{} (E*, IPPO), \GainMappo{} (E*,
-MAPPO) and \GainBASE{} (base) office units per period, the order of the 0.01 tolerance; but they also
-barely exploit a scripted Gamson profile (\GainBASEGamson), so at our budget the test has little power
-and we claim approximate, not certified, equilibrium play. A higher entropy temperature (bounded
-rationality, H9) lowers the base premium only slightly (\EntLow{} to \EntHigh).
+\textbf{F3, where the premium goes.} In E* the formateur no longer gets more ministries
+($\tilde\Phi=\EstarPhi$, $\hat\gamma=\EstarGamma$) but its premium measured in its own valuation is
+$\Phi_\nu=\EstarPhiNu$: it keeps the portfolios it cares about, a ``quality'' advantage that counts of
+ministries cannot see. Shares are flatter than seats ($\hat\beta=\EstarBeta$): small partners are
+over-paid, the small-party bias of real cabinets, and voting power explains shares better than seats
+($R^2$ \EstarRtwoBz{} for Banzhaf shares vs \EstarRtwo{} for seat shares). This is what bargaining
+predicts (a pivotal small party is worth as much as a large one), so seat-proportionality itself does not
+emerge ($\tilde D_G=\EstarDg$). Table~\ref{tab:algo}: these patterns hold across learners, memory and a
+finer 12-ministry game; symmetric PSRO gives \PsroEstarPhi.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_parlgov.pdf}
-\caption{Real parliaments: coalition proposed by the real prime minister's party vs the coalition that
-governed.}\label{fig:pg}
+\caption{F4: coalition proposed by the real prime minister's party vs the coalition that governed.}
+\label{fig:pg}
 \end{figure}
 
-\textbf{Real-world test (RQ4, RQ7).} Policies trained only on random parliaments were placed into the
-242 post-1945 Western European majority coalitions of ParlGov, with the real prime minister's party as
-formateur (Fig.~\ref{fig:pg}). The learned formateur proposes the coalition that actually governed in
-\PgLearned{} of cases, versus \PgRiker{} for Riker's minimal-seat rule, \PgRandom{} for a random
-minimal winning coalition and \PgIdeology{} for the ideologically closest one, which uses left--right
-scores the agents cannot see; with public positions set from those scores it reaches
-\PgIdeoLearned. Across \PgAllN{} coalitions in 33 parliamentary democracies: \PgAllLearned{}
-(minimal-seat \PgAllRiker, ideology \PgAllIdeology). Agents thus match size-based theories but miss
-ideological connectedness. On real seat distributions the learned allocations again show no premium
-($\tilde\Phi=\PgPhi$, $\hat\gamma=\PgGamma$) and follow voting power more than seats ($R^2$
-\PgRtwoBz{} vs \PgRtwo).
+\textbf{F4, real parliaments.} Policies trained only on random parliaments were placed in the 242
+post-war Western European majority coalitions of ParlGov, the real prime minister's party proposing
+(Fig.~\ref{fig:pg}). They pick the governing coalition in \PgLearned{} of cases, like Riker's minimal-seat
+rule (\PgRiker) and a random minimal winning coalition (\PgRandom), and \PgAllLearned{} across \PgAllN{}
+coalitions in 33 democracies. The ideologically closest coalition does better (\PgIdeology): in this model a
+formateur can keep the policy-setting ministries itself, so partners' ideology barely matters to it,
+even when positions are visible (\PgIdeoLearned). On the real seat distributions the learned allocations
+show no formateur premium ($\tilde\Phi=\PgPhi$) and follow voting power ($R^2$ \PgRtwoBz{} vs \PgRtwo).
 
-\section{Conclusions and limitations}
-Learning parties reproduce Baron--Ferejohn bargaining where theory applies, and two features absent
-from that model, private information and policy motivation, are each enough to make the formateur
-premium vanish, as in real cabinets, with private information also necessary; the premium survives in
-the \emph{quality} of portfolios.
-Limitations: scaled-down sizes and budgets; exploitability tests can refute but not prove equilibrium
-play; the stored-state GRU is trained without back-propagation through time; opponent shaping (LA5) and
-the demand/pre-electoral modules were not run; ParlGov has no portfolio counts, so real allocations are
-compared only through coalitions. Coverage of every specification item:
+\textbf{Reliability.} Cross-play between independently trained runs costs \CmSame{} (same algorithm) and
+\CmAcross{} (across algorithms) per period: runs reach compatible conventions. Best responses gain
+\GainEstar{} per period against E* (\GainMappo{} for MAPPO), near the 0.01 tolerance, but they also
+barely exploit a scripted Gamson profile (\GainBASEGamson), so we claim approximate, not certified,
+equilibrium play.
+
+\section{Implications and limitations}
+Learning agents resolve one half of the portfolio paradox: the formateur premium of bargaining theory
+disappears once parties have private information (or care about policy), and what remains is a premium
+in portfolio \emph{quality}, consistent with the empirical observation that weighting ministries by
+importance changes the picture. The other half, exact seat-proportionality, does not emerge from
+self-interested bargaining: learned shares follow voting power, which suggests that real cabinets'
+seat-proportionality reflects norms or pre-electoral bargaining that our agents lack. Limitations:
+scaled-down sizes; exploitability tests can refute but not prove equilibrium; the GRU is trained with
+stored states, without back-propagation through time; opponent shaping and the demand and
+pre-electoral modules of the specification were not run; ParlGov has no portfolio counts, so real
+allocations are compared through coalitions only. Coverage of the specification:
 \code{docs/SPEC\_COVERAGE.md}.
 
-\textbf{Key code.} Environment \code{cabinet/env.py}; levels and mechanisms \code{cabinet/config.py};
-policy \code{cabinet/policy.py}; PPO, MAPPO, FSP, exploitability \code{cabinet/ppo.py}; BF solver
-\code{cabinet/bf\_solver.py}; metrics \code{cabinet/metrics.py}; baselines \code{cabinet/baselines.py};
-experiments \code{scripts/run\_experiment.py}; real parliaments \code{scripts/parlgov\_eval.py}; tests
-\code{tests/test\_core.py}.
+\textbf{Key code.} \code{cabinet/env.py} (environment), \code{cabinet/config.py} (levels, mechanisms),
+\code{cabinet/policy.py} (policy), \code{cabinet/ppo.py} (PPO, MAPPO, FSP, exploitability),
+\code{cabinet/psro.py}, \code{cabinet/bf\_solver.py}, \code{cabinet/metrics.py},
+\code{scripts/run\_experiment.py}, \code{scripts/parlgov\_eval.py}, \code{tests/test\_core.py}.
 
 \begin{thebibliography}{9}\footnotesize\setlength{\itemsep}{0pt}
 \bibitem{bf} D. Baron, J. Ferejohn. Bargaining in legislatures. \emph{APSR} 83(4), 1989.
