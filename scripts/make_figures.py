@@ -68,7 +68,7 @@ def fig_e0():
     ax.set_ylabel("formateur share $p_f$")
     ax.set_xticks(ns)
     ax.set_ylim(0.2, 0.8)
-    ax.legend(frameon=False, ncol=1, loc="lower left")
+    ax.legend(frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.2))
     ax.set_title("E0: learned vs Baron-Ferejohn (lines)", loc="left")
     fig.savefig(os.path.join(FIG, "fig_e0_benchmark.png"))
     fig.savefig(os.path.join(FIG, "fig_e0_benchmark.pdf"))
@@ -192,12 +192,125 @@ def exploit_table():
     return rows
 
 
+# ------------------------------------------------------------------ Fig. 5
+def fig_parlgov():
+    sets = [("parlgov_mech_EstarWide", "E*-wide"), ("parlgov_mech_EstarWidePub_ideology", "E*-wide, public\nleft-right")]
+    rows = []
+    for tag, lab in sets:
+        runs = load(tag)
+        if runs:
+            m, ci = mean_ci([r["prediction"]["learned"]["exact"] for r in runs])
+            rows.append((f"learned: {lab}", m, ci, BLUE))
+    ref = load("parlgov_mech_EstarWide")
+    if not ref:
+        return None
+    for key, lab in (("min_seat", "minimal-seat rule"), ("random_mwc", "random min. winning"),
+                     ("ideology_mwc", "ideologically closest")):
+        rows.append((lab, ref[0]["prediction"][key]["exact"], 0.0, MUTED))
+    fig, ax = plt.subplots(figsize=(3.4, 1.45))
+    y = np.arange(len(rows))[::-1]
+    for k, (lab, m, ci, col) in enumerate(rows):
+        ax.barh(y[k], m, height=0.62, color=col, xerr=ci if ci else None,
+                error_kw=dict(ecolor=INK, lw=0.8, capsize=1.5))
+        ax.text(m + 0.006, y[k], f"{m:.0%}", va="center", fontsize=6.5, color=INK)
+    ax.set_yticks(y)
+    ax.set_yticklabels([r[0] for r in rows])
+    ax.set_xlabel("exact match with the coalition that governed")
+    ax.set_xlim(0, max(r[1] for r in rows) * 1.25)
+    ax.set_title("242 real coalitions (ParlGov, W. Europe 1945-)", loc="left")
+    fig.savefig(os.path.join(FIG, "fig_parlgov.png"))
+    fig.savefig(os.path.join(FIG, "fig_parlgov.pdf"))
+    plt.close(fig)
+    return rows
+
+
+def macros():
+    """report/numbers.tex: every number quoted in the report, recomputed here."""
+    M = {}
+
+    def put(name, value, fmt="{:+.3f}"):
+        M[name] = fmt.format(value) if value is not None and not (isinstance(value, float) and np.isnan(value)) else "--"
+
+    def avg(tag, key, sub="overall"):
+        runs = load(tag)
+        v = [r[sub].get(key) for r in runs if r.get(sub) and r[sub].get(key) is not None]
+        return (float(np.mean(v)), len(v)) if v else (np.nan, 0)
+
+    e0 = load("e0")
+    if e0:
+        gaps, ok = [], 0
+        for key in e0[0]["cells"]:
+            n, d = eval(key)
+            g = np.mean([r["cells"][key]["pf"] for r in e0]) - bf_symmetric_share(n, d)
+            gaps.append(g)
+            ok += abs(g) <= 0.02
+        put("EzeroAbsGap", float(np.mean(np.abs(gaps))), "{:.3f}")
+        put("EzeroGap", float(np.mean(gaps)))
+        put("EzeroCellsOK", ok, "{:d}")
+        put("EzeroSeeds", len(e0), "{:d}")
+        put("EzeroFail", avg("e0", "fail_rate")[0], "{:.1%}")
+    put("EoneGap", avg("e1", "gap_bf")[0])
+    put("EoneAbsGap", avg("e1", "abs_gap_bf")[0], "{:.3f}")
+    for tag, name in (("mech_BASE", "Base"), ("mech_Estar", "Estar"), ("mappo_Estar", "Mappo"),
+                      ("fsp_Estar", "Fsp"), ("rec_Estar", "Rec"), ("mech_Estar_Lam0", "Lamzero"),
+                      ("mech_BASE+M1_repeat", "Mone"), ("mech_BASE+M4_private", "Mfour"),
+                      ("mech_BASE+M5_hetero", "Mfive"), ("mech_BASE+M8_exits", "Meight"),
+                      ("mech_BASE+M9_policy", "Mnine"), ("mech_BASE+M10_seatrho", "Mten")):
+        for key, short in (("phi_adj", "Phi"), ("dg_adj", "Dg"), ("reg_beta", "Beta"),
+                           ("reg_gamma", "Gamma"), ("phi_nu", "PhiNu"), ("reg_r2", "Rtwo"),
+                           ("regbz_r2", "RtwoBz"), ("fail_rate", "Fail"), ("collapse_rate", "Collapse")):
+            v, k = avg(tag, key)
+            put(f"{name}{short}", v, "{:.2f}" if short in ("Rtwo", "RtwoBz") else "{:+.3f}")
+        put(f"{name}Seeds", avg(tag, "phi_adj")[1], "{:d}")
+    pg = load("parlgov_mech_EstarWide")
+    if pg:
+        for key, name in (("learned", "PgLearned"), ("min_seat", "PgRiker"),
+                          ("random_mwc", "PgRandom"), ("ideology_mwc", "PgIdeology")):
+            put(name, float(np.mean([r["prediction"][key]["exact"] for r in pg])), "{:.1%}")
+        for key, short in (("phi_adj", "Phi"), ("reg_beta", "Beta"), ("reg_gamma", "Gamma"),
+                           ("reg_r2", "Rtwo"), ("regbz_r2", "RtwoBz"), ("phi_nu", "PhiNu")):
+            put(f"Pg{short}", float(np.mean([r["allocation"][key] for r in pg])),
+                "{:.2f}" if short in ("Rtwo", "RtwoBz") else "{:+.3f}")
+    pgi = load("parlgov_mech_EstarWidePub_ideology")
+    if pgi:
+        put("PgIdeoLearned", float(np.mean([r["prediction"]["learned"]["exact"] for r in pgi])), "{:.1%}")
+    for c in ("BASE", "Estar"):
+        ex = load(f"exploit_{c}")
+        if ex:
+            put(f"Gain{c}", float(np.mean([r["gain"] for r in ex])), "{:+.4f}")
+            ctrl = [r["controls"] for r in ex if r.get("controls")]
+            if ctrl:
+                for b in ctrl[0]:
+                    put(f"Gain{c}{b.capitalize()}", ctrl[0][b]["gain"], "{:+.4f}")
+    for e in ("0.002", "0.02", "0.05"):
+        put("Ent" + {"0.002": "Low", "0.02": "Mid", "0.05": "High"}[e],
+            avg(f"entropy_BASE_{e}", "phi_adj")[0])
+    cp = os.path.join(ROOT, "results", "crossplay", "Estar.json")
+    if os.path.exists(cp):
+        with open(cp) as f:
+            c = json.load(f)
+        put("CmSame", c.get("mismatch_same_algorithm"), "{:+.4f}")
+        put("CmAcross", c.get("mismatch_across_algorithms"), "{:+.4f}")
+    # numbers whose experiments may not have finished yet: placeholder "--"
+    for name in ("CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
+                 "GainEstarGamson", "GainEstarMyopic", "PgIdeoLearned", "EntLow", "EntMid", "EntHigh"):
+        M.setdefault(name, "--")
+    os.makedirs(os.path.join(ROOT, "report"), exist_ok=True)
+    with open(os.path.join(ROOT, "report", "numbers.tex"), "w") as f:
+        f.write("% generated by scripts/make_figures.py -- do not edit\n")
+        for k, v in sorted(M.items()):
+            f.write(f"\\newcommand{{\\{k}}}{{{v}}}\n".replace("%", "\\%"))
+    return M
+
+
 def main():
     base = load("baselines")
     base = base[0] if base else {}
     out = {"e0": fig_e0(), "e1": fig_e1(), "mech": fig_mech(base), "exploit": exploit_table(),
            "baselines": base}
     fig_curves()
+    out["parlgov"] = fig_parlgov()
+    out["macros"] = macros()
     with open(os.path.join(ROOT, "results", "summary.json"), "w") as f:
         json.dump(out, f, indent=1, default=lambda x: float(x) if hasattr(x, "item") else str(x))
     # human-readable summary
