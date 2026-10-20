@@ -6,7 +6,8 @@
   interval rewards between its own decisions (spec Lemma 3.5).
 * ``ppo_update`` is the clipped objective of spec Definition 3.9 with GAE on
   agent-level decision sequences (spec Definition 3.6).
-* ``train_selfplay`` is algorithm LA1 (IPPO with shared parameters).
+* ``train_selfplay`` is algorithm LA1 (IPPO with shared parameters) or,
+  with ``algo="fsp"``, LA3 (fictitious self-play against past checkpoints).
 * ``exploitability`` estimates Gain (spec Definition 3.10) by training a
   best response for a random focal seat against a frozen profile.
 """
@@ -189,7 +190,8 @@ def ppo_update(net, opt, S, N, M, hp):
 
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
-                  ent_start=2e-2, ent_end=2e-3, ent_vote_mult=1.0, n_envs=64, rollout=4096, d=64)
+                  ent_start=2e-2, ent_end=2e-3, ent_vote_mult=1.0, n_envs=64, rollout=4096, d=64,
+                  algo="ippo", snap_every=10, pool_size=10, p_learner=0.5)
 
 
 def all_learn(env, rng):
@@ -204,6 +206,17 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
     net = net or PolicyNet(d=hp["d"])
     opt = torch.optim.Adam(net.parameters(), lr=hp["lr"])
     ctrls = {"learn": net, **(controllers or {})}
+    pool = []
+    if hp["algo"] == "fsp":
+        # LA3, fictitious self-play: each seat is the learner with probability
+        # p_learner (at least one seat), otherwise a past checkpoint drawn
+        # uniformly from the pool.  Only learner seats provide training data.
+        def assign(env, rng, _pool=pool):
+            seats = ["learn" if (not _pool or rng.random() < hp["p_learner"]) else
+                     _pool[rng.integers(len(_pool))] for _ in range(env.n)]
+            if "learn" not in seats:
+                seats[rng.integers(env.n)] = "learn"
+            return seats
     runner = Runner(cfg, hp["n_envs"], seed, ctrls, assign)
     history = []
     t0, steps = time.time(), 0
@@ -215,6 +228,12 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
         S, eps = runner.collect(hp["rollout"])
         steps += len(S["kind"])
         st = ppo_update(net, opt, S, runner.N, runner.M, hp)
+        if hp["algo"] == "fsp" and it % hp["snap_every"] == 0:
+            name = f"pool{it}"
+            ctrls[name] = copy.deepcopy(net).eval()
+            pool.append(name)
+            if len(pool) > hp["pool_size"]:
+                del ctrls[pool.pop(0)]
         cab, ep = runner.logs()
         if it % log_every == 0 or it == iters - 1:
             summ = summarise(cab, ep, cfg.m, cfg.divisible)
