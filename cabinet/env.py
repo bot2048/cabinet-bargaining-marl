@@ -342,11 +342,13 @@ class CabinetEnv:
         return float(r), float(d)
 
     # ------------------------------------------------------------ observation
-    def observe(self, i: int, kind: int) -> dict:
+    def observe(self, i: int, kind: int, global_view: bool = False) -> dict:
+        """Agent i's observation.  ``global_view`` reveals every party's type,
+        as the centralised critic's input (spec R5); policies never see it."""
         c, n, m = self.cfg, self.n, self.m
         W = self.W
         prop, cab = self.proposal if self.phase == VOTE else None, self.cabinet
-        pub = c.public_types
+        pub = c.public_types or global_view
         P = np.zeros((n, FP), np.float32)
         P[:, 0] = self.w / W
         P[:, 1] = self.recognition_probs() if self.phase == PROPOSE else 0.0

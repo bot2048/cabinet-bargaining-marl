@@ -7,6 +7,7 @@
 * ``ppo_update`` is the clipped objective of spec Definition 3.9 with GAE on
   agent-level decision sequences (spec Definition 3.6).
 * ``train_selfplay`` is algorithm LA1 (IPPO with shared parameters) or,
+  with ``algo="mappo"``, LA2 (centralised critic on global observations), or
   with ``algo="fsp"``, LA3 (fictitious self-play against past checkpoints).
 * ``exploitability`` estimates Gain (spec Definition 3.10) by training a
   best response for a random focal seat against a frozen profile.
@@ -34,6 +35,7 @@ class Runner:
         self.N = cfg.n_max
         self.M = 1 if cfg.divisible else cfg.m
         self.seq_counter = 0
+        self.store_global = False
 
     def _reset(self, e):
         env = self.envs[e].reset()
@@ -74,6 +76,8 @@ class Runner:
                     if name == learner:
                         last[(e, d.agent)] = len(S["kind"])
                         S["obs"].append(o)
+                        if self.store_global:
+                            S["gobs"].append(self.envs[e].observe(d.agent, d.kind, global_view=True))
                         for k in ("bit", "inc", "mu", "shares"):
                             S[k].append(out[k][b])
                         S["logp"].append(float(logp[b]))
@@ -144,7 +148,12 @@ def gae(S, lam):
     return adv, adv + val
 
 
-def ppo_update(net, opt, S, N, M, hp):
+def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
+    if critic is not None:
+        # LA2: values come from the centralised critic on global observations
+        G = to_torch(pad_obs(S["gobs"], N, M))
+        with torch.no_grad():
+            S["value"] = critic(G)[3].tolist()
     adv, ret = gae(S, hp["lam"])
     batch = pad_obs(S["obs"], N, M)
     batch["bit"] = np.array(S["bit"])
@@ -172,6 +181,15 @@ def ppo_update(net, opt, S, N, M, hp):
                     a[sel] = (a[sel] - a[sel].mean()) / (a[sel].std(unbiased=False) + 1e-8)
             ratio = torch.exp((logp - old_logp[mb]).clamp(-20, 20))
             pg = -torch.min(ratio * a, ratio.clamp(1 - hp["clip"], 1 + hp["clip"]) * a).mean()
+            if critic is not None:
+                g = {k: v[mb] for k, v in G.items()}
+                cv = critic.value(critic.encode(g)[2]).squeeze(-1)
+                closs = ((cv - ret_t[mb]) ** 2).mean()
+                copt.zero_grad()
+                closs.backward()
+                torch.nn.utils.clip_grad_norm_(critic.parameters(), 0.5)
+                copt.step()
+                value = value.detach() * 0 + cv.detach()   # actor value head unused
             vl = ((value - ret_t[mb]) ** 2).mean()
             # voters and governing members get a larger entropy weight so that
             # rejecting / exiting keeps being tried until its value is learned
@@ -218,6 +236,12 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
                 seats[rng.integers(env.n)] = "learn"
             return seats
     runner = Runner(cfg, hp["n_envs"], seed, ctrls, assign)
+    critic = copt = None
+    if hp["algo"] == "mappo":
+        # LA2: separate critic network over global observations (training only)
+        critic = PolicyNet(d=hp["d"])
+        copt = torch.optim.Adam(critic.parameters(), lr=hp["lr"])
+        runner.store_global = True
     history = []
     t0, steps = time.time(), 0
     for it in range(iters):
@@ -227,7 +251,7 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
             g["lr"] = hp["lr"] * (1 - 0.9 * frac)
         S, eps = runner.collect(hp["rollout"])
         steps += len(S["kind"])
-        st = ppo_update(net, opt, S, runner.N, runner.M, hp)
+        st = ppo_update(net, opt, S, runner.N, runner.M, hp, critic, copt)
         if hp["algo"] == "fsp" and it % hp["snap_every"] == 0:
             name = f"pool{it}"
             ctrls[name] = copy.deepcopy(net).eval()

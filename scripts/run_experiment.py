@@ -174,15 +174,15 @@ def main():
     ap.add_argument("--br-iters", type=int, default=150)
     ap.add_argument("--ent-end", type=float, default=None)
     ap.add_argument("--threads", type=int, default=2)
-    ap.add_argument("--algo", default="ippo", choices=["ippo", "fsp"])
+    ap.add_argument("--algo", default="ippo", choices=["ippo", "mappo", "fsp"])
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     if a.exp == "e0":
         exp_e0(a.seed, a.iters)
     elif a.exp == "e1":
         exp_e1(a.seed, a.iters)
-    elif a.exp == "mech" and a.algo == "fsp":      # RQ6: LA3 instead of LA1
-        exp_mech(a.config, a.seed, a.iters, hp=dict(algo="fsp"), tag=f"fsp_{a.config}")
+    elif a.exp == "mech" and a.algo != "ippo":     # RQ6: LA2 / LA3 instead of LA1
+        exp_mech(a.config, a.seed, a.iters, hp=dict(algo=a.algo), tag=f"{a.algo}_{a.config}")
     elif a.exp == "mech":
         exp_mech(a.config, a.seed, a.iters)
     elif a.exp == "entropy":     # H9: non-vanishing entropy temperature
