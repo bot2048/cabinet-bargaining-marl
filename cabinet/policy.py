@@ -7,7 +7,8 @@ encodings), contextualises them with attention, and has masked heads:
 * coalition head  - include/exclude the next party, masked so that the
   coalition can always still be winning (spec Lemma 2.21);
 * ministry head   - pointer over coalition members, one ministry at a time;
-* Dirichlet head  - shares of a divisible surplus (levels E0-E1);
+* offer head      - each partner's share of a divisible surplus on a 1% grid
+  (levels E0-E1), decoded partner by partner;
 * vote and exit heads (Bernoulli) and a value head (decentralised critic).
 
 Memory across terms comes from the history window Lambda in the tokens
@@ -22,6 +23,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .env import FP, FM, FPAIR, FC, FX, PROPOSE, VOTE, GOVERN
+
+GRID = 100          # resolution of offers of a divisible surplus (1%)
 
 
 def mlp(i, h, o, depth=2):
@@ -62,8 +65,7 @@ class PolicyNet(nn.Module):
         self.exit = mlp(d, d, 1)
         self.include = mlp(2 * d + 3, d, 1)
         self.minister = mlp(3 * d + FPAIR + 4, d, 1)
-        self.dir_logit = mlp(2 * d + 2, d, 1)
-        self.dir_conc = mlp(d, d, 1)
+        self.offer = mlp(2 * d + 2, d, GRID + 1)
 
     # ------------------------------------------------------------ encoder
     def encode(self, ob):
@@ -158,30 +160,43 @@ class PolicyNet(nn.Module):
         res = {"inc": inc, "mu": torch.zeros(B, v.shape[1], dtype=torch.long),
                "shares": torch.zeros(B, N)}
         div = ob["divisible"]
-        # ---- divisible surplus: Dirichlet over coalition members
+        # ---- divisible surplus: one offer per partner on a 1% grid, in the
+        # coalition's decoding order; the formateur keeps the remainder.
+        # Bins whose offer would exceed what is left are masked.
         if div.any():
             d_idx = div.nonzero(as_tuple=True)[0]
-            feat = torch.cat([u[d_idx], h[d_idx].unsqueeze(1).expand(-1, N, -1),
-                              sC[d_idx].unsqueeze(-1), is_self[d_idx].unsqueeze(-1)], -1)
-            logits = self.dir_logit(feat).squeeze(-1)
-            Cd = C[d_idx]
-            logits = logits.masked_fill(~Cd, -1e9)
-            conc = torch.exp(self.dir_conc(h[d_idx]).squeeze(-1).clamp(-2, 7.5)) * 10
-            # alpha >= 1 keeps the density bounded at the edges of the simplex
-            alpha = torch.softmax(logits, -1) * conc.unsqueeze(-1) + 1.0
-            if act is not None:
-                x = act["shares"][d_idx]
-            elif greedy:
-                x = torch.where(Cd, alpha, torch.zeros_like(alpha))
-                x = x / x.sum(-1, keepdim=True)
-            else:
-                g = torch.distributions.Gamma(alpha, torch.ones_like(alpha)).sample()
-                g = torch.where(Cd, g.clamp(min=1e-6), torch.zeros_like(g))
-                x = g / g.sum(-1, keepdim=True)
-            lp, en = _masked_dirichlet(alpha, x, Cd)
-            logp[d_idx] = logp[d_idx] + lp
-            ent[d_idx] = ent[d_idx] + en
-            res["shares"][d_idx] = x
+            Bd = len(d_idx)
+            ard = torch.arange(Bd)
+            ud, hd, Cd, sCd = u[d_idx], h[d_idx], C[d_idx], sC[d_idx]
+            ordd = order[d_idx]
+            shares = torch.zeros(Bd, N)
+            left = torch.ones(Bd)
+            grid = torch.arange(GRID + 1, dtype=torch.float32) / GRID
+            for t in range(N - 1):
+                j = ordd[:, t]
+                live = (j >= 0) & Cd[ard, j.clamp(min=0)]
+                if not live.any():
+                    continue
+                jc = j.clamp(min=0)
+                feat = torch.cat([ud[ard, jc], hd, sCd[ard, jc].unsqueeze(-1),
+                                  left.unsqueeze(-1)], -1)
+                logits = self.offer(feat)
+                logits = logits.masked_fill(grid.unsqueeze(0) > left.unsqueeze(-1) + 1e-6, -1e9)
+                dist = torch.distributions.Categorical(logits=logits)
+                if act is not None:
+                    bins = torch.round(act["shares"][d_idx, jc] * GRID).long().clamp(0, GRID)
+                elif greedy:
+                    bins = logits.argmax(-1)
+                else:
+                    bins = dist.sample()
+                lv = live.float()
+                logp[d_idx] = logp[d_idx] + lv * dist.log_prob(bins)
+                ent[d_idx] = ent[d_idx] + lv * dist.entropy()
+                x = lv * grid[bins]
+                shares[ard, jc] = shares[ard, jc] + x
+                left = left - x
+            shares[ard, f[d_idx]] = left.clamp(min=0)
+            res["shares"][d_idx] = shares
         # ---- indivisible ministries: pointer head, one ministry at a time
         nd = ~div
         if nd.any():
@@ -221,22 +236,6 @@ class PolicyNet(nn.Module):
             res["mu"][i_idx] = mu
         res["logp"], res["ent"] = logp, ent
         return res
-
-
-def _masked_dirichlet(alpha, x, mask):
-    """Log-density and entropy of a Dirichlet restricted to the coalition."""
-    a = torch.where(mask, alpha, torch.ones_like(alpha))
-    xs = torch.where(mask, x.clamp(min=1e-12), torch.ones_like(x))
-    K = mask.sum(-1).float()
-    a0 = (a * mask).sum(-1)
-    lgB = (torch.lgamma(a) * mask).sum(-1) - torch.lgamma(a0)
-    lp = ((a - 1) * torch.log(xs) * mask).sum(-1) - lgB
-    ent = lgB + (a0 - K) * torch.digamma(a0) - ((a - 1) * torch.digamma(a) * mask).sum(-1)
-    # a one-member coalition has a degenerate (deterministic) share
-    single = K <= 1
-    lp = torch.where(single, torch.zeros_like(lp), lp)
-    ent = torch.where(single, torch.zeros_like(ent), ent)
-    return lp, ent
 
 
 # ---------------------------------------------------------------- batching
