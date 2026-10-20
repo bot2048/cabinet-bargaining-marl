@@ -1,7 +1,7 @@
 """Manage the experiment queue read by scripts/queue_runner.py.
 
     python scripts/jobs.py list
-    python scripts/jobs.py add <tag> <est_minutes> -- <run_experiment.py arguments>
+    python scripts/jobs.py add <tag> <est_minutes> [--front] [--script=<path>] -- <arguments>
     python scripts/jobs.py remove <tag-substring>
     python scripts/jobs.py start          # start the runner if it is not running
     python scripts/jobs.py parallel 5
@@ -44,14 +44,14 @@ def write(lines):
     os.replace(TODO + ".tmp", TODO)
 
 
-def add(tag, est, args, threads=2):
+def add(tag, est, args, threads=2, front=False, script="scripts/run_experiment.py"):
     py, dev = python_and_device()
-    cmd = f"{py} scripts/run_experiment.py {' '.join(args)} --threads {threads} --device {dev}"
+    cmd = f"{py} {script} {' '.join(args)} --threads {threads} --device {dev}"
     lines = read()
     if any((parse_line(l) or {}).get("tag") == tag for l in lines):
         return False
-    lines.append(f"{tag} | {est:g} | {cmd}")
-    write(lines)
+    line = f"{tag} | {est:g} | {cmd}"
+    write([line] + lines if front else lines + [line])
     return True
 
 
@@ -88,7 +88,11 @@ def main():
     if cmd == "add":
         i = sys.argv.index("--")
         tag, est = sys.argv[2], float(sys.argv[3])
-        print("added" if add(tag, est, sys.argv[i + 1:]) else "already queued")
+        opts = sys.argv[4:i]
+        script = next((o.split("=", 1)[1] for o in opts if o.startswith("--script=")),
+                      "scripts/run_experiment.py")
+        ok = add(tag, est, sys.argv[i + 1:], front="--front" in opts, script=script)
+        print("added" if ok else "already queued")
     elif cmd == "remove":
         keep = [l for l in read() if sys.argv[2] not in ((parse_line(l) or {}).get("tag") or "")]
         removed = len(read()) - len(keep)

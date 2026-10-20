@@ -1,0 +1,20240 @@
+[
+{
+"cabinet_id": 450,
+"country": "AUS",
+"start": "1949-12-19",
+"name": "Menzies IV",
+"house": 123,
+"quota": 62,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+55,
+48,
+19
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 566,
+"country": "AUS",
+"start": "1951-05-11",
+"name": "Menzies V",
+"house": 123,
+"quota": 62,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+54,
+52,
+17
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 178,
+"country": "AUS",
+"start": "1954-07-09",
+"name": "Menzies VI",
+"house": 123,
+"quota": 62,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+59,
+47,
+17
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 479,
+"country": "AUS",
+"start": "1956-01-11",
+"name": "Menzies VII",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+57,
+49,
+18
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 627,
+"country": "AUS",
+"start": "1958-12-10",
+"name": "Menzies IIX",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+58,
+47,
+19
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 288,
+"country": "AUS",
+"start": "1961-12-22",
+"name": "Menzies IX",
+"house": 124,
+"quota": 63,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+62,
+45,
+17
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 786,
+"country": "AUS",
+"start": "1963-12-18",
+"name": "Menzies X",
+"house": 124,
+"quota": 63,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+52,
+52,
+20
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 261,
+"country": "AUS",
+"start": "1966-01-26",
+"name": "Holt I",
+"house": 124,
+"quota": 63,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+52,
+52,
+20
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 67,
+"country": "AUS",
+"start": "1966-12-14",
+"name": "Holt II",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+61,
+41,
+21
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 634,
+"country": "AUS",
+"start": "1967-12-19",
+"name": "McEwen",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+61,
+41,
+21
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 1,
+"country": "AUS",
+"start": "1968-01-10",
+"name": "Gorton I",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+61,
+41,
+21
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 795,
+"country": "AUS",
+"start": "1968-02-28",
+"name": "Gorton II",
+"house": 124,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+61,
+41,
+21
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1024,
+"country": "AUS",
+"start": "1969-11-12",
+"name": "Gorton III",
+"house": 125,
+"quota": 63,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+59,
+46,
+20
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 774,
+"country": "AUS",
+"start": "1980-11-03",
+"name": "Fraser IV",
+"house": 125,
+"quota": 63,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA"
+],
+"seats": [
+54,
+51,
+20
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 423,
+"country": "AUS",
+"start": "1998-10-21",
+"name": "Howard II",
+"house": 148,
+"quota": 75,
+"parties": [
+"ALP",
+"LPA",
+"NCP|NPA"
+],
+"seats": [
+67,
+64,
+16
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 812,
+"country": "AUS",
+"start": "2001-11-26",
+"name": "Howard III",
+"house": 150,
+"quota": 76,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA",
+"none"
+],
+"seats": [
+68,
+65,
+13,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 234,
+"country": "AUS",
+"start": "2004-10-26",
+"name": "Howard IV",
+"house": 150,
+"quota": 76,
+"parties": [
+"LPA",
+"ALP",
+"NCP|NPA",
+"none"
+],
+"seats": [
+74,
+60,
+12,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1490,
+"country": "AUS",
+"start": "2016-07-19",
+"name": "Turnbull II",
+"house": 150,
+"quota": 76,
+"parties": [
+"ALP",
+"LPA",
+"LNPQ",
+"NCP|NPA",
+"none"
+],
+"seats": [
+69,
+45,
+21,
+10,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1585,
+"country": "AUS",
+"start": "2018-08-24",
+"name": "Morrison I",
+"house": 150,
+"quota": 76,
+"parties": [
+"ALP",
+"LPA",
+"LNPQ",
+"NCP|NPA",
+"none"
+],
+"seats": [
+69,
+45,
+21,
+10,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1616,
+"country": "AUS",
+"start": "2019-05-29",
+"name": "Morrison II",
+"house": 151,
+"quota": 76,
+"parties": [
+"ALP",
+"LPA",
+"LNPQ",
+"NCP|NPA",
+"none"
+],
+"seats": [
+68,
+44,
+23,
+10,
+3
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 775,
+"country": "AUT",
+"start": "1949-11-08",
+"name": "Figl III",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"KPO"
+],
+"seats": [
+77,
+67,
+16,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 659,
+"country": "AUT",
+"start": "1953-04-02",
+"name": "Raab I",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"KPO"
+],
+"seats": [
+74,
+73,
+14,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 105,
+"country": "AUT",
+"start": "1956-06-29",
+"name": "Raab II",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"KPO"
+],
+"seats": [
+82,
+74,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 114,
+"country": "AUT",
+"start": "1959-07-16",
+"name": "Raab III",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO"
+],
+"seats": [
+79,
+78,
+8
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 757,
+"country": "AUT",
+"start": "1960-11-03",
+"name": "Raab IV",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO"
+],
+"seats": [
+79,
+78,
+8
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 533,
+"country": "AUT",
+"start": "1961-04-11",
+"name": "Gorbach I",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO"
+],
+"seats": [
+79,
+78,
+8
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 622,
+"country": "AUT",
+"start": "1963-03-27",
+"name": "Gorbach III",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO"
+],
+"seats": [
+81,
+76,
+8
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 483,
+"country": "AUT",
+"start": "1964-04-02",
+"name": "Klaus I",
+"house": 165,
+"quota": 83,
+"parties": [
+"OVP",
+"SPO",
+"FPO"
+],
+"seats": [
+81,
+76,
+8
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 702,
+"country": "AUT",
+"start": "1983-05-24",
+"name": "Sinowatz",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO"
+],
+"seats": [
+90,
+81,
+12
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 828,
+"country": "AUT",
+"start": "1986-06-16",
+"name": "Vranitzky I",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO"
+],
+"seats": [
+90,
+81,
+12
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 873,
+"country": "AUT",
+"start": "1987-01-21",
+"name": "Vranitzky II",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene"
+],
+"seats": [
+80,
+77,
+18,
+8
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 524,
+"country": "AUT",
+"start": "1990-12-17",
+"name": "Vranitzky III",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene"
+],
+"seats": [
+80,
+60,
+33,
+10
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 294,
+"country": "AUT",
+"start": "1994-11-29",
+"name": "Vranitzky IV",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene",
+"LIF"
+],
+"seats": [
+65,
+52,
+42,
+13,
+11
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 323,
+"country": "AUT",
+"start": "1996-03-12",
+"name": "Vranitzky V",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"LIF",
+"Gruene"
+],
+"seats": [
+71,
+52,
+41,
+10,
+9
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 412,
+"country": "AUT",
+"start": "1997-01-28",
+"name": "Klima I",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"LIF",
+"Gruene"
+],
+"seats": [
+71,
+52,
+41,
+10,
+9
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 722,
+"country": "AUT",
+"start": "2000-02-04",
+"name": "Schuessel I",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"FPO",
+"OVP",
+"Gruene"
+],
+"seats": [
+65,
+52,
+52,
+14
+],
+"coalition": [
+0,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 257,
+"country": "AUT",
+"start": "2003-02-28",
+"name": "Schuessel III",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"Gruene"
+],
+"seats": [
+79,
+69,
+18,
+17
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 888,
+"country": "AUT",
+"start": "2005-04-05",
+"name": "Schuessel IV",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"Gruene",
+"BZO",
+"FPO"
+],
+"seats": [
+79,
+69,
+17,
+12,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 583,
+"country": "AUT",
+"start": "2007-01-11",
+"name": "Gusenbauer",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene",
+"BZO"
+],
+"seats": [
+68,
+66,
+21,
+21,
+7
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 268,
+"country": "AUT",
+"start": "2008-12-02",
+"name": "Faymann I",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"BZO",
+"Gruene"
+],
+"seats": [
+57,
+51,
+34,
+21,
+20
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1070,
+"country": "AUT",
+"start": "2013-12-16",
+"name": "Faymann II",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene",
+"TS",
+"NEOS"
+],
+"seats": [
+52,
+47,
+40,
+24,
+11,
+9
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1485,
+"country": "AUT",
+"start": "2016-05-17",
+"name": "Kern",
+"house": 183,
+"quota": 92,
+"parties": [
+"SPO",
+"OVP",
+"FPO",
+"Gruene",
+"TS",
+"NEOS"
+],
+"seats": [
+52,
+47,
+40,
+24,
+11,
+9
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1521,
+"country": "AUT",
+"start": "2017-12-18",
+"name": "Kurz I",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"NEOS",
+"PILZ"
+],
+"seats": [
+62,
+52,
+51,
+10,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1609,
+"country": "AUT",
+"start": "2020-01-07",
+"name": "Kurz II",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"Gruene",
+"NEOS"
+],
+"seats": [
+71,
+40,
+31,
+26,
+15
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1662,
+"country": "AUT",
+"start": "2021-10-11",
+"name": "Schallenberg",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"Gruene",
+"NEOS"
+],
+"seats": [
+71,
+40,
+31,
+26,
+15
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1663,
+"country": "AUT",
+"start": "2021-12-06",
+"name": "Nehammer",
+"house": 183,
+"quota": 92,
+"parties": [
+"OVP",
+"SPO",
+"FPO",
+"Gruene",
+"NEOS"
+],
+"seats": [
+71,
+40,
+31,
+26,
+15
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 489,
+"country": "BEL",
+"start": "1946-03-31",
+"name": "Van Acker III",
+"house": 202,
+"quota": 102,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"KPB-PCB",
+"LP-PL",
+"KLS"
+],
+"seats": [
+92,
+66,
+23,
+16,
+4
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 540,
+"country": "BEL",
+"start": "1946-08-03",
+"name": "Huysmans",
+"house": 202,
+"quota": 102,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"KPB-PCB",
+"LP-PL",
+"KLS"
+],
+"seats": [
+92,
+66,
+23,
+16,
+4
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 496,
+"country": "BEL",
+"start": "1947-03-20",
+"name": "Spaak III",
+"house": 202,
+"quota": 102,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"KPB-PCB",
+"LP-PL",
+"KLS"
+],
+"seats": [
+92,
+66,
+23,
+16,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 40,
+"country": "BEL",
+"start": "1948-11-26",
+"name": "Spaak IV",
+"house": 202,
+"quota": 102,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"KPB-PCB",
+"LP-PL",
+"KLS"
+],
+"seats": [
+92,
+66,
+23,
+16,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 746,
+"country": "BEL",
+"start": "1949-08-11",
+"name": "Eyskens G I",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"KPB-PCB"
+],
+"seats": [
+105,
+66,
+29,
+12
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 745,
+"country": "BEL",
+"start": "1954-04-22",
+"name": "Van Acker IV",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"KLS",
+"KPB-PCB"
+],
+"seats": [
+95,
+82,
+24,
+5,
+4
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 144,
+"country": "BEL",
+"start": "1958-11-06",
+"name": "Eyskens G III",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"KLS"
+],
+"seats": [
+104,
+80,
+20,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 613,
+"country": "BEL",
+"start": "1961-04-25",
+"name": "Lefevre",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"KPB-PCB",
+"VU"
+],
+"seats": [
+96,
+84,
+20,
+5,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 311,
+"country": "BEL",
+"start": "1965-07-27",
+"name": "Harmel",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"VU",
+"KPB-PCB",
+"FDF"
+],
+"seats": [
+77,
+64,
+48,
+12,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 353,
+"country": "BEL",
+"start": "1966-03-19",
+"name": "Vanden Boeynants I",
+"house": 212,
+"quota": 107,
+"parties": [
+"PSC-CVP",
+"BSP-PSB",
+"LP-PL",
+"VU",
+"KPB-PCB",
+"FDF"
+],
+"seats": [
+77,
+64,
+48,
+12,
+6,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 586,
+"country": "BEL",
+"start": "1968-06-17",
+"name": "Eyskens G IV",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"LP-PL",
+"VU",
+"PSC-CDH",
+"FDF",
+"KPB-PCB",
+"RW"
+],
+"seats": [
+59,
+50,
+47,
+20,
+19,
+7,
+5,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 448,
+"country": "BEL",
+"start": "1972-01-21",
+"name": "Eyskens G V",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"VU",
+"PSC-CDH",
+"PVV|VLD",
+"RW",
+"PRL",
+"FDF"
+],
+"seats": [
+61,
+47,
+21,
+20,
+20,
+14,
+11,
+10
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 859,
+"country": "BEL",
+"start": "1973-01-26",
+"name": "Leburton",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"VU",
+"PSC-CDH",
+"PVV|VLD",
+"RW",
+"PRL",
+"FDF"
+],
+"seats": [
+61,
+47,
+21,
+20,
+20,
+14,
+11,
+10
+],
+"coalition": [
+1,
+1,
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 677,
+"country": "BEL",
+"start": "1974-04-25",
+"name": "Tindemans I",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"PSC-CDH",
+"VU",
+"PVV|VLD",
+"RW",
+"FDF",
+"PRL"
+],
+"seats": [
+59,
+50,
+22,
+22,
+21,
+13,
+9,
+9
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 847,
+"country": "BEL",
+"start": "1974-06-11",
+"name": "Tindemans II",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"PSC-CDH",
+"VU",
+"PVV|VLD",
+"RW",
+"FDF",
+"PRL"
+],
+"seats": [
+59,
+50,
+22,
+22,
+21,
+13,
+9,
+9
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 451,
+"country": "BEL",
+"start": "1977-03-06",
+"name": "Tindemans III",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"PSC-CDH",
+"VU",
+"PVV|VLD",
+"RW",
+"FDF",
+"PRL"
+],
+"seats": [
+59,
+50,
+22,
+22,
+21,
+13,
+9,
+9
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 225,
+"country": "BEL",
+"start": "1977-06-03",
+"name": "Tindemans IV",
+"house": 212,
+"quota": 107,
+"parties": [
+"BSP-PSB",
+"CVP|CD&V",
+"PSC-CDH",
+"VU",
+"PVV|VLD",
+"PRL",
+"FDF",
+"RW"
+],
+"seats": [
+62,
+56,
+24,
+20,
+17,
+14,
+10,
+5
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 521,
+"country": "BEL",
+"start": "1979-04-03",
+"name": "Martens I",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PSC-CDH",
+"PVV|VLD",
+"PRL",
+"VU",
+"FDF"
+],
+"seats": [
+57,
+32,
+26,
+25,
+22,
+14,
+14,
+11
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 278,
+"country": "BEL",
+"start": "1980-01-23",
+"name": "Martens II",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PSC-CDH",
+"PVV|VLD",
+"PRL",
+"VU",
+"FDF"
+],
+"seats": [
+57,
+32,
+26,
+25,
+22,
+14,
+14,
+11
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 266,
+"country": "BEL",
+"start": "1980-05-18",
+"name": "Martens III",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PSC-CDH",
+"PVV|VLD",
+"PRL",
+"VU",
+"FDF"
+],
+"seats": [
+57,
+32,
+26,
+25,
+22,
+14,
+14,
+11
+],
+"coalition": [
+1,
+1,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 453,
+"country": "BEL",
+"start": "1980-10-22",
+"name": "Martens IV",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PSC-CDH",
+"PVV|VLD",
+"PRL",
+"VU",
+"FDF"
+],
+"seats": [
+57,
+32,
+26,
+25,
+22,
+14,
+14,
+11
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 429,
+"country": "BEL",
+"start": "1981-04-06",
+"name": "Eyskens M",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PSC-CDH",
+"PVV|VLD",
+"PRL",
+"VU",
+"FDF"
+],
+"seats": [
+57,
+32,
+26,
+25,
+22,
+14,
+14,
+11
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 724,
+"country": "BEL",
+"start": "1981-12-17",
+"name": "Martens V",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"PVV|VLD",
+"SP",
+"PRL",
+"VU",
+"PSC-CDH",
+"FDF"
+],
+"seats": [
+43,
+35,
+28,
+26,
+24,
+20,
+18,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 375,
+"country": "BEL",
+"start": "1985-11-28",
+"name": "Martens VI",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PRL",
+"PVV|VLD",
+"PSC-CDH",
+"VU",
+"Ecolo"
+],
+"seats": [
+49,
+35,
+32,
+24,
+22,
+20,
+16,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 457,
+"country": "BEL",
+"start": "1988-05-09",
+"name": "Martens VIII",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PVV|VLD",
+"PRL",
+"PSC-CDH",
+"VU",
+"AGL-Gr"
+],
+"seats": [
+43,
+40,
+32,
+25,
+23,
+19,
+16,
+6
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 624,
+"country": "BEL",
+"start": "1992-03-07",
+"name": "Dehaene I",
+"house": 212,
+"quota": 107,
+"parties": [
+"CVP|CD&V",
+"PS",
+"SP",
+"PVV|VLD",
+"PRL",
+"PSC-CDH",
+"VB",
+"Ecolo"
+],
+"seats": [
+39,
+35,
+28,
+26,
+20,
+18,
+12,
+10
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 95,
+"country": "BEL",
+"start": "1995-06-23",
+"name": "Dehaene II",
+"house": 150,
+"quota": 76,
+"parties": [
+"CVP|CD&V",
+"PS",
+"PVV|VLD",
+"SP",
+"PRL",
+"PSC-CDH",
+"VB",
+"Ecolo"
+],
+"seats": [
+29,
+21,
+21,
+20,
+18,
+12,
+11,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 449,
+"country": "BEL",
+"start": "2003-07-12",
+"name": "Verhofstadt II",
+"house": 150,
+"quota": 76,
+"parties": [
+"PS",
+"PVV|VLD",
+"MR",
+"SPa+Spi",
+"CVP|CD&V",
+"VB",
+"PSC-CDH",
+"Ecolo"
+],
+"seats": [
+25,
+25,
+24,
+23,
+21,
+18,
+8,
+4
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 264,
+"country": "BEL",
+"start": "2008-03-20",
+"name": "Leterme I",
+"house": 150,
+"quota": 76,
+"parties": [
+"CD+NVA",
+"MR",
+"PS",
+"PVV|VLD",
+"VB",
+"SPa+Spi",
+"PSC-CDH",
+"Ecolo"
+],
+"seats": [
+30,
+23,
+20,
+18,
+17,
+14,
+10,
+8
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 80,
+"country": "BEL",
+"start": "2008-12-30",
+"name": "Rompuy",
+"house": 150,
+"quota": 76,
+"parties": [
+"CVP|CD&V",
+"MR",
+"PS",
+"PVV|VLD",
+"VB",
+"SPa+Spi",
+"PSC-CDH",
+"Ecolo"
+],
+"seats": [
+23,
+23,
+20,
+18,
+17,
+14,
+10,
+8
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 431,
+"country": "BEL",
+"start": "2009-11-25",
+"name": "Leterme II",
+"house": 150,
+"quota": 76,
+"parties": [
+"CVP|CD&V",
+"MR",
+"PS",
+"PVV|VLD",
+"VB",
+"SPa+Spi",
+"PSC-CDH",
+"Ecolo"
+],
+"seats": [
+23,
+23,
+20,
+18,
+17,
+14,
+10,
+8
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 987,
+"country": "BEL",
+"start": "2011-12-06",
+"name": "Di Rupo",
+"house": 150,
+"quota": 76,
+"parties": [
+"N-VA",
+"PS",
+"CVP|CD&V",
+"MR",
+"PVV|VLD",
+"SP",
+"VB",
+"PSC-CDH"
+],
+"seats": [
+27,
+26,
+17,
+15,
+13,
+13,
+12,
+9
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1147,
+"country": "BEL",
+"start": "2014-10-11",
+"name": "Michel I",
+"house": 150,
+"quota": 76,
+"parties": [
+"N-VA",
+"PS",
+"MR",
+"CVP|CD&V",
+"PVV|VLD",
+"SP",
+"PSC-CDH",
+"AGL-Gr"
+],
+"seats": [
+33,
+23,
+20,
+18,
+14,
+13,
+9,
+6
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 1586,
+"country": "BEL",
+"start": "2018-12-09",
+"name": "Michel II",
+"house": 150,
+"quota": 76,
+"parties": [
+"N-VA",
+"PS",
+"MR",
+"CVP|CD&V",
+"PVV|VLD",
+"SP",
+"PSC-CDH",
+"AGL-Gr"
+],
+"seats": [
+33,
+23,
+20,
+18,
+14,
+13,
+9,
+6
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 1621,
+"country": "BEL",
+"start": "2019-05-26",
+"name": "Michel III",
+"house": 150,
+"quota": 76,
+"parties": [
+"N-VA",
+"PS",
+"VB",
+"MR",
+"Ecolo",
+"CVP|CD&V",
+"PA-PTB",
+"PVV|VLD"
+],
+"seats": [
+25,
+20,
+18,
+14,
+13,
+12,
+12,
+12
+],
+"coalition": [
+0,
+0,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 3,
+"majority": false
+},
+{
+"cabinet_id": 1627,
+"country": "BEL",
+"start": "2020-03-19",
+"name": "Wilmes II",
+"house": 150,
+"quota": 76,
+"parties": [
+"N-VA",
+"PS",
+"VB",
+"MR",
+"Ecolo",
+"CVP|CD&V",
+"PA-PTB",
+"PVV|VLD"
+],
+"seats": [
+25,
+20,
+18,
+14,
+13,
+12,
+12,
+12
+],
+"coalition": [
+0,
+0,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 3,
+"majority": false
+},
+{
+"cabinet_id": 575,
+"country": "BGR",
+"start": "2001-07-24",
+"name": "Sakskoburggotski",
+"house": 240,
+"quota": 121,
+"parties": [
+"NDSV",
+"ODS",
+"KzB|DL",
+"DPS"
+],
+"seats": [
+120,
+51,
+48,
+21
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 425,
+"country": "BGR",
+"start": "2005-08-17",
+"name": "Stanishev",
+"house": 240,
+"quota": 121,
+"parties": [
+"KzB|DL",
+"NDSV",
+"DPS",
+"Ataka",
+"ODS",
+"DSB|DB",
+"BNS"
+],
+"seats": [
+82,
+53,
+34,
+21,
+20,
+17,
+13
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1153,
+"country": "BGR",
+"start": "2014-11-07",
+"name": "Borisov II",
+"house": 240,
+"quota": 121,
+"parties": [
+"GERB",
+"KzB|DL",
+"DPS",
+"RB",
+"NFSB",
+"BBZ",
+"ABV",
+"Ataka"
+],
+"seats": [
+84,
+39,
+38,
+23,
+19,
+15,
+11,
+11
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1505,
+"country": "BGR",
+"start": "2017-05-04",
+"name": "Borisov III",
+"house": 240,
+"quota": 121,
+"parties": [
+"GERB",
+"KzB|DL",
+"NFSB",
+"DPS",
+"Volya"
+],
+"seats": [
+95,
+80,
+27,
+26,
+12
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1660,
+"country": "BGR",
+"start": "2021-12-13",
+"name": "Petkov",
+"house": 240,
+"quota": 121,
+"parties": [
+"PP",
+"GERB",
+"DPS",
+"KzB|DL",
+"ITN",
+"DSB|DB",
+"R"
+],
+"seats": [
+67,
+59,
+34,
+26,
+25,
+16,
+13
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1692,
+"country": "BGR",
+"start": "2023-06-06",
+"name": "Denkov",
+"house": 240,
+"quota": 121,
+"parties": [
+"GERB",
+"PP",
+"R",
+"DPS",
+"BSP",
+"ITN"
+],
+"seats": [
+69,
+64,
+37,
+36,
+23,
+11
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 342,
+"country": "CYP",
+"start": "2003-02-28",
+"name": "Papadopoulos I",
+"house": 56,
+"quota": 29,
+"parties": [
+"AKEL",
+"DISY",
+"DIKO",
+"EDEK",
+"ADK",
+"ED",
+"KOP",
+"NO"
+],
+"seats": [
+20,
+19,
+9,
+4,
+1,
+1,
+1,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 909,
+"country": "CYP",
+"start": "2006-05-21",
+"name": "Papadopoulos II",
+"house": 56,
+"quota": 29,
+"parties": [
+"AKEL",
+"DISY",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+18,
+18,
+11,
+5,
+3,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 289,
+"country": "CYP",
+"start": "2008-02-28",
+"name": "Christofias I",
+"house": 56,
+"quota": 29,
+"parties": [
+"AKEL",
+"DISY",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+18,
+18,
+11,
+5,
+3,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 908,
+"country": "CYP",
+"start": "2010-03-02",
+"name": "Christofias II",
+"house": 56,
+"quota": 29,
+"parties": [
+"AKEL",
+"DISY",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+18,
+18,
+11,
+5,
+3,
+1
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 921,
+"country": "CYP",
+"start": "2011-05-22",
+"name": "Christofias III",
+"house": 56,
+"quota": 29,
+"parties": [
+"DISY",
+"AKEL",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+20,
+19,
+9,
+5,
+2,
+1
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1064,
+"country": "CYP",
+"start": "2013-02-28",
+"name": "Anastasiades I",
+"house": 56,
+"quota": 29,
+"parties": [
+"DISY",
+"AKEL",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+20,
+19,
+9,
+5,
+2,
+1
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1086,
+"country": "CYP",
+"start": "2014-03-14",
+"name": "Anastasiades II",
+"house": 56,
+"quota": 29,
+"parties": [
+"DISY",
+"AKEL",
+"DIKO",
+"EDEK",
+"EK",
+"KOP"
+],
+"seats": [
+20,
+19,
+9,
+5,
+2,
+1
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 136,
+"country": "CZE",
+"start": "1996-07-02",
+"name": "Klaus III",
+"house": 200,
+"quota": 101,
+"parties": [
+"ODS",
+"CSSD",
+"KSCM",
+"KDU-CSL",
+"SPR-RSC",
+"ODA"
+],
+"seats": [
+68,
+61,
+22,
+18,
+18,
+13
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 504,
+"country": "CZE",
+"start": "2002-07-15",
+"name": "Spidla",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ODS",
+"KSCM",
+"KDU-CSL",
+"US"
+],
+"seats": [
+70,
+58,
+41,
+22,
+9
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 580,
+"country": "CZE",
+"start": "2004-08-04",
+"name": "Gross",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ODS",
+"KSCM",
+"KDU-CSL",
+"US"
+],
+"seats": [
+70,
+58,
+41,
+22,
+9
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 15,
+"country": "CZE",
+"start": "2005-04-25",
+"name": "Paroubek",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ODS",
+"KSCM",
+"KDU-CSL",
+"US"
+],
+"seats": [
+70,
+58,
+41,
+22,
+9
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 260,
+"country": "CZE",
+"start": "2007-01-09",
+"name": "Topolanek II",
+"house": 200,
+"quota": 101,
+"parties": [
+"ODS",
+"CSSD",
+"KSCM",
+"KDU-CSL",
+"SZ"
+],
+"seats": [
+81,
+74,
+26,
+13,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 708,
+"country": "CZE",
+"start": "2010-06-28",
+"name": "Necas I",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ODS",
+"TOP09",
+"KSCM",
+"VV",
+"STAN"
+],
+"seats": [
+56,
+53,
+38,
+26,
+24,
+3
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1030,
+"country": "CZE",
+"start": "2012-04-27",
+"name": "Necas II",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ODS",
+"TOP09",
+"KSCM",
+"VV",
+"LIDEM",
+"none",
+"STAN"
+],
+"seats": [
+54,
+52,
+38,
+26,
+13,
+8,
+4,
+3
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1072,
+"country": "CZE",
+"start": "2014-01-17",
+"name": "Sobotka",
+"house": 200,
+"quota": 101,
+"parties": [
+"CSSD",
+"ANO",
+"KSCM",
+"TOP09",
+"ODS",
+"KDU-CSL",
+"UPD",
+"STAN"
+],
+"seats": [
+50,
+47,
+33,
+21,
+16,
+14,
+14,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1534,
+"country": "CZE",
+"start": "2018-06-27",
+"name": "Babis II",
+"house": 200,
+"quota": 101,
+"parties": [
+"ANO",
+"ODS",
+"Pi",
+"SPD",
+"CSSD",
+"KSCM",
+"KDU-CSL",
+"TOP09"
+],
+"seats": [
+78,
+25,
+22,
+22,
+15,
+15,
+10,
+7
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1649,
+"country": "CZE",
+"start": "2021-12-17",
+"name": "Fiala",
+"house": 200,
+"quota": 101,
+"parties": [
+"ANO",
+"STAN",
+"ODS",
+"KDU-CSL",
+"SPD",
+"TOP09",
+"Pi"
+],
+"seats": [
+72,
+37,
+30,
+23,
+20,
+14,
+4
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+1,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 147,
+"country": "DEU",
+"start": "1949-09-20",
+"name": "Adenauer I",
+"house": 402,
+"quota": 202,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"BP",
+"DP",
+"KPD",
+"WAV",
+"DZ"
+],
+"seats": [
+139,
+131,
+52,
+17,
+17,
+15,
+12,
+10
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 192,
+"country": "DEU",
+"start": "1953-10-20",
+"name": "Adenauer II",
+"house": 487,
+"quota": 244,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"GB/BHE",
+"DP"
+],
+"seats": [
+243,
+151,
+48,
+27,
+15
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 62,
+"country": "DEU",
+"start": "1961-11-14",
+"name": "Adenauer VII",
+"house": 499,
+"quota": 250,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+242,
+190,
+67
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 31,
+"country": "DEU",
+"start": "1963-10-16",
+"name": "Erhard I",
+"house": 499,
+"quota": 250,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+242,
+190,
+67
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 326,
+"country": "DEU",
+"start": "1965-10-26",
+"name": "Erhard II",
+"house": 496,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+245,
+202,
+49
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 170,
+"country": "DEU",
+"start": "1966-12-01",
+"name": "Kiesinger",
+"house": 496,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+245,
+202,
+49
+],
+"coalition": [
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 358,
+"country": "DEU",
+"start": "1969-10-22",
+"name": "Brandt I",
+"house": 496,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+242,
+224,
+30
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 871,
+"country": "DEU",
+"start": "1972-12-15",
+"name": "Brandt II",
+"house": 496,
+"quota": 249,
+"parties": [
+"SPD",
+"CDU+CSU",
+"FDP"
+],
+"seats": [
+230,
+225,
+41
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 252,
+"country": "DEU",
+"start": "1974-05-16",
+"name": "Schmidt I",
+"house": 496,
+"quota": 249,
+"parties": [
+"SPD",
+"CDU+CSU",
+"FDP"
+],
+"seats": [
+230,
+225,
+41
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 459,
+"country": "DEU",
+"start": "1976-12-15",
+"name": "Schmidt II",
+"house": 496,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+243,
+214,
+39
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 343,
+"country": "DEU",
+"start": "1980-11-05",
+"name": "Schmidt III",
+"house": 497,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+226,
+218,
+53
+],
+"coalition": [
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 642,
+"country": "DEU",
+"start": "1982-10-01",
+"name": "Kohl I",
+"house": 497,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP"
+],
+"seats": [
+226,
+218,
+53
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 346,
+"country": "DEU",
+"start": "1983-03-30",
+"name": "Kohl II",
+"house": 498,
+"quota": 250,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"B90/Gru"
+],
+"seats": [
+244,
+193,
+34,
+27
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 286,
+"country": "DEU",
+"start": "1987-03-11",
+"name": "Kohl III",
+"house": 497,
+"quota": 249,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"B90/Gru"
+],
+"seats": [
+223,
+186,
+46,
+42
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 862,
+"country": "DEU",
+"start": "1991-01-18",
+"name": "Kohl IV",
+"house": 662,
+"quota": 332,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"PDS|Li",
+"B90/Gr"
+],
+"seats": [
+319,
+239,
+79,
+17,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 778,
+"country": "DEU",
+"start": "1994-11-17",
+"name": "Kohl V",
+"house": 672,
+"quota": 337,
+"parties": [
+"CDU+CSU",
+"SPD",
+"B90/Gru",
+"FDP",
+"PDS|Li"
+],
+"seats": [
+294,
+252,
+49,
+47,
+30
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 107,
+"country": "DEU",
+"start": "1998-10-27",
+"name": "Schroeder I",
+"house": 669,
+"quota": 335,
+"parties": [
+"SPD",
+"CDU+CSU",
+"B90/Gru",
+"FDP",
+"PDS|Li"
+],
+"seats": [
+298,
+245,
+47,
+43,
+36
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 529,
+"country": "DEU",
+"start": "2002-10-22",
+"name": "Schroeder II",
+"house": 603,
+"quota": 302,
+"parties": [
+"SPD",
+"CDU+CSU",
+"B90/Gru",
+"FDP"
+],
+"seats": [
+251,
+248,
+55,
+47
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 85,
+"country": "DEU",
+"start": "2005-11-22",
+"name": "Merkel I",
+"house": 614,
+"quota": 308,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"PDS|Li",
+"B90/Gru"
+],
+"seats": [
+226,
+222,
+61,
+54,
+51
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 472,
+"country": "DEU",
+"start": "2009-10-28",
+"name": "Merkel II",
+"house": 622,
+"quota": 312,
+"parties": [
+"CDU+CSU",
+"SPD",
+"FDP",
+"PDS|Li",
+"B90/Gru"
+],
+"seats": [
+239,
+146,
+93,
+76,
+68
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1071,
+"country": "DEU",
+"start": "2013-12-17",
+"name": "Merkel III",
+"house": 631,
+"quota": 316,
+"parties": [
+"CDU+CSU",
+"SPD",
+"PDS|Li",
+"B90/Gru"
+],
+"seats": [
+311,
+193,
+64,
+63
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1528,
+"country": "DEU",
+"start": "2018-03-14",
+"name": "Merkel V",
+"house": 709,
+"quota": 355,
+"parties": [
+"CDU+CSU",
+"SPD",
+"AfD",
+"FDP",
+"PDS|Li",
+"B90/Gru"
+],
+"seats": [
+246,
+153,
+94,
+80,
+69,
+67
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1661,
+"country": "DEU",
+"start": "2021-12-08",
+"name": "Scholz",
+"house": 736,
+"quota": 369,
+"parties": [
+"SPD",
+"CDU+CSU",
+"B90/Gru",
+"FDP",
+"AfD",
+"PDS|Li"
+],
+"seats": [
+206,
+197,
+118,
+92,
+83,
+39
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 36,
+"country": "DNK",
+"start": "1950-10-30",
+"name": "Eriksen I",
+"house": 151,
+"quota": 76,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RF",
+"RV",
+"DKP",
+"GrFa"
+],
+"seats": [
+59,
+32,
+27,
+12,
+12,
+7,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 359,
+"country": "DNK",
+"start": "1953-04-21",
+"name": "Eriksen II",
+"house": 151,
+"quota": 76,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RV",
+"RF",
+"DKP",
+"GrFa"
+],
+"seats": [
+61,
+33,
+26,
+13,
+9,
+7,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 51,
+"country": "DNK",
+"start": "1957-05-28",
+"name": "Hansen II",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RV",
+"RF",
+"DKP",
+"GrFa"
+],
+"seats": [
+70,
+45,
+30,
+14,
+9,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 467,
+"country": "DNK",
+"start": "1960-02-21",
+"name": "Kampmann I",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RV",
+"RF",
+"DKP",
+"GrFa"
+],
+"seats": [
+70,
+45,
+30,
+14,
+9,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 456,
+"country": "DNK",
+"start": "1960-11-18",
+"name": "Kampmann II",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RV",
+"SF",
+"DU",
+"GrFa"
+],
+"seats": [
+76,
+38,
+32,
+11,
+11,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 841,
+"country": "DNK",
+"start": "1962-09-03",
+"name": "Krag I",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"RV",
+"SF",
+"DU",
+"GrFa"
+],
+"seats": [
+76,
+38,
+32,
+11,
+11,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 596,
+"country": "DNK",
+"start": "1968-02-02",
+"name": "Baunsgaard",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"KF",
+"V",
+"RV",
+"SF",
+"GrFa",
+"VS"
+],
+"seats": [
+62,
+37,
+34,
+27,
+11,
+4,
+4
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 824,
+"country": "DNK",
+"start": "1978-08-30",
+"name": "Jorgensen IV",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"FrP",
+"V",
+"KF",
+"CD",
+"DKP",
+"SF",
+"KrF"
+],
+"seats": [
+65,
+26,
+21,
+15,
+10,
+7,
+7,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 195,
+"country": "DNK",
+"start": "1984-01-10",
+"name": "Schluter II",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"KF",
+"V",
+"SF",
+"RV",
+"CD",
+"FrP",
+"KrF"
+],
+"seats": [
+56,
+42,
+22,
+21,
+10,
+8,
+6,
+5
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 57,
+"country": "DNK",
+"start": "1988-06-03",
+"name": "Schluter IV",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"KF",
+"SF",
+"V",
+"FrP",
+"RV",
+"CD",
+"KrF"
+],
+"seats": [
+55,
+35,
+24,
+22,
+16,
+10,
+9,
+4
+],
+"coalition": [
+0,
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 11,
+"country": "DNK",
+"start": "1990-12-18",
+"name": "Schluter V",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"KF",
+"V",
+"SF",
+"FrP",
+"CD",
+"RV",
+"KrF"
+],
+"seats": [
+69,
+30,
+29,
+15,
+12,
+9,
+7,
+4
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 740,
+"country": "DNK",
+"start": "1993-01-25",
+"name": "Rasmussen N I",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"KF",
+"V",
+"SF",
+"FrP",
+"CD",
+"RV",
+"KrF"
+],
+"seats": [
+69,
+30,
+29,
+15,
+12,
+9,
+7,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 189,
+"country": "DNK",
+"start": "1994-09-27",
+"name": "Rasmussen N II",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"SF",
+"FrP",
+"RV",
+"En-O",
+"CD"
+],
+"seats": [
+62,
+42,
+27,
+13,
+11,
+8,
+6,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 255,
+"country": "DNK",
+"start": "1996-12-30",
+"name": "Rasmussen N III",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"SF",
+"RV",
+"FrP",
+"En-O",
+"CD"
+],
+"seats": [
+62,
+42,
+27,
+13,
+8,
+7,
+6,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 630,
+"country": "DNK",
+"start": "1998-03-11",
+"name": "Rasmussen N IV",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"KF",
+"DF",
+"SF",
+"CD",
+"RV",
+"En-O"
+],
+"seats": [
+63,
+42,
+16,
+13,
+13,
+8,
+7,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 482,
+"country": "DNK",
+"start": "2001-11-27",
+"name": "Rasmussen F I",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"KF",
+"SF",
+"RV",
+"En-O",
+"KrF"
+],
+"seats": [
+56,
+52,
+22,
+16,
+12,
+9,
+4,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 316,
+"country": "DNK",
+"start": "2005-02-18",
+"name": "Rasmussen F II",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"KF",
+"RV",
+"SF",
+"En-O"
+],
+"seats": [
+52,
+47,
+24,
+18,
+17,
+11,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 788,
+"country": "DNK",
+"start": "2007-11-23",
+"name": "Rasmussen F III",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"SF",
+"KF",
+"RV",
+"NLA",
+"En-O"
+],
+"seats": [
+46,
+45,
+25,
+23,
+18,
+9,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 71,
+"country": "DNK",
+"start": "2009-04-05",
+"name": "Rasmussen L I",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"SF",
+"KF",
+"RV",
+"En-O",
+"NLA"
+],
+"seats": [
+47,
+45,
+25,
+23,
+18,
+9,
+4,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 970,
+"country": "DNK",
+"start": "2011-10-02",
+"name": "Thorning-Schmidt I",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"RV",
+"SF",
+"En-O",
+"NLA",
+"KF"
+],
+"seats": [
+47,
+44,
+22,
+17,
+16,
+12,
+9,
+8
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1074,
+"country": "DNK",
+"start": "2014-02-03",
+"name": "Thorning-Schmidt II",
+"house": 179,
+"quota": 90,
+"parties": [
+"V",
+"Sd",
+"DF",
+"RV",
+"SF",
+"En-O",
+"NLA",
+"KF"
+],
+"seats": [
+47,
+44,
+22,
+17,
+16,
+12,
+9,
+8
+],
+"coalition": [
+0,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1684,
+"country": "DNK",
+"start": "2022-12-15",
+"name": "Frederiksen II",
+"house": 179,
+"quota": 90,
+"parties": [
+"Sd",
+"V",
+"M",
+"SF",
+"AE",
+"NLA",
+"KF",
+"En-O"
+],
+"seats": [
+50,
+23,
+16,
+15,
+14,
+14,
+10,
+9
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 564,
+"country": "EST",
+"start": "1992-10-21",
+"name": "Laar I",
+"house": 101,
+"quota": 51,
+"parties": [
+"RKI",
+"EKK",
+"R",
+"SDE|M",
+"ERSP",
+"EKo",
+"SK"
+],
+"seats": [
+29,
+17,
+15,
+12,
+10,
+8,
+8
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 4,
+"country": "EST",
+"start": "1994-11-03",
+"name": "Tarand",
+"house": 101,
+"quota": 51,
+"parties": [
+"RKI",
+"EKK",
+"R",
+"SDE|M",
+"ERSP",
+"VKR",
+"EKo",
+"SK"
+],
+"seats": [
+19,
+17,
+15,
+12,
+10,
+10,
+8,
+8
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 604,
+"country": "EST",
+"start": "1995-04-17",
+"name": "Vahi I",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EKK",
+"EK",
+"EM",
+"ERa/EKR",
+"RKI",
+"EPPE",
+"K-EUR"
+],
+"seats": [
+19,
+18,
+16,
+9,
+8,
+8,
+6,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 530,
+"country": "EST",
+"start": "1995-11-03",
+"name": "Vahi II",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EKK",
+"EK",
+"EM",
+"ERa/EKR",
+"RKI",
+"EPPE",
+"K-EUR"
+],
+"seats": [
+19,
+18,
+16,
+9,
+8,
+8,
+6,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 480,
+"country": "EST",
+"start": "1999-03-25",
+"name": "Laar II",
+"house": 101,
+"quota": 51,
+"parties": [
+"EK",
+"ERe",
+"I",
+"SDE|M",
+"EKK",
+"ERa/EKR",
+"K-EUR"
+],
+"seats": [
+28,
+18,
+18,
+17,
+7,
+7,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 152,
+"country": "EST",
+"start": "2002-01-28",
+"name": "Kallas S",
+"house": 101,
+"quota": 51,
+"parties": [
+"EK",
+"ERe",
+"I",
+"SDE|M",
+"EKK",
+"ERa/EKR",
+"K-EUR"
+],
+"seats": [
+28,
+18,
+18,
+17,
+7,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 138,
+"country": "EST",
+"start": "2003-04-10",
+"name": "Parts",
+"house": 101,
+"quota": 51,
+"parties": [
+"EK",
+"ERP",
+"ERe",
+"ERa/EKR",
+"I",
+"SDE|M"
+],
+"seats": [
+28,
+28,
+19,
+13,
+7,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 274,
+"country": "EST",
+"start": "2005-04-13",
+"name": "Ansip I",
+"house": 101,
+"quota": 51,
+"parties": [
+"EK",
+"ERP",
+"ERe",
+"ERa/EKR",
+"I",
+"SDE|M"
+],
+"seats": [
+28,
+28,
+19,
+13,
+7,
+6
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 686,
+"country": "EST",
+"start": "2007-04-05",
+"name": "Ansip II",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"IRL",
+"SDE|M",
+"EER",
+"ERa/EKR"
+],
+"seats": [
+31,
+29,
+19,
+10,
+6,
+6
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 902,
+"country": "EST",
+"start": "2009-05-21",
+"name": "Ansip III",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"IRL",
+"SDE|M",
+"EER",
+"ERa/EKR"
+],
+"seats": [
+31,
+29,
+19,
+10,
+6,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 905,
+"country": "EST",
+"start": "2011-04-05",
+"name": "Ansip IV",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"IRL",
+"SDE|M"
+],
+"seats": [
+33,
+26,
+23,
+19
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1095,
+"country": "EST",
+"start": "2014-03-26",
+"name": "Roivas I",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"IRL",
+"SDE|M"
+],
+"seats": [
+33,
+26,
+23,
+19
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1160,
+"country": "EST",
+"start": "2015-04-09",
+"name": "Roivas II",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"SDE|M",
+"IRL",
+"EV",
+"ERa/EKR"
+],
+"seats": [
+30,
+27,
+15,
+14,
+8,
+7
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1495,
+"country": "EST",
+"start": "2016-11-20",
+"name": "Ratas I",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"SDE|M",
+"IRL",
+"EV",
+"ERa/EKR"
+],
+"seats": [
+30,
+27,
+15,
+14,
+8,
+7
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1595,
+"country": "EST",
+"start": "2019-04-29",
+"name": "Ratas II",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"ERa/EKR",
+"IRL",
+"SDE|M"
+],
+"seats": [
+34,
+26,
+19,
+12,
+10
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1664,
+"country": "EST",
+"start": "2021-01-26",
+"name": "Kallas K I",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"ERa/EKR",
+"IRL",
+"SDE|M"
+],
+"seats": [
+34,
+26,
+19,
+12,
+10
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1688,
+"country": "EST",
+"start": "2022-07-15",
+"name": "Kallas K II",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"EK",
+"ERa/EKR",
+"IRL",
+"SDE|M"
+],
+"seats": [
+34,
+26,
+19,
+12,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1689,
+"country": "EST",
+"start": "2023-04-17",
+"name": "Kallas K III",
+"house": 101,
+"quota": 51,
+"parties": [
+"ERe",
+"ERa/EKR",
+"EK",
+"E200",
+"SDE|M",
+"IRL"
+],
+"seats": [
+37,
+17,
+16,
+14,
+9,
+8
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 125,
+"country": "FIN",
+"start": "1946-03-26",
+"name": "Pekkala",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+50,
+49,
+49,
+28,
+14,
+9
+],
+"coalition": [
+1,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 872,
+"country": "FIN",
+"start": "1950-03-17",
+"name": "Kekkonen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+56,
+54,
+38,
+33,
+13,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 639,
+"country": "FIN",
+"start": "1951-01-17",
+"name": "Kekkonen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+56,
+54,
+38,
+33,
+13,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 200,
+"country": "FIN",
+"start": "1951-09-20",
+"name": "Kekkonen III",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+53,
+51,
+43,
+28,
+14,
+10
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 232,
+"country": "FIN",
+"start": "1953-07-09",
+"name": "Kekkonen IV",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+53,
+51,
+43,
+28,
+14,
+10
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 161,
+"country": "FIN",
+"start": "1954-05-05",
+"name": "Torngren",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"KE|SLK",
+"RKP-SFP"
+],
+"seats": [
+54,
+53,
+43,
+24,
+13,
+12
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 5,
+"majority": true
+},
+{
+"cabinet_id": 685,
+"country": "FIN",
+"start": "1954-10-20",
+"name": "Kekkonen V",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"KE|SLK",
+"RKP-SFP"
+],
+"seats": [
+54,
+53,
+43,
+24,
+13,
+12
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 373,
+"country": "FIN",
+"start": "1956-03-03",
+"name": "Fagerholm II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"KE|SLK",
+"RKP-SFP"
+],
+"seats": [
+54,
+53,
+43,
+24,
+13,
+12
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 747,
+"country": "FIN",
+"start": "1957-05-27",
+"name": "Sukselainen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"KE|SLK",
+"RKP-SFP"
+],
+"seats": [
+54,
+53,
+43,
+24,
+13,
+12
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 552,
+"country": "FIN",
+"start": "1958-08-29",
+"name": "Fagerholm III",
+"house": 200,
+"quota": 101,
+"parties": [
+"DL|VAS",
+"KESK",
+"SSDP",
+"KOK",
+"RKP-SFP",
+"TPSL",
+"KE|SLK"
+],
+"seats": [
+50,
+48,
+38,
+29,
+13,
+13,
+8
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 230,
+"country": "FIN",
+"start": "1959-01-13",
+"name": "Sukselainen III",
+"house": 200,
+"quota": 101,
+"parties": [
+"DL|VAS",
+"KESK",
+"SSDP",
+"KOK",
+"RKP-SFP",
+"TPSL",
+"KE|SLK"
+],
+"seats": [
+50,
+48,
+38,
+29,
+13,
+13,
+8
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 764,
+"country": "FIN",
+"start": "1962-04-13",
+"name": "Karjalainen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"DL|VAS",
+"SSDP",
+"KOK",
+"KE|SLK",
+"RKP-SFP",
+"TPSL"
+],
+"seats": [
+53,
+47,
+38,
+32,
+13,
+13,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 139,
+"country": "FIN",
+"start": "1964-09-12",
+"name": "Virolainen",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"DL|VAS",
+"SSDP",
+"KOK",
+"KE|SLK",
+"RKP-SFP",
+"TPSL"
+],
+"seats": [
+53,
+47,
+38,
+32,
+13,
+13,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 339,
+"country": "FIN",
+"start": "1966-05-27",
+"name": "Paasio I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK",
+"TPSL"
+],
+"seats": [
+55,
+49,
+41,
+26,
+11,
+9,
+7
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 203,
+"country": "FIN",
+"start": "1968-03-22",
+"name": "Koivisto I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"DL|VAS",
+"KOK",
+"RKP-SFP",
+"KE|SLK",
+"TPSL"
+],
+"seats": [
+55,
+49,
+41,
+26,
+11,
+9,
+7
+],
+"coalition": [
+1,
+1,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 115,
+"country": "FIN",
+"start": "1970-07-15",
+"name": "Karjalainen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"DL|VAS",
+"KESK",
+"SP|P",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+52,
+37,
+36,
+36,
+18,
+11,
+8
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+1
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 856,
+"country": "FIN",
+"start": "1971-03-26",
+"name": "Karjalainen III",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"DL|VAS",
+"KESK",
+"SP|P",
+"RKP-SFP",
+"KE|SLK"
+],
+"seats": [
+52,
+37,
+36,
+36,
+18,
+11,
+8
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+1
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 769,
+"country": "FIN",
+"start": "1972-09-04",
+"name": "Sorsa I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"SP|P",
+"RKP-SFP",
+"KE|SLK",
+"KD"
+],
+"seats": [
+55,
+37,
+35,
+34,
+18,
+9,
+7,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 476,
+"country": "FIN",
+"start": "1975-11-30",
+"name": "Miettunen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"KD",
+"KE|SLK",
+"RKP-SFP",
+"SP|P"
+],
+"seats": [
+54,
+40,
+39,
+35,
+9,
+9,
+9,
+2
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 848,
+"country": "FIN",
+"start": "1976-09-29",
+"name": "Miettunen III",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"KD",
+"KE|SLK",
+"RKP-SFP",
+"SP|P"
+],
+"seats": [
+54,
+40,
+39,
+35,
+9,
+9,
+9,
+2
+],
+"coalition": [
+0,
+0,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 466,
+"country": "FIN",
+"start": "1977-05-15",
+"name": "Sorsa II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"KD",
+"KE|SLK",
+"RKP-SFP",
+"SP|P"
+],
+"seats": [
+54,
+40,
+39,
+35,
+9,
+9,
+9,
+2
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 492,
+"country": "FIN",
+"start": "1978-03-02",
+"name": "Sorsa III",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"DL|VAS",
+"KESK",
+"KOK",
+"KD",
+"KE|SLK",
+"RKP-SFP",
+"SP|P"
+],
+"seats": [
+54,
+40,
+39,
+35,
+9,
+9,
+9,
+2
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 776,
+"country": "FIN",
+"start": "1979-05-26",
+"name": "Koivisto II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"KD",
+"RKP-SFP",
+"SP|P",
+"KE|SLK"
+],
+"seats": [
+52,
+47,
+36,
+35,
+9,
+9,
+7,
+4
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 378,
+"country": "FIN",
+"start": "1982-02-19",
+"name": "Sorsa IV",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"KD",
+"RKP-SFP",
+"SP|P",
+"KE|SLK"
+],
+"seats": [
+52,
+47,
+36,
+35,
+9,
+9,
+7,
+4
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 34,
+"country": "FIN",
+"start": "1982-12-31",
+"name": "Sorsa V",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"KD",
+"RKP-SFP",
+"SP|P",
+"KE|SLK"
+],
+"seats": [
+52,
+47,
+36,
+35,
+9,
+9,
+7,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 650,
+"country": "FIN",
+"start": "1983-05-06",
+"name": "Sorsa VI",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"SP|P",
+"RKP-SFP",
+"KD",
+"VIHR"
+],
+"seats": [
+57,
+44,
+38,
+27,
+17,
+10,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 614,
+"country": "FIN",
+"start": "1987-04-30",
+"name": "Holkeri I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"RKP-SFP",
+"SP|P",
+"KD",
+"Deva"
+],
+"seats": [
+56,
+53,
+40,
+16,
+12,
+9,
+5,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 41,
+"country": "FIN",
+"start": "1990-08-28",
+"name": "Holkeri II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KOK",
+"KESK",
+"DL|VAS",
+"RKP-SFP",
+"SP|P",
+"KD",
+"Deva"
+],
+"seats": [
+56,
+53,
+40,
+16,
+12,
+9,
+5,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 831,
+"country": "FIN",
+"start": "1991-04-26",
+"name": "Aho I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"KOK",
+"DL|VAS",
+"RKP-SFP",
+"VIHR",
+"KD",
+"SP|P"
+],
+"seats": [
+55,
+48,
+40,
+19,
+11,
+10,
+8,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 206,
+"country": "FIN",
+"start": "1994-06-26",
+"name": "Aho II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"KOK",
+"DL|VAS",
+"RKP-SFP",
+"VIHR",
+"KD",
+"SP|P"
+],
+"seats": [
+55,
+48,
+40,
+19,
+11,
+10,
+8,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 100,
+"country": "FIN",
+"start": "1995-04-13",
+"name": "Lipponen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"KOK",
+"DL|VAS",
+"RKP-SFP",
+"VIHR",
+"KD",
+"NSP"
+],
+"seats": [
+63,
+44,
+39,
+22,
+11,
+9,
+7,
+2
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 352,
+"country": "FIN",
+"start": "1999-04-15",
+"name": "Lipponen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"KOK",
+"DL|VAS",
+"RKP-SFP",
+"VIHR",
+"KD"
+],
+"seats": [
+51,
+48,
+46,
+20,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 663,
+"country": "FIN",
+"start": "2002-05-31",
+"name": "Lipponen III",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"KESK",
+"KOK",
+"DL|VAS",
+"RKP-SFP",
+"VIHR",
+"KD"
+],
+"seats": [
+51,
+48,
+46,
+20,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 877,
+"country": "FIN",
+"start": "2003-04-17",
+"name": "Jaatteenmaki",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"KOK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD",
+"SP|P"
+],
+"seats": [
+55,
+53,
+40,
+19,
+14,
+8,
+7,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 759,
+"country": "FIN",
+"start": "2003-06-24",
+"name": "Vanhanen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SSDP",
+"KOK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD",
+"SP|P"
+],
+"seats": [
+55,
+53,
+40,
+19,
+14,
+8,
+7,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 277,
+"country": "FIN",
+"start": "2007-04-19",
+"name": "Vanhanen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"KOK",
+"SSDP",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD",
+"SP|P"
+],
+"seats": [
+51,
+50,
+45,
+17,
+15,
+9,
+7,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 383,
+"country": "FIN",
+"start": "2010-06-22",
+"name": "Kiviniemi",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"KOK",
+"SSDP",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD",
+"SP|P"
+],
+"seats": [
+51,
+50,
+45,
+17,
+15,
+9,
+7,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 918,
+"country": "FIN",
+"start": "2011-06-22",
+"name": "Katainen I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KOK",
+"SSDP",
+"SP|P",
+"KESK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+44,
+42,
+39,
+35,
+14,
+10,
+9,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1094,
+"country": "FIN",
+"start": "2014-03-25",
+"name": "Katainen II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KOK",
+"SSDP",
+"SP|P",
+"KESK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+44,
+42,
+39,
+35,
+12,
+10,
+9,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1110,
+"country": "FIN",
+"start": "2014-06-24",
+"name": "Stubb I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KOK",
+"SSDP",
+"SP|P",
+"KESK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+44,
+42,
+39,
+35,
+12,
+10,
+9,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1145,
+"country": "FIN",
+"start": "2014-09-20",
+"name": "Stubb II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KOK",
+"SSDP",
+"SP|P",
+"KESK",
+"DL|VAS",
+"VIHR",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+44,
+42,
+39,
+35,
+12,
+10,
+9,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1163,
+"country": "FIN",
+"start": "2015-05-29",
+"name": "Sipilae I",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"SP|P",
+"KOK",
+"SSDP",
+"VIHR",
+"DL|VAS",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+49,
+38,
+37,
+34,
+15,
+12,
+9,
+5
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1510,
+"country": "FIN",
+"start": "2017-06-13",
+"name": "Sipilae II",
+"house": 200,
+"quota": 101,
+"parties": [
+"KESK",
+"KOK",
+"SSDP",
+"UV|SIN",
+"SP|P",
+"VIHR",
+"DL|VAS",
+"RKP-SFP"
+],
+"seats": [
+49,
+37,
+34,
+20,
+18,
+15,
+12,
+9
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1596,
+"country": "FIN",
+"start": "2019-06-06",
+"name": "Rinne",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"SP|P",
+"KOK",
+"KESK",
+"VIHR",
+"DL|VAS",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+40,
+39,
+38,
+31,
+20,
+16,
+9,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1607,
+"country": "FIN",
+"start": "2019-12-10",
+"name": "Marin",
+"house": 200,
+"quota": 101,
+"parties": [
+"SSDP",
+"SP|P",
+"KOK",
+"KESK",
+"VIHR",
+"DL|VAS",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+40,
+39,
+38,
+31,
+20,
+16,
+9,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1694,
+"country": "FIN",
+"start": "2023-06-20",
+"name": "Orpo",
+"house": 200,
+"quota": 101,
+"parties": [
+"KOK",
+"SP|P",
+"SSDP",
+"KESK",
+"VIHR",
+"DL|VAS",
+"RKP-SFP",
+"KD"
+],
+"seats": [
+48,
+46,
+43,
+23,
+13,
+11,
+9,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 330,
+"country": "FRA",
+"start": "1947-01-22",
+"name": "Ramadier I",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"RGR"
+],
+"seats": [
+166,
+158,
+90,
+70,
+55
+],
+"coalition": [
+1,
+1,
+1,
+1,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 263,
+"country": "FRA",
+"start": "1948-07-27",
+"name": "Marie",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 636,
+"country": "FRA",
+"start": "1949-10-28",
+"name": "Bidault II",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 758,
+"country": "FRA",
+"start": "1950-02-02",
+"name": "Bidault III",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1142,
+"country": "FRA",
+"start": "1950-07-02",
+"name": "Queuille II",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 367,
+"country": "FRA",
+"start": "1950-07-12",
+"name": "Pleven I",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 5,
+"majority": true
+},
+{
+"cabinet_id": 104,
+"country": "FRA",
+"start": "1951-03-10",
+"name": "Queuille III",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"MRP",
+"PS",
+"PRL",
+"PR",
+"UDSR",
+"etc"
+],
+"seats": [
+184,
+167,
+105,
+74,
+43,
+27,
+15
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 826,
+"country": "FRA",
+"start": "1951-08-11",
+"name": "Pleven II",
+"house": 544,
+"quota": 273,
+"parties": [
+"G",
+"PCF",
+"PS",
+"CNIP",
+"MRP",
+"PR",
+"UDSR",
+"none"
+],
+"seats": [
+120,
+104,
+103,
+95,
+86,
+76,
+16,
+11
+],
+"coalition": [
+0,
+0,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 6,
+"majority": true
+},
+{
+"cabinet_id": 32,
+"country": "FRA",
+"start": "1952-01-20",
+"name": "Faure I",
+"house": 544,
+"quota": 273,
+"parties": [
+"G",
+"PCF",
+"PS",
+"CNIP",
+"MRP",
+"PR",
+"UDSR",
+"none"
+],
+"seats": [
+120,
+104,
+103,
+95,
+86,
+76,
+16,
+11
+],
+"coalition": [
+0,
+0,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 5,
+"majority": true
+},
+{
+"cabinet_id": 658,
+"country": "FRA",
+"start": "1952-03-08",
+"name": "Pinay",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"PS",
+"CNIP",
+"G",
+"MRP",
+"PR",
+"ARS",
+"UDSR"
+],
+"seats": [
+104,
+103,
+95,
+93,
+86,
+76,
+27,
+16
+],
+"coalition": [
+0,
+0,
+1,
+0,
+1,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 557,
+"country": "FRA",
+"start": "1953-01-07",
+"name": "Mayer",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"PS",
+"CNIP",
+"G",
+"MRP",
+"PR",
+"ARS",
+"UDSR"
+],
+"seats": [
+104,
+103,
+95,
+93,
+86,
+76,
+27,
+16
+],
+"coalition": [
+0,
+0,
+1,
+0,
+1,
+1,
+1,
+1
+],
+"pm": 5,
+"majority": true
+},
+{
+"cabinet_id": 400,
+"country": "FRA",
+"start": "1953-06-28",
+"name": "Laniel",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"PS",
+"CNIP",
+"G",
+"MRP",
+"PR",
+"ARS",
+"UDSR"
+],
+"seats": [
+104,
+103,
+95,
+93,
+86,
+76,
+27,
+16
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+1,
+1,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 397,
+"country": "FRA",
+"start": "1955-02-23",
+"name": "Faure II",
+"house": 544,
+"quota": 273,
+"parties": [
+"PCF",
+"PS",
+"CNIP",
+"G",
+"MRP",
+"PR",
+"ARS",
+"UDSR"
+],
+"seats": [
+104,
+103,
+95,
+93,
+86,
+76,
+27,
+16
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+1,
+0,
+1
+],
+"pm": 5,
+"majority": true
+},
+{
+"cabinet_id": 526,
+"country": "FRA",
+"start": "1962-04-15",
+"name": "Pompidou I",
+"house": 465,
+"quota": 233,
+"parties": [
+"G",
+"CNIP",
+"MRP",
+"PS",
+"none"
+],
+"seats": [
+206,
+117,
+64,
+47,
+36
+],
+"coalition": [
+1,
+1,
+1,
+0,
+1
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 662,
+"country": "FRA",
+"start": "1967-04-08",
+"name": "Pompidou IV",
+"house": 470,
+"quota": 236,
+"parties": [
+"G",
+"PS",
+"PCF",
+"IR|DL",
+"CD",
+"none"
+],
+"seats": [
+199,
+121,
+73,
+42,
+41,
+9
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 607,
+"country": "FRA",
+"start": "1973-04-05",
+"name": "Messmer II",
+"house": 473,
+"quota": 237,
+"parties": [
+"G",
+"PS",
+"PCF",
+"IR|DL",
+"MR",
+"CDP",
+"none"
+],
+"seats": [
+183,
+102,
+73,
+55,
+34,
+30,
+13
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 17,
+"country": "FRA",
+"start": "1974-03-01",
+"name": "Messmer III",
+"house": 473,
+"quota": 237,
+"parties": [
+"G",
+"PS",
+"PCF",
+"IR|DL",
+"MR",
+"CDP",
+"none"
+],
+"seats": [
+183,
+102,
+73,
+55,
+34,
+30,
+13
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 159,
+"country": "FRA",
+"start": "1974-05-28",
+"name": "Chirac I",
+"house": 473,
+"quota": 237,
+"parties": [
+"G",
+"PS",
+"PCF",
+"IR|DL",
+"MR",
+"CDP",
+"none"
+],
+"seats": [
+183,
+102,
+73,
+55,
+34,
+30,
+13
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 72,
+"country": "FRA",
+"start": "1978-03-31",
+"name": "Barre II",
+"house": 474,
+"quota": 238,
+"parties": [
+"RPR",
+"UDF|MD",
+"PS",
+"PCF",
+"none"
+],
+"seats": [
+154,
+123,
+113,
+86,
+15
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 290,
+"country": "FRA",
+"start": "1986-03-20",
+"name": "Chirac II",
+"house": 556,
+"quota": 279,
+"parties": [
+"PS",
+"RPR",
+"UDF|MD",
+"FN",
+"PCF",
+"PRG"
+],
+"seats": [
+198,
+146,
+128,
+35,
+32,
+13
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 318,
+"country": "FRA",
+"start": "1993-03-29",
+"name": "Balladur",
+"house": 577,
+"quota": 289,
+"parties": [
+"RPR",
+"UDF|MD",
+"PS",
+"PCF",
+"d-droite",
+"MP",
+"PRG"
+],
+"seats": [
+248,
+215,
+55,
+24,
+22,
+6,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 244,
+"country": "FRA",
+"start": "1995-05-17",
+"name": "Juppe I",
+"house": 577,
+"quota": 289,
+"parties": [
+"RPR",
+"UDF|MD",
+"PS",
+"none",
+"PCF"
+],
+"seats": [
+257,
+215,
+57,
+25,
+23
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 422,
+"country": "FRA",
+"start": "1995-11-07",
+"name": "Juppe II",
+"house": 577,
+"quota": 289,
+"parties": [
+"RPR",
+"UDF|MD",
+"PS",
+"none",
+"PCF"
+],
+"seats": [
+257,
+215,
+57,
+25,
+23
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 481,
+"country": "FRA",
+"start": "1997-06-02",
+"name": "Jospin",
+"house": 577,
+"quota": 289,
+"parties": [
+"PS",
+"RPR",
+"UDF|MD",
+"PCF",
+"PRG",
+"V",
+"MDC",
+"d-droite"
+],
+"seats": [
+252,
+139,
+111,
+39,
+13,
+8,
+7,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 711,
+"country": "FRA",
+"start": "2002-05-07",
+"name": "Raffarin I",
+"house": 577,
+"quota": 289,
+"parties": [
+"PS",
+"RPR",
+"UDF|MD",
+"PCF",
+"PRG",
+"IR|DL"
+],
+"seats": [
+250,
+140,
+83,
+36,
+33,
+30
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1038,
+"country": "FRA",
+"start": "2012-06-18",
+"name": "Ayrault II",
+"house": 577,
+"quota": 289,
+"parties": [
+"PS",
+"UMP|LR",
+"d-gauche",
+"V",
+"d-droite",
+"NC",
+"PRG",
+"PCF"
+],
+"seats": [
+280,
+194,
+22,
+17,
+15,
+12,
+12,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 874,
+"country": "GBR",
+"start": "2010-05-11",
+"name": "Cameron I",
+"house": 650,
+"quota": 326,
+"parties": [
+"Con",
+"Lab",
+"Lib",
+"DUP"
+],
+"seats": [
+307,
+258,
+57,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 782,
+"country": "GRC",
+"start": "1989-07-02",
+"name": "Tzannetakis",
+"house": 300,
+"quota": 151,
+"parties": [
+"ND",
+"PASOK",
+"SYN"
+],
+"seats": [
+145,
+125,
+28
+],
+"coalition": [
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1040,
+"country": "GRC",
+"start": "2012-06-20",
+"name": "Samaras I",
+"house": 300,
+"quota": 151,
+"parties": [
+"ND",
+"SYRIZA",
+"PASOK",
+"ANEL",
+"LS-CA",
+"DIMAR",
+"KKE"
+],
+"seats": [
+129,
+71,
+33,
+20,
+18,
+17,
+12
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1060,
+"country": "GRC",
+"start": "2013-06-25",
+"name": "Samaras II",
+"house": 300,
+"quota": 151,
+"parties": [
+"ND",
+"SYRIZA",
+"PASOK",
+"ANEL",
+"LS-CA",
+"DIMAR",
+"KKE"
+],
+"seats": [
+129,
+71,
+33,
+20,
+18,
+17,
+12
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1157,
+"country": "GRC",
+"start": "2015-01-27",
+"name": "Tsipras I",
+"house": 300,
+"quota": 151,
+"parties": [
+"SYRIZA",
+"ND",
+"LS-CA",
+"TP",
+"KKE",
+"ANEL",
+"PASOK"
+],
+"seats": [
+149,
+76,
+17,
+17,
+15,
+13,
+13
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1175,
+"country": "GRC",
+"start": "2015-09-21",
+"name": "Tsipras II",
+"house": 300,
+"quota": 151,
+"parties": [
+"SYRIZA",
+"ND",
+"LS-CA",
+"PASOK",
+"KKE",
+"TP",
+"ANEL",
+"EK"
+],
+"seats": [
+145,
+75,
+18,
+17,
+15,
+11,
+10,
+9
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1057,
+"country": "HRV",
+"start": "2010-07-10",
+"name": "Kosor II",
+"house": 153,
+"quota": 77,
+"parties": [
+"HDZ",
+"SPH",
+"HNS-LD",
+"HSS",
+"ethnic",
+"HDSSB",
+"IDS",
+"SDSS"
+],
+"seats": [
+66,
+56,
+7,
+6,
+4,
+3,
+3,
+3
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1056,
+"country": "HRV",
+"start": "2011-12-23",
+"name": "Milanovic",
+"house": 151,
+"quota": 76,
+"parties": [
+"SPH",
+"HDZ",
+"HNS-LD",
+"HDSSB",
+"HL-LR",
+"ethnic",
+"HSU",
+"IDS"
+],
+"seats": [
+61,
+44,
+13,
+6,
+6,
+5,
+3,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1500,
+"country": "HRV",
+"start": "2016-10-19",
+"name": "Plenkovic I",
+"house": 151,
+"quota": 76,
+"parties": [
+"HDZ",
+"SPH",
+"Most",
+"HNS-LD",
+"ZiZi",
+"HSS",
+"ethnic",
+"IDS"
+],
+"seats": [
+61,
+39,
+13,
+9,
+8,
+5,
+5,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1512,
+"country": "HRV",
+"start": "2017-07-09",
+"name": "Plenkovic II",
+"house": 151,
+"quota": 76,
+"parties": [
+"HDZ",
+"SPH",
+"Most",
+"HNS-LD",
+"ZiZi",
+"HSS",
+"ethnic",
+"IDS"
+],
+"seats": [
+61,
+39,
+13,
+9,
+8,
+5,
+5,
+3
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1637,
+"country": "HRV",
+"start": "2020-07-23",
+"name": "Plenkovic III",
+"house": 151,
+"quota": 76,
+"parties": [
+"HDZ",
+"SPH",
+"DP",
+"Most",
+"M!",
+"ethnic",
+"P",
+"SDSS"
+],
+"seats": [
+66,
+41,
+16,
+8,
+7,
+5,
+3,
+3
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 369,
+"country": "HUN",
+"start": "1990-05-23",
+"name": "Antall",
+"house": 386,
+"quota": 194,
+"parties": [
+"MDF",
+"SzDSz",
+"FKgP",
+"MSZP",
+"Fi-MPSz",
+"KDNP",
+"none"
+],
+"seats": [
+164,
+93,
+44,
+33,
+22,
+21,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 13,
+"country": "HUN",
+"start": "1993-12-21",
+"name": "Boross",
+"house": 386,
+"quota": 194,
+"parties": [
+"MDF",
+"SzDSz",
+"FKgP",
+"MSZP",
+"Fi-MPSz",
+"KDNP",
+"none"
+],
+"seats": [
+164,
+93,
+44,
+33,
+22,
+21,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 827,
+"country": "HUN",
+"start": "1998-07-06",
+"name": "Orban I",
+"house": 386,
+"quota": 194,
+"parties": [
+"Fi-MPSz",
+"MSZP",
+"FKgP",
+"SzDSz",
+"MDF",
+"MIEP"
+],
+"seats": [
+148,
+134,
+48,
+24,
+17,
+14
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 302,
+"country": "HUN",
+"start": "2002-05-27",
+"name": "Medgyessy",
+"house": 386,
+"quota": 194,
+"parties": [
+"MSZP",
+"Fi-MPSz",
+"MDF",
+"SzDSz"
+],
+"seats": [
+178,
+164,
+24,
+20
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 188,
+"country": "HUN",
+"start": "2004-09-29",
+"name": "Gyurcsany I",
+"house": 386,
+"quota": 194,
+"parties": [
+"MSZP",
+"Fi-MPSz",
+"MDF",
+"SzDSz"
+],
+"seats": [
+178,
+164,
+24,
+20
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 325,
+"country": "HUN",
+"start": "2006-06-09",
+"name": "Gyurcsany II",
+"house": 386,
+"quota": 194,
+"parties": [
+"MSZP",
+"Fi-MPSz",
+"KDNP",
+"SzDSz",
+"MDF"
+],
+"seats": [
+190,
+141,
+23,
+20,
+11
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 154,
+"country": "IRL",
+"start": "1948-02-18",
+"name": "Costello I",
+"house": 147,
+"quota": 74,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none",
+"CnP",
+"CnT",
+"NL"
+],
+"seats": [
+68,
+31,
+14,
+12,
+10,
+7,
+5
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 626,
+"country": "IRL",
+"start": "1954-06-02",
+"name": "Costello II",
+"house": 147,
+"quota": 74,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"CnT",
+"none",
+"CnP"
+],
+"seats": [
+65,
+50,
+19,
+5,
+5,
+3
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 315,
+"country": "IRL",
+"start": "1973-03-14",
+"name": "Cosgrave L",
+"house": 144,
+"quota": 73,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none"
+],
+"seats": [
+69,
+54,
+19,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 335,
+"country": "IRL",
+"start": "1981-06-30",
+"name": "Fitzgerald I",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none",
+"H-B"
+],
+"seats": [
+78,
+65,
+15,
+4,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 867,
+"country": "IRL",
+"start": "1982-12-14",
+"name": "Fitzgerald II",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none",
+"SFWP"
+],
+"seats": [
+75,
+70,
+16,
+3,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 215,
+"country": "IRL",
+"start": "1989-07-12",
+"name": "Haughey IV",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"SFWP",
+"PD",
+"none"
+],
+"seats": [
+77,
+55,
+15,
+7,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 870,
+"country": "IRL",
+"start": "1992-02-11",
+"name": "Reynolds I",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"SFWP",
+"PD",
+"none"
+],
+"seats": [
+77,
+55,
+15,
+7,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 748,
+"country": "IRL",
+"start": "1993-01-12",
+"name": "Reynolds II",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"PD",
+"none",
+"DLP"
+],
+"seats": [
+68,
+45,
+33,
+10,
+5,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 573,
+"country": "IRL",
+"start": "1994-12-15",
+"name": "Bruton",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"PD",
+"DLP",
+"none"
+],
+"seats": [
+66,
+47,
+32,
+9,
+6,
+5
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 126,
+"country": "IRL",
+"start": "1997-06-26",
+"name": "Ahern I",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none",
+"DLP",
+"PD",
+"Green"
+],
+"seats": [
+77,
+54,
+17,
+6,
+4,
+4,
+2
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 179,
+"country": "IRL",
+"start": "2002-06-06",
+"name": "Ahern II",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"none",
+"PD",
+"Green",
+"SF"
+],
+"seats": [
+81,
+31,
+21,
+12,
+8,
+6,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 864,
+"country": "IRL",
+"start": "2007-06-14",
+"name": "Ahern III",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"Green",
+"none",
+"SF",
+"PD"
+],
+"seats": [
+78,
+51,
+20,
+6,
+5,
+4,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 173,
+"country": "IRL",
+"start": "2008-05-07",
+"name": "Cowen",
+"house": 166,
+"quota": 84,
+"parties": [
+"FF",
+"FG",
+"Lab",
+"Green",
+"none",
+"SF",
+"PD"
+],
+"seats": [
+78,
+51,
+20,
+6,
+5,
+4,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 904,
+"country": "IRL",
+"start": "2011-03-09",
+"name": "Kenny I",
+"house": 166,
+"quota": 84,
+"parties": [
+"FG",
+"Lab",
+"FF",
+"SF",
+"none",
+"PBPA",
+"SP"
+],
+"seats": [
+76,
+37,
+20,
+14,
+14,
+2,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1484,
+"country": "IRL",
+"start": "2016-05-06",
+"name": "Kenny II",
+"house": 158,
+"quota": 80,
+"parties": [
+"FG",
+"FF",
+"SF",
+"none",
+"Lab",
+"IA",
+"SP",
+"IC"
+],
+"seats": [
+50,
+44,
+23,
+12,
+7,
+6,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1511,
+"country": "IRL",
+"start": "2017-06-14",
+"name": "Varadkar I",
+"house": 158,
+"quota": 80,
+"parties": [
+"FG",
+"FF",
+"SF",
+"none",
+"Lab",
+"IA",
+"SP",
+"IC"
+],
+"seats": [
+50,
+44,
+23,
+12,
+7,
+6,
+6,
+4
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1642,
+"country": "IRL",
+"start": "2020-06-27",
+"name": "Martin",
+"house": 160,
+"quota": 81,
+"parties": [
+"FF",
+"SF",
+"FG",
+"none",
+"Green",
+"DS",
+"Lab",
+"D-PRB"
+],
+"seats": [
+38,
+37,
+35,
+19,
+12,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 703,
+"country": "ISL",
+"start": "1946-06-30",
+"name": "Thors III",
+"house": 52,
+"quota": 27,
+"parties": [
+"Sj",
+"F",
+"SA-S",
+"A"
+],
+"seats": [
+20,
+13,
+10,
+9
+],
+"coalition": [
+1,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 742,
+"country": "ISL",
+"start": "1947-02-04",
+"name": "Stefansson",
+"house": 52,
+"quota": 27,
+"parties": [
+"Sj",
+"F",
+"SA-S",
+"A"
+],
+"seats": [
+20,
+13,
+10,
+9
+],
+"coalition": [
+1,
+1,
+0,
+1
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 766,
+"country": "ISL",
+"start": "1950-03-14",
+"name": "Steinthorsson",
+"house": 52,
+"quota": 27,
+"parties": [
+"Sj",
+"F",
+"SA-S",
+"A"
+],
+"seats": [
+19,
+17,
+9,
+7
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 762,
+"country": "ISL",
+"start": "1953-09-11",
+"name": "Thors V",
+"house": 52,
+"quota": 27,
+"parties": [
+"Sj",
+"F",
+"SA-S",
+"A",
+"Thva"
+],
+"seats": [
+21,
+16,
+7,
+6,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 664,
+"country": "ISL",
+"start": "1956-07-24",
+"name": "Jonasson V",
+"house": 52,
+"quota": 27,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab"
+],
+"seats": [
+19,
+17,
+8,
+8
+],
+"coalition": [
+0,
+1,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 331,
+"country": "ISL",
+"start": "1959-11-20",
+"name": "Thors VI",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A"
+],
+"seats": [
+24,
+17,
+10,
+9
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 851,
+"country": "ISL",
+"start": "1963-06-09",
+"name": "Thors VII",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A"
+],
+"seats": [
+24,
+19,
+9,
+8
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 553,
+"country": "ISL",
+"start": "1963-11-14",
+"name": "Benediktsson A I",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A"
+],
+"seats": [
+24,
+19,
+9,
+8
+],
+"coalition": [
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 254,
+"country": "ISL",
+"start": "1967-06-11",
+"name": "Benediktsson A II",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"Thva"
+],
+"seats": [
+23,
+18,
+9,
+9,
+1
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 321,
+"country": "ISL",
+"start": "1970-07-10",
+"name": "Hafstein",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"Thva"
+],
+"seats": [
+23,
+18,
+9,
+9,
+1
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 272,
+"country": "ISL",
+"start": "1971-07-14",
+"name": "Johannesson I",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A",
+"Sfvm"
+],
+"seats": [
+22,
+17,
+10,
+6,
+5
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 849,
+"country": "ISL",
+"start": "1974-08-28",
+"name": "Hallgrimsson",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A",
+"Sfvm"
+],
+"seats": [
+25,
+17,
+11,
+5,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 673,
+"country": "ISL",
+"start": "1978-09-01",
+"name": "Johannesson II",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"A",
+"Ab",
+"F"
+],
+"seats": [
+20,
+14,
+14,
+12
+],
+"coalition": [
+0,
+1,
+1,
+1
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 752,
+"country": "ISL",
+"start": "1980-02-08",
+"name": "Thoroddsen",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A",
+"none"
+],
+"seats": [
+21,
+17,
+11,
+10,
+1
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 393,
+"country": "ISL",
+"start": "1983-05-26",
+"name": "Hermannsson I",
+"house": 60,
+"quota": 31,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A",
+"BJ",
+"KL"
+],
+"seats": [
+23,
+14,
+10,
+6,
+4,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 279,
+"country": "ISL",
+"start": "1987-07-08",
+"name": "Palsson",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"Bf-87",
+"KL",
+"Sjf"
+],
+"seats": [
+18,
+13,
+10,
+8,
+7,
+6,
+1
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 301,
+"country": "ISL",
+"start": "1988-09-28",
+"name": "Hermannsson II",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"Bf-87",
+"KL",
+"Sjf"
+],
+"seats": [
+18,
+13,
+10,
+8,
+7,
+6,
+1
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 127,
+"country": "ISL",
+"start": "1989-09-10",
+"name": "Hermannsson III",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"Bf-87",
+"KL",
+"Sjf"
+],
+"seats": [
+18,
+13,
+10,
+8,
+7,
+6,
+1
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 640,
+"country": "ISL",
+"start": "1991-04-30",
+"name": "Oddsson I",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"A",
+"Ab",
+"KL"
+],
+"seats": [
+26,
+13,
+10,
+9,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 158,
+"country": "ISL",
+"start": "1995-04-13",
+"name": "Oddsson II",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"Ab",
+"A",
+"Th-Ff",
+"KL"
+],
+"seats": [
+25,
+15,
+9,
+7,
+4,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 177,
+"country": "ISL",
+"start": "1999-05-28",
+"name": "Oddsson III",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Sam",
+"F",
+"Graen",
+"Ff"
+],
+"seats": [
+26,
+17,
+12,
+6,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 130,
+"country": "ISL",
+"start": "2003-05-23",
+"name": "Oddsson IV",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Sam",
+"F",
+"Graen",
+"Ff"
+],
+"seats": [
+22,
+20,
+12,
+5,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 555,
+"country": "ISL",
+"start": "2004-09-15",
+"name": "Asgrimsson",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Sam",
+"F",
+"Graen",
+"Ff"
+],
+"seats": [
+22,
+20,
+12,
+5,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 246,
+"country": "ISL",
+"start": "2006-06-15",
+"name": "Haarde I",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Sam",
+"F",
+"Graen",
+"Ff"
+],
+"seats": [
+22,
+20,
+12,
+5,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 558,
+"country": "ISL",
+"start": "2007-05-24",
+"name": "Haarde II",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Sam",
+"Graen",
+"F",
+"Ff"
+],
+"seats": [
+25,
+18,
+9,
+7,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 651,
+"country": "ISL",
+"start": "2009-04-25",
+"name": "Sigurdardottir II",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sam",
+"Sj",
+"Graen",
+"F",
+"B-H"
+],
+"seats": [
+20,
+16,
+14,
+9,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1059,
+"country": "ISL",
+"start": "2013-05-23",
+"name": "Gunnlaugsson",
+"house": 63,
+"quota": 32,
+"parties": [
+"F",
+"Sj",
+"Sam",
+"Graen",
+"BF",
+"Pi"
+],
+"seats": [
+19,
+19,
+9,
+7,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1482,
+"country": "ISL",
+"start": "2016-04-07",
+"name": "Johannsson",
+"house": 63,
+"quota": 32,
+"parties": [
+"F",
+"Sj",
+"Sam",
+"Graen",
+"BF",
+"Pi"
+],
+"seats": [
+19,
+19,
+9,
+7,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1502,
+"country": "ISL",
+"start": "2017-01-10",
+"name": "Benediktsson B",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Graen",
+"Pi",
+"F",
+"V",
+"BF",
+"Sam"
+],
+"seats": [
+21,
+10,
+10,
+8,
+7,
+4,
+3
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1524,
+"country": "ISL",
+"start": "2017-11-30",
+"name": "Jakobsdottir I",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"Graen",
+"F",
+"M",
+"Sam",
+"Pi",
+"FlF",
+"V"
+],
+"seats": [
+16,
+11,
+8,
+7,
+7,
+6,
+4,
+4
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1654,
+"country": "ISL",
+"start": "2021-11-28",
+"name": "Jakobsdottir II",
+"house": 63,
+"quota": 32,
+"parties": [
+"Sj",
+"F",
+"Graen",
+"FlF",
+"Pi",
+"Sam",
+"V",
+"M"
+],
+"seats": [
+16,
+13,
+8,
+6,
+6,
+6,
+5,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 922,
+"country": "ISR",
+"start": "1949-03-10",
+"name": "Ben-Gurion II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Mapam",
+"HDM",
+"Herut",
+"ZK",
+"MP",
+"MiKo|Mo|Sh",
+"SVM"
+],
+"seats": [
+46,
+19,
+16,
+14,
+7,
+5,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 923,
+"country": "ISR",
+"start": "1950-11-01",
+"name": "Ben-Gurion III",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Mapam",
+"HDM",
+"Herut",
+"ZK",
+"MP",
+"SVM",
+"MiKo|Mo|Sh"
+],
+"seats": [
+46,
+20,
+16,
+14,
+7,
+5,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 925,
+"country": "ISR",
+"start": "1952-12-24",
+"name": "Ben-Gurion VII",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"ZK",
+"Mapam",
+"HaMi",
+"Herut",
+"MiKo|Mo|Sh",
+"MP",
+"AY"
+],
+"seats": [
+45,
+23,
+12,
+8,
+8,
+5,
+4,
+3
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 927,
+"country": "ISR",
+"start": "1954-01-26",
+"name": "Sharett I",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"ZK",
+"Mapam",
+"HaMi",
+"Herut",
+"MiKo|Mo|Sh",
+"MP",
+"AY"
+],
+"seats": [
+47,
+23,
+10,
+8,
+8,
+5,
+4,
+3
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 928,
+"country": "ISR",
+"start": "1955-06-29",
+"name": "Sharett II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"ZK",
+"HaMi",
+"Herut",
+"Mapam",
+"MiKo|Mo|Sh",
+"AhAv",
+"MP"
+],
+"seats": [
+47,
+22,
+8,
+8,
+7,
+7,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 932,
+"country": "ISR",
+"start": "1959-12-17",
+"name": "Ben-Gurion XII",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Herut",
+"MDL|HH",
+"Mapam",
+"ZK",
+"AhAv",
+"HDT",
+"MP"
+],
+"seats": [
+47,
+17,
+12,
+9,
+8,
+7,
+6,
+6
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 933,
+"country": "ISR",
+"start": "1961-11-02",
+"name": "Ben-Gurion XV",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Herut",
+"MiHal",
+"MDL|HH",
+"AhAv",
+"Mapam",
+"MiKo|Mo|Sh",
+"AY"
+],
+"seats": [
+42,
+17,
+17,
+12,
+9,
+8,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 934,
+"country": "ISR",
+"start": "1963-06-26",
+"name": "Eshkol I",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Herut",
+"MiHal",
+"MDL|HH",
+"AhAv",
+"Mapam",
+"MiKo|Mo|Sh",
+"AY"
+],
+"seats": [
+42,
+17,
+17,
+12,
+9,
+8,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 935,
+"country": "ISR",
+"start": "1964-12-22",
+"name": "Eshkol II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"Herut",
+"MiHal",
+"MDL|HH",
+"AhAv",
+"Mapam",
+"MiKo|Mo|Sh",
+"AY"
+],
+"seats": [
+41,
+17,
+17,
+12,
+9,
+8,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 936,
+"country": "ISR",
+"start": "1966-01-12",
+"name": "Eshkol III",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"Rafi",
+"Mapam",
+"LA",
+"AY",
+"R|H"
+],
+"seats": [
+45,
+26,
+11,
+10,
+8,
+5,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 937,
+"country": "ISR",
+"start": "1967-06-05",
+"name": "Eshkol IV",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"Rafi",
+"Mapam",
+"LA",
+"AY",
+"MeHo"
+],
+"seats": [
+45,
+23,
+11,
+10,
+8,
+5,
+4,
+3
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 939,
+"country": "ISR",
+"start": "1969-12-15",
+"name": "Meir II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"AY",
+"LA",
+"RM",
+"R|H",
+"KP"
+],
+"seats": [
+56,
+26,
+12,
+4,
+4,
+4,
+3,
+2
+],
+"coalition": [
+1,
+1,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 940,
+"country": "ISR",
+"start": "1970-08-07",
+"name": "Meir III",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"AY",
+"LA",
+"RM",
+"R|H",
+"KP"
+],
+"seats": [
+56,
+26,
+12,
+4,
+4,
+4,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1082,
+"country": "ISR",
+"start": "1974-03-10",
+"name": "Meir IV",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"HDT",
+"LA",
+"R|H",
+"Ratz"
+],
+"seats": [
+54,
+39,
+10,
+5,
+4,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 942,
+"country": "ISR",
+"start": "1974-06-03",
+"name": "Rabin I",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"HDT",
+"LA",
+"R|H",
+"Ratz"
+],
+"seats": [
+54,
+39,
+10,
+5,
+4,
+4,
+3
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 943,
+"country": "ISR",
+"start": "1974-11-06",
+"name": "Rabin II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"HDT",
+"LA",
+"R|H",
+"Ratz"
+],
+"seats": [
+54,
+39,
+10,
+5,
+4,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 945,
+"country": "ISR",
+"start": "1977-06-20",
+"name": "Begin I",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"TDL",
+"MDL|HH",
+"R|H",
+"AY",
+"MiKo|Mo|Sh",
+"Sh"
+],
+"seats": [
+43,
+32,
+15,
+12,
+5,
+4,
+2,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 946,
+"country": "ISR",
+"start": "1977-10-24",
+"name": "Begin II",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"TDL",
+"MDL|HH",
+"R|H",
+"AY",
+"MiKo|Mo|Sh"
+],
+"seats": [
+45,
+31,
+15,
+12,
+5,
+4,
+2
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1111,
+"country": "ISR",
+"start": "1981-08-05",
+"name": "Begin III",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"MDL|HH",
+"AY",
+"R|H",
+"Tami",
+"Tehiya",
+"O"
+],
+"seats": [
+48,
+47,
+6,
+4,
+4,
+3,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1112,
+"country": "ISR",
+"start": "1982-07-26",
+"name": "Begin IV",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"MDL|HH",
+"AY",
+"R|H",
+"Tami",
+"Tehiya",
+"O"
+],
+"seats": [
+48,
+48,
+6,
+4,
+4,
+3,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1114,
+"country": "ISR",
+"start": "1984-01-31",
+"name": "Shamir II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"AY",
+"R|H",
+"Tami",
+"Tehiya",
+"Shinui"
+],
+"seats": [
+50,
+46,
+5,
+4,
+4,
+3,
+3,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 953,
+"country": "ISR",
+"start": "1988-12-22",
+"name": "Shamir V",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Shas",
+"AY",
+"MDL|HH",
+"Ratz",
+"R|H",
+"Mapam"
+],
+"seats": [
+40,
+39,
+6,
+5,
+5,
+5,
+4,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 957,
+"country": "ISR",
+"start": "1992-01-21",
+"name": "Shamir IX",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"MDL|HH",
+"Ratz",
+"Shas",
+"AY",
+"none",
+"MLH"
+],
+"seats": [
+38,
+37,
+5,
+5,
+5,
+4,
+4,
+3
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 958,
+"country": "ISR",
+"start": "1992-07-13",
+"name": "Rabin IV",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"Meretz",
+"Tzomet",
+"MDL|HH",
+"Shas",
+"YaToMe",
+"M"
+],
+"seats": [
+44,
+32,
+12,
+8,
+6,
+6,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 959,
+"country": "ISR",
+"start": "1993-09-14",
+"name": "Rabin V",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"Meretz",
+"Tzomet",
+"MDL|HH",
+"Shas",
+"YaToMe",
+"M"
+],
+"seats": [
+44,
+32,
+12,
+8,
+6,
+6,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1121,
+"country": "ISR",
+"start": "1999-07-06",
+"name": "Barak I",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"Shas",
+"Meretz",
+"MiHa",
+"Shinui",
+"YBA",
+"MDL|HH"
+],
+"seats": [
+26,
+19,
+17,
+10,
+6,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 962,
+"country": "ISR",
+"start": "2000-07-11",
+"name": "Barak II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Ma|Av",
+"L",
+"Shas",
+"Meretz",
+"HaLe-T|RZP",
+"MiHa",
+"Shinui",
+"MDL|HH"
+],
+"seats": [
+26,
+19,
+17,
+10,
+8,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1125,
+"country": "ISR",
+"start": "2003-03-03",
+"name": "Sharon VI",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Shinui",
+"Shas",
+"HaLe-T|RZP",
+"MDL|HH",
+"Meretz",
+"YaToMe"
+],
+"seats": [
+38,
+19,
+15,
+11,
+7,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1126,
+"country": "ISR",
+"start": "2004-06-06",
+"name": "Sharon VII",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Shinui",
+"Shas",
+"HaLe-T|RZP",
+"MDL|HH",
+"Meretz",
+"YaToMe"
+],
+"seats": [
+40,
+19,
+15,
+11,
+7,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1128,
+"country": "ISR",
+"start": "2005-01-10",
+"name": "Sharon VIII",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Shinui",
+"Shas",
+"HaLe-T|RZP",
+"MDL|HH",
+"Meretz",
+"YaToMe"
+],
+"seats": [
+40,
+19,
+15,
+11,
+7,
+6,
+6,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1129,
+"country": "ISR",
+"start": "2006-01-18",
+"name": "Sharon IX",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Kadima",
+"Shinui",
+"Shas",
+"HaLe-T|RZP",
+"Meretz",
+"MDL|HH"
+],
+"seats": [
+26,
+19,
+15,
+14,
+11,
+7,
+6,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1131,
+"country": "ISR",
+"start": "2006-05-04",
+"name": "Olmert I",
+"house": 120,
+"quota": 61,
+"parties": [
+"Kadima",
+"Ma|Av",
+"L",
+"Shas",
+"YB",
+"HaLe-T|RZP",
+"Gil",
+"YaToMe"
+],
+"seats": [
+29,
+19,
+12,
+12,
+11,
+9,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1132,
+"country": "ISR",
+"start": "2006-10-30",
+"name": "Olmert II",
+"house": 120,
+"quota": 61,
+"parties": [
+"Kadima",
+"Ma|Av",
+"L",
+"Shas",
+"YB",
+"HaLe-T|RZP",
+"Gil",
+"YaToMe"
+],
+"seats": [
+29,
+19,
+12,
+12,
+11,
+9,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1133,
+"country": "ISR",
+"start": "2008-01-18",
+"name": "Olmert III",
+"house": 120,
+"quota": 61,
+"parties": [
+"Kadima",
+"Ma|Av",
+"L",
+"Shas",
+"YB",
+"HaLe-T|RZP",
+"Gil",
+"YaToMe"
+],
+"seats": [
+29,
+19,
+12,
+12,
+11,
+9,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1161,
+"country": "ISR",
+"start": "2015-05-14",
+"name": "Netanyahu IX",
+"house": 120,
+"quota": 61,
+"parties": [
+"L",
+"Ma|Av",
+"Raam",
+"YA",
+"Kulanu",
+"MDL|HH",
+"Shas",
+"YB"
+],
+"seats": [
+30,
+24,
+13,
+11,
+10,
+8,
+7,
+6
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 416,
+"country": "ITA",
+"start": "1946-07-13",
+"name": "De Gasperi I",
+"house": 556,
+"quota": 279,
+"parties": [
+"DC",
+"PSI",
+"PCI",
+"PLI",
+"FUQ",
+"PRI",
+"PNM",
+"PAz"
+],
+"seats": [
+207,
+115,
+104,
+42,
+30,
+23,
+16,
+7
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 525,
+"country": "ITA",
+"start": "1947-02-02",
+"name": "De Gasperi II",
+"house": 556,
+"quota": 279,
+"parties": [
+"DC",
+"PSI",
+"PCI",
+"PLI",
+"FUQ",
+"PRI",
+"PNM",
+"PAz"
+],
+"seats": [
+207,
+115,
+104,
+42,
+30,
+23,
+16,
+7
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 796,
+"country": "ITA",
+"start": "1954-02-10",
+"name": "Scelba",
+"house": 590,
+"quota": 296,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"PNM",
+"MSI",
+"PSDI",
+"PLI"
+],
+"seats": [
+263,
+143,
+75,
+40,
+29,
+19,
+13
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 250,
+"country": "ITA",
+"start": "1955-07-22",
+"name": "Segni I",
+"house": 590,
+"quota": 296,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"PNM",
+"MSI",
+"PSDI",
+"PLI"
+],
+"seats": [
+263,
+143,
+75,
+40,
+29,
+19,
+13
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 880,
+"country": "ITA",
+"start": "1958-07-01",
+"name": "Fanfani II",
+"house": 596,
+"quota": 299,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PLI",
+"PMP",
+"PNM"
+],
+"seats": [
+273,
+140,
+84,
+24,
+22,
+17,
+14,
+11
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 554,
+"country": "ITA",
+"start": "1968-12-12",
+"name": "Rumor I",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"PLI",
+"MSI",
+"PSIUP",
+"PRI"
+],
+"seats": [
+266,
+177,
+91,
+31,
+24,
+23,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 113,
+"country": "ITA",
+"start": "1970-03-27",
+"name": "Rumor III",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"PLI",
+"PSDI",
+"MSI",
+"PSIUP",
+"PRI"
+],
+"seats": [
+266,
+177,
+62,
+31,
+29,
+24,
+23,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 89,
+"country": "ITA",
+"start": "1970-08-06",
+"name": "Colombo",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"PLI",
+"PSDI",
+"MSI",
+"PSIUP",
+"PRI"
+],
+"seats": [
+266,
+177,
+62,
+31,
+29,
+24,
+23,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 439,
+"country": "ITA",
+"start": "1972-07-26",
+"name": "Andreotti II",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PLI",
+"PRI"
+],
+"seats": [
+266,
+179,
+61,
+56,
+29,
+20,
+15
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 24,
+"country": "ITA",
+"start": "1973-07-07",
+"name": "Rumor IV",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PLI",
+"PRI"
+],
+"seats": [
+266,
+179,
+61,
+56,
+29,
+20,
+15
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 317,
+"country": "ITA",
+"start": "1974-03-14",
+"name": "Rumor V",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PLI",
+"PRI"
+],
+"seats": [
+266,
+179,
+61,
+56,
+29,
+20,
+15
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 149,
+"country": "ITA",
+"start": "1974-11-23",
+"name": "Moro IV",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PLI",
+"PRI"
+],
+"seats": [
+266,
+179,
+61,
+56,
+29,
+20,
+15
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 638,
+"country": "ITA",
+"start": "1979-03-20",
+"name": "Andreotti V",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"PRI"
+],
+"seats": [
+262,
+228,
+57,
+35,
+15,
+14
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 578,
+"country": "ITA",
+"start": "1979-08-04",
+"name": "Cossiga I",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 86,
+"country": "ITA",
+"start": "1980-04-04",
+"name": "Cossiga II",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 464,
+"country": "ITA",
+"start": "1980-10-18",
+"name": "Forlani",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 674,
+"country": "ITA",
+"start": "1981-06-28",
+"name": "Spadolini I",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+1
+],
+"pm": 6,
+"majority": true
+},
+{
+"cabinet_id": 84,
+"country": "ITA",
+"start": "1982-08-23",
+"name": "Spadolini II",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+1
+],
+"pm": 6,
+"majority": true
+},
+{
+"cabinet_id": 87,
+"country": "ITA",
+"start": "1982-12-01",
+"name": "Fanfani V",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PSDI",
+"R",
+"PRI",
+"PLI"
+],
+"seats": [
+262,
+201,
+62,
+30,
+20,
+18,
+16,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 334,
+"country": "ITA",
+"start": "1983-08-04",
+"name": "Craxi I",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PRI",
+"PSDI",
+"PLI",
+"R"
+],
+"seats": [
+225,
+198,
+73,
+42,
+29,
+23,
+16,
+11
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 293,
+"country": "ITA",
+"start": "1986-08-01",
+"name": "Craxi II",
+"house": 630,
+"quota": 316,
+"parties": [
+"DC",
+"PCI",
+"PSI",
+"MSI",
+"PRI",
+"PSDI",
+"PLI",
+"R"
+],
+"seats": [
+225,
+198,
+73,
+42,
+29,
+23,
+16,
+11
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 256,
+"country": "ITA",
+"start": "2001-06-11",
+"name": "Berlusconi II",
+"house": 630,
+"quota": 316,
+"parties": [
+"FI-PdL",
+"DS",
+"AN",
+"DL-M",
+"CCD+CDU",
+"LN",
+"FdV",
+"PRC"
+],
+"seats": [
+194,
+136,
+99,
+83,
+40,
+30,
+17,
+11
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 823,
+"country": "ITA",
+"start": "2008-05-08",
+"name": "Berlusconi IV",
+"house": 630,
+"quota": 316,
+"parties": [
+"FI-PdL",
+"PD",
+"LN",
+"UC",
+"IdV",
+"MpA"
+],
+"seats": [
+276,
+217,
+60,
+36,
+29,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1682,
+"country": "ITA",
+"start": "2022-10-22",
+"name": "Meloni",
+"house": 400,
+"quota": 201,
+"parties": [
+"FdI",
+"PD",
+"LN",
+"M5S",
+"FI-PdL",
+"IV",
+"P|SDI",
+"UC"
+],
+"seats": [
+118,
+69,
+66,
+52,
+44,
+21,
+11,
+9
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 891,
+"country": "JPN",
+"start": "1946-05-22",
+"name": "Yoshida I",
+"house": 464,
+"quota": 233,
+"parties": [
+"JLP",
+"DP",
+"JSP",
+"NCoP",
+"etc",
+"none",
+"JCP"
+],
+"seats": [
+148,
+110,
+96,
+45,
+33,
+26,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 892,
+"country": "JPN",
+"start": "1947-05-23",
+"name": "Katayama",
+"house": 466,
+"quota": 234,
+"parties": [
+"JSP",
+"JLP",
+"DP",
+"etc",
+"NCoP"
+],
+"seats": [
+143,
+131,
+124,
+33,
+31
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 893,
+"country": "JPN",
+"start": "1948-02-21",
+"name": "Ashida",
+"house": 466,
+"quota": 234,
+"parties": [
+"JSP",
+"JLP",
+"DP",
+"etc",
+"NCoP"
+],
+"seats": [
+143,
+131,
+124,
+33,
+31
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 568,
+"country": "JPN",
+"start": "1983-12-27",
+"name": "Nakasone II",
+"house": 511,
+"quota": 256,
+"parties": [
+"LDP",
+"JSP",
+"K",
+"DSP",
+"JCP",
+"none",
+"NLC"
+],
+"seats": [
+250,
+112,
+58,
+38,
+26,
+16,
+8
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 432,
+"country": "JPN",
+"start": "1994-04-25",
+"name": "Hata",
+"house": 511,
+"quota": 256,
+"parties": [
+"LDP",
+"JSP",
+"JRP",
+"K",
+"JNP",
+"DSP",
+"JCP",
+"NPS"
+],
+"seats": [
+227,
+74,
+60,
+52,
+37,
+17,
+15,
+15
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 868,
+"country": "JPN",
+"start": "1994-06-30",
+"name": "Murayama",
+"house": 511,
+"quota": 256,
+"parties": [
+"LDP",
+"JSP",
+"JRP",
+"K",
+"JNP",
+"DSP",
+"JCP",
+"NPS"
+],
+"seats": [
+227,
+74,
+60,
+52,
+37,
+17,
+15,
+15
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 800,
+"country": "JPN",
+"start": "1996-01-11",
+"name": "Hashimoto I",
+"house": 511,
+"quota": 256,
+"parties": [
+"LDP",
+"NFP",
+"JSP",
+"none",
+"NPS",
+"JCP",
+"vac"
+],
+"seats": [
+207,
+169,
+64,
+25,
+20,
+15,
+11
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 163,
+"country": "JPN",
+"start": "2000-07-04",
+"name": "Mori II",
+"house": 480,
+"quota": 241,
+"parties": [
+"LDP",
+"DPJ",
+"K",
+"LP",
+"JCP",
+"JSP",
+"none",
+"NCP"
+],
+"seats": [
+233,
+127,
+31,
+22,
+20,
+19,
+15,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 840,
+"country": "JPN",
+"start": "2001-04-26",
+"name": "Koizumi I",
+"house": 480,
+"quota": 241,
+"parties": [
+"LDP",
+"DPJ",
+"K",
+"LP",
+"JCP",
+"JSP",
+"none",
+"NCP"
+],
+"seats": [
+239,
+128,
+31,
+22,
+20,
+19,
+14,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1646,
+"country": "JPN",
+"start": "2021-11-10",
+"name": "Kishida II",
+"house": 176,
+"quota": 89,
+"parties": [
+"LDP",
+"CDP",
+"JaRep",
+"K",
+"JCP",
+"DPP",
+"ReiShin"
+],
+"seats": [
+72,
+39,
+25,
+23,
+9,
+5,
+3
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 584,
+"country": "LTU",
+"start": "1990-03-17",
+"name": "Prunskiene",
+"house": 135,
+"quota": 68,
+"parties": [
+"TS-LK",
+"LKP",
+"LSDP-89",
+"TSKP",
+"none",
+"LZP",
+"LDP",
+"LKDP"
+],
+"seats": [
+58,
+46,
+9,
+7,
+6,
+4,
+3,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 267,
+"country": "LTU",
+"start": "1991-01-10",
+"name": "Simenas",
+"house": 135,
+"quota": 68,
+"parties": [
+"TS-LK",
+"LKP",
+"LSDP-89",
+"TSKP",
+"none",
+"LZP",
+"LDP",
+"LKDP"
+],
+"seats": [
+58,
+46,
+9,
+7,
+6,
+4,
+3,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 546,
+"country": "LTU",
+"start": "1991-01-13",
+"name": "Vagnorius I",
+"house": 135,
+"quota": 68,
+"parties": [
+"TS-LK",
+"LKP",
+"LSDP-89",
+"TSKP",
+"none",
+"LZP",
+"LDP",
+"LKDP"
+],
+"seats": [
+58,
+46,
+9,
+7,
+6,
+4,
+3,
+2
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 512,
+"country": "LTU",
+"start": "1992-07-21",
+"name": "Abisala",
+"house": 135,
+"quota": 68,
+"parties": [
+"TS-LK",
+"LKP",
+"LSDP-89",
+"TSKP",
+"none",
+"LZP",
+"LDP",
+"LKDP"
+],
+"seats": [
+58,
+46,
+9,
+7,
+6,
+4,
+3,
+2
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 47,
+"country": "LTU",
+"start": "1996-12-10",
+"name": "Vagnorius II",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LKDP",
+"LCS",
+"LDDP",
+"LSDP-89",
+"none",
+"LDP",
+"LLRA"
+],
+"seats": [
+70,
+16,
+14,
+12,
+12,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1630,
+"country": "LTU",
+"start": "1998-03-10",
+"name": "Vagnorius III",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LKDP",
+"LCS",
+"LDDP",
+"LSDP-89",
+"none",
+"LDP",
+"LLRA"
+],
+"seats": [
+70,
+16,
+14,
+12,
+12,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 444,
+"country": "LTU",
+"start": "1999-05-18",
+"name": "Paksas I",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LKDP",
+"LCS",
+"LDDP",
+"LSDP-89",
+"none",
+"LDP",
+"LLRA"
+],
+"seats": [
+70,
+16,
+14,
+12,
+12,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 735,
+"country": "LTU",
+"start": "1999-10-29",
+"name": "Kubilius I",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LKDP",
+"LCS",
+"LDDP",
+"LSDP-89",
+"none",
+"LDP",
+"LLRA"
+],
+"seats": [
+70,
+16,
+14,
+12,
+12,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 304,
+"country": "LTU",
+"start": "2000-10-26",
+"name": "Paksas II",
+"house": 141,
+"quota": 71,
+"parties": [
+"LiCS",
+"NS-SL",
+"LDDP",
+"LSDP-89",
+"TS-LK",
+"LVP",
+"LMP-NDP",
+"LRS"
+],
+"seats": [
+34,
+29,
+26,
+19,
+9,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 405,
+"country": "LTU",
+"start": "2001-07-12",
+"name": "Brazauskas I",
+"house": 141,
+"quota": 71,
+"parties": [
+"LSDP",
+"LiCS",
+"NS-SL",
+"TS-LK",
+"LVP",
+"LMP-NDP",
+"LRS",
+"none"
+],
+"seats": [
+45,
+34,
+29,
+9,
+4,
+3,
+3,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1631,
+"country": "LTU",
+"start": "2003-03-04",
+"name": "Brazauskas II",
+"house": 141,
+"quota": 71,
+"parties": [
+"LSDP",
+"NS-SL",
+"LiCS",
+"TT-LDP",
+"TS-LK",
+"LVP",
+"LMP-NDP",
+"LRS"
+],
+"seats": [
+45,
+29,
+21,
+13,
+9,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1634,
+"country": "LTU",
+"start": "2004-07-13",
+"name": "Brazauskas III",
+"house": 141,
+"quota": 71,
+"parties": [
+"LSDP",
+"NS-SL",
+"LiCS",
+"TT-LDP",
+"TS-LK",
+"LVP",
+"LMP-NDP",
+"LRS"
+],
+"seats": [
+45,
+29,
+21,
+13,
+9,
+4,
+3,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 287,
+"country": "LTU",
+"start": "2004-12-14",
+"name": "Brazauskas IV",
+"house": 141,
+"quota": 71,
+"parties": [
+"DP",
+"TS-LK",
+"LSDP",
+"LiCS",
+"NS-SL",
+"LVLS",
+"TT-LDP",
+"none"
+],
+"seats": [
+39,
+25,
+20,
+18,
+11,
+10,
+10,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 495,
+"country": "LTU",
+"start": "2006-04-11",
+"name": "Brazauskas V",
+"house": 141,
+"quota": 71,
+"parties": [
+"DP",
+"TS-LK",
+"LSDP",
+"LiCS",
+"NS-SL",
+"LVLS",
+"TT-LDP",
+"none"
+],
+"seats": [
+39,
+25,
+20,
+18,
+11,
+10,
+10,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 579,
+"country": "LTU",
+"start": "2006-07-04",
+"name": "Kirkilas I",
+"house": 141,
+"quota": 71,
+"parties": [
+"DP",
+"TS-LK",
+"LSDP",
+"LiCS",
+"NS-SL",
+"LVLS",
+"TT-LDP",
+"PDP"
+],
+"seats": [
+32,
+25,
+20,
+18,
+11,
+10,
+10,
+7
+],
+"coalition": [
+0,
+0,
+1,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 688,
+"country": "LTU",
+"start": "2008-11-27",
+"name": "Kubilius II",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LSDP",
+"TPP",
+"TT-LDP",
+"LRLS",
+"DP",
+"LiCS",
+"none"
+],
+"seats": [
+45,
+25,
+16,
+15,
+11,
+10,
+8,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1632,
+"country": "LTU",
+"start": "2009-07-16",
+"name": "Kubilius III",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LSDP",
+"TPP",
+"TT-LDP",
+"LRLS",
+"DP",
+"LiCS",
+"none"
+],
+"seats": [
+45,
+25,
+16,
+15,
+11,
+10,
+8,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1026,
+"country": "LTU",
+"start": "2010-09-21",
+"name": "Kubilius IV",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LSDP",
+"LiCS-TPP",
+"TT-LDP",
+"LRLS",
+"DP",
+"none",
+"LLRA"
+],
+"seats": [
+45,
+25,
+23,
+15,
+11,
+10,
+5,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1042,
+"country": "LTU",
+"start": "2012-12-13",
+"name": "Butkevicius I",
+"house": 141,
+"quota": 71,
+"parties": [
+"LSDP",
+"TS-LK",
+"DP",
+"TT-LDP",
+"LRLS",
+"LLRA",
+"DK",
+"none"
+],
+"seats": [
+38,
+33,
+29,
+12,
+10,
+8,
+7,
+3
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1633,
+"country": "LTU",
+"start": "2014-07-15",
+"name": "Butkevicius II",
+"house": 141,
+"quota": 71,
+"parties": [
+"LSDP",
+"TS-LK",
+"DP",
+"TT-LDP",
+"LRLS",
+"LLRA",
+"DK",
+"none"
+],
+"seats": [
+38,
+33,
+29,
+12,
+10,
+8,
+7,
+3
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1496,
+"country": "LTU",
+"start": "2016-11-22",
+"name": "Skvernelis I",
+"house": 141,
+"quota": 71,
+"parties": [
+"LVLS",
+"TS-LK",
+"LSDP",
+"LRLS",
+"LLRA",
+"TT-LDP",
+"none",
+"DP"
+],
+"seats": [
+54,
+31,
+17,
+14,
+8,
+8,
+4,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1614,
+"country": "LTU",
+"start": "2017-10-19",
+"name": "Skvernelis II",
+"house": 141,
+"quota": 71,
+"parties": [
+"LVLS",
+"TS-LK",
+"LRLS",
+"LSDDP",
+"LLRA",
+"TT-LDP",
+"LSDP",
+"none"
+],
+"seats": [
+54,
+31,
+14,
+12,
+8,
+8,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1615,
+"country": "LTU",
+"start": "2019-07-23",
+"name": "Skvernelis III",
+"house": 141,
+"quota": 71,
+"parties": [
+"LVLS",
+"TS-LK",
+"LRLS",
+"LSDDP",
+"LLRA",
+"TT-LDP",
+"LSDP",
+"none"
+],
+"seats": [
+54,
+31,
+14,
+12,
+8,
+8,
+5,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1643,
+"country": "LTU",
+"start": "2020-11-24",
+"name": "Simonyte",
+"house": 141,
+"quota": 71,
+"parties": [
+"TS-LK",
+"LVLS",
+"LRLS",
+"LSDP",
+"LP",
+"DP",
+"none",
+"LLRA"
+],
+"seats": [
+50,
+32,
+13,
+13,
+11,
+10,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 395,
+"country": "LUX",
+"start": "1947-03-01",
+"name": "Dupong IV",
+"house": 51,
+"quota": 26,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL",
+"PIE"
+],
+"seats": [
+25,
+11,
+9,
+5,
+1
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 799,
+"country": "LUX",
+"start": "1948-07-14",
+"name": "Dupong V",
+"house": 51,
+"quota": 26,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+22,
+15,
+9,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 360,
+"country": "LUX",
+"start": "1951-07-03",
+"name": "Dupong VI",
+"house": 52,
+"quota": 27,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+21,
+19,
+8,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 532,
+"country": "LUX",
+"start": "1953-12-29",
+"name": "Bech IV",
+"house": 52,
+"quota": 27,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+21,
+19,
+8,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 500,
+"country": "LUX",
+"start": "1954-06-28",
+"name": "Bech V",
+"house": 52,
+"quota": 27,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+26,
+17,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 544,
+"country": "LUX",
+"start": "1958-03-29",
+"name": "Frieden",
+"house": 52,
+"quota": 27,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+26,
+17,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 832,
+"country": "LUX",
+"start": "1959-03-02",
+"name": "Werner I",
+"house": 52,
+"quota": 27,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+21,
+17,
+11,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 491,
+"country": "LUX",
+"start": "1964-07-15",
+"name": "Werner II",
+"house": 56,
+"quota": 29,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL",
+"MIP"
+],
+"seats": [
+22,
+21,
+6,
+5,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 101,
+"country": "LUX",
+"start": "1969-02-06",
+"name": "Werner III",
+"house": 56,
+"quota": 29,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL"
+],
+"seats": [
+21,
+18,
+11,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 655,
+"country": "LUX",
+"start": "1974-06-15",
+"name": "Thorn",
+"house": 59,
+"quota": 30,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"KPL",
+"SDP"
+],
+"seats": [
+18,
+17,
+14,
+5,
+5
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 27,
+"country": "LUX",
+"start": "1979-07-16",
+"name": "Werner IV",
+"house": 59,
+"quota": 30,
+"parties": [
+"CSV",
+"DP",
+"LSAP",
+"KPL",
+"SDP",
+"SI",
+"Z-EF"
+],
+"seats": [
+24,
+15,
+14,
+2,
+2,
+1,
+1
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 175,
+"country": "LUX",
+"start": "1984-07-20",
+"name": "Santer I",
+"house": 64,
+"quota": 33,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"Greng",
+"KPL"
+],
+"seats": [
+25,
+21,
+14,
+2,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 418,
+"country": "LUX",
+"start": "1989-07-14",
+"name": "Santer II",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"AR|ADR",
+"GLEI",
+"Greng",
+"KPL"
+],
+"seats": [
+22,
+18,
+11,
+4,
+2,
+2,
+1
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 222,
+"country": "LUX",
+"start": "1994-07-13",
+"name": "Santer III",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"AR|ADR",
+"Greng"
+],
+"seats": [
+21,
+17,
+12,
+5,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 621,
+"country": "LUX",
+"start": "1995-01-20",
+"name": "Juncker I",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"AR|ADR",
+"Greng"
+],
+"seats": [
+21,
+17,
+12,
+5,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 196,
+"country": "LUX",
+"start": "1999-08-07",
+"name": "Juncker II",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"DP",
+"LSAP",
+"AR|ADR",
+"Greng",
+"DL"
+],
+"seats": [
+19,
+15,
+13,
+7,
+5,
+1
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 12,
+"country": "LUX",
+"start": "2004-07-31",
+"name": "Juncker III",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"Greng",
+"AR|ADR"
+],
+"seats": [
+24,
+14,
+10,
+7,
+5
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 601,
+"country": "LUX",
+"start": "2009-07-23",
+"name": "Juncker IV",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"LSAP",
+"DP",
+"Greng",
+"AR|ADR",
+"DL"
+],
+"seats": [
+26,
+13,
+9,
+7,
+4,
+1
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1069,
+"country": "LUX",
+"start": "2013-12-04",
+"name": "Bettel I",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"DP",
+"LSAP",
+"Greng",
+"AR|ADR",
+"DL"
+],
+"seats": [
+23,
+13,
+13,
+6,
+3,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1588,
+"country": "LUX",
+"start": "2018-12-05",
+"name": "Bettel II",
+"house": 60,
+"quota": 31,
+"parties": [
+"CSV",
+"DP",
+"LSAP",
+"Greng",
+"AR|ADR",
+"DL",
+"Pi"
+],
+"seats": [
+21,
+12,
+10,
+9,
+4,
+2,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 434,
+"country": "LVA",
+"start": "1993-08-07",
+"name": "Birkavs",
+"house": 100,
+"quota": 51,
+"parties": [
+"LC",
+"LNNK",
+"TSP",
+"LZS",
+"L",
+"KDS",
+"TB",
+"DCP"
+],
+"seats": [
+36,
+15,
+13,
+12,
+7,
+6,
+6,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 682,
+"country": "LVA",
+"start": "1998-11-26",
+"name": "Kristopans I",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"LC",
+"NA/TB/LNNK",
+"TSP",
+"LSDSP",
+"JP"
+],
+"seats": [
+24,
+21,
+17,
+16,
+14,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 469,
+"country": "LVA",
+"start": "1999-02-04",
+"name": "Kristopans II",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"LC",
+"NA/TB/LNNK",
+"TSP",
+"LSDSP",
+"JP"
+],
+"seats": [
+24,
+21,
+17,
+16,
+14,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 110,
+"country": "LVA",
+"start": "1999-07-16",
+"name": "Skele III",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"LC",
+"NA/TB/LNNK",
+"TSP",
+"LSDSP",
+"JP"
+],
+"seats": [
+24,
+21,
+17,
+16,
+14,
+8
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 23,
+"country": "LVA",
+"start": "2000-05-04",
+"name": "Berzins",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"LC",
+"NA/TB/LNNK",
+"TSP",
+"LSDSP",
+"JP"
+],
+"seats": [
+24,
+21,
+17,
+16,
+14,
+8
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 661,
+"country": "LVA",
+"start": "2002-11-07",
+"name": "Repse",
+"house": 100,
+"quota": 51,
+"parties": [
+"JL",
+"PCTVL",
+"TP",
+"ZZS",
+"LPP",
+"NA/TB/LNNK"
+],
+"seats": [
+26,
+25,
+20,
+12,
+10,
+7
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 153,
+"country": "LVA",
+"start": "2004-03-09",
+"name": "Emsis",
+"house": 100,
+"quota": 51,
+"parties": [
+"JL",
+"PCTVL",
+"TP",
+"ZZS",
+"LPP",
+"NA/TB/LNNK"
+],
+"seats": [
+26,
+25,
+20,
+12,
+10,
+7
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 3,
+"majority": false
+},
+{
+"cabinet_id": 228,
+"country": "LVA",
+"start": "2004-12-02",
+"name": "Kalvitis I",
+"house": 100,
+"quota": 51,
+"parties": [
+"JL",
+"PCTVL",
+"TP",
+"ZZS",
+"LPP",
+"NA/TB/LNNK"
+],
+"seats": [
+26,
+25,
+20,
+12,
+10,
+7
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 535,
+"country": "LVA",
+"start": "2006-04-08",
+"name": "Kalvitis II",
+"house": 100,
+"quota": 51,
+"parties": [
+"JL",
+"PCTVL",
+"TP",
+"ZZS",
+"LPP",
+"NA/TB/LNNK"
+],
+"seats": [
+26,
+25,
+20,
+12,
+10,
+7
+],
+"coalition": [
+0,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 680,
+"country": "LVA",
+"start": "2006-11-07",
+"name": "Kalvitis III",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"JL",
+"ZZS",
+"S",
+"LPP/LC",
+"NA/TB/LNNK",
+"PCTVL"
+],
+"seats": [
+23,
+18,
+18,
+17,
+10,
+8,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 42,
+"country": "LVA",
+"start": "2007-12-20",
+"name": "Godmanis II",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"JL",
+"ZZS",
+"S",
+"LPP/LC",
+"NA/TB/LNNK",
+"PCTVL"
+],
+"seats": [
+23,
+18,
+18,
+17,
+10,
+8,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+1,
+0
+],
+"pm": 4,
+"majority": true
+},
+{
+"cabinet_id": 477,
+"country": "LVA",
+"start": "2009-02-26",
+"name": "Dombrovskis I",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"ZZS",
+"S",
+"JL",
+"LPP/LC",
+"PS",
+"PCTVL",
+"NA/TB/LNNK"
+],
+"seats": [
+23,
+18,
+17,
+14,
+10,
+7,
+6,
+5
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 519,
+"country": "LVA",
+"start": "2010-03-17",
+"name": "Dombrovskis II",
+"house": 100,
+"quota": 51,
+"parties": [
+"TP",
+"ZZS",
+"S",
+"JL",
+"LPP/LC",
+"PS",
+"PCTVL",
+"NA/TB/LNNK"
+],
+"seats": [
+23,
+18,
+17,
+14,
+10,
+7,
+6,
+5
+],
+"coalition": [
+0,
+1,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 3,
+"majority": false
+},
+{
+"cabinet_id": 882,
+"country": "LVA",
+"start": "2010-11-03",
+"name": "Dombrovskis III",
+"house": 100,
+"quota": 51,
+"parties": [
+"V",
+"S",
+"ZZS",
+"NA/TB/LNNK",
+"PLL"
+],
+"seats": [
+33,
+29,
+22,
+8,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 971,
+"country": "LVA",
+"start": "2011-10-25",
+"name": "Dombrovskis IV",
+"house": 100,
+"quota": 51,
+"parties": [
+"S",
+"V",
+"RP",
+"NA/TB/LNNK",
+"ZZS",
+"none"
+],
+"seats": [
+31,
+20,
+16,
+14,
+13,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1073,
+"country": "LVA",
+"start": "2014-01-22",
+"name": "Straujuma I",
+"house": 100,
+"quota": 51,
+"parties": [
+"S",
+"V",
+"RP",
+"NA/TB/LNNK",
+"ZZS",
+"none"
+],
+"seats": [
+31,
+20,
+16,
+14,
+13,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1152,
+"country": "LVA",
+"start": "2014-11-05",
+"name": "Straujuma II",
+"house": 100,
+"quota": 51,
+"parties": [
+"S",
+"V",
+"ZZS",
+"NA/TB/LNNK",
+"LRa",
+"NsL"
+],
+"seats": [
+24,
+23,
+21,
+17,
+8,
+7
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1407,
+"country": "LVA",
+"start": "2016-02-11",
+"name": "Kucinskis I",
+"house": 100,
+"quota": 51,
+"parties": [
+"S",
+"V",
+"ZZS",
+"NA/TB/LNNK",
+"LRa",
+"NsL"
+],
+"seats": [
+24,
+23,
+21,
+17,
+8,
+7
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 96,
+"country": "NLD",
+"start": "1946-07-03",
+"name": "Beel I",
+"house": 100,
+"quota": 51,
+"parties": [
+"KVP",
+"PvdA",
+"ARP",
+"CPN",
+"CHU",
+"VVD",
+"SGP"
+],
+"seats": [
+32,
+29,
+13,
+10,
+8,
+6,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 128,
+"country": "NLD",
+"start": "1948-08-07",
+"name": "Drees I",
+"house": 100,
+"quota": 51,
+"parties": [
+"KVP",
+"PvdA",
+"ARP",
+"CHU",
+"CPN",
+"VVD",
+"SGP",
+"KNP"
+],
+"seats": [
+32,
+27,
+13,
+9,
+8,
+8,
+2,
+1
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 243,
+"country": "NLD",
+"start": "1951-03-15",
+"name": "Drees II",
+"house": 100,
+"quota": 51,
+"parties": [
+"KVP",
+"PvdA",
+"ARP",
+"CHU",
+"CPN",
+"VVD",
+"SGP",
+"KNP"
+],
+"seats": [
+32,
+27,
+13,
+9,
+8,
+8,
+2,
+1
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 366,
+"country": "NLD",
+"start": "1952-09-02",
+"name": "Drees III",
+"house": 100,
+"quota": 51,
+"parties": [
+"KVP",
+"PvdA",
+"ARP",
+"CHU",
+"VVD",
+"CPN",
+"KNP",
+"SGP"
+],
+"seats": [
+30,
+30,
+12,
+9,
+9,
+6,
+2,
+2
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 761,
+"country": "NLD",
+"start": "1956-10-12",
+"name": "Drees IV",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"KVP",
+"ARP",
+"CHU",
+"VVD",
+"CPN",
+"SGP"
+],
+"seats": [
+50,
+49,
+15,
+13,
+13,
+7,
+3
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 694,
+"country": "NLD",
+"start": "1959-05-19",
+"name": "De Quay",
+"house": 150,
+"quota": 76,
+"parties": [
+"KVP",
+"PvdA",
+"VVD",
+"ARP",
+"CHU",
+"CPN",
+"SGP",
+"PSP"
+],
+"seats": [
+49,
+48,
+19,
+14,
+12,
+3,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 35,
+"country": "NLD",
+"start": "1963-07-24",
+"name": "Marijnen",
+"house": 150,
+"quota": 76,
+"parties": [
+"KVP",
+"PvdA",
+"VVD",
+"ARP",
+"CHU",
+"CPN",
+"PSP",
+"Bp"
+],
+"seats": [
+50,
+43,
+16,
+13,
+13,
+4,
+4,
+3
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 518,
+"country": "NLD",
+"start": "1965-04-14",
+"name": "Cals",
+"house": 150,
+"quota": 76,
+"parties": [
+"KVP",
+"PvdA",
+"VVD",
+"ARP",
+"CHU",
+"CPN",
+"PSP",
+"Bp"
+],
+"seats": [
+50,
+43,
+16,
+13,
+13,
+4,
+4,
+3
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 172,
+"country": "NLD",
+"start": "1967-04-05",
+"name": "De Jong",
+"house": 150,
+"quota": 76,
+"parties": [
+"KVP",
+"PvdA",
+"VVD",
+"ARP",
+"CHU",
+"Bp",
+"D66",
+"CPN"
+],
+"seats": [
+42,
+37,
+17,
+15,
+12,
+7,
+7,
+5
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 231,
+"country": "NLD",
+"start": "1971-06-07",
+"name": "Biesheuvel I",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"KVP",
+"VVD",
+"ARP",
+"D66",
+"CHU",
+"DS70",
+"CPN"
+],
+"seats": [
+39,
+35,
+16,
+13,
+11,
+10,
+8,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+1,
+1,
+0
+],
+"pm": 3,
+"majority": true
+},
+{
+"cabinet_id": 765,
+"country": "NLD",
+"start": "1973-05-11",
+"name": "Den Uyl I",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"KVP",
+"VVD",
+"ARP",
+"CHU",
+"CPN",
+"PPR",
+"D66"
+],
+"seats": [
+43,
+27,
+22,
+14,
+7,
+7,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 563,
+"country": "NLD",
+"start": "1977-12-19",
+"name": "Van Agt I",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"CDA",
+"VVD",
+"D66",
+"PPR",
+"SGP",
+"CPN"
+],
+"seats": [
+53,
+49,
+28,
+8,
+3,
+3,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 258,
+"country": "NLD",
+"start": "1981-09-11",
+"name": "Van Agt II",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"PvdA",
+"VVD",
+"D66",
+"CPN",
+"PPR",
+"PSP",
+"SGP"
+],
+"seats": [
+48,
+44,
+26,
+17,
+3,
+3,
+3,
+3
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 270,
+"country": "NLD",
+"start": "1982-11-04",
+"name": "Lubbers I",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"CDA",
+"VVD",
+"D66",
+"CPN",
+"PSP",
+"SGP",
+"PPR"
+],
+"seats": [
+47,
+45,
+36,
+6,
+3,
+3,
+3,
+2
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 550,
+"country": "NLD",
+"start": "1986-07-14",
+"name": "Lubbers II",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"PvdA",
+"VVD",
+"D66",
+"SGP",
+"PPR"
+],
+"seats": [
+54,
+52,
+27,
+9,
+3,
+2
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 148,
+"country": "NLD",
+"start": "1989-11-07",
+"name": "Lubbers III",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"PvdA",
+"VVD",
+"D66",
+"GL",
+"SGP",
+"GPV"
+],
+"seats": [
+54,
+49,
+22,
+12,
+6,
+3,
+2
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 637,
+"country": "NLD",
+"start": "1994-08-22",
+"name": "Kok I",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"CDA",
+"VVD",
+"D66",
+"AOV|VSP",
+"GL",
+"CD",
+"RPF"
+],
+"seats": [
+37,
+34,
+31,
+24,
+6,
+5,
+3,
+3
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 749,
+"country": "NLD",
+"start": "1998-08-03",
+"name": "Kok II",
+"house": 150,
+"quota": 76,
+"parties": [
+"PvdA",
+"VVD",
+"CDA",
+"D66",
+"GL",
+"SP",
+"RPF",
+"SGP"
+],
+"seats": [
+45,
+38,
+29,
+14,
+11,
+5,
+3,
+3
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 763,
+"country": "NLD",
+"start": "2002-07-22",
+"name": "Balkenende I",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"LPF",
+"VVD",
+"PvdA",
+"GL",
+"SP",
+"D66",
+"CU"
+],
+"seats": [
+43,
+26,
+24,
+23,
+10,
+9,
+7,
+4
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 124,
+"country": "NLD",
+"start": "2003-05-27",
+"name": "Balkenende III",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"PvdA",
+"VVD",
+"SP",
+"GL",
+"LPF",
+"D66",
+"CU"
+],
+"seats": [
+44,
+42,
+28,
+9,
+8,
+8,
+6,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 69,
+"country": "NLD",
+"start": "2007-02-22",
+"name": "Balkenende V",
+"house": 150,
+"quota": 76,
+"parties": [
+"CDA",
+"PvdA",
+"SP",
+"VVD",
+"PVV",
+"GL",
+"CU",
+"D66"
+],
+"seats": [
+41,
+33,
+25,
+22,
+9,
+7,
+6,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 804,
+"country": "NLD",
+"start": "2010-10-14",
+"name": "Rutte I",
+"house": 150,
+"quota": 76,
+"parties": [
+"VVD",
+"PvdA",
+"PVV",
+"CDA",
+"SP",
+"D66",
+"GL",
+"CU"
+],
+"seats": [
+31,
+30,
+24,
+21,
+15,
+10,
+10,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1041,
+"country": "NLD",
+"start": "2012-11-05",
+"name": "Rutte III",
+"house": 150,
+"quota": 76,
+"parties": [
+"VVD",
+"PvdA",
+"PVV",
+"SP",
+"CDA",
+"D66",
+"CU",
+"GL"
+],
+"seats": [
+41,
+38,
+15,
+15,
+13,
+12,
+5,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1530,
+"country": "NLD",
+"start": "2017-10-26",
+"name": "Rutte V",
+"house": 150,
+"quota": 76,
+"parties": [
+"VVD",
+"PVV",
+"CDA",
+"D66",
+"GL",
+"SP",
+"PvdA",
+"CU"
+],
+"seats": [
+33,
+20,
+19,
+19,
+14,
+14,
+9,
+5
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 53,
+"country": "NOR",
+"start": "1963-08-28",
+"name": "Lyng",
+"house": 150,
+"quota": 76,
+"parties": [
+"DNA",
+"H",
+"Sp",
+"KrF",
+"V",
+"SF"
+],
+"seats": [
+74,
+29,
+16,
+15,
+14,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 284,
+"country": "NOR",
+"start": "1965-10-12",
+"name": "Borten I",
+"house": 150,
+"quota": 76,
+"parties": [
+"DNA",
+"H",
+"Sp",
+"V",
+"KrF",
+"SF"
+],
+"seats": [
+68,
+31,
+18,
+18,
+13,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 657,
+"country": "NOR",
+"start": "1969-09-07",
+"name": "Borten II",
+"house": 150,
+"quota": 76,
+"parties": [
+"DNA",
+"H",
+"Sp",
+"KrF",
+"V"
+],
+"seats": [
+74,
+29,
+20,
+14,
+13
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 181,
+"country": "NOR",
+"start": "1983-06-08",
+"name": "Willoch II",
+"house": 155,
+"quota": 78,
+"parties": [
+"DNA",
+"H",
+"KrF",
+"Sp",
+"Fr",
+"SV",
+"V"
+],
+"seats": [
+65,
+54,
+15,
+11,
+4,
+4,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 310,
+"country": "NOR",
+"start": "1985-09-08",
+"name": "Willoch III",
+"house": 157,
+"quota": 79,
+"parties": [
+"DNA",
+"H",
+"KrF",
+"Sp",
+"SV",
+"Fr"
+],
+"seats": [
+71,
+50,
+16,
+12,
+6,
+2
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 94,
+"country": "NOR",
+"start": "1989-10-16",
+"name": "Syse",
+"house": 165,
+"quota": 83,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"SV",
+"KrF",
+"Sp"
+],
+"seats": [
+63,
+37,
+22,
+17,
+14,
+11
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 45,
+"country": "NOR",
+"start": "1997-10-17",
+"name": "Bondevik I",
+"house": 165,
+"quota": 83,
+"parties": [
+"DNA",
+"Fr",
+"KrF",
+"H",
+"Sp",
+"SV",
+"V"
+],
+"seats": [
+65,
+25,
+25,
+23,
+11,
+9,
+6
+],
+"coalition": [
+0,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 300,
+"country": "NOR",
+"start": "2001-10-19",
+"name": "Bondevik II",
+"house": 165,
+"quota": 83,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"SV",
+"KrF",
+"Sp",
+"V"
+],
+"seats": [
+43,
+38,
+26,
+23,
+22,
+10,
+2
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 4,
+"majority": false
+},
+{
+"cabinet_id": 693,
+"country": "NOR",
+"start": "2005-10-17",
+"name": "Stoltenberg II",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"Fr",
+"H",
+"SV",
+"KrF",
+"Sp",
+"V"
+],
+"seats": [
+61,
+38,
+23,
+15,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 551,
+"country": "NOR",
+"start": "2009-10-20",
+"name": "Stoltenberg III",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"Fr",
+"H",
+"SV",
+"Sp",
+"KrF",
+"V"
+],
+"seats": [
+64,
+41,
+30,
+11,
+11,
+10,
+2
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1065,
+"country": "NOR",
+"start": "2013-10-16",
+"name": "Solberg I",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"KrF",
+"Sp",
+"V",
+"SV"
+],
+"seats": [
+55,
+48,
+29,
+10,
+10,
+9,
+7
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1516,
+"country": "NOR",
+"start": "2017-09-11",
+"name": "Solberg II",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"Sp",
+"SV",
+"KrF",
+"V"
+],
+"seats": [
+49,
+45,
+27,
+19,
+11,
+8,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1517,
+"country": "NOR",
+"start": "2018-01-17",
+"name": "Solberg III",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"Sp",
+"SV",
+"KrF",
+"V"
+],
+"seats": [
+49,
+45,
+27,
+19,
+11,
+8,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1594,
+"country": "NOR",
+"start": "2019-01-22",
+"name": "Solberg IV",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"Sp",
+"SV",
+"KrF",
+"V"
+],
+"seats": [
+49,
+45,
+27,
+19,
+11,
+8,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1617,
+"country": "NOR",
+"start": "2020-01-24",
+"name": "Solberg V",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Fr",
+"Sp",
+"SV",
+"KrF",
+"V"
+],
+"seats": [
+49,
+45,
+27,
+19,
+11,
+8,
+8
+],
+"coalition": [
+0,
+1,
+0,
+0,
+0,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1653,
+"country": "NOR",
+"start": "2021-10-14",
+"name": "Store",
+"house": 169,
+"quota": 85,
+"parties": [
+"DNA",
+"H",
+"Sp",
+"Fr",
+"SV",
+"RV",
+"V",
+"KrF"
+],
+"seats": [
+48,
+36,
+28,
+21,
+13,
+8,
+8,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 830,
+"country": "NZL",
+"start": "1996-03-01",
+"name": "Bolger III",
+"house": 99,
+"quota": 50,
+"parties": [
+"LP",
+"NP",
+"UNZ",
+"A",
+"NZFP",
+"none",
+"CD/FNZ"
+],
+"seats": [
+45,
+40,
+7,
+2,
+2,
+2,
+1
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 620,
+"country": "NZL",
+"start": "1996-12-16",
+"name": "Bolger IV",
+"house": 120,
+"quota": 61,
+"parties": [
+"NP",
+"LP",
+"NZFP",
+"A",
+"ACT"
+],
+"seats": [
+44,
+37,
+17,
+13,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 341,
+"country": "NZL",
+"start": "1997-12-08",
+"name": "Shipley I",
+"house": 120,
+"quota": 61,
+"parties": [
+"NP",
+"LP",
+"NZFP",
+"A",
+"ACT"
+],
+"seats": [
+44,
+37,
+17,
+13,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 212,
+"country": "NZL",
+"start": "1999-12-09",
+"name": "Clark I",
+"house": 120,
+"quota": 61,
+"parties": [
+"LP",
+"NP",
+"A",
+"ACT",
+"Greens",
+"NZFP"
+],
+"seats": [
+49,
+39,
+10,
+9,
+7,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 845,
+"country": "NZL",
+"start": "2002-08-15",
+"name": "Clark II",
+"house": 120,
+"quota": 61,
+"parties": [
+"LP",
+"NP",
+"NZFP",
+"ACT",
+"Greens",
+"UFNZ",
+"PP"
+],
+"seats": [
+52,
+27,
+13,
+9,
+9,
+8,
+2
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1518,
+"country": "NZL",
+"start": "2017-10-26",
+"name": "Ardern I",
+"house": 120,
+"quota": 61,
+"parties": [
+"NP",
+"LP",
+"NZFP",
+"Greens"
+],
+"seats": [
+56,
+46,
+9,
+8
+],
+"coalition": [
+0,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 728,
+"country": "POL",
+"start": "1989-08-24",
+"name": "Mazowiecki",
+"house": 460,
+"quota": 231,
+"parties": [
+"PZPR",
+"S",
+"ZSL",
+"SD",
+"none"
+],
+"seats": [
+173,
+161,
+76,
+27,
+23
+],
+"coalition": [
+1,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 132,
+"country": "POL",
+"start": "1991-12-23",
+"name": "Olszewski",
+"house": 460,
+"quota": 231,
+"parties": [
+"D|W|U",
+"SLD",
+"ZChN",
+"PSL",
+"KPN",
+"PC",
+"KLD",
+"PL"
+],
+"seats": [
+62,
+60,
+49,
+48,
+46,
+44,
+37,
+28
+],
+"coalition": [
+0,
+0,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 5,
+"majority": false
+},
+{
+"cabinet_id": 226,
+"country": "POL",
+"start": "1993-10-26",
+"name": "Pawlak II",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PSL",
+"D|W|U",
+"UP",
+"KPN",
+"BBWR"
+],
+"seats": [
+171,
+132,
+74,
+41,
+22,
+16
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 409,
+"country": "POL",
+"start": "1995-03-06",
+"name": "Oleksy",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PSL",
+"D|W|U",
+"UP",
+"KPN",
+"BBWR"
+],
+"seats": [
+171,
+132,
+74,
+41,
+22,
+16
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 437,
+"country": "POL",
+"start": "1996-02-07",
+"name": "Cimoszewicz",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PSL",
+"D|W|U",
+"UP",
+"KPN",
+"BBWR"
+],
+"seats": [
+171,
+132,
+74,
+41,
+22,
+16
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 517,
+"country": "POL",
+"start": "1997-10-31",
+"name": "Buzek I",
+"house": 460,
+"quota": 231,
+"parties": [
+"AWS",
+"SLD",
+"D|W|U",
+"PSL",
+"ROP"
+],
+"seats": [
+201,
+164,
+60,
+27,
+6
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 357,
+"country": "POL",
+"start": "2001-10-19",
+"name": "Miller I",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PO",
+"SRP",
+"PiS",
+"PSL",
+"LPR",
+"UP"
+],
+"seats": [
+200,
+65,
+53,
+44,
+42,
+38,
+16
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 18,
+"country": "POL",
+"start": "2003-03-01",
+"name": "Miller II",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PO",
+"SRP",
+"PiS",
+"PSL",
+"LPR",
+"UP"
+],
+"seats": [
+200,
+65,
+53,
+44,
+42,
+38,
+16
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 322,
+"country": "POL",
+"start": "2004-05-02",
+"name": "Belka",
+"house": 460,
+"quota": 231,
+"parties": [
+"SLD",
+"PO",
+"SRP",
+"PiS",
+"PSL",
+"LPR",
+"SDPL",
+"UP"
+],
+"seats": [
+169,
+65,
+53,
+44,
+42,
+38,
+32,
+14
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 754,
+"country": "POL",
+"start": "2006-05-05",
+"name": "Marcinkiewicz II",
+"house": 460,
+"quota": 231,
+"parties": [
+"PiS",
+"PO",
+"SRP",
+"SLD",
+"LPR",
+"PSL"
+],
+"seats": [
+155,
+133,
+56,
+55,
+34,
+25
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 356,
+"country": "POL",
+"start": "2006-07-14",
+"name": "Kaczynski",
+"house": 460,
+"quota": 231,
+"parties": [
+"PiS",
+"PO",
+"SRP",
+"SLD",
+"LPR",
+"PSL"
+],
+"seats": [
+155,
+133,
+56,
+55,
+34,
+25
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 164,
+"country": "POL",
+"start": "2007-11-16",
+"name": "Tusk I",
+"house": 460,
+"quota": 231,
+"parties": [
+"PO",
+"PiS",
+"SLD",
+"PSL",
+"SDPL",
+"none"
+],
+"seats": [
+209,
+166,
+37,
+31,
+10,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 985,
+"country": "POL",
+"start": "2011-11-18",
+"name": "Tusk II",
+"house": 460,
+"quota": 231,
+"parties": [
+"PO",
+"PiS",
+"RP",
+"PSL",
+"SLD"
+],
+"seats": [
+207,
+157,
+40,
+28,
+27
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1146,
+"country": "POL",
+"start": "2014-09-22",
+"name": "Kopacz",
+"house": 460,
+"quota": 231,
+"parties": [
+"PO",
+"PiS",
+"RP",
+"PSL",
+"SLD"
+],
+"seats": [
+207,
+157,
+40,
+28,
+27
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 336,
+"country": "PRT",
+"start": "1978-01-23",
+"name": "Soares II",
+"house": 263,
+"quota": 132,
+"parties": [
+"PS",
+"PSD",
+"CDS-PP",
+"PCP"
+],
+"seats": [
+107,
+73,
+42,
+40
+],
+"coalition": [
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 549,
+"country": "PRT",
+"start": "1980-01-03",
+"name": "Carneiro I",
+"house": 250,
+"quota": 126,
+"parties": [
+"PSD",
+"PS",
+"PCP",
+"CDS-PP",
+"PPM",
+"Ref",
+"MDP"
+],
+"seats": [
+75,
+74,
+44,
+43,
+5,
+5,
+3
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 328,
+"country": "PRT",
+"start": "1980-10-05",
+"name": "Carneiro II",
+"house": 250,
+"quota": 126,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"PCP",
+"PPM",
+"ASDI",
+"UEDS"
+],
+"seats": [
+82,
+66,
+46,
+39,
+6,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 396,
+"country": "PRT",
+"start": "1981-01-09",
+"name": "Balsemao I",
+"house": 250,
+"quota": 126,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"PCP",
+"PPM",
+"ASDI",
+"UEDS"
+],
+"seats": [
+82,
+66,
+46,
+39,
+6,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 135,
+"country": "PRT",
+"start": "1981-09-04",
+"name": "Balsemao II",
+"house": 250,
+"quota": 126,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"PCP",
+"PPM",
+"ASDI",
+"UEDS"
+],
+"seats": [
+82,
+66,
+46,
+39,
+6,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 689,
+"country": "PRT",
+"start": "1983-06-09",
+"name": "Soares III",
+"house": 250,
+"quota": 126,
+"parties": [
+"PS",
+"PSD",
+"PCP",
+"CDS-PP",
+"MDP"
+],
+"seats": [
+101,
+75,
+40,
+30,
+3
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 381,
+"country": "PRT",
+"start": "2002-04-06",
+"name": "Barroso",
+"house": 230,
+"quota": 116,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"PCP",
+"BE"
+],
+"seats": [
+105,
+96,
+14,
+10,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 755,
+"country": "PRT",
+"start": "2004-07-23",
+"name": "Santana Lopes",
+"house": 230,
+"quota": 116,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"PCP",
+"BE"
+],
+"seats": [
+105,
+96,
+14,
+10,
+3
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 917,
+"country": "PRT",
+"start": "2011-06-15",
+"name": "Passos Coelho I",
+"house": 230,
+"quota": 116,
+"parties": [
+"PSD",
+"PS",
+"CDS-PP",
+"CDU",
+"BE"
+],
+"seats": [
+108,
+74,
+24,
+16,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 28,
+"country": "ROU",
+"start": "2006-12-07",
+"name": "Popescu-Tariceanu II",
+"house": 332,
+"quota": 167,
+"parties": [
+"PSD",
+"PNL",
+"PD",
+"PRM",
+"UDMR",
+"etnice"
+],
+"seats": [
+132,
+64,
+48,
+48,
+22,
+18
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 118,
+"country": "ROU",
+"start": "2007-04-05",
+"name": "Popescu-Tariceanu III",
+"house": 332,
+"quota": 167,
+"parties": [
+"PSD",
+"PNL",
+"PD",
+"PRM",
+"UDMR",
+"etnice"
+],
+"seats": [
+132,
+64,
+48,
+48,
+22,
+18
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 599,
+"country": "ROU",
+"start": "2008-12-22",
+"name": "Boc I",
+"house": 334,
+"quota": 168,
+"parties": [
+"PD-L",
+"PSD",
+"PNL",
+"UDMR",
+"etnice",
+"PU|PC"
+],
+"seats": [
+115,
+110,
+65,
+22,
+18,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 993,
+"country": "ROU",
+"start": "2009-12-23",
+"name": "Boc II",
+"house": 334,
+"quota": 168,
+"parties": [
+"PD-L",
+"PSD",
+"PNL",
+"UDMR",
+"etnice",
+"PU|PC"
+],
+"seats": [
+115,
+110,
+65,
+22,
+18,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 537,
+"country": "ROU",
+"start": "2010-05-19",
+"name": "Boc III",
+"house": 334,
+"quota": 168,
+"parties": [
+"PD-L",
+"PSD",
+"PNL",
+"UDMR",
+"etnice",
+"UNPR",
+"PU|PC"
+],
+"seats": [
+115,
+94,
+65,
+22,
+18,
+16,
+4
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 992,
+"country": "ROU",
+"start": "2012-02-09",
+"name": "Ungureanu",
+"house": 334,
+"quota": 168,
+"parties": [
+"PD-L",
+"PSD",
+"PNL",
+"UDMR",
+"UNPR",
+"etnice",
+"none"
+],
+"seats": [
+121,
+90,
+57,
+20,
+17,
+17,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1043,
+"country": "ROU",
+"start": "2012-12-21",
+"name": "Ponta II",
+"house": 412,
+"quota": 207,
+"parties": [
+"PSD",
+"PNL",
+"PD-L",
+"PP-DD",
+"UDMR",
+"etnice",
+"PU|PC"
+],
+"seats": [
+160,
+100,
+56,
+47,
+18,
+18,
+13
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1513,
+"country": "ROU",
+"start": "2017-01-04",
+"name": "Grindeanu",
+"house": 329,
+"quota": 165,
+"parties": [
+"PSD",
+"PNL",
+"USR|PLUS",
+"UDMR",
+"PLR|ALDE",
+"PMP",
+"etnice"
+],
+"seats": [
+154,
+69,
+30,
+21,
+20,
+18,
+17
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1514,
+"country": "ROU",
+"start": "2017-06-29",
+"name": "Tudose",
+"house": 329,
+"quota": 165,
+"parties": [
+"PSD",
+"PNL",
+"USR|PLUS",
+"UDMR",
+"PLR|ALDE",
+"PMP",
+"etnice"
+],
+"seats": [
+154,
+69,
+30,
+21,
+20,
+18,
+17
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1527,
+"country": "ROU",
+"start": "2018-01-29",
+"name": "Dancila I",
+"house": 329,
+"quota": 165,
+"parties": [
+"PSD",
+"PNL",
+"USR|PLUS",
+"UDMR",
+"PLR|ALDE",
+"PMP",
+"etnice"
+],
+"seats": [
+154,
+69,
+30,
+21,
+20,
+18,
+17
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1636,
+"country": "ROU",
+"start": "2020-12-23",
+"name": "Citu",
+"house": 330,
+"quota": 166,
+"parties": [
+"PSD",
+"PNL",
+"USR|PLUS",
+"AUR",
+"UDMR",
+"etnice"
+],
+"seats": [
+110,
+93,
+55,
+33,
+21,
+18
+],
+"coalition": [
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1665,
+"country": "ROU",
+"start": "2021-11-25",
+"name": "Ciuca ",
+"house": 330,
+"quota": 166,
+"parties": [
+"PSD",
+"PNL",
+"USR|PLUS",
+"AUR",
+"UDMR",
+"etnice"
+],
+"seats": [
+110,
+93,
+55,
+33,
+21,
+18
+],
+"coalition": [
+1,
+1,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 399,
+"country": "SVK",
+"start": "1990-06-27",
+"name": "Meciar I",
+"house": 150,
+"quota": 76,
+"parties": [
+"VPN",
+"KDH",
+"SDL",
+"SNS",
+"MK",
+"DS",
+"SZS"
+],
+"seats": [
+48,
+31,
+22,
+22,
+14,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 436,
+"country": "SVK",
+"start": "1991-04-23",
+"name": "Carnogursky",
+"house": 150,
+"quota": 76,
+"parties": [
+"VPN",
+"KDH",
+"SDL",
+"SNS",
+"MK",
+"DS",
+"SZS"
+],
+"seats": [
+48,
+31,
+22,
+22,
+14,
+7,
+6
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 690,
+"country": "SVK",
+"start": "1992-06-24",
+"name": "Meciar II",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDL",
+"KDH",
+"SNS",
+"S-E",
+"MKDM"
+],
+"seats": [
+74,
+29,
+18,
+15,
+9,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 420,
+"country": "SVK",
+"start": "1993-01-12",
+"name": "Meciar III",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDL",
+"KDH",
+"SNS",
+"S-E",
+"MKDM"
+],
+"seats": [
+74,
+29,
+18,
+15,
+9,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 719,
+"country": "SVK",
+"start": "1993-11-17",
+"name": "Meciar V",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDL",
+"KDH",
+"SNS",
+"S-E",
+"ADS",
+"MKDM"
+],
+"seats": [
+66,
+29,
+18,
+15,
+9,
+8,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 817,
+"country": "SVK",
+"start": "1994-03-16",
+"name": "Moravcik",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDL",
+"KDH",
+"DUS",
+"S-E",
+"SNS",
+"ADS",
+"NDS"
+],
+"seats": [
+56,
+29,
+18,
+10,
+9,
+9,
+8,
+6
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 3,
+"majority": false
+},
+{
+"cabinet_id": 26,
+"country": "SVK",
+"start": "1994-12-13",
+"name": "Meciar VI",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SV",
+"KDH",
+"DUS",
+"ZRS",
+"S-E",
+"SNS",
+"MKDM"
+],
+"seats": [
+61,
+18,
+17,
+15,
+13,
+9,
+9,
+7
+],
+"coalition": [
+1,
+0,
+0,
+0,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 699,
+"country": "SVK",
+"start": "1998-10-30",
+"name": "Dzurinda I",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDK",
+"SDL",
+"MK",
+"SNS",
+"SOP"
+],
+"seats": [
+43,
+42,
+23,
+15,
+14,
+13
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 547,
+"country": "SVK",
+"start": "2002-10-16",
+"name": "Dzurinda II",
+"house": 150,
+"quota": 76,
+"parties": [
+"HZDS",
+"SDKU-DS",
+"Smer",
+"MK",
+"ANO",
+"KDH",
+"KSS"
+],
+"seats": [
+36,
+28,
+25,
+20,
+15,
+15,
+11
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 269,
+"country": "SVK",
+"start": "2006-07-04",
+"name": "Fico I",
+"house": 150,
+"quota": 76,
+"parties": [
+"Smer",
+"SDKU-DS",
+"MK",
+"SNS",
+"HZDS",
+"KDH"
+],
+"seats": [
+50,
+31,
+20,
+20,
+15,
+14
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 319,
+"country": "SVK",
+"start": "2010-07-08",
+"name": "Radicova I",
+"house": 150,
+"quota": 76,
+"parties": [
+"Smer",
+"SDKU-DS",
+"SaS",
+"KDH",
+"MH",
+"SNS",
+"OKS",
+"OLaNO"
+],
+"seats": [
+62,
+28,
+18,
+15,
+10,
+9,
+4,
+4
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1483,
+"country": "SVK",
+"start": "2016-03-23",
+"name": "Fico III",
+"house": 150,
+"quota": 76,
+"parties": [
+"Smer",
+"SaS",
+"OLaNO",
+"SNS",
+"LsNS",
+"MH",
+"SR",
+"S"
+],
+"seats": [
+49,
+21,
+19,
+15,
+14,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1491,
+"country": "SVK",
+"start": "2016-09-01",
+"name": "Fico IV",
+"house": 150,
+"quota": 76,
+"parties": [
+"Smer",
+"SaS",
+"OLaNO",
+"SNS",
+"LsNS",
+"MH",
+"SR",
+"S"
+],
+"seats": [
+49,
+21,
+19,
+15,
+14,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1529,
+"country": "SVK",
+"start": "2018-03-22",
+"name": "Pellegrini",
+"house": 150,
+"quota": 76,
+"parties": [
+"Smer",
+"SaS",
+"OLaNO",
+"SNS",
+"LsNS",
+"MH",
+"SR",
+"S"
+],
+"seats": [
+49,
+21,
+19,
+15,
+14,
+11,
+11,
+10
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1625,
+"country": "SVK",
+"start": "2020-03-21",
+"name": "Matovic",
+"house": 150,
+"quota": 76,
+"parties": [
+"OLaNO",
+"Smer",
+"LsNS",
+"SR",
+"SaS",
+"ZAL"
+],
+"seats": [
+53,
+38,
+17,
+17,
+13,
+12
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1666,
+"country": "SVK",
+"start": "2021-04-01",
+"name": "Heger I",
+"house": 150,
+"quota": 76,
+"parties": [
+"OLaNO",
+"Smer",
+"LsNS",
+"SR",
+"SaS",
+"ZAL"
+],
+"seats": [
+53,
+38,
+17,
+17,
+13,
+12
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 559,
+"country": "SVN",
+"start": "1993-01-12",
+"name": "Drnovsek II",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"NSI",
+"ZL-SD",
+"SNS",
+"SLS",
+"DS",
+"ZS",
+"SDS"
+],
+"seats": [
+22,
+15,
+14,
+12,
+10,
+6,
+5,
+4
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 145,
+"country": "SVN",
+"start": "1994-04-08",
+"name": "Drnovsek III",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"NSI",
+"ZL-SD",
+"SNS",
+"SLS",
+"DS",
+"ZS",
+"SDS"
+],
+"seats": [
+22,
+15,
+14,
+12,
+10,
+6,
+5,
+4
+],
+"coalition": [
+1,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 562,
+"country": "SVN",
+"start": "1996-01-26",
+"name": "Drnovsek IV",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"NSI",
+"ZL-SD",
+"SNS",
+"SLS",
+"DS",
+"ZS",
+"SDS"
+],
+"seats": [
+22,
+15,
+14,
+12,
+10,
+6,
+5,
+4
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 644,
+"country": "SVN",
+"start": "1997-02-27",
+"name": "Drnovsek V",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"SLS",
+"SDS",
+"NSI",
+"ZL-SD",
+"DeSUS",
+"SNS",
+"Ita"
+],
+"seats": [
+25,
+19,
+16,
+10,
+9,
+5,
+4,
+1
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 768,
+"country": "SVN",
+"start": "2000-06-07",
+"name": "Bajuk",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"SLS",
+"SDS",
+"NSI",
+"ZL-SD",
+"DeSUS",
+"SNS",
+"Ita"
+],
+"seats": [
+25,
+19,
+16,
+10,
+9,
+5,
+4,
+1
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 505,
+"country": "SVN",
+"start": "2000-11-30",
+"name": "Drnovsek VI",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"SDS",
+"ZL-SD",
+"SLS",
+"NSI",
+"DeSUS",
+"SMS",
+"SNS"
+],
+"seats": [
+34,
+14,
+11,
+9,
+8,
+4,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 187,
+"country": "SVN",
+"start": "2002-12-19",
+"name": "Rop I",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"SDS",
+"ZL-SD",
+"SLS",
+"NSI",
+"DeSUS",
+"SMS",
+"SNS"
+],
+"seats": [
+34,
+14,
+11,
+9,
+8,
+4,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 292,
+"country": "SVN",
+"start": "2004-04-08",
+"name": "Rop II",
+"house": 90,
+"quota": 46,
+"parties": [
+"LDS",
+"SDS",
+"ZL-SD",
+"SLS",
+"NSI",
+"DeSUS",
+"SMS",
+"SNS"
+],
+"seats": [
+34,
+14,
+11,
+9,
+8,
+4,
+4,
+4
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 407,
+"country": "SVN",
+"start": "2004-12-03",
+"name": "Jansa I",
+"house": 90,
+"quota": 46,
+"parties": [
+"SDS",
+"LDS",
+"ZL-SD",
+"NSI",
+"SLS",
+"SNS",
+"DeSUS",
+"Ita"
+],
+"seats": [
+29,
+23,
+10,
+9,
+7,
+6,
+4,
+1
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 803,
+"country": "SVN",
+"start": "2008-11-21",
+"name": "Pahor I",
+"house": 90,
+"quota": 46,
+"parties": [
+"ZL-SD",
+"SDS",
+"Zares",
+"DeSUS",
+"LDS",
+"SLS",
+"SNS",
+"Ita"
+],
+"seats": [
+29,
+28,
+9,
+7,
+5,
+5,
+5,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 907,
+"country": "SVN",
+"start": "2011-06-27",
+"name": "Pahor II",
+"house": 90,
+"quota": 46,
+"parties": [
+"SDS",
+"ZL-SD",
+"Zares",
+"DeSUS",
+"LDS",
+"SLS",
+"SNS",
+"none"
+],
+"seats": [
+28,
+28,
+9,
+5,
+5,
+5,
+5,
+3
+],
+"coalition": [
+0,
+1,
+0,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 990,
+"country": "SVN",
+"start": "2012-01-28",
+"name": "Jansa II",
+"house": 90,
+"quota": 46,
+"parties": [
+"LZJ-PS",
+"SDS",
+"ZL-SD",
+"DL",
+"DeSUS",
+"SLS",
+"NSI",
+"Ita"
+],
+"seats": [
+28,
+26,
+10,
+8,
+6,
+6,
+4,
+1
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 1047,
+"country": "SVN",
+"start": "2013-03-20",
+"name": "Bratusek",
+"house": 90,
+"quota": 46,
+"parties": [
+"LZJ-PS",
+"SDS",
+"ZL-SD",
+"DL",
+"DeSUS",
+"SLS",
+"NSI",
+"Ita"
+],
+"seats": [
+28,
+26,
+10,
+8,
+6,
+6,
+4,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1144,
+"country": "SVN",
+"start": "2014-08-25",
+"name": "Cerar",
+"house": 90,
+"quota": 46,
+"parties": [
+"SMC",
+"SDS",
+"DeSUS",
+"ZL-SD",
+"ZdLe",
+"NSI",
+"ZaAB",
+"Ita"
+],
+"seats": [
+36,
+21,
+10,
+6,
+6,
+5,
+4,
+1
+],
+"coalition": [
+1,
+0,
+1,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1555,
+"country": "SVN",
+"start": "2018-08-17",
+"name": "Sarec",
+"house": 90,
+"quota": 46,
+"parties": [
+"SDS",
+"LMS",
+"SMC",
+"ZL-SD",
+"L",
+"NSI",
+"DeSUS",
+"ZaAB"
+],
+"seats": [
+25,
+13,
+10,
+10,
+9,
+7,
+5,
+5
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0,
+0,
+1,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1624,
+"country": "SVN",
+"start": "2020-03-03",
+"name": "Jansa III",
+"house": 90,
+"quota": 46,
+"parties": [
+"SDS",
+"LMS",
+"SMC",
+"ZL-SD",
+"L",
+"NSI",
+"DeSUS",
+"ZaAB"
+],
+"seats": [
+25,
+13,
+10,
+10,
+9,
+7,
+5,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1668,
+"country": "SVN",
+"start": "2020-12-18",
+"name": "Jansa IV",
+"house": 90,
+"quota": 46,
+"parties": [
+"SDS",
+"LMS",
+"SMC",
+"ZL-SD",
+"L",
+"NSI",
+"DeSUS",
+"ZaAB"
+],
+"seats": [
+25,
+13,
+10,
+10,
+9,
+7,
+5,
+5
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1674,
+"country": "SVN",
+"start": "2022-06-01",
+"name": "Golob",
+"house": 90,
+"quota": 46,
+"parties": [
+"GS",
+"SDS",
+"NSI",
+"ZL-SD",
+"L",
+"Ita",
+"Mad"
+],
+"seats": [
+41,
+27,
+8,
+7,
+5,
+1,
+1
+],
+"coalition": [
+1,
+0,
+0,
+1,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 361,
+"country": "SWE",
+"start": "1951-10-01",
+"name": "Erlander III",
+"house": 230,
+"quota": 116,
+"parties": [
+"SAP",
+"FP",
+"C",
+"M",
+"V"
+],
+"seats": [
+112,
+57,
+30,
+23,
+8
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 781,
+"country": "SWE",
+"start": "1952-09-21",
+"name": "Erlander IV",
+"house": 230,
+"quota": 116,
+"parties": [
+"SAP",
+"FP",
+"M",
+"C",
+"V"
+],
+"seats": [
+110,
+58,
+31,
+26,
+5
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 207,
+"country": "SWE",
+"start": "1956-09-26",
+"name": "Erlander V",
+"house": 231,
+"quota": 116,
+"parties": [
+"SAP",
+"FP",
+"M",
+"C",
+"V"
+],
+"seats": [
+106,
+58,
+42,
+19,
+6
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 137,
+"country": "SWE",
+"start": "1976-10-07",
+"name": "Falldin I",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"C",
+"M",
+"FP",
+"V"
+],
+"seats": [
+152,
+86,
+55,
+39,
+17
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 16,
+"country": "SWE",
+"start": "1979-10-11",
+"name": "Falldin II",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"C",
+"FP",
+"V"
+],
+"seats": [
+154,
+73,
+64,
+38,
+20
+],
+"coalition": [
+0,
+1,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": true
+},
+{
+"cabinet_id": 142,
+"country": "SWE",
+"start": "1981-05-19",
+"name": "Falldin III",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"C",
+"FP",
+"V"
+],
+"seats": [
+154,
+73,
+64,
+38,
+20
+],
+"coalition": [
+0,
+0,
+1,
+1,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 779,
+"country": "SWE",
+"start": "1991-10-03",
+"name": "Bildt",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"FP",
+"C",
+"KD",
+"NyD",
+"V"
+],
+"seats": [
+138,
+80,
+33,
+31,
+26,
+25,
+16
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 475,
+"country": "SWE",
+"start": "2006-10-05",
+"name": "Reinfeldt I",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"C",
+"FP",
+"KD",
+"V",
+"MP"
+],
+"seats": [
+130,
+97,
+29,
+28,
+24,
+22,
+19
+],
+"coalition": [
+0,
+1,
+1,
+1,
+1,
+0,
+0
+],
+"pm": 1,
+"majority": true
+},
+{
+"cabinet_id": 854,
+"country": "SWE",
+"start": "2010-09-19",
+"name": "Reinfeldt II",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"MP",
+"FP",
+"C",
+"SD",
+"KD",
+"V"
+],
+"seats": [
+112,
+107,
+25,
+24,
+23,
+20,
+19,
+19
+],
+"coalition": [
+0,
+1,
+0,
+1,
+1,
+0,
+1,
+0
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1149,
+"country": "SWE",
+"start": "2014-10-02",
+"name": "Lofven I",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"SD",
+"MP",
+"C",
+"V",
+"FP",
+"KD"
+],
+"seats": [
+113,
+84,
+49,
+25,
+22,
+21,
+19,
+16
+],
+"coalition": [
+1,
+0,
+0,
+1,
+0,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1590,
+"country": "SWE",
+"start": "2019-01-18",
+"name": "Lofven III",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"SD",
+"C",
+"V",
+"KD",
+"FP",
+"MP"
+],
+"seats": [
+100,
+70,
+62,
+31,
+28,
+22,
+20,
+16
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1651,
+"country": "SWE",
+"start": "2021-07-09",
+"name": "Lofven IV ",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"M",
+"SD",
+"C",
+"V",
+"KD",
+"FP",
+"MP"
+],
+"seats": [
+100,
+70,
+62,
+31,
+28,
+22,
+20,
+16
+],
+"coalition": [
+1,
+0,
+0,
+0,
+0,
+0,
+0,
+1
+],
+"pm": 0,
+"majority": false
+},
+{
+"cabinet_id": 1680,
+"country": "SWE",
+"start": "2022-10-17",
+"name": "Kristersson",
+"house": 349,
+"quota": 175,
+"parties": [
+"SAP",
+"SD",
+"M",
+"C",
+"V",
+"KD",
+"MP",
+"FP"
+],
+"seats": [
+107,
+73,
+68,
+24,
+24,
+19,
+18,
+16
+],
+"coalition": [
+0,
+0,
+1,
+0,
+0,
+1,
+0,
+1
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 1091,
+"country": "TUR",
+"start": "1991-11-20",
+"name": "Demirel",
+"house": 450,
+"quota": 226,
+"parties": [
+"DYP",
+"ANAP",
+"SHP|CHP",
+"RP",
+"DSP"
+],
+"seats": [
+178,
+115,
+88,
+62,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1092,
+"country": "TUR",
+"start": "1993-06-25",
+"name": "Ciller I",
+"house": 450,
+"quota": 226,
+"parties": [
+"DYP",
+"ANAP",
+"SHP|CHP",
+"RP",
+"none",
+"DSP"
+],
+"seats": [
+178,
+115,
+71,
+62,
+17,
+7
+],
+"coalition": [
+1,
+0,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1097,
+"country": "TUR",
+"start": "1996-03-06",
+"name": "Yilmaz II",
+"house": 550,
+"quota": 276,
+"parties": [
+"RP",
+"DYP",
+"ANAP",
+"DSP",
+"SHP|CHP"
+],
+"seats": [
+158,
+135,
+132,
+76,
+49
+],
+"coalition": [
+0,
+1,
+1,
+0,
+0
+],
+"pm": 2,
+"majority": false
+},
+{
+"cabinet_id": 1098,
+"country": "TUR",
+"start": "1996-06-28",
+"name": "Erbakan",
+"house": 550,
+"quota": 276,
+"parties": [
+"RP",
+"DYP",
+"ANAP",
+"DSP",
+"SHP|CHP"
+],
+"seats": [
+158,
+135,
+132,
+76,
+49
+],
+"coalition": [
+1,
+1,
+0,
+0,
+0
+],
+"pm": 0,
+"majority": true
+},
+{
+"cabinet_id": 1099,
+"country": "TUR",
+"start": "1997-06-30",
+"name": "Yilmaz III",
+"house": 550,
+"quota": 276,
+"parties": [
+"RP",
+"ANAP",
+"DYP",
+"DSP",
+"SHP|CHP",
+"DTuP"
+],
+"seats": [
+158,
+132,
+129,
+76,
+49,
+6
+],
+"coalition": [
+0,
+1,
+0,
+1,
+0,
+1
+],
+"pm": 1,
+"majority": false
+},
+{
+"cabinet_id": 1101,
+"country": "TUR",
+"start": "1999-05-28",
+"name": "Ecevit II",
+"house": 550,
+"quota": 276,
+"parties": [
+"DSP",
+"MHP",
+"RP",
+"ANAP",
+"DYP"
+],
+"seats": [
+136,
+129,
+111,
+86,
+85
+],
+"coalition": [
+1,
+1,
+0,
+1,
+0
+],
+"pm": 0,
+"majority": true
+}
+]

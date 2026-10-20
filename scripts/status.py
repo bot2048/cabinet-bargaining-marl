@@ -73,7 +73,7 @@ def main():
         alive = time.time() - st["updated"] < 60
         par = st.get("parallel", 5)
         print(f"\n== queue runner: {'RUNNING' if alive else 'NOT RUNNING (start: python scripts/jobs.py start)'}"
-              f", {len(st['running'])} jobs active, {par} slots")
+              f", {len(st['running'])} jobs active (limited by memory; cap {par})")
         left_active = []
         for j in st["running"]:
             p = parse(os.path.join("runs", "logs", f"{j['tag']}.log"))
@@ -90,8 +90,10 @@ def main():
                             queued.append((parts[0], float(parts[1])))
                         except ValueError:
                             queued.append((parts[0], 30.0))
+        # memory, not the cap, limits concurrency: use the jobs running now
+        eff = max(1, min(par, len(st["running"])))
         work = sum(left_active) + sum(m * 60 for _, m in queued)
-        left = work / par
+        left = max(work / eff, max(left_active, default=0))
         print(f"   {len(queued)} jobs waiting (~{sum(m for _, m in queued) / 60:.1f} job-hours); "
               f"everything done in ~{hm(left)} (around {clock(left)})")
         if left < 3 * 3600:
