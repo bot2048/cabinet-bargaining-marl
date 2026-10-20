@@ -11,6 +11,24 @@ import numpy as np
 from .bf_solver import bf_symmetric_share, solve_bf
 
 
+@lru_cache(maxsize=20000)
+def _banzhaf(w: tuple, q: int):
+    n = len(w)
+    swings = np.zeros(n)
+    for mask in range(1 << n):
+        tot = sum(w[i] for i in range(n) if mask >> i & 1)
+        if tot >= q:
+            for i in range(n):
+                if mask >> i & 1 and tot - w[i] < q:
+                    swings[i] += 1
+    return swings / max(swings.sum(), 1)
+
+
+def banzhaf(w, q):
+    """Normalised Banzhaf power index of each party (spec H4, RQ3)."""
+    return _banzhaf(tuple(int(x) for x in w), int(q))
+
+
 def hamilton_min(seat_share: np.ndarray, m: int, rng=None):
     """Most proportional assignment of m equal-salience ministries
     (spec Proposition 2.12).  Returns the shares under mu_min and D_G^min."""
@@ -79,8 +97,10 @@ def cabinet_rows(log, m: int, divisible: bool, rng=None):
             minimal_winning=_is_minimal_winning(rec["C"], w),
             partner_offer=np.mean([p[j] for j in np.flatnonzero(rec["C"]) if j != f])
             if rec["C"].sum() > 1 else np.nan))
+        bz = banzhaf(w, rec.get("q", w.sum() // 2 + 1))
+        bz_c = np.where(Cp, bz / max(bz[Cp].sum(), 1e-12), 0.0)
         for j in np.flatnonzero(Cp):
-            rows.append((p[j], s[j], float(j == f), w[j] / w.sum()))
+            rows.append((p[j], s[j], float(j == f), w[j] / w.sum(), bz_c[j]))
     return cabs, np.array(rows), single
 
 
@@ -118,6 +138,11 @@ def summarise(log, episodes, m, divisible):
         out["duration"] = float(np.mean(dur)) if dur else np.nan
         out["collapse_rate"] = float(np.mean([c["collapsed"] for c in cabs]))
     out.update({f"reg_{k}": v for k, v in gamson_regression(rows).items()})
+    if len(rows) >= 4 and rows.shape[1] >= 5:
+        # RQ3 / H4: do shares follow seats or voting power?  Same regression with
+        # the within-coalition Banzhaf share in place of the seat share.
+        bz = gamson_regression(np.column_stack([rows[:, 0], rows[:, 4], rows[:, 2]]))
+        out.update({f"regbz_{k}": v for k, v in bz.items()})
     if episodes:
         out["fail_rate"] = float(np.mean([e["failed"] / max(e["rounds"], 1) for e in episodes]))
         out["governed_frac"] = float(np.mean([e["governed"] / max(e["periods"], 1)

@@ -243,7 +243,7 @@ class CabinetEnv:
     def _install(self, cab: Cabinet):
         cab.start = self.period
         self.cabinet = cab
-        rec = dict(n=self.n, w=self.w.copy(), C=cab.C.copy(), f=cab.f, p=cab.p.copy(),
+        rec = dict(n=self.n, w=self.w.copy(), q=self.q, C=cab.C.copy(), f=cab.f, p=cab.p.copy(),
                    p_nu=self._office(cab), term=self.t, delay=self.rounds_this_term,
                    delta=self.delta, rho=self.cfg.rho, duration=None, collapsed=False,
                    x_bf=None)
