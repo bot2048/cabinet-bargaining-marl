@@ -64,7 +64,14 @@ def cabinet_rows(log, m: int, divisible: bool, rng=None):
             pmin = np.zeros_like(p)
             pmin[Cp] = pmin_c
         x_bf = bf_benchmark(rec, divisible)
+        # shares in each party's own valuation (differs from sigma-shares when
+        # valuations are heterogeneous: a partner may take fewer but preferred
+        # ministries).  p_nu[i] is the fraction of i's total value that i holds.
+        pnu = rec.get("p_nu", p)
+        partners = [j for j in np.flatnonzero(Cp) if j != f]
         cabs.append(dict(
+            phi_nu=pnu[f] - s[f],
+            partner_nu_excess=float(np.mean([pnu[j] - s[j] for j in partners])) if partners else np.nan,
             phi=p[f] - s[f], phi_adj=p[f] - pmin[f], dg=dg, dg_adj=dg - dmin,
             pf=p[f], x_bf=x_bf, size=int(Cp.sum()), size_named=int(rec["C"].sum()),
             n=rec["n"], delay=rec["delay"], duration=rec["duration"],
@@ -100,7 +107,7 @@ def summarise(log, episodes, m, divisible):
     out = dict(cabinets=len(cabs), single_party=single)
     if cabs:
         for key in ("phi", "phi_adj", "dg", "dg_adj", "pf", "size", "delay",
-                    "minimal_winning"):
+                    "minimal_winning", "phi_nu", "partner_nu_excess"):
             out[key] = float(np.mean([c[key] for c in cabs]))
         offers = [c["partner_offer"] for c in cabs if not np.isnan(c["partner_offer"])]
         out["partner_offer"] = float(np.mean(offers)) if offers else np.nan
