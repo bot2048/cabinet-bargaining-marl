@@ -156,12 +156,14 @@ def exp_exploit(config, seed, iters, br_iters, model_tag=None):
         out[init] = res
     gain = max(out["warm"]["gain"], out["scratch"]["gain"])
     controls = {}
-    if seed == 0 and model_tag is None:
+    if seed == 0:
         for bot in ("gamson", "myopic"):
             r = exploitability(cfg, Scripted(bot, 7), br_iters, seed=77)
             r.pop("br_history")
             controls[bot] = r
     name = f"exploit_{config}" if model_tag is None else f"exploit_{model_tag}"
+    if br_iters != 150:                        # budget sensitivity of the test
+        name += f"_br{br_iters}"
     save(name, seed, dict(config=config, model=tag, gain=gain, runs=out, controls=controls))
 
 
