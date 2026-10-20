@@ -68,7 +68,11 @@ EOF
     rm -f $Q/STOP
     $PY scripts/jobs.py start && sleep 12 && tail -n 15 $Q/runner.log ;;
   reload)
-    pid=$(runner_pid); [ -n "$pid" ] && kill "$pid" && sleep 2
+    pid=$(runner_pid)
+    if [ -n "$pid" ]; then
+      kill "$pid"
+      for _ in $(seq 30); do kill -0 "$pid" 2>/dev/null || break; sleep 1; done
+    fi
     rm -f $Q/STOP
     $PY scripts/jobs.py start && sleep 12 && tail -n 12 $Q/runner.log ;;
   *) sed -n '2,15p' "$0" ;;

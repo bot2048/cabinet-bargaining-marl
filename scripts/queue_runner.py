@@ -8,7 +8,10 @@ Queue files (all under runs/queue/, plain text, safe to edit at any time):
 
     todo.txt      one job per line:  <tag> | <estimated minutes> | <shell command>
                   jobs are started from the top; edit, reorder or delete lines freely
-    parallel      maximum number of jobs at the same time (default 5); re-read every loop
+    parallel      upper bound on simultaneous jobs (default 16); re-read every loop.
+                  Below it, a job starts whenever resources allow: on the GPU if RAM
+                  (1.9 GB per job) and GPU memory permit, otherwise CPU-only
+                  (0.8 GB), and only if the CPU is not saturated
     reserve_mb    RAM that must stay free (default 1024): a job starts only if, after
                   it starts, at least this much memory remains available; if free
                   memory falls below 600 MB the newest job is stopped and re-queued
@@ -78,15 +81,17 @@ def pop_job():
 
 
 def parallel():
+    """Upper bound on simultaneous jobs; memory, GPU and CPU decide below it."""
     try:
         with open(os.path.join(QDIR, "parallel")) as f:
             return max(1, int(f.read().strip()))
     except (OSError, ValueError):
-        return 5
+        return 16
 
 
 def write_state(running, avail_mb=None, job_mb=None):
-    state = [dict(tag=j["tag"], est=j["est"], pid=p.pid, start=j["start"], cmd=j["cmd"])
+    state = [dict(tag=j["tag"], est=j["est"], pid=p.pid, start=j["start"], cmd=j["cmd"],
+                  device=j.get("device", "cuda" if "--device cuda" in j["cmd"] else "cpu"))
              for p, j in running]
     tmp = os.path.join(QDIR, "state.json.tmp")
     with open(tmp, "w") as f:
@@ -157,7 +162,30 @@ class Adopted:
 # ------------------------------------------------------------------ memory
 RESERVE_MB = 1024          # RAM that must stay free after starting a job
 EMERGENCY_MB = 600         # below this, the newest job is stopped and re-queued
-DEFAULT_JOB_MB = 1500      # assumed size of a job before any is measured
+DEFAULT_MB = {"cuda": 1900, "cpu": 800}   # job sizes before any is measured
+GPU_JOB_MB = 600           # GPU memory a job needs
+THREADS = 2                # PyTorch threads per job (CPU budget)
+
+
+def gpu_free_mb():
+    try:
+        out = subprocess.run(["nvidia-smi", "--query-gpu=memory.free", "--format=csv,noheader,nounits"],
+                             capture_output=True, text=True, timeout=10).stdout
+        return int(out.split()[0])
+    except (OSError, ValueError, IndexError, subprocess.SubprocessError):
+        return 0
+
+
+def as_device(cmd, dev):
+    """Rewrite a queued command to run its PPO update on ``dev``.  CPU jobs use
+    the CPU-only environment, which needs ~1 GB less RAM than CUDA."""
+    gpu_py = os.path.join(ROOT, ".venv-gpu", "bin", "python")
+    cpu_py = os.path.join(ROOT, ".venv", "bin", "python")
+    if dev == "cpu":
+        cmd = cmd.replace(gpu_py, cpu_py).replace("--device cuda", "--device cpu")
+    elif os.path.exists(gpu_py):
+        cmd = cmd.replace(cpu_py, gpu_py).replace("--device cpu", "--device cuda")
+    return cmd
 
 
 def mem_available_mb():
@@ -231,10 +259,25 @@ def main():
                         f"{mins:.1f} min (est {j['est']:.0f}) | {j['cmd']}\n")
             print(f"[{time.ctime()}] finished {j['tag']} exit={rc} after {mins:.1f} min", flush=True)
         running = still
-        # memory: measure jobs, stop the newest one if RAM is nearly exhausted
-        sizes = [session_rss_mb(p.pid) for p, _ in running]
-        job_mb = max(sizes + [0]) or DEFAULT_JOB_MB
+        # memory: measure jobs by device, stop the newest job if RAM is nearly exhausted
+        sizes = {"cuda": [], "cpu": []}
+        young = []                           # (device, rss) of jobs still growing
+        for p, j in running:
+            dev_j = j.get("device", "cuda" if "--device cuda" in j["cmd"] else "cpu")
+            rss = session_rss_mb(p.pid)
+            if time.time() - j["start"] < 180:
+                young.append((dev_j, rss))
+            else:
+                sizes[dev_j].append(rss)
+        job_mb = {d: max(max(v) if v else 0, DEFAULT_MB[d] // 2) or DEFAULT_MB[d]
+                  for d, v in sizes.items()}
+        for d in job_mb:
+            if not sizes[d]:
+                job_mb[d] = DEFAULT_MB[d]
         avail = mem_available_mb()
+        # memory that recently started jobs will still take
+        growth = sum(max(0, job_mb[d] - rss) for d, rss in young)
+        avail_plan = avail - growth
         if avail < EMERGENCY_MB and len(running) > 1:
             p, j = max(running, key=lambda pj: pj[1]["start"])
             try:
@@ -247,20 +290,37 @@ def main():
             print(f"[{time.ctime()}] low memory ({avail} MB free): stopped {j['tag']} "
                   f"and re-queued it (it resumes from its checkpoint)", flush=True)
             avail = mem_available_mb()
+            avail_plan = avail - growth
         stop = os.path.exists(os.path.join(QDIR, "STOP"))
+        gpu_free = gpu_free_mb()
         while not stop and len(running) < parallel():
-            if avail - job_mb < reserve_mb():
+            # as many jobs as resources allow: GPU if RAM and GPU memory permit,
+            # else a lighter CPU-only job, else wait for memory to free up
+            load = os.getloadavg()[0]
+            if load + THREADS > (os.cpu_count() or 4):
+                break
+            if avail_plan - job_mb["cuda"] >= reserve_mb() and gpu_free - GPU_JOB_MB >= 512:
+                dev = "cuda"
+            elif avail_plan - job_mb["cpu"] >= reserve_mb():
+                dev = "cpu"
+            else:
                 break                       # starting another job would leave < reserve free
             job = pop_job()
             if job is None:
                 break
+            if "run_experiment.py" in job["cmd"] or "parlgov_eval.py" in job["cmd"]:
+                job["cmd"] = as_device(job["cmd"], dev)
+            job["device"] = dev
             log = open(os.path.join(ROOT, "runs", "logs", f"{job['tag']}.log"), "a")
             p = subprocess.Popen(job["cmd"], shell=True, cwd=ROOT, stdout=log,
                                  stderr=subprocess.STDOUT, start_new_session=True)
             job["start"] = time.time()
             running.append((p, job))
-            print(f"[{time.ctime()}] started {job['tag']} (pid {p.pid}, {avail} MB free)", flush=True)
-            avail -= job_mb                 # count it before its memory shows up
+            print(f"[{time.ctime()}] started {job['tag']} on {dev} (pid {p.pid}, {avail} MB free)",
+                  flush=True)
+            avail_plan -= job_mb[dev]       # count it before its memory shows up
+            if dev == "cuda":
+                gpu_free -= GPU_JOB_MB
         write_state(running, avail_mb=mem_available_mb(), job_mb=job_mb)
         if stop and not running:
             print(f"[{time.ctime()}] STOP file found, exiting", flush=True)
