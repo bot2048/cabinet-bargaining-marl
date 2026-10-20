@@ -110,7 +110,16 @@ def _merge(names) -> dict:
     return kw
 
 
+# Variants that are not mechanism switches (so they never enter E*).
+# M1_patient: repetition with agents patient across terms.  With delta = 0.9 and
+# 6-period terms the discount between consecutive formations is about
+# beta_T * delta^L = 0.67 * 0.53 = 0.35; here it is 0.83 * 0.98^3 = 0.78.
+EXTRA = {"M1_patient": dict(L=3, T=6.0, Lam=4, delta_choices=(0.98,))}
+
+
 def add_one_in(mech: str) -> EnvConfig:
+    if mech in EXTRA:
+        return BASE.with_(name=f"BASE+{mech}", **EXTRA[mech])
     return BASE.with_(name=f"BASE+{mech}", **_merge(NEEDS.get(mech, ()) + (mech,)))
 
 

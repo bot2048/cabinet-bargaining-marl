@@ -135,10 +135,10 @@ def exp_mech(config, seed, iters, hp=None, tag=None):
                          rows=rows[:4000], history=hist, seconds=secs))
 
 
-def exp_exploit(config, seed, iters, br_iters):
+def exp_exploit(config, seed, iters, br_iters, model_tag=None):
     """S2/S4: exploitability of a trained profile, plus scripted positive controls."""
     cfg = get_config(config)
-    tag = f"mech_{config}"
+    tag = model_tag or f"mech_{config}"
     path = model_path(tag, seed)
     waited = 0
     while not os.path.exists(path):          # queued before its model finished
@@ -156,12 +156,13 @@ def exp_exploit(config, seed, iters, br_iters):
         out[init] = res
     gain = max(out["warm"]["gain"], out["scratch"]["gain"])
     controls = {}
-    if seed == 0:
+    if seed == 0 and model_tag is None:
         for bot in ("gamson", "myopic"):
             r = exploitability(cfg, Scripted(bot, 7), br_iters, seed=77)
             r.pop("br_history")
             controls[bot] = r
-    save(f"exploit_{config}", seed, dict(config=config, gain=gain, runs=out, controls=controls))
+    name = f"exploit_{config}" if model_tag is None else f"exploit_{model_tag}"
+    save(name, seed, dict(config=config, model=tag, gain=gain, runs=out, controls=controls))
 
 
 def exp_baselines():
@@ -190,6 +191,7 @@ def main():
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--algo", default="ippo", choices=["ippo", "mappo", "fsp"])
     ap.add_argument("--rec", action="store_true", help="recurrent memory core (spec Def. 3.1)")
+    ap.add_argument("--model-tag", default=None, help="exploit: evaluate models/<tag> instead of mech_<config>")
     ap.add_argument("--device", default="cpu", help="cpu or cuda (PPO update only)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
@@ -210,7 +212,7 @@ def main():
         exp_mech(a.config, a.seed, a.iters, hp=dict(ent_end=a.ent_end),
                  tag=f"entropy_{a.config}_{a.ent_end:g}")
     elif a.exp == "exploit":
-        exp_exploit(a.config, a.seed, a.iters, a.br_iters)
+        exp_exploit(a.config, a.seed, a.iters, a.br_iters, a.model_tag)
     else:
         exp_baselines()
     print("DONE", flush=True)       # marker read by scripts/status.py
