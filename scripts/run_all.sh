@@ -48,6 +48,8 @@ done
 [ -f results/baselines/seed0.json ] || echo "$PY scripts/run_experiment.py --exp baselines > runs/logs/baselines.log 2>&1" >> "$jobs_file"
 
 echo "$(wc -l < "$jobs_file") jobs, $JOBS in parallel"
+# manifest read by scripts/status.sh to estimate the time of completion
+{ echo "start $(date +%s)"; echo "parallel $JOBS"; cat "$jobs_file"; } > runs/logs/_queue.txt
 xargs -P "$JOBS" -I CMD bash -c CMD < "$jobs_file"
 
 # exploitability needs the trained models
@@ -58,6 +60,7 @@ for c in BASE Estar; do
       echo "$PY scripts/run_experiment.py --exp exploit --config $c --seed $s --br-iters 150 --threads $THREADS > runs/logs/exploit_${c}_s$s.log 2>&1" >> "$ex_file"
   done
 done
+{ echo "start $(date +%s)"; echo "parallel $JOBS"; cat "$ex_file"; } > runs/logs/_queue.txt
 xargs -P "$JOBS" -I CMD bash -c CMD < "$ex_file"
 rm -f "$jobs_file" "$ex_file"
 $PY scripts/make_figures.py

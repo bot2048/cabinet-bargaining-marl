@@ -175,8 +175,11 @@ def main():
     ap.add_argument("--ent-end", type=float, default=None)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--algo", default="ippo", choices=["ippo", "mappo", "fsp"])
+    ap.add_argument("--device", default="cpu", help="cpu or cuda (PPO update only)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
+    from cabinet import ppo
+    ppo.DEFAULT_HP["device"] = a.device
     if a.exp == "e0":
         exp_e0(a.seed, a.iters)
     elif a.exp == "e1":
@@ -192,6 +195,7 @@ def main():
         exp_exploit(a.config, a.seed, a.iters, a.br_iters)
     else:
         exp_baselines()
+    print("DONE", flush=True)       # marker read by scripts/status.py
 
 
 if __name__ == "__main__":

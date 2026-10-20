@@ -9,3 +9,5 @@ runs/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+.venv-gpu/
+models/*/seed99.pt

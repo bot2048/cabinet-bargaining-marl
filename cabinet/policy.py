@@ -69,6 +69,10 @@ class PolicyNet(nn.Module):
 
     # ------------------------------------------------------------ encoder
     def encode(self, ob):
+        with torch.device(ob["P"].device):
+            return self._encode(ob)
+
+    def _encode(self, ob):
         P, M = ob["P"], ob["M"]
         pmask, mmask = ob["pmask"], ob["mmask"]
         u, v = self.fp(P), self.fm(M)
@@ -84,8 +88,13 @@ class PolicyNet(nn.Module):
     def forward(self, ob, act=None, greedy=False):
         """Return (action dict, log-prob, entropy, value) for a batch.
         With ``act`` given, the log-probability of those actions is computed
-        (teacher forcing) instead of sampling."""
-        u, v, h = self.encode(ob)
+        (teacher forcing) instead of sampling.  New tensors are created on the
+        device of the inputs, so the same code runs on CPU and GPU."""
+        with torch.device(ob["P"].device):
+            return self._forward(ob, act, greedy)
+
+    def _forward(self, ob, act, greedy):
+        u, v, h = self._encode(ob)
         B = h.shape[0]
         value = self.value(h).squeeze(-1)
         kind = ob["kind"]

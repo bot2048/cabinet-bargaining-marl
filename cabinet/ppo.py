@@ -149,25 +149,26 @@ def gae(S, lam):
 
 
 def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
+    dev = next(net.parameters()).device
     if critic is not None:
         # LA2: values come from the centralised critic on global observations
-        G = to_torch(pad_obs(S["gobs"], N, M))
+        G = {k: v.to(dev) for k, v in to_torch(pad_obs(S["gobs"], N, M)).items()}
         with torch.no_grad():
-            S["value"] = critic(G)[3].tolist()
+            S["value"] = critic(G)[3].cpu().tolist()
     adv, ret = gae(S, hp["lam"])
     batch = pad_obs(S["obs"], N, M)
     batch["bit"] = np.array(S["bit"])
     batch["inc"] = np.stack(S["inc"])
     batch["mu"] = np.stack(S["mu"])
     batch["shares"] = np.stack(S["shares"]).astype(np.float32)
-    T = to_torch(batch)
-    old_logp = torch.tensor(S["logp"], dtype=torch.float32)
-    adv_t = torch.tensor(adv, dtype=torch.float32)
-    ret_t = torch.tensor(ret, dtype=torch.float32)
+    T = {k: v.to(dev) for k, v in to_torch(batch).items()}
+    old_logp = torch.tensor(S["logp"], dtype=torch.float32, device=dev)
+    adv_t = torch.tensor(adv, dtype=torch.float32, device=dev)
+    ret_t = torch.tensor(ret, dtype=torch.float32, device=dev)
     n = len(adv)
     stats = defaultdict(list)
     for _ in range(hp["epochs"]):
-        perm = torch.randperm(n)
+        perm = torch.randperm(n, device=dev)
         for mb in perm.split(max(n // hp["minibatches"], 1)):
             ob = {k: v[mb] for k, v in T.items()}
             act = {k: ob[k] for k in ("bit", "inc", "mu", "shares")}
@@ -193,8 +194,8 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
             vl = ((value - ret_t[mb]) ** 2).mean()
             # voters and governing members get a larger entropy weight so that
             # rejecting / exiting keeps being tried until its value is learned
-            ent_w = torch.where(ob["kind"] == PROPOSE, torch.tensor(1.0),
-                                torch.tensor(float(hp["ent_vote_mult"])))
+            ent_w = torch.where(ob["kind"] == PROPOSE, torch.tensor(1.0, device=dev),
+                                torch.tensor(float(hp["ent_vote_mult"]), device=dev))
             loss = pg + hp["vf"] * vl - hp["ent"] * (ent_w * ent).mean()
             opt.zero_grad()
             loss.backward()
@@ -209,7 +210,7 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
 
 DEFAULT_HP = dict(lr=3e-4, lam=0.95, clip=0.2, epochs=4, minibatches=4, vf=0.5,
                   ent_start=2e-2, ent_end=2e-3, ent_vote_mult=1.0, n_envs=64, rollout=4096, d=64,
-                  algo="ippo", snap_every=10, pool_size=10, p_learner=0.5)
+                  algo="ippo", snap_every=10, pool_size=10, p_learner=0.5, device="cpu")
 
 
 def all_learn(env, rng):
@@ -222,8 +223,13 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
     torch.manual_seed(seed)
     np.random.seed(seed)
     net = net or PolicyNet(d=hp["d"])
-    opt = torch.optim.Adam(net.parameters(), lr=hp["lr"])
-    ctrls = {"learn": net, **(controllers or {})}
+    # Rollouts run on the CPU (the game is pure Python); with device="cuda"
+    # the PPO update runs on the GPU and the weights are copied back.
+    dev = torch.device(hp["device"] if hp["device"] != "cuda" or torch.cuda.is_available() else "cpu")
+    learner = net.to(dev)
+    actor = copy.deepcopy(learner).cpu() if dev.type != "cpu" else learner
+    opt = torch.optim.Adam(learner.parameters(), lr=hp["lr"])
+    ctrls = {"learn": actor, **(controllers or {})}
     pool = []
     if hp["algo"] == "fsp":
         # LA3, fictitious self-play: each seat is the learner with probability
@@ -239,7 +245,7 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
     critic = copt = None
     if hp["algo"] == "mappo":
         # LA2: separate critic network over global observations (training only)
-        critic = PolicyNet(d=hp["d"])
+        critic = PolicyNet(d=hp["d"]).to(dev)
         copt = torch.optim.Adam(critic.parameters(), lr=hp["lr"])
         runner.store_global = True
     history = []
@@ -251,10 +257,12 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
             g["lr"] = hp["lr"] * (1 - 0.9 * frac)
         S, eps = runner.collect(hp["rollout"])
         steps += len(S["kind"])
-        st = ppo_update(net, opt, S, runner.N, runner.M, hp, critic, copt)
+        st = ppo_update(learner, opt, S, runner.N, runner.M, hp, critic, copt)
+        if actor is not learner:
+            actor.load_state_dict({k: v.cpu() for k, v in learner.state_dict().items()})
         if hp["algo"] == "fsp" and it % hp["snap_every"] == 0:
             name = f"pool{it}"
-            ctrls[name] = copy.deepcopy(net).eval()
+            ctrls[name] = copy.deepcopy(actor).eval()
             pool.append(name)
             if len(pool) > hp["pool_size"]:
                 del ctrls[pool.pop(0)]
@@ -264,12 +272,13 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
             rec = dict(iter=it, steps=steps, time=time.time() - t0, **st, **summ)
             history.append(rec)
             if verbose:
-                print(f"[{cfg.name} s{seed}] it={it:4d} steps={steps:8d} "
-                      f"t={rec['time']:6.0f}s phi={summ.get('phi', np.nan):+.3f} "
+                eta = rec["time"] / (it + 1) * (iters - it - 1)
+                print(f"[{cfg.name} s{seed}] it={it:4d}/{iters} steps={steps:8d} "
+                      f"t={rec['time']:6.0f}s eta={eta:6.0f}s phi={summ.get('phi', np.nan):+.3f} "
                       f"phi~={summ.get('phi_adj', np.nan):+.3f} "
                       f"dg~={summ.get('dg_adj', np.nan):.3f} gapBF={summ.get('gap_bf', np.nan):+.3f} "
                       f"fail={summ.get('fail_rate', np.nan):.2f} ent={st['ent']:.2f}", flush=True)
-    return net, history
+    return actor, history
 
 
 def seat_payoffs(episodes, name):
