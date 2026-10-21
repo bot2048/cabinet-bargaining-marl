@@ -45,6 +45,9 @@ def main():
     ap.add_argument("--episodes", type=int, default=3000)
     ap.add_argument("--only", default="")
     ap.add_argument("--threads", type=int, default=4)
+    ap.add_argument("--types-only", action="store_true",
+                    help="only configurations with heterogeneous values or policy (lam > 0 or xi > 0), "
+                         "where the value and lead-ministry regressions are informative")
     ap.add_argument("--wait-queue", action="store_true",
                     help="wait until no other queued or running job is left")
     a = ap.parse_args()
@@ -66,6 +69,8 @@ def main():
         res = os.path.join(ROOT, "results", tag, f"seed{seed}.json")
         cfg = config_for(tag)
         if a.only not in tag or cfg is None or not os.path.exists(res):
+            continue
+        if a.types_only and cfg.lam == 0 and cfg.xi == 0:
             continue
         net = load_policy(path)
         cab, ep = evaluate(cfg, {"learn": net}, ALL, episodes=a.episodes, seed=1000 + seed)
