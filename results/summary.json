@@ -1723,6 +1723,12 @@
   "GainEzeroRel": "20%",
   "GainEzeroGamson": "0.019",
   "GainEzeroMyopic": "0.037",
+  "WvsPairs": "42",
+  "WvsSlope": "0.84",
+  "WvsLo": "0.44",
+  "WvsHi": "1.07",
+  "WvsNoPm": "0.52",
+  "WvsNoPmN": "24",
   "GainLongRel": "10%",
   "GainDemRel": "19%",
   "GainPropRel": "18%"

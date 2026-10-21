@@ -1,0 +1,18 @@
+{
+ "pairs": 42,
+ "cabinets": 36,
+ "countries": 13,
+ "seat_slope": 0.8449221110993381,
+ "seat_slope_ci": [
+  0.4396570202279621,
+  1.0699977693248248
+ ],
+ "pm_coef": -0.013975534745922282,
+ "pm_ci": [
+  -0.08777475397169807,
+  0.07796332175554173
+ ],
+ "seat_slope_pairs_without_pm": 0.5150483973692317,
+ "pairs_without_pm": 24,
+ "larger_party_gets_more": 0.5
+}

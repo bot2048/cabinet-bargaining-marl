@@ -33,7 +33,7 @@ and otherwise split by *voting weight*; they never produce seat-proportionality 
    learned agents do exactly that (within 0.02; dummy never included).
 3. **Real cabinets follow seats** (195 cabinets, Seki-Williams + ParlGov): share = 0.031 + 0.896 seats +
    0.011 PM party; a small premium appears only relative to voting weights (+0.07, as Ansolabehere et al.
-   2005 find); no detectable premium in key ministries; Gamson's law predicts real splits best (MAE 0.052
+   2005 find); partners with equal voting weight still split by seats (slope 0.84, 42 pairs); no detectable premium in key ministries; Gamson's law predicts real splits best (MAE 0.052
    vs 0.087-0.15 for agents and 0.144 for Baron-Ferejohn).
 
 Every claim with its result file and script: [`docs/AUDIT.md`](docs/AUDIT.md).
@@ -75,6 +75,7 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`scripts/key_ministries.py`](scripts/key_ministries.py) | do real prime-minister parties hold the key ministries? |
 | [`scripts/parlgov_eval.py`](scripts/parlgov_eval.py) | coalition choice in real ParlGov parliaments |
 | [`scripts/real_robustness.py`](scripts/real_robustness.py) | real-cabinet regression: cabinet size, largest party, wild cluster bootstrap, voting weights |
+| [`scripts/real_weights_vs_seats.py`](scripts/real_weights_vs_seats.py) | real partners with equal voting weight but different seats: do shares follow seats? |
 | [`scripts/confirmatory.py`](scripts/confirmatory.py) | the pre-registered tests ([`docs/PREREGISTRATION.md`](docs/PREREGISTRATION.md)) |
 | [`scripts/bf_best_response.py`](scripts/bf_best_response.py) | formateur best response against frozen learned voters (no training) |
 | [`scripts/benchmark_table.py`](scripts/benchmark_table.py) | per-cell comparison with the BF closed form |

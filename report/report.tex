@@ -151,18 +151,19 @@ minister; country-clustered 95\% CIs.}\label{fig:real}
 \code{scripts/seki\_eval.py}, \code{scripts/real\_robustness.py}). Relative to seats the prime minister's
 party has no premium (\RobBaseG, wild-cluster 95\% CI \RobBaseLo{} to \RobBaseHi; leave-one-country-out
 \LocoLo{} to \LocoHi). Relative to minimal integer voting weights it has one, \RobWeightsG{}
-(\RobWeightsLo{} to \RobWeightsHi), as Ansolabehere et al.\ report~\cite{asw}; with a largest-party control
-\RobLargestG{} (\RobLargestLo{} to \RobLargestHi; identified by \RobPmNotLargest{} cabinets). Seats fit better
-than weights ($R^2$ \RobBaseRtwo{} vs \RobWeightsRtwo) and absorb the weight effect when both enter. Key
-ministries (finance, foreign, interior, defence, justice; \KeyN{} cabinets) show no detectable premium either, in line with salience-weighted evidence~\cite{wd}:
+(\RobWeightsLo{} to \RobWeightsHi), as Ansolabehere et al.\ report~\cite{asw}. Seats fit better
+than weights ($R^2$ \RobBaseRtwo{} vs \RobWeightsRtwo), and decisively where the two disagree: for
+\WvsPairs{} pairs of partners with \emph{equal} voting weight but different seats, share differences
+follow seat differences with slope \WvsSlope{} (95\% CI \WvsLo--\WvsHi; Gamson 1, voting weight 0, our
+demand agents \AfDemSlope), though less clearly without the PM's party (\WvsNoPm, \WvsNoPmN{} pairs). Key
+ministries (finance, foreign, interior, defence, justice; \KeyN{} cabinets) show no detectable premium either~\cite{wd}:
 \KeyShare{} held vs \KeyCount{} of all ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi).
 Given the real coalition and prime minister, Gamson's law errs by \MaeGamson{} per party, BF by \MaeBF{}
 and agents with private types by \MaePrivLo--\MaePrivHi{}, every one worse than Gamson
 (Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), demand agents with more
-exploration reproduce the real seat regression almost exactly, although their rule is voting weight (F2):
-in real parliaments the two are close, and real cabinets fit seats better than weights. Only the small
-premium relative to voting power is matched by E* instead; proposal agents overshoot. Keeping only cabinets
-that reproduce the real coalition barely moves the demand slope (\OwnDemMatchB).
+exploration reproduce the real seat regression almost exactly, although their rule is voting weight (F2;
+in most real parliaments the two are close); E* matches the small premium relative to voting power;
+proposal agents overshoot.
 
 \textbf{Reliability.} Best responses trained by PPO (one seat learns against the frozen profile) gain
 \GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} and \GainPropRel{}
@@ -175,7 +176,7 @@ between independent runs costs \CmSame{} per period.
 To the question of the project: self-interested learning parties do not follow seats as such. They
 favour the formateur as far as the rules give it proposal power, and otherwise split by voting weight;
 information and policy motives change the currency of the premium, not its existence. Demand bargaining
-comes closest to real cabinets, but these fit seats better than voting weights, so Gamson's law likely also
+comes closest to real cabinets, but these follow seats even where voting weights disagree, so Gamson's law likely also
 rests on rules outside these models, such as commitments before the split~\cite{ks} or within-party
 bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; approximate equilibria; the PM's party
 proxies the formateur; real shares count ministers (salience only via key ministries). \textbf{Not done}:

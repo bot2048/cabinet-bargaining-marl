@@ -33,6 +33,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 |---|---|---|---|
 | Real regression | 0.031 + 0.896 s + 0.011 F, R^2 0.93, 195 cabinets, 31 countries | `results/seki/summary.json` | `scripts/seki_eval.py` |
 | Robustness | gamma +0.011 (seats), +0.019 (alpha/k), +0.059 (largest-party control), +0.074 (min. integer weights); wild-cluster CIs | `results/real_robustness.json` | `scripts/real_robustness.py` |
+| Equal voting weight, different seats | 42 pairs (36 cabinets, 13 countries): share difference follows seat difference, slope 0.84 [0.44, 1.07]; without the PM's party 0.52 (24 pairs) | `results/real_weights_vs_seats.json` | `scripts/real_weights_vs_seats.py` |
 | Leave-one-country-out | gamma in [-0.004, 0.013]; Gamson best in 31/31 | `results/seki/summary.json` (`loco`) | `scripts/seki_eval.py` |
 | Key ministries | 0.589 vs 0.573; diff +0.015 [-0.021, +0.056] (131 cabinets) | `results/seki/key_ministries.json` | `scripts/key_ministries.py` |
 | Predicting real splits | MAE: Gamson 0.052, private-type agents 0.087-0.090, public 0.13-0.17, BF 0.144 (183 cabinets) | `results/seki/summary.json` | `scripts/seki_eval.py` |

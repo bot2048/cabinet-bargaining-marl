@@ -562,6 +562,16 @@ def macros():
         c = e0x[0].get("controls", {})
         put("GainEzeroGamson", c.get("gamson", {}).get("gain", np.nan), "{:.3f}")
         put("GainEzeroMyopic", c.get("myopic", {}).get("gain", np.nan), "{:.3f}")
+    wp = os.path.join(ROOT, "results", "real_weights_vs_seats.json")
+    if os.path.exists(wp):
+        with open(wp) as f:
+            wv = json.load(f)
+        put("WvsPairs", wv["pairs"], "{:d}")
+        put("WvsSlope", wv["seat_slope"], "{:.2f}")
+        put("WvsLo", wv["seat_slope_ci"][0], "{:.2f}")
+        put("WvsHi", wv["seat_slope_ci"][1], "{:.2f}")
+        put("WvsNoPm", wv["seat_slope_pairs_without_pm"], "{:.2f}")
+        put("WvsNoPmN", wv["pairs_without_pm"], "{:d}")
     # best-response gains relative to the payoff of a profile seat
     for tag, name in (("exploit_Estar_br400", "GainLongRel"), ("exploit_mech_WideDemand_br400", "GainDemRel"),
                       ("exploit_mech_WideProposal_br400", "GainPropRel")):
