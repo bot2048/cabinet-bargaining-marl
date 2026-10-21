@@ -243,3 +243,14 @@ def test_recognition_sums_to_one_in_truncated_real_parliaments():
     for cab in cabs:
         env = CabinetEnv(real_parliament(estar_wide(), cab), seed=0).reset()
         assert abs(env.recognition_probs().sum() - 1) < 1e-12
+
+
+def test_demand_solver_known_equilibria():
+    """Exact SPE of our demand protocol: 3 equal parties split 50/50 between the
+    first two movers; in 40/30/25/5 the 5-seat dummy gets nothing."""
+    from cabinet.demand_solver import solve
+    V, out = solve([1, 1, 1], 2, 0.9, step=0.02)
+    assert np.allclose(sorted(out[0]["pay"]), [0, 0.5, 0.5], atol=1e-6)
+    V, out = solve([40, 30, 25, 5], 51, 0.9, recognition="seat", step=0.02)
+    assert V[3] < 1e-9 and all(o["pay"][3] < 1e-9 for o in out)
+    assert all(np.isclose(sorted(o["pay"])[-2:], [0.5, 0.5]).all() for o in out)
