@@ -165,8 +165,8 @@ premium relative to voting power is matched by E* instead; proposal agents overs
 that reproduce the real coalition barely moves the demand slope (\OwnDemMatchB).
 
 \textbf{Reliability.} Best responses trained by PPO (one seat learns against the frozen profile) gain
-\GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} of it against
-demand agents, \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles.
+\GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} and \GainPropRel{}
+against demand and proposal agents on random parliaments, \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles.
 In the BF game they gain \GainEzero{} (\GainEzeroRel), more than the analytic formateur deviation, so the
 test detects the gaps found above: learned profiles are approximate, not exact, equilibria. Cross-play
 between independent runs costs \CmSame{} per period.

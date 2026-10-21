@@ -394,6 +394,13 @@
    0.0019345602731704115,
    2,
    {}
+  ],
+  [
+   "mech_WideProposal_br400",
+   0.03264718434555569,
+   0.0,
+   1,
+   {}
   ]
  ],
  "baselines": {
@@ -1717,6 +1724,7 @@
   "GainEzeroGamson": "0.019",
   "GainEzeroMyopic": "0.037",
   "GainLongRel": "10%",
-  "GainDemRel": "19%"
+  "GainDemRel": "19%",
+  "GainPropRel": "18%"
  }
 }

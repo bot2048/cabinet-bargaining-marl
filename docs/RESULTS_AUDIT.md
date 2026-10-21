@@ -43,7 +43,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | Claim | Number | Result files |
 |---|---|---|
 | Best-response gain, E* | 0.015 (10% of a seat's payoff); scripted Gamson 0.037, BF heuristic 0.088 | `results/exploit_Estar_br400/` |
-| Best-response gain, demand / BF benchmark | 19% of payoff / 0.040 (20%) | `results/exploit_mech_WideDemand_br400/`, `results/exploit_e0_br300/` |
+| Best-response gain, demand / proposal / BF benchmark | 19% / 18% of payoff / 0.040 (20%) | `results/exploit_mech_WideDemand_br400/`, `results/exploit_mech_WideProposal_br400/`, `results/exploit_e0_br300/` |
 | Cross-play | 0.002 per period | `results/crossplay/` |
 
 ## Not run, and why
