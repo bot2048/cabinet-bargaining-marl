@@ -99,8 +99,9 @@ def cabinet_rows(log, m: int, divisible: bool, rng=None):
             if rec["C"].sum() > 1 else np.nan))
         bz = banzhaf(w, rec.get("q", w.sum() // 2 + 1))
         bz_c = np.where(Cp, bz / max(bz[Cp].sum(), 1e-12), 0.0)
+        lead = rec.get("lead", np.zeros_like(p))
         for j in np.flatnonzero(Cp):
-            rows.append((p[j], s[j], float(j == f), w[j] / w.sum(), bz_c[j]))
+            rows.append((p[j], s[j], float(j == f), w[j] / w.sum(), bz_c[j], pnu[j], lead[j]))
     return cabs, np.array(rows), single
 
 
@@ -143,6 +144,15 @@ def summarise(log, episodes, m, divisible):
         # the within-coalition Banzhaf share in place of the seat share.
         bz = gamson_regression(np.column_stack([rows[:, 0], rows[:, 4], rows[:, 2]]))
         out.update({f"regbz_{k}": v for k, v in bz.items()})
+    if len(rows) >= 4 and rows.shape[1] >= 7:
+        # The premium in other currencies, controlling for seats like (1):
+        # each member's share of the value *it* places on ministries, and its
+        # share of the policy-setting (lead) ministries.
+        nu = gamson_regression(np.column_stack([rows[:, 5], rows[:, 1], rows[:, 2]]))
+        out.update({f"regnu_{k}": v for k, v in nu.items()})
+        if np.any(rows[:, 6] > 0):
+            ld = gamson_regression(np.column_stack([rows[:, 6], rows[:, 1], rows[:, 2]]))
+            out.update({f"reglead_{k}": v for k, v in ld.items()})
     if episodes:
         out["fail_rate"] = float(np.mean([e["failed"] / max(e["rounds"], 1) for e in episodes]))
         out["governed_frac"] = float(np.mean([e["governed"] / max(e["periods"], 1)

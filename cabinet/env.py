@@ -246,7 +246,11 @@ class CabinetEnv:
     def _install(self, cab: Cabinet):
         cab.start = self.period
         self.cabinet = cab
+        lead = np.zeros(self.n)
+        if cab.mu is not None and (self.lead >= 0).any():
+            np.add.at(lead, cab.mu[self.lead >= 0], 1.0 / (self.lead >= 0).sum())
         rec = dict(n=self.n, w=self.w.copy(), q=self.q, C=cab.C.copy(), f=cab.f, p=cab.p.copy(),
+                   lead=lead, lam=self.cfg.lam,
                    p_nu=self._office(cab), term=self.t, delay=self.rounds_this_term,
                    delta=self.delta, rho=self.cfg.rho, duration=None, collapsed=False,
                    x_bf=None)

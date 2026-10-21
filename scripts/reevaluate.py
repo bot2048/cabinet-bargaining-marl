@@ -28,6 +28,8 @@ def config_for(tag):
         return get_config("E0")
     if tag == "e1":
         return get_config("E1")
+    if tag.startswith("long_"):
+        return get_config(tag[5:])
     if tag.startswith("rec_"):
         return get_config(tag[4:].split("_mappo")[0].split("_fsp")[0])
     for prefix in ("mech_", "mappo_", "fsp_"):
