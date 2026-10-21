@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from cabinet.bf_solver import solve_bf                      # noqa: E402
 from cabinet import config as C                              # noqa: E402
 from cabinet.config import estar_wide                       # noqa: E402
-from cabinet.env import CabinetEnv, PROPOSE                 # noqa: E402
+from cabinet.env import CabinetEnv, PROPOSE, DEMAND, CLOSE  # noqa: E402
 from cabinet.metrics import banzhaf, gamson_regression, summarise  # noqa: E402
 from cabinet.ppo import evaluate                              # noqa: E402
 from cabinet.policy import load_policy, pad_obs, to_torch   # noqa: E402
@@ -131,6 +131,46 @@ def own_cabinets(net, cabs, base, episodes, seed):
     return summarise(cab_log, ep_log, base.m, base.divisible)
 
 
+def demand_split(net, cab, samples, seed):
+    """Demand protocol with the real coalition imposed: the real members demand
+    in random order (closing disabled), the last member closes and takes the
+    residual; averaged over orders and sampled demands.  If earlier demands
+    exceed the whole surplus they are rescaled and the closer gets nothing
+    (the frequency is recorded)."""
+    keep = np.arange(len(cab["seats"]))[:MAX_N]
+    if not cab["member"][keep].sum() == cab["member"].sum():
+        return None, None
+    cfg = C.WIDE_DEMAND.with_(name=cab["name"], seats=tuple(int(round(x)) for x in cab["seats"][keep]),
+                              house=int(cab["house"]), n_choices=(len(keep),), seat_mode="fixed", T=1.0)
+    env = CabinetEnv(cfg, seed=seed)
+    rng = np.random.default_rng(seed)
+    members = list(np.flatnonzero(cab["member"]))
+    shares = np.zeros(len(cab["seats"]))
+    over = 0
+    for _ in range(samples):
+        env.reset()
+        order = list(rng.permutation(members))
+        env.dem_order = order + [j for j in range(len(keep)) if j not in order]
+        env.demands = np.full(len(keep), np.nan)
+        env.f = order[0]
+        for k, j in enumerate(order[:-1]):
+            env.dem_k = k
+            o = env.observe(j, DEMAND)
+            o["close_ok"] = False
+            with torch.no_grad():
+                out, _, _, _ = net(to_torch(pad_obs([o], len(keep), 1)))
+            env.demands[j] = min(int(out["dem"][0]), 100) / 100.0
+        d = np.nan_to_num(env.demands)
+        if d.sum() > 1:
+            over += 1
+            d = d / d.sum()
+        x = np.zeros(len(cab["seats"]))
+        x[keep] = d
+        x[order[-1]] = 1.0 - d.sum()
+        shares += x
+    return shares / samples, over / samples
+
+
 def mae(pred, cab):
     mem = cab["member"]
     return float(np.mean(np.abs(pred[mem] - cab["share"][mem])))
@@ -163,6 +203,8 @@ def main():
                     help="config name: instead of conditional predictions, summarise the cabinets "
                          "the agents form themselves in the real parliaments")
     ap.add_argument("--episodes", type=int, default=64)
+    ap.add_argument("--demand-tags", nargs="*", default=[],
+                    help="demand-protocol models scored on the same cabinets (conditional prediction)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     cabs = load_cabinets()
@@ -217,10 +259,11 @@ def main():
         return
 
     # ---- predictions
-    preds = {"gamson": {}, "bf": {}}
+    preds = {"gamson": {}, "bf": {}, "equal": {}}
     for c in cabs:
         s = np.where(c["member"], c["seats"], 0.0)
         preds["gamson"][c["name"]] = s / s.sum()
+        preds["equal"][c["name"]] = c["member"] / c["member"].sum()
         x = bf_split(c)
         if x is not None:
             preds["bf"][c["name"]] = x
@@ -238,9 +281,34 @@ def main():
                     preds[name][c["name"]] = x
             print(f"it=1/1 t=0s eta=0s {name}: {len(preds[name])} cabinets", flush=True)
 
+    res["demand_overflow"] = {}
+    for tag in a.demand_tags:
+        for seed in a.seeds:
+            p = os.path.join(ROOT, "models", tag, f"seed{seed}.pt")
+            if not os.path.exists(p):
+                continue
+            net = load_policy(p).eval()
+            name = f"{tag}/s{seed}"
+            preds[name], over = {}, []
+            for i, c in enumerate(cabs):
+                x, ov = demand_split(net, c, a.samples, seed * 1000 + i)
+                if x is not None:
+                    preds[name][c["name"]] = x
+                    over.append(ov)
+            res["demand_overflow"][name] = float(np.mean(over))
+            print(f"it=1/1 t=0s eta=0s {name}: {len(preds[name])} cabinets, demands > 1 in "
+                  f"{np.mean(over):.1%}", flush=True)
+
+    # ---- sample trail
+    res["sample_trail"] = dict(
+        cabinets_in_data=len(cabs),
+        member_outside_8_largest=sum(1 for c in cabs if c["member"][MAX_N:].any()),
+        scored_by_every_model=None)
+
     # ---- scores on the cabinets every model could predict
     common = [c for c in cabs if all(c["name"] in p for p in preds.values())]
     res["n_common"] = len(common)
+    res["sample_trail"]["scored_by_every_model"] = len(common)
     res["models"] = {}
     for name, p in preds.items():
         errs = defaultdict(list)
@@ -262,6 +330,22 @@ def main():
         print(f"{name:24s} MAE={m['mae']:.3f} [{m['mae_ci'][0]:.3f},{m['mae_ci'][1]:.3f}] "
               f"dMAE={m['dmae_vs_gamson']:+.3f} [{m['dmae_ci'][0]:+.3f},{m['dmae_ci'][1]:+.3f}] "
               f"g={m['gamma']:+.3f} b={m['beta']:.2f}", flush=True)
+    # ---- leave-one-country-out: does any single country drive the results?
+    loco = []
+    for country in sorted(set(c["country"] for c in common)):
+        sub = [c for c in common if c["country"] != country]
+        rr = [r for c in sub for r in rows_of(c["share"], c)]
+        g = float(gamson_regression(np.array(rr))["gamma"])
+        maes = {name: float(np.mean([mae(p[c["name"]], c) for c in sub])) for name, p in preds.items()}
+        loco.append(dict(country=country, empirical_gamma=g, best=min(maes, key=maes.get),
+                         gamson_minus_best_agent=maes["gamson"] - min(v for k, v in maes.items()
+                                                                       if k not in ("gamson", "bf", "equal"))))
+    res["loco"] = dict(empirical_gamma_range=[min(x["empirical_gamma"] for x in loco),
+                                              max(x["empirical_gamma"] for x in loco)],
+                       gamson_best_in=sum(x["best"] == "gamson" for x in loco), countries=len(loco),
+                       details=loco)
+    print(f"leave-one-country-out: empirical gamma {res['loco']['empirical_gamma_range']}, "
+          f"Gamson best in {res['loco']['gamson_best_in']}/{len(loco)}", flush=True)
     os.makedirs(os.path.join(ROOT, "results", "seki"), exist_ok=True)
     with open(os.path.join(ROOT, "results", "seki", "summary.json"), "w") as f:
         json.dump(res, f, indent=1)
