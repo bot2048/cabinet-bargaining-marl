@@ -15,21 +15,28 @@ targets, no hard-coded fairness); the scripted agents in `cabinet/baselines.py` 
 
 ## Main findings
 
-1. **Validated learner.** In the Baron-Ferejohn game the learned formateur share matches the closed
-   form (mean error 0.017 over 10 seeds).
-2. **Under proposal (closed-rule) bargaining the formateur premium never disappears; it changes
-   currency.** Base game: formateur coefficient 0.25, rising to 0.30 with 4x training. Repetition
-   (even patient, with memory), exits, the recognition rule and every learner (IPPO, MAPPO,
-   fictitious self-play, PSRO, GRU) leave it in place. Private valuations and policy motives drive
-   the *counted* premium to zero, but the formateur keeps it in the ministries it values most or in
-   the policy-setting ministries.
-3. **Real cabinets have no premium in any currency** (195 cabinets, Seki-Williams + ParlGov):
-   share = 0.031 + 0.896 seats + 0.011 formateur; the PM party holds key ministries in proportion;
-   Gamson's law predicts real splits best (MAE 0.052, agents 0.087-0.17, Baron-Ferejohn 0.144).
-4. **The protocol is what matters.** Under demand bargaining (Morelli 1999), agents trained only on
-   random parliaments form cabinets in the real parliaments with slope 0.81-0.85 and no formateur
-   premium, matching the real regression including its small-party bias; matched proposal agents
-   keep a premium of 0.21-0.31.
+**Question** (as submitted): do self-interested parties, modelled as multi-agent RL agents bargaining over
+coalition governments, allocate ministries in proportion to seats (Gamson's law) or favour the formateur
+(Baron-Ferejohn)? **Answer:** they favour the formateur exactly as far as the rules give it proposal power,
+and otherwise split by *voting weight*; they never produce seat-proportionality as such. Real cabinets do.
+
+1. **Proposal bargaining favours the formateur** (formateur coefficient 0.25-0.30 in the base game).
+   Learned shares match the exact Baron-Ferejohn solution (mean absolute gap 0.017, 10 seeds), but the
+   profile is not an exact equilibrium: learned voters accept far less than their reservation value and
+   formateurs never exploit it (`scripts/bf_best_response.py`). Private valuations and policy motives
+   remove the *counted* premium, but the formateur keeps it in the ministries it values most or in the
+   policy-setting ministries.
+2. **Demand bargaining removes the premium but follows voting weights, not seats.** Pre-registered tests
+   (`docs/PREREGISTRATION.md`, 10 seeds per protocol): premium -0.34 and seat slope +0.36 vs proposal
+   bargaining (exact permutation p = 5e-6). The exact equilibrium of our demand protocol
+   (`cabinet/demand_solver.py`) splits any pair of 45/35/20 seats 50/50 and gives a dummy party nothing;
+   learned agents do exactly that (within 0.02; dummy never included).
+3. **Real cabinets follow seats** (195 cabinets, Seki-Williams + ParlGov): share = 0.031 + 0.896 seats +
+   0.011 PM party; a small premium appears only relative to voting weights (+0.07, as Ansolabehere et al.
+   2005 find); no detectable premium in key ministries; Gamson's law predicts real splits best (MAE 0.052
+   vs 0.087-0.15 for agents and 0.144 for Baron-Ferejohn).
+
+Every claim with its result file and script: [`docs/AUDIT.md`](docs/AUDIT.md).
 
 ## RL formulation (summary)
 
@@ -53,6 +60,7 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`cabinet/policy.py`](cabinet/policy.py) | shared equivariant attention policy with masked autoregressive proposal heads |
 | [`cabinet/ppo.py`](cabinet/ppo.py) | PPO self-play on agent-level decision sequences, best-response training, evaluation |
 | [`cabinet/bf_solver.py`](cabinet/bf_solver.py) | Baron-Ferejohn closed form and certified solver for weighted parliaments |
+| [`cabinet/demand_solver.py`](cabinet/demand_solver.py) | exact equilibrium of our demand protocol (backward induction over demand histories) |
 | [`cabinet/metrics.py`](cabinet/metrics.py) | formateur premium, Gamson distance, Hamilton floor, Gamson regression |
 | [`cabinet/baselines.py`](cabinet/baselines.py) | scripted baselines: BF agent, Gamson agent, myopic BF heuristic, random |
 | [`cabinet/diagnostics.py`](cabinet/diagnostics.py) | probing learned voters' acceptance thresholds |
@@ -66,6 +74,10 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`scripts/seki_eval.py`](scripts/seki_eval.py) | real cabinets: empirical regression, split prediction vs Gamson/BF, agents' own cabinets in real parliaments |
 | [`scripts/key_ministries.py`](scripts/key_ministries.py) | do real prime-minister parties hold the key ministries? |
 | [`scripts/parlgov_eval.py`](scripts/parlgov_eval.py) | coalition choice in real ParlGov parliaments |
+| [`scripts/real_robustness.py`](scripts/real_robustness.py) | real-cabinet regression: cabinet size, largest party, wild cluster bootstrap, voting weights |
+| [`scripts/confirmatory.py`](scripts/confirmatory.py) | the pre-registered tests ([`docs/PREREGISTRATION.md`](docs/PREREGISTRATION.md)) |
+| [`scripts/bf_best_response.py`](scripts/bf_best_response.py) | formateur best response against frozen learned voters (no training) |
+| [`scripts/benchmark_table.py`](scripts/benchmark_table.py) | per-cell comparison with the BF closed form |
 | `data/` | ParlGov parliaments and Seki-Williams cabinets (see the NOTICE files; raw downloads via `scripts/*download*.sh`) |
 
 ## Installation
@@ -78,7 +90,7 @@ cd cabinet-bargaining-marl
 python -m venv .venv && source .venv/bin/activate
 pip install --index-url https://download.pytorch.org/whl/cpu torch   # CPU build is enough
 pip install -r requirements.txt
-python -m pytest -q          # 26 tests, ~35 s
+python -m pytest -q          # 31 tests, ~40 s
 ```
 
 ## Running
