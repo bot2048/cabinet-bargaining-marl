@@ -54,7 +54,8 @@ disappears (pre-registered test, exact permutation $p=\HoneP$), but learned shar
 \emph{voting weights}, not seats: in a 45/35/20 parliament every pair splits 50/50, as the exact
 equilibrium predicts and Gamson's law does not. (iii)~In \RealN{} real coalition cabinets the prime
 minister's party has no premium relative to seats (\RealG), a small one relative to voting weights
-(\RobWeightsG), and partners with equal voting weight still divide portfolios by seats (slope \WvsSlope).
+(\RobWeightsG), and partners with equal voting weight still tend to divide portfolios by seats (slope \WvsSlope,
+95\% CI \WvsLo--\WvsHi).
 Learning parties thus favour the formateur exactly as far as the rules give it proposal power and
 otherwise split by voting weight; real cabinets follow seats even where seats and voting weights disagree,
 which points to explanations outside these bargaining models.
@@ -141,9 +142,10 @@ decreasing order of weight. Our protocol fixes neither order, so we solve it dir
 Learning dynamics can settle on outcomes that are not subgame perfect, because responses that are rarely
 tested on the path of play are never corrected \citep{gale1995,fudenberg1993,fudenberg1998}. Deep
 multi-agent RL has been used for negotiation \citep{lewis2017}, team formation in weighted voting games
-\citep{bachrach2020}, economic policy design \citep{zheng2022} and pricing \citep{calvano2020}. We know of
-no study that trains learning agents in the Baron--Ferejohn cabinet game, validates them against its
-exact equilibrium and confronts them with real cabinets.
+\citep{bachrach2020}, economic policy design \citep{zheng2022} and pricing \citep{calvano2020}. To our knowledge, no prior study combines the three elements used here: learning agents in a
+configurable cabinet-bargaining game, validation against protocol-specific exact equilibria including
+best-response tests, and confrontation with real cabinet allocations. Our contribution is this
+combination, not any single component.
 
 % =====================================================================
 \section{Model}\label{sec:model}
@@ -211,10 +213,12 @@ compute stationary equilibria with a homotopy root finder certified by a linear-
 check (\code{cabinet/bf\_solver.py}).
 
 \paragraph{Exact equilibrium of our demand protocol.} Published results do not cover our variant, so we
-compute its subgame-perfect equilibrium by backward induction over every history of grid demands and
+compute the subgame-perfect equilibrium of the game as implemented, with demands on a finite grid; the
+solution is exact for that finite game, not for every demand-bargaining model. We compute it by backward induction over every history of grid demands and
 every move order, with failure payoffs $\delta V_i$ iterated to a fixed point in the ex-ante values $V$
-(\code{cabinet/demand\_solver.py}, \cref{app:solver}). The results do not depend on the tie-breaking rule
-or the grid (1\% and 2\%; 2.5\% and 4\% for five parties):
+(\code{cabinet/demand\_solver.py}, \cref{app:solver}). It agrees with an independently written brute-force solver and with the environment's closing rule
+(\cref{app:solver}). The results do not depend on the tie-breaking rule, the grid (1\% and 2\%; 2.5\%
+and 4\% for five parties) or patience ($\delta\in\{0.5,0.9,0.95\}$):
 \begin{itemize}
 \item three equal parties: the first two movers split 0.50/0.50; five equal parties: the first three
 movers take about one third each;
@@ -338,8 +342,9 @@ proposal: learned & formateur \AfPropFormLo--\AfPropFormHi & formateur \AtPropFo
 \bottomrule\end{tabular}\end{table}
 
 Is this Gamson's law? The fixed parliaments of \cref{tab:fixed} separate seats from voting weights.
-Learned demand agents reproduce the exact equilibrium of \cref{sec:theory}: every 45/35/20 pair splits
-within \AfDemMaxDev{} of 50/50 (pre-registered prediction P1: every seed's slope below 0.5), and the
+Learned demand agents reproduce the exact equilibrium of \cref{sec:theory}: every 45/35/20 pair splits within \AfDemMaxDev{} of 50/50 (pre-registered prediction P1: every seed's
+slope below 0.5; seat slope \AfDemSlope, seed-level 95\% CI \PoneLo{} to \PoneHi{}, which excludes
+Gamson's slope of 1), and the
 dummy party in 40/30/25/5 is never included (P2). Learned proposal agents give the formateur
 \AfPropFormLo--\AfPropFormHi, close to the weighted Baron--Ferejohn solution (P3). Learned demand shares
 thus follow voting weights; the seat slope of 0.8 in random parliaments arises because seats and voting
@@ -353,6 +358,13 @@ falls to 0.029.
 We use ministers per party from the Seki--Williams party government data \citep{seki2014}, linked to
 ParlGov parliaments \citep{parlgov}: \RealN{} majority coalition cabinets in 31 countries, 1988--2014,
 with the prime minister's party as the formateur. Real cabinets were never used for training or tuning.
+\emph{Samples.} All regressions and robustness checks use the \RealN{} cabinets. Split predictions use
+\RealNcommon{}: the agents' parliaments contain the eight largest parties, which excludes the 12 cabinets
+with a member outside them. The key-ministry test uses the \KeyN{} cabinets (25 countries) that can be
+matched to the Seki--Williams minister records with at least four partisan senior ministers, a prime
+minister's party identifiable among them, a partner holding a ministry, and at least one key ministry.
+The equal-weight test uses the \WvsPairs{} partner pairs with equal minimal integer weight and seat shares
+differing by more than 0.02. Coalition choice uses ParlGov's 242 Western European parliaments.
 
 \begin{table}[t]\centering\small
 \caption{Real cabinets: the prime-minister coefficient $\hat\gamma$ of~\eqref{eq:reg} under different
@@ -375,11 +387,13 @@ seats and weights together & \RobBothG & \RobBothLo{} to \RobBothHi & \RobBothRt
 seats, \RobWeightsG{} relative to minimal integer voting weights, as \citet{ansolabehere2005} report, and
 \RobLargestG{} with a largest-party control (identified by the \RobPmNotLargest{} cabinets whose prime
 minister does not come from the largest partner). Seats fit better than weights and absorb the weight
-effect when both enter. The decisive comparison is between partners with \emph{equal} voting weight but
-different seats, where demand theory and our learned demand agents predict equal shares and Gamson's law
-predicts seat-proportional ones: real shares follow seats with slope \WvsSlope{} (95\% CI
-\WvsLo--\WvsHi), although less clearly when the prime minister's party is not involved (\WvsNoPm,
-\WvsNoPmN{} pairs).
+effect when both enter. The most direct comparison is between partners with \emph{equal} voting weight but different seats,
+where demand theory and our learned demand agents predict equal shares and Gamson's law predicts
+seat-proportional ones. Regressing each pair's difference in portfolio shares on its difference in seat
+shares, through the origin and with a prime-minister indicator, gives a seat slope of \WvsSlope{}; the
+95\% interval \WvsLo--\WvsHi{} comes from a bootstrap over countries, because pairs from the same
+cabinet or country are not independent. The estimate supports seat-based division but is imprecise, and
+it is weaker when the prime minister's party is not involved (\WvsNoPm, \WvsNoPmN{} pairs).
 
 \paragraph{Key ministries.} If the real premium were hidden in quality, as with our agents, prime
 ministers' parties should hold more than their share of the key ministries. On \KeyN{} cabinets they hold
@@ -448,7 +462,7 @@ ministries (\cref{sec:real}).
 \paragraph{Implications.} Gamson's law is therefore not the equilibrium of either canonical bargaining
 protocol, as learned by self-interested agents. Demand bargaining comes closest, and in real parliaments,
 where seats and voting weights are correlated, its learned allocations reproduce the real regression.
-Where seats and weights diverge, real cabinets side with seats. This points to mechanisms outside these
+Where seats and weights diverge, the available evidence has real cabinets siding with seats. This points to mechanisms outside these
 bargaining models: commitments to a coalition before the division \citep{kamm2024}, pre-electoral pacts
 \citep{carroll2007}, intra-party bargaining \citep{cox2021} or a proportionality norm. For the
 learning literature, the benchmark shows how outcome-level validation can hide non-equilibrium play: the
@@ -474,8 +488,9 @@ the explanation of Gamson's law must include rules or norms beyond the canonical
 \paragraph{Reproducibility.} Code, configurations, trained agents, raw results, the pre-registration and a
 map from every claim to its result file and script are at \url{\repo}
 (\code{docs/RESULTS\_AUDIT.md}). Every number in this paper is generated from the result files
-(\code{scripts/make\_figures.py}, \code{scripts/paper\_tables.py}); 31 automated tests tie the code to the
-theory (\code{tests/test\_core.py}).
+(\code{scripts/make\_figures.py}, \code{scripts/paper\_tables.py}); 32 automated tests tie the code to the theory (\code{tests/test\_core.py}). We re-ran every analysis
+and the test suite from a fresh clone of the repository; all outputs were identical to the committed
+ones.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
@@ -515,8 +530,17 @@ choice, it demands $a\in G$ and play moves to $(h,a)$; at the last position a de
 payoffs $\delta V$. Backward induction over all $|G|^k$ histories, vectorised over histories, gives every
 mover's optimal action; the ex-ante values $V$ are averaged over recognition and random orders and
 iterated to a fixed point. Indifferent movers break ties by a fixed rule (close first; then the highest
-or the lowest demand), and the reported equilibria are identical under both rules. An automated test
-checks the three-party and dummy-party cases (\code{tests/test\_core.py}).
+or the lowest demand), and the reported equilibria are identical under both rules. \paragraph{Verification} (\code{scripts/demand\_solver\_check.py}). (i)~An independent implementation,
+a plain recursive backward induction over one history at a time with its own cheapest-set routine, gives
+the same ex-ante values and the same on-path outcome for every move order in \SolverCompared{}
+configurations (three and five equal parties, 45/35/20, 40/30/25/5; grids of 10\% and 5\%, 10\% only for five parties; both tie
+rules), up to single-precision rounding ($10^{-8}$). (ii)~That cheapest-set routine selects the same
+coalition as the environment in all \SolverEnvN{} random demand histories with 3--6 parties
+(\SolverEnvBad{} mismatches). (iii)~The fixed-point iteration in $V$ stops with residual zero to machine
+precision after one or two iterations: on the equilibrium path no round fails, so $\delta V$ only bounds
+off-path options and never binds. (iv)~The on-path splits are identical under both tie rules, every grid
+and $\delta\in\{0.5,0.9,0.95\}$. Automated tests cover the three-party and dummy-party cases and the
+agreement with the brute-force solver (\code{tests/test\_core.py}).
 
 \section{Hyper-parameters}\label{app:hp}
 \begin{table}[h]\centering\footnotesize

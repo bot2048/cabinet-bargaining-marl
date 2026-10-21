@@ -22,8 +22,9 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | H2: higher seat slope | +0.36 [0.34, 0.37] | same | same | same |
 | H3: demand premium within +-0.05 | -0.039, 90% CI [-0.047, -0.030] | same | same | same |
 | ... the -0.04 is an exploration artefact | -0.009 to +0.003 with more exploration of demands | `results/explore_WideDemand/` | `run_experiment.py --ent-demand-mult 5` | `WideDemand` |
+| Solver verification | independent brute-force solver agrees on 14 configurations (to 1e-8); closing rule matches the env on 2000/2000 random histories; fixed-point residual 0; same splits for every grid, tie rule and delta in {0.5, 0.9, 0.95} | `results/demand_solver_check.json` | `scripts/demand_solver_check.py` | |
 | Exact equilibrium of our protocol | 3 equal 50/50; 5 equal ~1/3; 45/35/20 50/50; 40/30/25/5 dummy 0 | test `test_demand_solver_known_equilibria` | `cabinet/demand_solver.py` | |
-| P1: learned splits follow voting weights | 45/35/20: every pair within 0.02 of 50/50, slopes -0.02, 0.08, 0.12 | `results/confirmatory.json` | `scripts/confirmatory.py` | `A452Demand` |
+| P1: learned splits follow voting weights | 45/35/20: every pair within 0.02 of 50/50, slopes -0.02, 0.08, 0.12 (seed-level 95% CI -0.12 to 0.24) | `results/confirmatory.json` | `scripts/confirmatory.py` | `A452Demand` |
 | P2: dummy never included | 0% in 3 seeds | same | same | `A4305Demand` |
 | P3: proposal gives a formateur premium | formateur 0.65-0.71 vs weighted BF ~0.70 | same | same, `cabinet/bf_solver.py` | `A452Proposal`, `A4305Proposal` |
 

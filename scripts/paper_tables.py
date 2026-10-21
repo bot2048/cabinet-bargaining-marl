@@ -74,7 +74,8 @@ def mech_table():
          r"\caption{Formateur coefficient $\hat\gamma$ of regression~\eqref{eq:reg} by configuration (mean "
          r"$\pm$ 95\% half-width over seeds). Counted: share of ministries. Value: share of the value each "
          r"party places on ministries. Lead: share of policy-setting ministries (only with M9). "
-         r"$\tilde D_G$: floor-adjusted Gamson distance.}\label{tab:mech}",
+         r"$\tilde D_G$: floor-adjusted Gamson distance. Configurations with 2--3 seeds are exploratory; "
+         r"the confirmatory tests are in Section~\ref{sec:protocol}.}\label{tab:mech}",
          r"\begin{tabular}{@{}lccccc@{}}\toprule",
          r"configuration & $\hat\gamma$ counted & $\hat\gamma$ value & $\hat\gamma$ lead & $\tilde D_G$ & seeds\\\midrule"]
     for tag, lab in MECH:

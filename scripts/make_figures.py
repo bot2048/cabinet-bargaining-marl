@@ -497,6 +497,18 @@ def macros():
             d = [r["dummy_included"] for r in runs if r["dummy_included"] is not None]
             if d:
                 put(f"{name}Dummy", max(d), "{:.1%}")
+        if "P1_ci" in cf:
+            put("PoneLo", cf["P1_ci"][0], "{:+.2f}")
+            put("PoneHi", cf["P1_ci"][1], "{:+.2f}")
+    dc = os.path.join(ROOT, "results", "demand_solver_check.json")
+    if os.path.exists(dc):
+        with open(dc) as f:
+            chk = json.load(f)
+        bf_rows = chk["brute_force"]
+        put("SolverCompared", len(bf_rows), "{:d}")
+        put("SolverMaxDiff", max(max(r["max_abs_diff_V"], r["max_abs_diff_onpath"]) for r in bf_rows), "{:.0e}")
+        put("SolverEnvN", chk["env_consistency"]["random_histories"], "{:d}")
+        put("SolverEnvBad", chk["env_consistency"]["mismatches"], "{:d}")
     bp = os.path.join(ROOT, "results", "bf_best_response.json")
     if os.path.exists(bp):
         with open(bp) as f:

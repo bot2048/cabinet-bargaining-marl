@@ -107,6 +107,8 @@ def main():
                 f"{k}:{v['freq']:.2f}:" + "/".join(f"{x:.2f}" for x in v["shares"].values()) +
                 f"(F {v['formateur_share']:.2f})" for k, v in sorted(out[tag][s]["coalitions"].items())))
     sl = [r["slope"] for r in out["explore_A452Demand"]]
+    h1 = stats.t.ppf(0.975, len(sl) - 1) * np.std(sl, ddof=1) / np.sqrt(len(sl))
+    out["P1_ci"] = [float(np.mean(sl) - h1), float(np.mean(sl) + h1)]   # seed-level 95% t-interval
     out["P1"] = dict(slopes=sl, verdict="weights" if np.mean(sl) < 0.5 and max(sl) < 0.5 else
                      "seats" if np.mean(sl) > 0.5 and min(sl) > 0.5 else "mixed")
     out["P2"] = dict(dummy_included=[r["dummy_included"] for r in out["explore_A4305Demand"]])
