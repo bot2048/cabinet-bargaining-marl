@@ -41,7 +41,7 @@ ministries to their value or to policy control.
 \item \textbf{Demand bargaining removes the premium but follows voting weights, not seats}, exactly as the
 equilibrium of our protocol, which we solve (pre-registered tests).
 \item \textbf{Real cabinets follow seats}: no detectable premium in counts or key ministries; Gamson's law
-predicts real splits better than every learned policy.
+predicts real splits best of all models scored on them.
 \end{enumerate}
 
 \section{RL formulation}
@@ -111,8 +111,7 @@ Morelli's~\cite{morelli,mvp}, so we solved it exactly (backward induction over a
 any two of 45/35/20 seats split \textbf{50/50}, because every pair wins, and in 40/30/25/5 the 5-seat party
 gets nothing; Gamson predicts 0.56/0.44 for 45+35. Learned demand agents reproduce the equilibrium
 (Table~\ref{tab:fixed}): every pair splits within \AfDemMaxDev{} of 50/50 (seat slope \AfDemSlope) and the
-dummy is never included. Learned splits follow voting weights; the seat slope of 0.8 in random parliaments
-arises because seats and voting weights are correlated there. The small negative premium is an exploration
+dummy is never included. The seat slope of 0.8 in random parliaments arises because seats and voting weights are correlated there. The small negative premium is an exploration
 artefact (one \emph{close} action faces 101 demand bins): with more exploration of demands it vanishes
 (\ExpDemG, slope \ExpDemB; \ExpDemSeeds{} seeds).
 

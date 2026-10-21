@@ -33,8 +33,9 @@ and otherwise split by *voting weight*; they never produce seat-proportionality 
    learned agents do exactly that (within 0.02; dummy never included).
 3. **Real cabinets follow seats** (195 cabinets, Seki-Williams + ParlGov): share = 0.031 + 0.896 seats +
    0.011 PM party; a small premium appears only relative to voting weights (+0.07, as Ansolabehere et al.
-   2005 find); partners with equal voting weight still split by seats (slope 0.84, 42 pairs); no detectable premium in key ministries; Gamson's law predicts real splits best (MAE 0.052
-   vs 0.087-0.15 for agents and 0.144 for Baron-Ferejohn).
+   2005 find); partners with equal voting weight still split by seats (slope 0.84, 42 pairs); no detectable premium in key ministries; given the real coalition and prime minister, Gamson's law predicts
+   real splits best (MAE 0.052 vs 0.087-0.17 for proposal agents and 0.144 for Baron-Ferejohn; demand agents
+   are compared through the cabinets they form themselves).
 
 Every claim with its result file and script: [`docs/AUDIT.md`](docs/AUDIT.md).
 

@@ -100,9 +100,13 @@ an approximate equilibrium solver, checked against exact equilibria and by best-
 \item An open environment and learner for coalition bargaining: one permutation-equivariant attention
 policy with masked autoregressive proposal heads serves any number of parties and ministries, and is
 trained by PPO on each agent's own decision sequence (\cref{sec:model,sec:learning}).
-\item Exact benchmarks: the Baron--Ferejohn solution, embedded in the environment, and an exact
+\item Exact benchmarks: the Baron--Ferejohn solution, embedded in the environment, and a verified
 backward-induction solver for our demand protocol, whose equilibrium is not covered by published results
-(\cref{sec:theory}).
+(\cref{sec:theory}). The equal split it predicts in 45/35/20 follows from the protocol; the learning
+result is that agents find it.
+\item Evidence that matching equilibrium \emph{outcomes} does not imply equilibrium \emph{play}: learned
+Baron--Ferejohn agents reproduce the closed-form shares while leaving a profitable formateur deviation
+untried (\cref{sec:bench}).
 \item A mechanism map of the learned formateur premium in three currencies: number of ministries, the
 formateur's own valuation, and policy-setting ministries (\cref{sec:mech}).
 \item Pre-registered tests of the bargaining protocol, including a decisive test of whether learned
@@ -342,11 +346,16 @@ formateur gives partners more ministries but keeps the ones it values most, or k
 the premium changes currency.
 
 \subsection{Demand bargaining follows voting weights}\label{sec:protocol}
-On the same random 3--8-party parliaments (\NprotSeeds{} seeds per protocol), demand bargaining lowers
-the formateur coefficient by \HoneDiff{} relative to proposal bargaining (95\% CI \HoneLo--\HoneHi; exact
-permutation $p=\HoneP$, H1) and raises the seat slope by \HtwoDiff{} (\HtwoLo--\HtwoHi; H2). The demand
-coefficient is within $\pm0.05$ of zero (\HthreeMean, 90\% CI \HthreeLo{} to \HthreeHi; H3). All three
-pre-registered tests pass after Holm correction. The small negative value is an exploration artefact: with five times the entropy on the demand head
+On the same random 3--8-party parliaments (\NprotSeeds{} seeds per protocol), demand bargaining lowers the formateur coefficient by \HoneDiff{} relative to proposal bargaining (95\% CI
+\HoneLo--\HoneHi; H1) and raises the seat slope by \HtwoDiff{} (\HtwoLo--\HtwoHi; H2). Each test is
+one-sided and exact: the unit is a training seed, each seed contributing one coefficient estimated on its
+own evaluation cabinets; the 20 seed-level estimates are pooled and the protocol labels are permuted over
+all $\binom{20}{10}=184{,}756$ assignments. Because the two protocols' estimates do not overlap, the
+observed difference is the most extreme assignment and $p=1/184{,}756\approx\HoneP$, the smallest value the
+test can give; the intervals are percentile bootstraps over seeds. The demand coefficient meets the
+pre-registered practical-equivalence criterion $|\gamma|<0.05$ (\HthreeMean, 90\% CI \HthreeLo{} to
+\HthreeHi; H3, two one-sided $t$-tests). This is equivalence within the margin, not evidence of an exact
+zero: the interval lies slightly below zero. All three tests pass after Holm correction. The small negative value is an exploration artefact: with five times the entropy on the demand head
 the coefficient becomes \ExpDemG{} (seat slope \ExpDemB). We have not isolated why. Raising entropy does
 not make closing more likely a priori (one close action among 102), but it keeps demands from collapsing
 early onto a few values, so later movers keep meeting undercutting demands and cheap closing options.
@@ -418,7 +427,8 @@ differing by more than 0.02 we estimate, without intercept,
 \begin{equation}\label{eq:pairs}
 p_{ic}-p_{jc}=\beta\,(s_{ic}-s_{jc})+\gamma\,(F_{ic}-F_{jc})+\varepsilon_{ijc},
 \end{equation}
-so that equal seats and no prime minister imply equal shares. Gamson's law predicts $\beta=1$; voting-weight
+so that equal seats and no prime minister imply equal shares. (Without an intercept the estimate does not
+depend on which partner of a pair is labelled $i$: swapping them changes the sign of every term.) Gamson's law predicts $\beta=1$; voting-weight
 theories, and our learned demand agents, predict $\beta=0$. We find $\hat\beta=\WvsSlope$ with a 95\%
 interval of \WvsLo--\WvsHi{} from a bootstrap over countries, because pairs from the same cabinet or
 country are not independent. Without the pairs that involve the prime minister's party,
@@ -446,7 +456,10 @@ removes the outside options they were trained with (their demands then exceed th
 cabinets, depending on the seed), so we evaluate them on the cabinets they form themselves (\cref{tab:own}). Given each real
 coalition and prime minister, proposal policies trained only on random parliaments predict the split with mean absolute error \MaePrivLo--\MaePrivHi{} per party when they have
 private valuations, and \MaePubLo--\MaePubHi{} with public valuations; Baron--Ferejohn errs by \MaeBF{}
-and Gamson's law by \MaeGamson{}, the best in every leave-one-country-out sample (\cref{fig:real}).
+and Gamson's law by \MaeGamson{}: Gamson's law has the lowest error of the models scored on this
+common fixed-coalition task, in every leave-one-country-out sample (\cref{fig:real}). Demand agents are
+compared with real cabinets only through the cabinets they form themselves (\cref{tab:own}), so this
+ranking does not include them.
 
 \begin{table}[t]\centering\small
 \caption{Regression~\eqref{eq:reg} with seat shares and with Banzhaf voting power ($\hat\gamma_{bz}$) on
@@ -500,7 +513,8 @@ protocol, as learned by self-interested agents. Demand bargaining comes closest,
 where seats and voting weights are correlated, its learned allocations reproduce the real regression.
 Where seats and weights diverge, the available evidence has real cabinets siding with seats. This points to mechanisms outside these
 bargaining models: commitments to a coalition before the division \citep{kamm2024}, pre-electoral pacts
-\citep{carroll2007}, intra-party bargaining \citep{cox2021} or a proportionality norm. For the
+\citep{carroll2007}, intra-party bargaining \citep{cox2021} or a proportionality norm. We do not claim that real governments bargain by our demand protocol, or that its equilibrium describes
+demand bargaining in general; it is one well-defined alternative to proposal power, solved exactly. For the
 learning literature, the benchmark shows how outcome-level validation can hide non-equilibrium play: the
 learned profile matches Baron--Ferejohn shares while leaving a profitable deviation untried.
 
@@ -518,8 +532,9 @@ the experiments reported here.
 Modelling parties as learning agents bargaining over cabinets shows that the formateur premium is a
 property of proposal power, not of strategic bargaining as such, and that its absence under demand
 bargaining yields division by voting weight, not by seats. Information and policy motives change where the
-premium appears rather than whether it exists. Where seats and voting weights disagree, real cabinets follow seats, unlike any protocol we trained, so
-the explanation of Gamson's law must include rules or norms beyond the canonical bargaining models.
+premium appears rather than whether it exists. Where seats and voting weights disagree, real cabinets follow seats, unlike any protocol we trained;
+the evidence for this rests on 42 partner pairs and its interval is wide, but it suggests that the
+explanation of Gamson's law must include rules or norms beyond the canonical bargaining models.
 
 \paragraph{Reproducibility.} Code, configurations, trained agents, raw results, the pre-registration and a
 map from every claim to its result file and script are at \url{\repo}
@@ -612,7 +627,9 @@ patient repetition & $L=3$, $T=6$, $\delta=0.98$\\
 exits (M8) & each member's exit bonus $\bar e\cdot\mathrm{Exp}(1)$, $\bar e=0.05$, rounded to
 $\bar e/20$ and capped at $10\bar e$, drawn privately each governed period\\
 one-shot games & a cabinet governs forever; shares are paid once as per-period equivalents (embedding of
-\cref{app:proofs}); at most 40 formation rounds\\
+\cref{app:proofs}); formation stops after 40 failed rounds, which matters neither on nor off the path: the
+discount weight of round 40 is at most $0.95^{40}<0.13$, and with per-round failure rates of at most 18\% in any run
+the probability of reaching it is below $10^{-29}$\\
 \bottomrule\end{tabular}\end{table}
 
 \section{Learning curves}\label{app:curves}
