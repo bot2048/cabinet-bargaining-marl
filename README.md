@@ -78,7 +78,7 @@ cd cabinet-bargaining-marl
 python -m venv .venv && source .venv/bin/activate
 pip install --index-url https://download.pytorch.org/whl/cpu torch   # CPU build is enough
 pip install -r requirements.txt
-python -m pytest -q          # 24 tests, ~30 s
+python -m pytest -q          # 26 tests, ~35 s
 ```
 
 ## Running
