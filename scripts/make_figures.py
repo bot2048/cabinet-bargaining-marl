@@ -537,6 +537,29 @@ def macros():
         if "loco" in sk:
             put("LocoLo", sk["loco"]["empirical_gamma_range"][0], "{:+.3f}")
             put("LocoHi", sk["loco"]["empirical_gamma_range"][1], "{:+.3f}")
+    # demand bargaining with more exploration of demands (same random parliaments)
+    ex = load("explore_WideDemand")
+    if ex:
+        for key, short, fmt in (("reg_gamma", "G", "{:+.3f}"), ("reg_beta", "B", "{:.2f}")):
+            v = [r["overall"][key] for r in ex]
+            lo, hi = fmt.format(min(v)), fmt.format(max(v))
+            M[f"ExpDem{short}"] = f"{lo} to {hi}" if min(v) < 0 else lo + "--" + hi.lstrip("+")
+        put("ExpDemSeeds", len(ex), "{:d}")
+    own_ex = own_runs("WideDemand", explore=True)
+    for key, short, fmt in (("reg_beta", "B", "{:.2f}"), ("reg_gamma", "G", "{:+.2f}"),
+                            ("regbz_gamma", "Gbz", "{:+.2f}"), ("reg_r2", "Rtwo", "{:.2f}")):
+        v = [o[key] for o in own_ex if key in o]
+        if v:
+            lo, hi = fmt.format(min(v)), fmt.format(max(v))
+            M[f"OwnExp{short}"] = f"{lo} to {hi}" if min(v) < 0 else lo + "--" + hi.lstrip("+")
+    e0x = load("exploit_e0_br300")
+    if e0x:
+        put("GainEzero", e0x[0]["gain"], "{:.3f}")
+        best = max(e0x[0]["runs"].values(), key=lambda v: v["gain"])
+        put("GainEzeroRel", best["gain"] / best["u_base"], "{:.0%}")
+        c = e0x[0].get("controls", {})
+        put("GainEzeroGamson", c.get("gamson", {}).get("gain", np.nan), "{:.3f}")
+        put("GainEzeroMyopic", c.get("myopic", {}).get("gain", np.nan), "{:.3f}")
     # best-response gains relative to the payoff of a profile seat
     for tag, name in (("exploit_Estar_br400", "GainLongRel"), ("exploit_mech_WideDemand_br400", "GainDemRel"),
                       ("exploit_mech_WideProposal_br400", "GainPropRel")):

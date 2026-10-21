@@ -54,9 +54,8 @@ in random order, each demands a share or \emph{closes} a cabinet with the cheape
 the rest), private types (M4), heterogeneous values (M5), exits (M8), ministerial policy (M9), recognition
 rule (M10). Level E0 is the exact BF game; E* has every mechanism on.
 
-\textbf{State $\mathcal S$.} A \emph{set} of $n$ party tokens (26 features: seats, recognition
-probability, roles, offers, last $\Lambda$ cabinets), $m$ ministry tokens (8: salience, own valuation,
-policy dimension led), pair features, context and decision features; no labels, so one permutation-equivariant
+\textbf{State $\mathcal S$.} A \emph{set} of $n$ party tokens (seats, recognition probability, roles,
+offers, recent cabinets), $m$ ministry tokens (salience, own valuation, policy dimension), pair features, context and decision features; no labels, so one permutation-equivariant
 network serves any $n,m$.
 \textbf{Action $\mathcal A$} (masked): the formateur includes/excludes each party (masks keep the coalition
 winning) and points each ministry to a member; voters accept/reject; members stay/exit; under M2 a party
@@ -76,7 +75,7 @@ and its analogues for value and policy-ministry shares. 500--2000 PPO iterations
 
 \section{Results}
 \begin{figure}[t]\centering
-\includegraphics[width=\columnwidth]{../figures/fig_e0_benchmark.pdf}
+\includegraphics[width=0.93\columnwidth]{../figures/fig_e0_benchmark.pdf}
 \caption{Learner check: learned formateur share (dots) vs the BF closed form (lines) in the symmetric
 game; dashed: Gamson's equal split.}\label{fig:e0}
 \end{figure}
@@ -87,18 +86,18 @@ signed gap \EzeroGap), including its decrease with patience $\delta$ for $n\le5$
 \emph{outcomes}, not equilibrium \emph{play}: learned voters would accept far less than their reservation
 value $\delta/n$, and against these frozen voters a formateur best response would gain up to \BrGainSeven{}
 per formation at $n=7$ (\BrGainThree{} at $n=3$; \code{scripts/bf\_best\_response.py}). Formateurs never
-try low offers, so voters never learn to reject them, a self-confirming pattern~\cite{fl} that leaves
-proposers with less than theory at $n=7$, as in laboratory BF experiments~\cite{fkm}.
+try low offers, so voters never learn to reject them (a self-confirming pattern~\cite{fl}); as in
+laboratory BF experiments~\cite{fkm}, proposers get less than theory at $n=7$.
 \emph{Institutions.} The base game keeps a premium ($\hat\gamma=\BaseGamma$; \LongBaseG{} after 4$\times$
-training). Repetition, even with patient agents and memory, exits and the recognition rule leave it in
-place (Fig.~\ref{fig:mech}), as do MAPPO, fictitious self-play and PSRO. Two mechanisms remove the
+training). Repetition (even patient, with memory), exits, the recognition rule, MAPPO, fictitious self-play
+and PSRO leave it in place (Fig.~\ref{fig:mech}). Two mechanisms remove the
 \emph{counted} premium, private types ($\MfourGamma$) and ministerial policy ($\MnineGamma$), and removing
 private types from E* restores it. But the premium moves: in each party's share of the value it places on
 ministries the formateur coefficient is \MfourGnu{} with private types and \EstarGnu{} in E*, and with
 policy it holds the policy-setting ministries (coefficient \MnineGlead). Both persist with 4$\times$ training.
 
 \begin{figure}[t]\centering
-\includegraphics[width=\columnwidth]{../figures/fig_mechanisms.pdf}
+\includegraphics[width=0.93\columnwidth]{../figures/fig_mechanisms.pdf}
 \caption{F1: formateur coefficient in counted shares when a mechanism is added to the base game (blue)
 or removed from E* (orange); mean and 95\% CI over seeds.}\label{fig:mech}
 \end{figure}
@@ -113,9 +112,9 @@ any two of 45/35/20 seats split \textbf{50/50}, because every pair wins, and in 
 gets nothing; Gamson predicts 0.56/0.44 for 45+35. Learned demand agents reproduce the equilibrium
 (Table~\ref{tab:fixed}): every pair splits within \AfDemMaxDev{} of 50/50 (seat slope \AfDemSlope) and the
 dummy is never included. Learned splits follow voting weights; the seat slope of 0.8 in random parliaments
-arises because seats and voting weights are correlated there. With default exploration the closer is
-under-paid (exploration lock-in; a single \emph{close} action against 101 demand bins), which more
-exploration of demands corrects.
+arises because seats and voting weights are correlated there. The small negative premium is an exploration
+artefact (one \emph{close} action faces 101 demand bins): with more exploration of demands it vanishes
+(\ExpDemG, slope \ExpDemB; \ExpDemSeeds{} seeds).
 
 \begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
 \caption{F2: who gets what in fixed parliaments (shares within the cabinet, divisible surplus,
@@ -160,12 +159,15 @@ Given the real coalition and prime minister, Gamson's law errs by \MaeGamson{} p
 and agents with private types by \MaePrivLo--\MaePrivHi{}, every one worse than Gamson
 (Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), no protocol
 matches everything: demand agents match the seat slope, E* agents the size of the premium on both
-scales, proposal agents overshoot it.
+scales, proposal agents overshoot it. Keeping only the cabinets that reproduce the real coalition barely
+moves the demand slope (\OwnDemMatchB), so coalition selection does not make it seat-like.
 
-\textbf{Reliability.} Best responses trained by PPO (400 iterations) gain \GainLong{} per period against E*
-(\GainLongRel{} of a seat's payoff), \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and
-BF-heuristic profiles; cross-play between independent runs costs \CmSame. Because the analytic BF test above
-finds gains PPO best responses can miss, these are lower bounds.
+\textbf{Reliability.} Best responses trained by PPO (one seat learns against the frozen profile) gain
+\GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} of it against
+demand agents, \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles.
+In the BF game they gain \GainEzero{} (\GainEzeroRel), more than the analytic formateur deviation, so the
+test detects the gaps found above: learned profiles are approximate, not exact, equilibria. Cross-play
+between independent runs costs \CmSame{} per period.
 
 \section{Implications and limitations}
 To the question of the project: self-interested learning parties do not allocate in proportion to seats.
@@ -174,12 +176,11 @@ weight; information and policy motives change the currency of the premium, not i
 are more seat-proportional than any protocol we trained, with at most a small premium relative to voting
 weights. Gamson's law therefore looks less like the outcome of the bargaining modelled by BF or Morelli
 than of rules outside it, such as coalition commitments made before the split~\cite{ks} or within-party
-bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; learned profiles are approximate, not exact,
-equilibria; the PM's party proxies the formateur; real shares count ministers (salience only through key
-ministries); a flat demand head under-explores closing. \textbf{Not done}, with reason: party-specific
-manifesto salience (needs registered data access and portfolio coding), a two-stage close/demand head
-(retraining every demand run), more seeds (every pre-registered effect is decisive at 10). Every claim and
-its source file: \code{docs/AUDIT.md}; specification coverage: \code{docs/SPEC\_COVERAGE.md}.
+bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; approximate equilibria; the PM's party
+proxies the formateur; real shares count ministers (salience only via key ministries). \textbf{Not done}:
+party-specific manifesto salience (needs registered data access), a two-stage close/demand head
+(retraining), more seeds (every pre-registered effect is decisive at 10). Claims and
+sources: \code{docs/AUDIT.md}, \code{docs/SPEC\_COVERAGE.md}.
 
 \begin{thebibliography}{99}\footnotesize\setlength{\itemsep}{0pt}
 \bibitem{bf} D. Baron, J. Ferejohn. Bargaining in legislatures. \emph{APSR} 83(4), 1989.
