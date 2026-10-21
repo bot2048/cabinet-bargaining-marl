@@ -116,7 +116,7 @@ arises because seats and voting weights are correlated there. The small negative
 artefact (one \emph{close} action faces 101 demand bins): with more exploration of demands it vanishes
 (\ExpDemG, slope \ExpDemB; \ExpDemSeeds{} seeds).
 
-\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{1.6pt}
 \caption{F2: who gets what in fixed parliaments (shares within the cabinet, divisible surplus,
 $\delta=0.9$; learned: \AfDemSeeds{} seeds, all coalitions that form).}\label{tab:fixed}
 \begin{tabular}{@{}lll@{}}\toprule
@@ -128,17 +128,17 @@ proposal: weighted BF & form. $\approx$0.70 & form. $\approx$0.71\\
 proposal: learned & form. \AfPropFormLo--\AfPropFormHi & form. \AtPropFormLo--\AtPropFormHi\\
 \bottomrule\end{tabular}\end{table}
 
-\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{1.4pt}
 \caption{F3: regression (1) with seat shares ($\hat\beta,\hat\gamma$) and with voting power
 ($\hat\gamma_{bz}$, Banzhaf) on real cabinets and on the cabinets that agents trained only on random
 parliaments form themselves in the same 195 parliaments (ranges over seeds).}\label{tab:own}
 \begin{tabular}{@{}lcccc@{}}\toprule
- & $\hat\beta$ (seats) & $\hat\gamma$ (PM) & $\hat\gamma_{bz}$ & $R^2$\\\midrule
+ & $\hat\beta$ & $\hat\gamma$ (PM) & $\hat\gamma_{bz}$ & $R^2$\\\midrule
 real cabinets & \RealB & \RealG & \RealGbz & \RealRtwo\\
-demand bargaining & \OwnDemB & \OwnDemG & \OwnDemGbz & \OwnDemRtwo\\
+demand & \OwnDemB & \OwnDemG & \OwnDemGbz & \OwnDemRtwo\\
 \quad more exploration & \OwnExpB & \OwnExpG & \OwnExpGbz & \OwnExpRtwo\\
-proposal bargaining & \OwnPropB & \OwnPropG & \OwnPropGbz & \OwnPropRtwo\\
-E* (all mechanisms) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
+proposal & \OwnPropB & \OwnPropG & \OwnPropGbz & \OwnPropRtwo\\
+E* (all mech.) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{figure}[t]\centering
