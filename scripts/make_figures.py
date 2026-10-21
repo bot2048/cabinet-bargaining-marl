@@ -25,7 +25,8 @@ plt.rcParams.update({
     "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
     "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True,
     "grid.color": GRID, "grid.linewidth": 0.6, "lines.linewidth": 1.6,
-    "savefig.dpi": 220, "savefig.bbox": "tight", "font.family": "DejaVu Sans"})
+    "savefig.dpi": 220, "savefig.bbox": "tight", "savefig.pad_inches": 0.06,
+    "font.family": "DejaVu Sans"})
 FIG = os.path.join(ROOT, "figures")
 os.makedirs(FIG, exist_ok=True)
 
