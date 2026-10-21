@@ -15,3 +15,5 @@ data/parlgov/raw/
 report/build.txt
 report/*.toc
 data/seki_williams/raw/
+*.bbl
+*.blg

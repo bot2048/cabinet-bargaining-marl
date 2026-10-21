@@ -1,0 +1,541 @@
+% =====================================================================
+% Gamson's Law or a Formateur Premium? -- full paper
+% Build: latexmk -pdf main.tex   (numbers come from ../report/numbers.tex and
+% tab_*.tex, both generated from results/ by scripts/make_figures.py and
+% scripts/paper_tables.py)
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage{lmodern,microtype}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{graphicx,booktabs,xcolor,enumitem}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[round,authoryear]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+\captionsetup[table]{position=top,skip=4pt}
+\setlist{itemsep=1pt,topsep=3pt}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+\crefname{proposition}{Proposition}{Propositions}
+
+\newcommand{\repo}{https://github.com/bot2048/cabinet-bargaining-marl}
+\newcommand{\code}[1]{\href{\repo/blob/main/#1}{\texttt{\small #1}}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\BF}{\mathrm{BF}}
+\input{../report/numbers}
+
+\title{\textbf{Gamson's Law or a Formateur Premium?}\\[2pt]
+\large Political Parties as Multi-Agent Reinforcement Learning Agents\\Bargaining over Coalition Cabinets}
+\author{Arpan Jain \and Aradhya Mahajan\\[3pt]
+\small Indian Institute of Technology Jodhpur\\
+\small Code, data and trained agents: \url{\repo}}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Coalition cabinets divide ministries almost exactly in proportion to the seats each partner
+contributes (Gamson's law), whereas the leading non-cooperative theory of legislative bargaining
+(Baron--Ferejohn) predicts that the formateur, the party that proposes the cabinet, takes a large premium.
+We ask which of the two allocation rules self-interested parties arrive at when they learn to bargain.
+Parties are modelled as reinforcement-learning agents in a configurable game of government formation,
+rewarded only by their own office and policy payoffs. A single permutation-equivariant policy is trained
+by proximal policy optimisation and checked against exact equilibria, which we derive for the proposal
+protocol and compute for the demand protocol. Three results emerge. (i)~Under proposal bargaining the learned formateur keeps a premium (seat-controlled coefficient
+\BaseGamma{} in the base game) that no institution we add removes: private valuations and ministerial
+policy remove it from the \emph{number} of ministries but not from their value or from policy control. (ii)~Under demand bargaining the premium
+disappears (pre-registered test, exact permutation $p=\HoneP$), but learned shares follow
+\emph{voting weights}, not seats: in a 45/35/20 parliament every pair splits 50/50, as the exact
+equilibrium predicts and Gamson's law does not. (iii)~In \RealN{} real coalition cabinets the prime
+minister's party has no premium relative to seats (\RealG), a small one relative to voting weights
+(\RobWeightsG), and partners with equal voting weight still divide portfolios by seats (slope \WvsSlope).
+Learning parties thus favour the formateur exactly as far as the rules give it proposal power and
+otherwise split by voting weight; real cabinets follow seats even where seats and voting weights disagree,
+which points to explanations outside these bargaining models.
+\end{abstract}
+
+\noindent\textbf{Keywords:} coalition government; portfolio allocation; Gamson's law; Baron--Ferejohn
+bargaining; demand bargaining; multi-agent reinforcement learning; exploitability.
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+When an election gives no party a majority, parties bargain over who governs and over the division of
+ministries. Ministries are the main currency of office, and their division is one of the most robust
+regularities in comparative politics: cabinet portfolios are shared in proportion to the seats each
+coalition partner brings, with a slight bias toward small partners
+\citep{gamson1961,browne1973,warwick2006}. This regularity, Gamson's law, sits uneasily with
+non-cooperative bargaining theory. In the closed-rule model of \citet{baron1989}, a recognised proposer
+buys the cheapest majority at its partners' continuation values and keeps the rest, so the
+\emph{formateur} should take a large premium (\cref{fig:bfgamson}). Laboratory evidence finds a
+proposer advantage that is smaller than predicted \citep{frechette2003,frechette2005}, and measuring party
+strength by voting weights instead of seats reveals a formateur bonus in real data
+\citep{ansolabehere2005}. Which allocation rule bargaining parties actually arrive at, and under which
+institutions, therefore remains open.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.62\linewidth]{figures/fig_bf_vs_gamson.pdf}
+\caption{The puzzle in the symmetric case: the formateur's equilibrium share under Baron--Ferejohn
+(solid) and the equal split prescribed by Gamson's law (dashed), as the number of parties grows.}
+\label{fig:bfgamson}
+\end{figure}
+
+We study the question computationally. Parties are reinforcement-learning (RL) agents in a configurable
+game of government formation that nests the Baron--Ferejohn game exactly and adds, one switch at a time,
+the institutional features that have been proposed as explanations of Gamson's law: repeated terms,
+exits, the recognition rule, heterogeneous and private valuations of ministries, ministerial policy and a
+demand-based bargaining protocol. Agents are rewarded only by their own payoffs, so any proportionality
+must emerge; nothing in the reward refers to fairness. We read learned behaviour through two lenses: as
+an approximate equilibrium solver, checked against exact equilibria and by best-response
+(exploitability) tests, and as a model of adaptive, boundedly rational parties.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item An open environment and learner for coalition bargaining: one permutation-equivariant attention
+policy with masked autoregressive proposal heads serves any number of parties and ministries, and is
+trained by PPO on each agent's own decision sequence (\cref{sec:model,sec:learning}).
+\item Exact benchmarks: the Baron--Ferejohn solution, embedded in the environment, and an exact
+backward-induction solver for our demand protocol, whose equilibrium is not covered by published results
+(\cref{sec:theory}).
+\item A mechanism map of the learned formateur premium in three currencies: number of ministries, the
+formateur's own valuation, and policy-setting ministries (\cref{sec:mech}).
+\item Pre-registered tests of the bargaining protocol, including a decisive test of whether learned
+shares follow seats or voting weights (\cref{sec:protocol}).
+\item An out-of-sample confrontation with \RealN{} real coalition cabinets, including the agents' own
+cabinets in the same parliaments and a direct test of seats against voting weights in real data
+(\cref{sec:real}).
+\end{enumerate}
+
+\paragraph{Answer in brief.} Learning parties do not produce seat-proportionality as such. They favour
+the formateur exactly as far as the protocol gives it proposal power, and otherwise divide by voting
+weight; information and policy motives change the currency of the premium, not its existence. Real
+cabinets follow seats even where voting weights disagree.
+
+% =====================================================================
+\section{Related work}\label{sec:related}
+\paragraph{Gamson's law.} Since \citet{browne1973}, regressions of portfolio shares on within-coalition
+seat shares have found slopes near one and very tight fits, also when ministries are weighted by
+salience \citep{warwick2001,warwick2006}. Small partners receive slightly more than proportional shares.
+\citet{ansolabehere2005} show that a formateur advantage appears when strength is measured by minimal
+integer voting weights. Explanations of proportionality include pre-electoral pacts
+\citep{carroll2007}, uncertainty and complexity \citep{falco2013}, commitment to a coalition before the
+division \citep{kamm2024} and within-party bargaining \citep{cox2021}.
+
+\paragraph{Bargaining theory.} In the closed-rule model \citep{baron1989} the proposer extracts a premium
+whose size depends on patience and the number of parties; stationary equilibrium payoffs are unique
+\citep{eraslan2002}. With weighted voting, expected payoffs follow voting weights and recognition
+probabilities while the realised proposer premium remains \citep{snyder2005}; recognition rules can
+support almost any expected division \citep{kalandrakis2006}. Policy can be traded for office
+\citep{baron1991,laver1996}. Demand bargaining \citep{morelli1999} predicts no proposer premium and
+shares proportional to voting weights for specific move orders; \citet{montero2007} give a
+counterexample to the general claim and \citet{montero2011} restore proportionality when parties move in
+decreasing order of weight. Our protocol fixes neither order, so we solve it directly.
+
+\paragraph{Learning and experiments.} Laboratory subjects give proposers less than the theory predicts
+\citep{frechette2003} and react less to the protocol than theory suggests \citep{frechette2005}.
+Learning dynamics can settle on outcomes that are not subgame perfect, because responses that are rarely
+tested on the path of play are never corrected \citep{gale1995,fudenberg1993,fudenberg1998}. Deep
+multi-agent RL has been used for negotiation \citep{lewis2017}, team formation in weighted voting games
+\citep{bachrach2020}, economic policy design \citep{zheng2022} and pricing \citep{calvano2020}. We know of
+no study that trains learning agents in the Baron--Ferejohn cabinet game, validates them against its
+exact equilibrium and confronts them with real cabinets.
+
+% =====================================================================
+\section{Model}\label{sec:model}
+\subsection{The cabinet bargaining game}
+A parliament has parties $\mathcal N=\{1,\dots,n\}$ with seats $w_i$, total $W$ and quota
+$q=\lfloor W/2\rfloor+1$; a coalition $C$ is winning if $w(C)=\sum_{i\in C}w_i\ge q$. There are $m$
+ministries with salience $\sigma_k$ and, optionally, party-specific valuations
+$\nu_{ik}=(1-\xi)\sigma_k+\xi\,\epsilon_{ik}$ with $\epsilon_{i\cdot}$ drawn from a Dirichlet
+distribution. Each period without a cabinet is a formation round (\cref{fig:env}).
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/fig_environment.pdf}
+\caption{One period of the environment under the proposal protocol. Without a cabinet, a formateur is
+recognised and proposes a coalition and an allocation, which forms the cabinet if every named partner
+accepts; otherwise a caretaker period passes. A governing cabinet pays per-period flows; with exits,
+members may leave and collapse it.}\label{fig:env}
+\end{figure}
+
+\paragraph{Proposal protocol.} A formateur $f$ is drawn from the recognition rule $\rho$ (uniform or
+proportional to seats). It proposes a winning coalition $C\ni f$ and an allocation $\mu:\{1..m\}\to C$
+(or, with a divisible surplus, shares $p\in\Delta(C)$). The cabinet forms if every partner in $C$
+accepts; otherwise the period is lost and the next round is discounted by $\delta$.
+
+\paragraph{Demand protocol.} A first mover is recognised by $\rho$; the others move in a uniformly
+random order. Each mover either demands a share of a divisible surplus on a 1\% grid, or \emph{closes}: it
+forms a cabinet with the cheapest winning set of earlier demands whose sum is at most one (ties: fewer
+members first) and takes the residual. If nobody closes, the round fails. This differs from
+\citet{morelli1999}, where the first mover chooses the order of moves.
+
+\paragraph{Payoffs.} A governing member receives $r_i=\sum_{k:\mu(k)=i}\nu_{ik}-\lambda\,\tfrac1d
+\sum_h|y_h-z_{ih}|$ per period: the value of its ministries minus a policy loss, where $z_i$ is its
+ideal point and, with ministerial policy, the holder of a dimension's lead ministry sets policy $y_h$ on
+that dimension. A member that exits receives a random exit bonus. Rewards are individual; there is no
+fairness term.
+
+\paragraph{Mechanisms.} Each candidate explanation is a switch: repeated terms with elections (M1),
+the demand protocol (M2), private valuations (M4, with heterogeneous values M5), exits (M8), ministerial
+policy (M9) and seat-proportional recognition (M10). The \emph{base} game has indivisible ministries and
+every mechanism off; E$^\star$ has all of them on. Level E0 is the symmetric Baron--Ferejohn game with a
+divisible surplus. The game is a partially observable stochastic game; private valuations and ideal
+points are observed only by their owner.
+
+\paragraph{Measurement.} On every installed cabinet $c$ with portfolio-holding members we estimate the
+standard regression
+\begin{equation}\label{eq:reg}
+p_{ic}=\alpha+\beta\,s_{ic}+\gamma\,F_{ic}+\varepsilon_{ic},
+\end{equation}
+with $p_{ic}$ the share of ministries, $s_{ic}$ the within-coalition seat share and $F_{ic}$ the
+formateur dummy (for real cabinets, the prime minister's party). Gamson's law is
+$(\alpha,\beta,\gamma)=(0,1,0)$; $\gamma$ is the seat-controlled formateur premium and our headline
+statistic. Because the premium may move to other currencies, we estimate~\eqref{eq:reg} also with each
+party's share of the value \emph{it} places on ministries (value premium) and its share of policy-setting
+ministries (lead premium), and with Banzhaf voting power or minimal integer voting weights in place of
+seats.
+
+\subsection{Theoretical benchmarks}\label{sec:theory}
+\begin{proposition}[Symmetric Baron--Ferejohn benchmark]\label{prop:bf}
+In level E0 with $n$ odd, equal seats, uniform recognition and discount $\delta$, the stationary
+subgame-perfect equilibrium in stage-undominated voting strategies has the first proposal accepted; the
+formateur offers $\delta/n$ to $(n-1)/2$ partners and keeps $x^{\BF}_f=1-\delta(n-1)/(2n)$.
+\end{proposition}
+\noindent The environment embeds the Baron--Ferejohn game exactly when a cabinet governs forever and
+shares are paid as per-period flows; the proof is in \cref{app:proofs}. For weighted parliaments we
+compute stationary equilibria with a homotopy root finder certified by a linear-programming residual
+check (\code{cabinet/bf\_solver.py}).
+
+\paragraph{Exact equilibrium of our demand protocol.} Published results do not cover our variant, so we
+compute its subgame-perfect equilibrium by backward induction over every history of grid demands and
+every move order, with failure payoffs $\delta V_i$ iterated to a fixed point in the ex-ante values $V$
+(\code{cabinet/demand\_solver.py}, \cref{app:solver}). The results do not depend on the tie-breaking rule
+or the grid (1\% and 2\%; 2.5\% and 4\% for five parties):
+\begin{itemize}
+\item three equal parties: the first two movers split 0.50/0.50; five equal parties: the first three
+movers take about one third each;
+\item 45/35/20 seats: \emph{every} pair is winning, and whichever pair forms splits 0.50/0.50, whatever
+its seats;
+\item 40/30/25/5 seats: the 5-seat party is a dummy (never pivotal) and gets nothing; two of the large
+parties split 0.50/0.50.
+\end{itemize}
+The undercutting logic is simple: under the cheapest-set rule an earlier demand above the closer's
+residual is replaced by a cheaper later demand, so demands are competed down to the split of the minimal
+winning coalition. The equilibrium is proportional to minimal integer voting weights, here $(1,1,1)$ and
+$(1,1,1,0)$, not to seats. Gamson's law predicts 0.56/0.44 to 0.69/0.31 for the 45/35/20 pairs.
+
+% =====================================================================
+\section{Learning framework}\label{sec:learning}
+\paragraph{Policy.} All parties share one network (\code{cabinet/policy.py}). The observation of a party
+is a \emph{set} of party tokens (seat share, recognition probability, roles, current offers, the last
+cabinets), a set of ministry tokens (salience, own valuation, policy dimension), pair features and a
+context vector (phase, quota, $\delta$, $\lambda$, expected terms). Two attention blocks make the policy
+permutation-equivariant, so it applies to any $n$ and $m$ and treats relabelled parties identically.
+Proposals are decoded autoregressively with masks that keep every proposal feasible: include or exclude
+each party in order of seats, with the quota enforced, then point every ministry to a coalition member;
+for a divisible surplus, a 1\% grid offer per partner. Voters, exiting members and demanders have their
+own heads; the demand head has 101 demand bins and one \emph{close} action. An optional GRU core carries
+memory across decisions.
+
+\paragraph{Training.} PPO \citep{schulman2017} with generalised advantage estimation
+\citep{schulman2016} is applied to each agent's own sequence of decisions, a semi-Markov decision process
+with interval discounts (\code{cabinet/ppo.py}). Advantages are normalised per decision type, and the
+vote and exit heads get five times the entropy bonus so that responders keep learning. Each iteration
+collects 8192 decisions; runs last 500--2000 iterations. Variants: MAPPO with a centralised critic that
+sees private types \citep{yu2022}, fictitious self-play against a pool of past checkpoints
+\citep{heinrich2016}, symmetric PSRO \citep{lanctot2017} and the GRU memory. Hyper-parameters
+(\cref{app:hp}) were tuned on E0 only.
+
+\paragraph{Exploitability.} For a frozen profile we train a best response by PPO for one randomly drawn
+seat while every other seat plays the profile, from the profile's weights and from scratch, and report
+the larger per-period gain over 3000 evaluation episodes. Scripted Gamson and Baron--Ferejohn-heuristic
+profiles serve as positive controls. A learned best response bounds exploitability from below, so a small
+gain means only that no exploit was found at the budget.
+
+\paragraph{Statistics.} Training seeds are the independent units. Each seed's coefficients come from its
+own evaluation cabinets; we report means with 95\% intervals over seeds. Before the final runs finished
+we committed a pre-registration (\code{docs/PREREGISTRATION.md}) fixing three confirmatory tests with
+Holm correction and four descriptive predictions; everything else is exploratory. For real data we use
+country-clustered and wild-cluster bootstraps \citep{cameron2008}.
+
+% =====================================================================
+\section{Results}\label{sec:results}
+\subsection{Benchmark: learned outcomes match Baron--Ferejohn, learned play does not}\label{sec:bench}
+In E0, learned formateur shares follow the closed form of \cref{prop:bf} (\cref{fig:e0}, \cref{tab:e0}):
+the mean absolute gap over the nine cells is \EzeroAbsGap{}, the mean signed gap \EzeroGap{}, and
+\EzeroCellsOK{}/9 cells are within 0.02; shares fall with patience $\delta$ as theory predicts for
+$n\le5$. Between 90\% and 100\% of cabinets are minimal winning, and \EzeroFail{} of rounds fail on average. The largest gap is at
+$n=7$, $\delta=0.8$, where the learned share stays at about 0.60 for every $\delta$.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.62\linewidth]{../figures/fig_e0_benchmark.pdf}
+\caption{Benchmark E0: learned formateur share (mean and 95\% CI over 10 seeds) against the closed form
+of \cref{prop:bf}; dashed: Gamson's equal split.}\label{fig:e0}
+\end{figure}
+
+\input{tab_e0}
+
+Matching outcomes is not equilibrium play. Probing learned voters with synthetic offers shows acceptance
+thresholds well below the reservation value $\delta/n$ for $n\ge5$ (\cref{tab:e0}). At the offers
+formateurs actually make, the probe agrees with on-path behaviour (acceptance near one, failure near
+zero), but against the frozen voters a formateur best response would gain up to \BrGainSeven{} per
+formation at $n=7$ and \BrGainFive{} at $n=5$, by offering far less
+(\code{scripts/bf\_best\_response.py}). Formateurs never try such offers, so voters are never taught to
+reject them: the self-confirming pattern of learning in games \citep{fudenberg1993,gale1995}. As in the
+laboratory \citep{frechette2003}, the proposer ends up with less than the theory gives it at large $n$.
+A best response trained by PPO against the E0 profile gains \GainEzero{} per period
+(\GainEzeroRel{} of a seat's payoff), confirming that the exploitability test detects such gaps.
+
+\subsection{Proposal bargaining: the premium changes currency}\label{sec:mech}
+\input{tab_mech}
+
+\Cref{tab:mech} and \cref{fig:mech} report the formateur coefficient as mechanisms are added to the base
+game or removed from E$^\star$. The base game keeps a substantial premium ($\hat\gamma=\BaseGamma$,
+\LongBaseG{} with four times the training budget), and it emerges with training rather than being present
+from the start (\cref{fig:curves} in \cref{app:curves}). Repeated terms, even with patient agents and memory, exits, the
+recognition rule and heterogeneous public valuations reduce it at most partially. Every learner
+(IPPO, MAPPO, fictitious self-play, PSRO, GRU) reproduces the pattern.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.7\linewidth]{../figures/fig_mechanisms.pdf}
+\caption{Formateur coefficient $\hat\gamma$ in counted shares when a mechanism is added to the base game
+(blue) or removed from E$^\star$ (orange); mean and 95\% CI over seeds.}\label{fig:mech}
+\end{figure}
+
+Two mechanisms remove the \emph{counted} premium when added alone: private valuations (\MfourGamma) and
+ministerial policy (\MnineGamma). In E$^\star$ the counted premium is small (\EstarGamma), and it returns
+(0.21--0.22) when private valuations, heterogeneous valuations (without which private types carry no
+information) or exits are removed, but not when ministerial policy is removed. But the premium does not vanish.
+In each party's share of the value it places on ministries the formateur coefficient is \MfourGnu{}
+with private valuations and \EstarGnu{} in E$^\star$, and with ministerial policy the formateur holds the
+policy-setting ministries (coefficient \MnineGlead). Both persist with four times the training. The
+formateur gives partners more ministries but keeps the ones it values most, or keeps policy control:
+the premium changes currency.
+
+\subsection{Demand bargaining follows voting weights}\label{sec:protocol}
+On the same random 3--8-party parliaments (\NprotSeeds{} seeds per protocol), demand bargaining lowers
+the formateur coefficient by \HoneDiff{} relative to proposal bargaining (95\% CI \HoneLo--\HoneHi; exact
+permutation $p=\HoneP$, H1) and raises the seat slope by \HtwoDiff{} (\HtwoLo--\HtwoHi; H2). The demand
+coefficient is within $\pm0.05$ of zero (\HthreeMean, 90\% CI \HthreeLo{} to \HthreeHi; H3). All three
+pre-registered tests pass after Holm correction. The small negative value is an exploration artefact: the
+single close action competes with 101 demand bins, and with five times the entropy on the demand head the
+coefficient becomes \ExpDemG{} (seat slope \ExpDemB).
+
+\begin{table}[t]\centering\footnotesize
+\caption{Who gets what in fixed parliaments (divisible surplus, $\delta=0.9$, seat-proportional
+recognition; learned: \AfDemSeeds{} seeds per protocol, every coalition that forms).}\label{tab:fixed}
+\begin{tabular}{@{}lll@{}}\toprule
+ & 45/35/20 (each pair) & 40/30/25/5 \\\midrule
+Gamson's law (seats) & larger party 0.56--0.69 & dummy gets $5/w(C)$ if included\\
+demand: exact equilibrium & 0.50/0.50 & 0.50/0.50, dummy never included\\
+demand: learned & $0.50\pm\AfDemMaxDev$ (seat slope \AfDemSlope) & $0.50\pm\AtDemMaxDev$, dummy included \AtDemDummy\\
+proposal: weighted BF & formateur $\approx0.70$ & formateur $\approx0.71$\\
+proposal: learned & formateur \AfPropFormLo--\AfPropFormHi & formateur \AtPropFormLo--\AtPropFormHi\\
+\bottomrule\end{tabular}\end{table}
+
+Is this Gamson's law? The fixed parliaments of \cref{tab:fixed} separate seats from voting weights.
+Learned demand agents reproduce the exact equilibrium of \cref{sec:theory}: every 45/35/20 pair splits
+within \AfDemMaxDev{} of 50/50 (pre-registered prediction P1: every seed's slope below 0.5), and the
+dummy party in 40/30/25/5 is never included (P2). Learned proposal agents give the formateur
+\AfPropFormLo--\AfPropFormHi, close to the weighted Baron--Ferejohn solution (P3). Learned demand shares
+thus follow voting weights; the seat slope of 0.8 in random parliaments arises because seats and voting
+weights are correlated there. In symmetric demand games with default exploration the closer is
+under-paid (\LockinCloserThree{} with three parties, \LockinCloserFive{} with five) and a best response
+gains \GainDemand{} per period; with more exploration of demands the closer gets \ExploreCloserThree{}
+and \ExploreCloserFive{}, moving to the equilibrium values 0.50 and about 0.34, and the best-response gain
+falls to 0.029.
+
+\subsection{Real cabinets}\label{sec:real}
+We use ministers per party from the Seki--Williams party government data \citep{seki2014}, linked to
+ParlGov parliaments \citep{parlgov}: \RealN{} majority coalition cabinets in 31 countries, 1988--2014,
+with the prime minister's party as the formateur. Real cabinets were never used for training or tuning.
+
+\begin{table}[t]\centering\small
+\caption{Real cabinets: the prime-minister coefficient $\hat\gamma$ of~\eqref{eq:reg} under different
+specifications, with wild-cluster bootstrap 95\% CIs (31 countries). Bottom: partners with equal minimal
+integer voting weight but different seats (\code{scripts/real\_weights\_vs\_seats.py}).}\label{tab:realrob}
+\begin{tabular}{@{}lccc@{}}\toprule
+specification & $\hat\gamma$ & 95\% CI & $R^2$\\\midrule
+seat shares & \RobBaseG & \RobBaseLo{} to \RobBaseHi & \RobBaseRtwo\\
+seat shares, intercept $\alpha/k$ (cabinet size) & \RobOverkG & \RobOverkLo{} to \RobOverkHi & \RobOverkRtwo\\
+seat shares + largest-party dummy & \RobLargestG & \RobLargestLo{} to \RobLargestHi & \RobLargestRtwo\\
+minimal integer voting weights & \RobWeightsG & \RobWeightsLo{} to \RobWeightsHi & \RobWeightsRtwo\\
+seats and weights together & \RobBothG & \RobBothLo{} to \RobBothHi & \RobBothRtwo\\\midrule
+\multicolumn{4}{@{}p{0.9\linewidth}@{}}{equal voting weight, different seats: seat slope \WvsSlope{}
+(95\% CI \WvsLo--\WvsHi), \WvsPairs{} pairs; without the PM's party \WvsNoPm{} (\WvsNoPmN{} pairs)}\\
+\bottomrule\end{tabular}\end{table}
+
+\paragraph{The real regression.} Real cabinets follow Gamson's law closely: share $=\RealA+\RealB\,s+
+\RealG\,F$, $R^2=\RealRtwo$; leaving out any one country keeps $\hat\gamma$ between \LocoLo{} and
+\LocoHi. The formateur premium depends on the measure of strength (\cref{tab:realrob}): none relative to
+seats, \RobWeightsG{} relative to minimal integer voting weights, as \citet{ansolabehere2005} report, and
+\RobLargestG{} with a largest-party control (identified by the \RobPmNotLargest{} cabinets whose prime
+minister does not come from the largest partner). Seats fit better than weights and absorb the weight
+effect when both enter. The decisive comparison is between partners with \emph{equal} voting weight but
+different seats, where demand theory and our learned demand agents predict equal shares and Gamson's law
+predicts seat-proportional ones: real shares follow seats with slope \WvsSlope{} (95\% CI
+\WvsLo--\WvsHi), although less clearly when the prime minister's party is not involved (\WvsNoPm,
+\WvsNoPmN{} pairs).
+
+\paragraph{Key ministries.} If the real premium were hidden in quality, as with our agents, prime
+ministers' parties should hold more than their share of the key ministries. On \KeyN{} cabinets they hold
+\KeyShare{} of finance, foreign affairs, interior, defence and justice, against \KeyCount{} of all
+ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi): no detectable premium, in line with
+salience-weighted evidence \citep{warwick2006}.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.62\linewidth]{../figures/fig_real.pdf}
+\caption{Predicting the portfolio split of real coalition cabinets given the real coalition and prime
+minister: mean absolute error per party with country-clustered 95\% CIs.}\label{fig:real}
+\end{figure}
+
+\paragraph{Prediction.} Given each real coalition and prime minister, policies trained only on random
+parliaments predict the split with mean absolute error \MaePrivLo--\MaePrivHi{} per party when they have
+private valuations, and \MaePubLo--\MaePubHi{} with public valuations; Baron--Ferejohn errs by \MaeBF{}
+and Gamson's law by \MaeGamson{}, the best in every leave-one-country-out sample (\cref{fig:real}).
+
+\begin{table}[t]\centering\small
+\caption{Regression~\eqref{eq:reg} with seat shares and with Banzhaf voting power ($\hat\gamma_{bz}$) on
+real cabinets and on the cabinets that agents form themselves in the same \RealN{} parliaments (ranges over
+seeds: 10 per protocol, 3 otherwise).}\label{tab:own}
+\begin{tabular}{@{}lcccc@{}}\toprule
+ & $\hat\beta$ & $\hat\gamma$ & $\hat\gamma_{bz}$ & $R^2$\\\midrule
+real cabinets & \RealB & \RealG & \RealGbz & \RealRtwo\\
+demand protocol & \OwnDemB & \OwnDemG & \OwnDemGbz & \OwnDemRtwo\\
+\quad with more exploration & \OwnExpB & \OwnExpG & \OwnExpGbz & \OwnExpRtwo\\
+proposal protocol & \OwnPropB & \OwnPropG & \OwnPropGbz & \OwnPropRtwo\\
+E$^\star$ (proposal, all mechanisms) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
+\bottomrule\end{tabular}\end{table}
+
+\paragraph{Agents in real parliaments.} Left to bargain freely in the real parliaments (\cref{tab:own}),
+demand agents with more exploration reproduce the real seat regression almost exactly, although their
+rule is voting weight: in most real parliaments the two are close. E$^\star$ agents match the small
+premium relative to voting power; proposal agents overshoot it. Restricting the agents' cabinets to those
+that reproduce the real coalition barely changes the demand slope (\OwnDemMatchB), so coalition
+selection is not what makes it seat-like. Choosing coalitions in 242 Western European parliaments, the
+agents pick the governing coalition in \PgLearned{} of cases, similar to Riker's minimal-seat rule
+(\PgRiker) and below an ideologically connected rule (\PgIdeology).
+
+\subsection{Reliability}\label{sec:reliability}
+\input{tab_exploit}
+
+\Cref{tab:exploit} reports estimated exploitability. Best responses gain \GainLong{} per period against
+E$^\star$ (\GainLongRel{} of a seat's payoff) and about a fifth of a seat's payoff against agents on random
+parliaments under either protocol, against \GainLongGamson{} and \GainLongMyopic{} for scripted Gamson and
+Baron--Ferejohn-heuristic profiles. The test has power at 300--400 iterations (it finds the gaps of
+\cref{sec:bench}), but at 150 iterations its controls in the base game were not detected, so budgets
+matter. Cross-play between independently trained runs costs \CmSame{} per period within an algorithm and
+\CmAcross{} across algorithms: independent runs settle on compatible conventions. Learned profiles are
+approximate equilibria, and our conclusions are about the allocation rules they settle on, which are
+stable across seeds, learners and training budgets.
+
+% =====================================================================
+\section{Discussion}\label{sec:discussion}
+\paragraph{Answer to the question.} Should cabinets allocate proportionally or favour formateurs? Read
+positively, as a question about what self-interested bargaining produces, our answer is: neither rule
+emerges unconditionally. Learning parties favour the formateur exactly as far as the rules give it
+proposal power (\cref{sec:mech}); when parties bargain by demands, the premium disappears but shares
+follow voting weights (\cref{sec:protocol}). Private information and policy motives do not remove the
+proposer's advantage; they move it into the ministries the formateur values or into policy control, which
+counting ministries cannot see. Real cabinets, in contrast, divide by seats even where voting weights
+disagree, show at most a small premium relative to voting weights, and no detectable premium in key
+ministries (\cref{sec:real}).
+
+\paragraph{Implications.} Gamson's law is therefore not the equilibrium of either canonical bargaining
+protocol, as learned by self-interested agents. Demand bargaining comes closest, and in real parliaments,
+where seats and voting weights are correlated, its learned allocations reproduce the real regression.
+Where seats and weights diverge, real cabinets side with seats. This points to mechanisms outside these
+bargaining models: commitments to a coalition before the division \citep{kamm2024}, pre-electoral pacts
+\citep{carroll2007}, intra-party bargaining \citep{cox2021} or a proportionality norm. For the
+learning literature, the benchmark shows how outcome-level validation can hide non-equilibrium play: the
+learned profile matches Baron--Ferejohn shares while leaving a profitable deviation untried.
+
+\paragraph{Limitations.} Sizes are scaled down ($n\le5$ in the mechanism experiments, 3--8 in random and
+real parliaments, $m=6$). Learned profiles are approximate equilibria, and exploitability estimates are
+lower bounds. The prime minister's party is a proxy for the formateur. Real shares count ministers;
+salience enters only through the key-ministry test, and the test of the currency shift in real data with
+party-specific manifesto salience was not run. The demand head offers one close action against 101 demand
+bins, which slows learning to close; the exploration runs show that our conclusions do not depend on it.
+The normative comparison of allocation conventions (delay, durability, welfare) was outside the scope of
+the experiments reported here.
+
+% =====================================================================
+\section{Conclusion}\label{sec:conclusion}
+Modelling parties as learning agents bargaining over cabinets shows that the formateur premium is a
+property of proposal power, not of strategic bargaining as such, and that its absence under demand
+bargaining yields division by voting weight, not by seats. Information and policy motives change where the
+premium appears rather than whether it exists. Where seats and voting weights disagree, real cabinets follow seats, unlike any protocol we trained, so
+the explanation of Gamson's law must include rules or norms beyond the canonical bargaining models.
+
+\paragraph{Reproducibility.} Code, configurations, trained agents, raw results, the pre-registration and a
+map from every claim to its result file and script are at \url{\repo}
+(\code{docs/RESULTS\_AUDIT.md}). Every number in this paper is generated from the result files
+(\code{scripts/make\_figures.py}, \code{scripts/paper\_tables.py}); 31 automated tests tie the code to the
+theory (\code{tests/test\_core.py}).
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% =====================================================================
+\appendix
+\section{Proof of Proposition~\ref{prop:bf}}\label{app:proofs}
+\begin{proof}[Embedding]
+Fix a stationary profile at the divisible level with a cabinet that governs forever, no exits and
+constant $\rho$. A member $j$ of an accepted cabinet with share $p_j$ receives $p_j/(1-\delta)$; after a
+rejection it gets nothing this period and $\delta V_j$ afterwards, with $V_j=v_j/(1-\delta)$.
+Stage-undominated voting accepts if and only if $p_j\ge\delta v_j$. A proposal passes only if $C\ni f$,
+$w(C)\ge q$ and every partner receives at least $\delta v_j$, so the best passing proposal pays exactly
+$\delta v_j$ to a cost-minimising coalition and leaves $x_f=1-\delta c_f(v)$, where $c_f(v)$ is the
+minimal $\sum_{j\in S}v_j$ over sets $S$ with $w(S\cup\{f\})\ge q$. Because the grand coalition is
+winning, $c_f(v)\le1-v_f$ and $x_f\ge1-\delta+\delta v_f>\delta v_f$, so passing is optimal. These are
+exactly the conditions of the closed-rule game of \citet{baron1989}, so stationary strategies and
+per-period shares coincide.
+\end{proof}
+\begin{proof}[Symmetric case]
+Conjecture $v_i=1/n$. Voters accept offers of at least $\delta/n$. Every coalition of $f$ and $(n-1)/2$
+others costs $(n-1)/(2n)$, so $f$ keeps $x^{\BF}_f=1-\delta(n-1)/(2n)$ and, choosing uniformly among
+cheapest coalitions, includes each other party with probability $1/2$. Then
+\[
+v_i=\tfrac1n\Bigl(1-\tfrac{\delta(n-1)}{2n}\Bigr)+\tfrac{n-1}{n}\cdot\tfrac12\cdot\tfrac{\delta}{n}=\tfrac1n,
+\]
+confirming the conjecture. By the one-shot deviation principle the profile is a stationary equilibrium;
+stationary equilibrium payoffs are unique for quota rules \citep{eraslan2002}.
+\end{proof}
+
+\section{The demand-protocol solver}\label{app:solver}
+For a move order $\pi$ and a demand grid $G$, let $h=(d_1,\dots,d_k)$ be the demands of the first $k$
+movers. The mover at position $k$ can close if some set $S$ of earlier movers satisfies
+$w(S)+w_{\pi_k}\ge q$ and $\sum_{j\in S}d_j\le1$; the environment then takes the cheapest such $S$ (ties:
+fewer members, then a fixed subset order) and pays the closer $1-\sum_{j\in S}d_j$. Otherwise, or by
+choice, it demands $a\in G$ and play moves to $(h,a)$; at the last position a demand ends the round with
+payoffs $\delta V$. Backward induction over all $|G|^k$ histories, vectorised over histories, gives every
+mover's optimal action; the ex-ante values $V$ are averaged over recognition and random orders and
+iterated to a fixed point. Indifferent movers break ties by a fixed rule (close first; then the highest
+or the lowest demand), and the reported equilibria are identical under both rules. An automated test
+checks the three-party and dummy-party cases (\code{tests/test\_core.py}).
+
+\section{Hyper-parameters}\label{app:hp}
+\begin{table}[h]\centering\footnotesize
+\caption{PPO hyper-parameters (\code{cabinet/ppo.py}, \texttt{DEFAULT\_HP}), tuned on E0 only.}
+\begin{tabular}{@{}ll@{\qquad}ll@{}}\toprule
+learning rate & $3\cdot10^{-4}$ (Adam) & decisions per iteration & 8192 (64 environments)\\
+GAE $\lambda$ & 0.95 & PPO epochs, minibatches & 4, 4\\
+clip & 0.2 & value-loss weight & 0.5\\
+entropy bonus & $2\cdot10^{-2}\to2\cdot10^{-3}$ & entropy multiplier, vote/exit & 5\\
+embedding width & 64, 4 heads, 2 blocks & demand-entropy multiplier & 1 (5 with more exploration)\\
+\bottomrule\end{tabular}\end{table}
+
+\section{Learning curves}\label{app:curves}
+\begin{figure}[h]\centering
+\includegraphics[width=0.8\linewidth]{../figures/fig_curves.pdf}
+\caption{Training curves (mean over seeds; band: minimum to maximum). E0: gap of the learned formateur
+share to the closed form. Base game and E$^\star$: floor-adjusted formateur premium $\tilde\Phi=
+\E[p_f-p_f^{\min}]$, where $p^{\min}$ is the most proportional feasible allocation of the same cabinet.
+The premium of the base game is absent early in training and grows with it.}\label{fig:curves}
+\end{figure}
+
+\end{document}
