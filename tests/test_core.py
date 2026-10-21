@@ -187,3 +187,59 @@ def test_demand_protocol():
         assert abs(rec["p"].sum() - 1) < 1e-9
         assert rec["w"][rec["C"]].sum() >= rec["w"].sum() // 2 + 1 or rec["C"].sum() >= 1
         assert "first" in rec
+
+
+def test_demand_transitions_exact():
+    """M2 by hand: 45/35/20 parliament, order 0 -> 1 -> 2.  Party 1 can close only
+    with an earlier demander forming a majority; the closer takes the residual;
+    a round where nobody closes fails and is discounted."""
+    from cabinet.config import fixed_divisible
+    from cabinet.env import CLOSE, DEMAND
+    cfg = fixed_divisible((45, 35, 20), "demand", "t")
+    env = CabinetEnv(cfg, seed=0).reset()
+    env.dem_order, env.f = [0, 1, 2], 0
+    assert env.pending()[0].kind == DEMAND
+    env._pending = [type(env.pending()[0])(env, 0, DEMAND)]
+    env.act({0: 60})                                  # party 0 demands 0.60
+    assert env.dem_k == 1 and env.cheapest_close(1) == [0]
+    env.act({1: CLOSE})                               # party 1 closes with party 0
+    rec = env.cabinet_log[-1]
+    assert np.allclose(rec["p"], [0.6, 0.4, 0.0]) and rec["f"] == 1 and rec["first"] == 0
+    # nobody closes: the round fails, everybody gets 0 and the next round is discounted
+    env = CabinetEnv(cfg, seed=1).reset()
+    env.dem_order, env.f = [0, 1, 2], 0
+    env._pending = [type(env.pending()[0])(env, 0, DEMAND)]
+    for j in (0, 1, 2):
+        env.act({j: 70})
+    assert env.ep_stats["failed"] == 1 and not env.done and env.phase == DEMAND
+    assert np.allclose(env.acc_disc, env.delta)       # one period of discounting
+
+
+def test_cheapest_close_prefers_cheaper_partner():
+    from cabinet.config import fixed_divisible
+    cfg = fixed_divisible((45, 35, 20), "demand", "t")
+    env = CabinetEnv(cfg, seed=0).reset()
+    env.dem_order, env.dem_k = [0, 1, 2], 2
+    env.demands = np.array([0.6, 0.3, np.nan])
+    assert env.cheapest_close(2) == [1]               # 20 + 35 is winning and cheaper
+    env.demands = np.array([0.6, 0.9, np.nan])
+    assert env.cheapest_close(2) == [0]
+
+
+def test_regression_recovers_known_coefficients():
+    from cabinet.metrics import gamson_regression
+    rng = np.random.default_rng(0)
+    s = rng.random(500)
+    F = (rng.random(500) < 0.3).astype(float)
+    p = 0.1 + 0.8 * s + 0.05 * F
+    r = gamson_regression(np.column_stack([p, s, F]))
+    assert abs(r["alpha"] - 0.1) < 1e-9 and abs(r["beta"] - 0.8) < 1e-9 and abs(r["gamma"] - 0.05) < 1e-9
+
+
+def test_recognition_sums_to_one_in_truncated_real_parliaments():
+    import json
+    from cabinet.config import estar_wide, real_parliament
+    cabs = json.load(open("data/parlgov/cabinets.json"))[:40]
+    for cab in cabs:
+        env = CabinetEnv(real_parliament(estar_wide(), cab), seed=0).reset()
+        assert abs(env.recognition_probs().sum() - 1) < 1e-12
