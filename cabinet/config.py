@@ -139,6 +139,16 @@ WIDE_DEMAND = WIDE_DIV.with_(name="WideDemand", protocol="demand")
 E0_DEMAND = E0.with_(name="E0demand", protocol="demand", n_choices=(3, 5), delta_choices=(0.9,))
 
 
+def fixed_divisible(seats, protocol, name):
+    """A fixed asymmetric parliament with a divisible surplus (mechanism test:
+    do learned shares follow seats, voting weights or proposal power?)."""
+    return WIDE_DIV.with_(name=name, seats=tuple(seats), house=int(sum(seats)),
+                          n_choices=(len(seats),), seat_mode="fixed", protocol=protocol)
+
+
+ASYM = {"A452": (45, 35, 20), "A4305": (40, 30, 25, 5)}
+
+
 def estar_wide() -> EnvConfig:
     """E* over 3-8 parties with more varied seat distributions, for transfer
     to real parliaments (spec RQ7); real parliaments are held out."""
