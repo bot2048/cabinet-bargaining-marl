@@ -119,7 +119,7 @@ def agent_split(net, cab, samples, seed):
 def own_cabinets(net, cabs, base, episodes, seed):
     """Agents bargain freely in each real parliament (8 largest parties); their
     own cabinets are pooled and summarised like the real ones."""
-    cab_log, ep_log = [], []
+    cab_log, ep_log, matched = [], [], []
     for i, c in enumerate(cabs):
         k = min(MAX_N, len(c["seats"]))
         cfg = base.with_(name=c["name"], seats=tuple(int(round(x)) for x in c["seats"][:k]),
@@ -128,7 +128,16 @@ def own_cabinets(net, cabs, base, episodes, seed):
                           episodes=episodes, seed=seed * 1000 + i)
         cab_log += cl
         ep_log += el
-    return summarise(cab_log, ep_log, base.m, base.divisible)
+        # cabinets whose coalition is exactly the real one (matched-coalition design:
+        # separates coalition selection from the split given the coalition)
+        if not c["member"][k:].any():
+            matched += [r for r in cl if np.array_equal(np.asarray(r["C"], bool), c["member"][:k])]
+    out = summarise(cab_log, ep_log, base.m, base.divisible)
+    out["match_rate"] = len(matched) / max(len(cab_log), 1)
+    if len(matched) > 50:
+        sm = summarise(matched, [], base.m, base.divisible)
+        out.update({f"matched_{key}": v for key, v in sm.items() if key.startswith("reg")})
+    return out
 
 
 def demand_split(net, cab, samples, seed):
@@ -203,6 +212,7 @@ def main():
                     help="config name: instead of conditional predictions, summarise the cabinets "
                          "the agents form themselves in the real parliaments")
     ap.add_argument("--episodes", type=int, default=64)
+    ap.add_argument("--suffix", default="", help="output file suffix (parallel --own jobs)")
     ap.add_argument("--demand-tags", nargs="*", default=[],
                     help="demand-protocol models scored on the same cabinets (conditional prediction)")
     a = ap.parse_args()
@@ -250,10 +260,11 @@ def main():
                                                if isinstance(v, (int, float, np.floating)) and v == v}
                 print(f"it=1/1 t=0s eta=0s own {tag}/s{seed}: " + " ".join(
                     f"{k}={o[k]:+.3f}" for k in ("reg_alpha", "reg_beta", "reg_gamma", "reg_r2",
-                                                  "dem_gamma_close", "dem_gamma_first", "size")
+                                                  "dem_gamma_close", "dem_gamma_first", "size", "match_rate",
+                                                  "matched_reg_beta", "matched_reg_gamma")
                     if k in o and o[k] == o[k]), flush=True)
         os.makedirs(os.path.join(ROOT, "results", "seki"), exist_ok=True)
-        with open(os.path.join(ROOT, "results", "seki", f"own_{a.own}.json"), "w") as f:
+        with open(os.path.join(ROOT, "results", "seki", f"own_{a.own}{a.suffix}.json"), "w") as f:
             json.dump(res, f, indent=1)
         print("DONE", flush=True)
         return
