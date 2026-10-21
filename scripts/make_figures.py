@@ -387,6 +387,19 @@ def macros():
             put("GcPubLo", min(v["gamma"] for v in pub), "{:.2f}")
             put("GcPubHi", max(v["gamma"] for v in pub), "{:.2f}")
         put("GcBF", Mm["bf"]["gamma"], "{:.2f}")
+    # agents' own cabinets in the 195 real parliaments (ranges over seeds)
+    for cfg, name in (("WideDemand", "OwnDem"), ("WideProposal", "OwnProp"), ("EstarWide", "OwnWide")):
+        op = os.path.join(ROOT, "results", "seki", f"own_{cfg}.json")
+        if not os.path.exists(op):
+            continue
+        with open(op) as f:
+            own = list(json.load(f)["own"].values())
+        for key, short, fmt in (("reg_alpha", "A", "{:.2f}"), ("reg_beta", "B", "{:.2f}"),
+                                ("reg_gamma", "G", "{:+.2f}"), ("reg_r2", "Rtwo", "{:.2f}"),
+                                ("phi_nu", "PhiNu", "{:+.2f}")):
+            v = [o[key] for o in own if key in o]
+            if v:
+                M[f"{name}{short}"] = fmt.format(min(v)) + "--" + fmt.format(max(v)).lstrip("+")
     kp = os.path.join(ROOT, "results", "seki", "key_ministries.json")
     if os.path.exists(kp):
         with open(kp) as f:
@@ -405,6 +418,19 @@ def macros():
             v, k = avg(tag, key)
             put(f"{name}{short}", v, "{:.2f}" if short in ("B", "Rtwo") else "{:+.3f}")
         put(f"{name}Seeds", avg(tag, "reg_gamma")[1], "{:d}")
+    rp = os.path.join(ROOT, "results", "seki", "e0demand_roles.json")
+    if os.path.exists(rp):
+        with open(rp) as f:
+            roles = json.load(f)
+        put("LockinCloserThree", roles["mech_E0demand"]["closer3"], "{:.2f}")
+        put("LockinCloserFive", roles["mech_E0demand"]["closer5"], "{:.2f}")
+        put("ExploreCloserThree", roles["explore_E0demand"]["closer3"], "{:.2f}")
+        put("ExploreCloserFive", roles["explore_E0demand"]["closer5"], "{:.2f}")
+    for key, short in (("dem_gamma_close", "Close"), ("dem_gamma_first", "First"), ("reg_beta", "B")):
+        v, k = avg("explore_E0demand", key)
+        put(f"Explore{short}", v, "{:.2f}" if short == "B" else "{:+.3f}")
+        v0, _ = avg("mech_E0demand", key)
+        put(f"Lockin{short}", v0, "{:.2f}" if short == "B" else "{:+.3f}")
     # long training (4x budget)
     for tag, name in (("long_BASE", "LongBase"), ("long_BASE+M4_private", "LongMfour"),
                       ("long_BASE+M9_policy", "LongMnine"), ("long_Estar", "LongEstar")):
@@ -417,7 +443,9 @@ def macros():
         put(f"{name}Gnu", avg(tag, "regnu_gamma")[0])
         put(f"{name}Glead", avg(tag, "reglead_gamma")[0])
     # numbers whose experiments may not have finished yet: placeholder "--"
-    for name in ("CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
+    for name in ("OwnDemA", "OwnDemB", "OwnDemG", "OwnDemRtwo", "OwnPropA", "OwnPropB", "OwnPropG",
+                 "OwnPropRtwo", "OwnWideA", "OwnWideB", "OwnWideG", "OwnWideRtwo", "OwnWidePhiNu",
+                 "CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
                  "GainMappo", "GainLong", "GainLongGamson", "GainLongMyopic", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
                  "PgAllIdeology", "PgAllN", "PsroBasePhi", "PsroEstarPhi", "PsroBaseGain", "PsroEstarGain",
                  "GainEstarGamson", "GainEstarMyopic", "PgIdeoLearned", "EntLow", "EntMid", "EntHigh"):
