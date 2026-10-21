@@ -36,6 +36,9 @@ class EnvConfig:
     y0: float = 0.5
     # formateur selection (M10)
     rho: str = "uniform"                     # uniform | seat | largest
+    # bargaining protocol (M2): "proposal" (closed rule) or "demand" (Morelli 1999;
+    # divisible surplus only)
+    protocol: str = "proposal"
     # patience
     delta_choices: Sequence[float] = (0.9,)
     # horizon. L=None: one formation episode with an infinite-horizon cabinet,
@@ -125,6 +128,15 @@ def add_one_in(mech: str) -> EnvConfig:
 
 def full_estar() -> EnvConfig:
     return BASE.with_(name="Estar", **_merge(MECHANISMS))
+
+
+# Divisible game over 3-8 parties with varied seat distributions, under the two
+# protocols (matched comparison for M2); used on real parliaments as well.
+WIDE_DIV = E1.with_(name="WideProposal", n_choices=(3, 4, 5, 6, 7, 8),
+                    alpha_seat_choices=(0.5, 1.0, 2.0, 3.0), house_size=150, rho="seat",
+                    delta_choices=(0.9,))
+WIDE_DEMAND = WIDE_DIV.with_(name="WideDemand", protocol="demand")
+E0_DEMAND = E0.with_(name="E0demand", protocol="demand", n_choices=(3, 5), delta_choices=(0.9,))
 
 
 def estar_wide() -> EnvConfig:

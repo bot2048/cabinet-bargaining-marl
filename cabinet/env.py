@@ -19,8 +19,9 @@ import numpy as np
 
 from .config import EnvConfig, LAM_MAX
 
-PROPOSE, VOTE, GOVERN = 0, 1, 2
-KIND_NAMES = ("propose", "vote", "govern")
+PROPOSE, VOTE, GOVERN, DEMAND = 0, 1, 2, 3
+KIND_NAMES = ("propose", "vote", "govern", "demand")
+CLOSE = 101                    # demand-protocol action: close (demands are 0..100 %)
 
 FP = 14 + 3 * LAM_MAX      # party-token width
 FM = 8                     # ministry-token width
@@ -164,7 +165,20 @@ class CabinetEnv:
 
     # ------------------------------------------------------------- dynamics
     def _begin_period(self):
-        if self.cabinet is None:
+        if self.cabinet is None and self.cfg.protocol == "demand":
+            # Morelli (1999): a recognised first mover, then the others in random
+            # order; each demands a share or closes a cabinet with earlier demanders
+            self.phase = DEMAND
+            first = int(self.rng.choice(self.n, p=self.recognition_probs()))
+            rest = [j for j in self.rng.permutation(self.n) if j != first]
+            self.dem_order = [first] + rest
+            self.demands = np.full(self.n, np.nan)
+            self.dem_k = 0
+            self.f = first
+            self.proposal = None
+            self.ep_stats["rounds"] += 1
+            self._pending = [Decision(self, first, DEMAND)]
+        elif self.cabinet is None:
             self.phase = PROPOSE
             if self.cfg.first_formateur is not None and self.ep_stats["rounds"] == 0:
                 self.f = int(self.cfg.first_formateur)
@@ -186,6 +200,21 @@ class CabinetEnv:
             self._pay_flows(self.cabinet)
             self._end_period()
 
+    def cheapest_close(self, i):
+        """Earlier demanders that, with i, form a winning coalition whose demands
+        sum to at most one; the cheapest such set (best for the closer)."""
+        movers = [j for j in self.dem_order[:self.dem_k] if j != i]
+        best, best_cost = None, None
+        for mask in range(1 << len(movers)):
+            S = [movers[b] for b in range(len(movers)) if mask >> b & 1]
+            if self.w[S].sum() + self.w[i] < self.q:
+                continue
+            cost = float(np.sum(self.demands[S])) if S else 0.0
+            if cost <= 1.0 + 1e-9 and (best is None or cost < best_cost - 1e-12 or
+                                       (abs(cost - best_cost) < 1e-12 and len(S) < len(best))):
+                best, best_cost = S, cost
+        return best
+
     def pending(self):
         return [] if self.done else self._pending
 
@@ -193,7 +222,31 @@ class CabinetEnv:
         """Apply the actions of every pending decision. ``actions[agent]``:
         PROPOSE -> (C_mask bool[n], alloc) with alloc = mu int[m] or shares float[n];
         VOTE/GOVERN -> int 0/1 (1 = accept / stay)."""
-        if self.phase == PROPOSE:
+        if self.phase == DEMAND:
+            mover = self.dem_order[self.dem_k]
+            a = int(actions[mover])
+            S = self.cheapest_close(mover) if a == CLOSE else None
+            if a == CLOSE and S is not None:
+                C = np.zeros(self.n, bool)
+                C[S] = True
+                C[mover] = True
+                p = np.where(C, np.nan_to_num(self.demands), 0.0)
+                p[mover] = max(1.0 - p.sum(), 0.0)
+                p = p / p.sum() if p.sum() > 0 else np.where(C, 1.0 / C.sum(), 0.0)
+                first = self.dem_order[0]
+                self.f = mover                       # the closer forms the cabinet
+                self._install(Cabinet(C=C, f=mover, mu=None, p=p))
+                self.cabinet_log[-1]["first"] = first
+                return
+            self.demands[mover] = min(a, 100) / 100.0
+            self.dem_k += 1
+            if self.dem_k >= self.n:                 # nobody closed: the round fails
+                self.ep_stats["failed"] += 1
+                self._caretaker()
+                self._end_period()
+            else:
+                self._pending = [Decision(self, self.dem_order[self.dem_k], DEMAND)]
+        elif self.phase == PROPOSE:
             C, alloc = actions[self.f]
             self._receive_proposal(np.asarray(C, bool), alloc)
         elif self.phase == VOTE:
@@ -368,8 +421,12 @@ class CabinetEnv:
         P[:, 0] = self.w / W
         P[:, 1] = self.recognition_probs() if self.phase == PROPOSE else 0.0
         P[i, 2] = 1.0
-        if self.phase in (VOTE, PROPOSE):
+        if self.phase in (VOTE, PROPOSE, DEMAND):
             P[self.f, 3] = 1.0
+        if self.phase == DEMAND:
+            moved = ~np.isnan(self.demands)
+            P[:, 4] = moved
+            P[:, 6] = np.nan_to_num(self.demands)
         if prop is not None:
             P[:, 4] = prop.C
             P[:, 6] = prop.p
@@ -418,7 +475,7 @@ class CabinetEnv:
 
         ctx = np.zeros(FC, np.float32)
         ctx[0] = 0.0 if c.L is None else self.ell / c.L
-        ctx[1 + self.phase] = 1.0
+        ctx[1 + (PROPOSE if self.phase == DEMAND else self.phase)] = 1.0
         ctx[4] = self.q / W
         ctx[5] = self.delta
         ctx[6] = c.beta_T
@@ -452,6 +509,15 @@ class CabinetEnv:
             X[4] = (c.L - self.ell) / c.L if c.L else 1.0
             X[5] = self.w[i] / self.w[cab.C].sum()
             X[6] = self.bonus[i]
+        elif kind == DEMAND:
+            S = self.cheapest_close(i)
+            X[0] = self.w[i] / W
+            X[1] = self.q / W
+            X[2] = self.dem_k / n
+            X[3] = float(S is not None)
+            X[4] = 1.0 - float(np.sum(self.demands[S])) if S is not None else 0.0
+            X[5] = float(self.w[~np.isnan(self.demands)].sum() / W)
+            X[7] = 1.0
         else:
             X[0] = self.w[i] / W
             X[1] = self.q / W
@@ -462,7 +528,8 @@ class CabinetEnv:
             order = others[np.lexsort((tie, -self.w[others]))]
         return dict(P=P, M=M, PR=PR, ctx=ctx, X=X, kind=kind, n=n, m=m, self_idx=i,
                     w=(self.w / W).astype(np.float32), q=self.q / W, order=order,
-                    divisible=c.divisible)
+                    divisible=c.divisible,
+                    close_ok=bool(kind == DEMAND and X[3] > 0))
 
     def _believed_policy_loss(self, i, cab):
         """Policy loss i expects from a cabinet.  Under private types the

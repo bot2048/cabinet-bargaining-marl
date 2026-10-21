@@ -21,7 +21,7 @@ import numpy as np
 import torch
 
 from .baselines import Scripted
-from .env import CabinetEnv, PROPOSE
+from .env import CabinetEnv, PROPOSE, DEMAND
 from .metrics import summarise
 from .policy import PolicyNet, pad_obs, to_torch
 
@@ -87,7 +87,7 @@ class Runner:
                         S["obs"].append(o)
                         if self.store_global:
                             S["gobs"].append(self.envs[e].observe(d.agent, d.kind, global_view=True))
-                        for k in ("bit", "inc", "mu", "shares"):
+                        for k in ("bit", "inc", "mu", "shares", "dem"):
                             S[k].append(out[k][b])
                         S["logp"].append(float(logp[b]))
                         S["value"].append(float(value[b]))
@@ -125,6 +125,8 @@ class Runner:
 
 
 def _env_action(o, out, b):
+    if o["kind"] == DEMAND:
+        return int(out["dem"][b])
     if o["kind"] != PROPOSE:
         return int(out["bit"][b])
     n, f = o["n"], o["self_idx"]
@@ -170,6 +172,7 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
     batch["inc"] = np.stack(S["inc"])
     batch["mu"] = np.stack(S["mu"])
     batch["shares"] = np.stack(S["shares"]).astype(np.float32)
+    batch["dem"] = np.array(S["dem"])
     T = {k: v.to(dev) for k, v in to_torch(batch).items()}
     old_logp = torch.tensor(S["logp"], dtype=torch.float32, device=dev)
     adv_t = torch.tensor(adv, dtype=torch.float32, device=dev)
@@ -180,12 +183,12 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
         perm = torch.randperm(n, device=dev)
         for mb in perm.split(max(n // hp["minibatches"], 1)):
             ob = {k: v[mb] for k, v in T.items()}
-            act = {k: ob[k] for k in ("bit", "inc", "mu", "shares")}
+            act = {k: ob[k] for k in ("bit", "inc", "mu", "shares", "dem")}
             _, logp, ent, value = net(ob, act=act)
             # normalise advantages per decision type: voters' stakes are much
             # smaller than formateurs', and a pooled normalisation drowns them
             a = adv_t[mb].clone()
-            for k in range(3):
+            for k in range(4):
                 sel = ob["kind"] == k
                 if sel.sum() > 1:
                     a[sel] = (a[sel] - a[sel].mean()) / (a[sel].std(unbiased=False) + 1e-8)
@@ -203,7 +206,8 @@ def ppo_update(net, opt, S, N, M, hp, critic=None, copt=None):
             vl = ((value - ret_t[mb]) ** 2).mean()
             # voters and governing members get a larger entropy weight so that
             # rejecting / exiting keeps being tried until its value is learned
-            ent_w = torch.where(ob["kind"] == PROPOSE, torch.tensor(1.0, device=dev),
+            ent_w = torch.where((ob["kind"] == PROPOSE) | (ob["kind"] == DEMAND),
+                                torch.tensor(1.0, device=dev),
                                 torch.tensor(float(hp["ent_vote_mult"]), device=dev))
             loss = pg + hp["vf"] * vl - hp["ent"] * (ent_w * ent).mean()
             opt.zero_grad()
@@ -234,7 +238,7 @@ def train_selfplay(cfg, iters, seed=0, hp=None, net=None, log_every=5, verbose=T
     hp = {**DEFAULT_HP, **(hp or {})}
     torch.manual_seed(seed)
     np.random.seed(seed)
-    net = net or PolicyNet(d=hp["d"], recurrent=hp["recurrent"])
+    net = net or PolicyNet(d=hp["d"], recurrent=hp["recurrent"], demand=cfg.protocol == "demand")
     # Rollouts run on the CPU (the game is pure Python); with device="cuda"
     # the PPO update runs on the GPU and the weights are copied back.
     dev = torch.device(hp["device"] if hp["device"] != "cuda" or torch.cuda.is_available() else "cpu")
@@ -335,7 +339,8 @@ def exploitability(cfg, profile, iters, seed=0, hp=None, warm_start=None, eval_e
         seats[rng.integers(env.n)] = "learn"
         return seats
 
-    br = copy.deepcopy(warm_start) if warm_start is not None else PolicyNet(d=hp["d"])
+    br = copy.deepcopy(warm_start) if warm_start is not None else PolicyNet(
+        d=hp["d"], demand=cfg.protocol == "demand")
     br, hist = train_selfplay(cfg, iters, seed=seed, hp=hp, net=br,
                               controllers={"frozen": frozen}, assign=focal, verbose=False)
     _, ep_br = evaluate(cfg, {"learn": br, "frozen": frozen}, focal, eval_eps, seed + 7)

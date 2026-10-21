@@ -22,7 +22,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .env import FP, FM, FPAIR, FC, FX, PROPOSE, VOTE, GOVERN
+from .env import FP, FM, FPAIR, FC, FX, PROPOSE, VOTE, GOVERN, DEMAND, CLOSE
 
 GRID = 100          # resolution of offers of a divisible surplus (1%)
 
@@ -53,10 +53,11 @@ class Block(nn.Module):
 
 
 class PolicyNet(nn.Module):
-    def __init__(self, d=64, heads=4, blocks=2, recurrent=False):
+    def __init__(self, d=64, heads=4, blocks=2, recurrent=False, demand=False):
         super().__init__()
         self.d = d
         self.recurrent = recurrent
+        self.demand = demand
         self.fp, self.fm = mlp(FP, d, d), mlp(FM, d, d)
         self.fc, self.fx = mlp(FC, d, d), mlp(FX, d, d)
         self.blocks = nn.ModuleList([Block(d, heads) for _ in range(blocks)])
@@ -67,6 +68,9 @@ class PolicyNet(nn.Module):
         self.include = mlp(2 * d + 3, d, 1)
         self.minister = mlp(3 * d + FPAIR + 4, d, 1)
         self.offer = mlp(2 * d + 2, d, GRID + 1)
+        if demand:
+            # demand protocol (M2): demand 0..100 % of the surplus, or close
+            self.demand_head = mlp(d, d, CLOSE + 1)
         if recurrent:
             # memory core M_u = GRU(M_{u-1}, [pooled, own, context]) (spec Def. 3.1 iii);
             # it carries information across periods and terms
@@ -118,7 +122,7 @@ class PolicyNet(nn.Module):
         kind = ob["kind"]
         logp = torch.zeros(B)
         ent = torch.zeros(B)
-        out = {"bit": torch.zeros(B, dtype=torch.long),
+        out = {"bit": torch.zeros(B, dtype=torch.long), "dem": torch.zeros(B, dtype=torch.long),
                "inc": torch.zeros(B, ob["P"].shape[1] - 1, dtype=torch.long),
                "mu": torch.zeros(B, ob["M"].shape[1], dtype=torch.long),
                "shares": torch.zeros(B, ob["P"].shape[1])}
@@ -133,6 +137,21 @@ class PolicyNet(nn.Module):
                 out["bit"][idx] = a.long()
                 logp[idx] = dist.log_prob(a)
                 ent[idx] = dist.entropy()
+        idx = (kind == DEMAND).nonzero(as_tuple=True)[0]
+        if len(idx):
+            logits = self.demand_head(h[idx])
+            mask = torch.ones_like(logits, dtype=torch.bool)
+            mask[:, CLOSE] = ob["close_ok"][idx]
+            dist = torch.distributions.Categorical(logits=logits.masked_fill(~mask, -1e9))
+            if act is not None:
+                a = act["dem"][idx]
+            elif greedy:
+                a = dist.probs.argmax(-1)
+            else:
+                a = dist.sample()
+            out["dem"][idx] = a
+            logp[idx] = dist.log_prob(a)
+            ent[idx] = dist.entropy()
         idx = (kind == PROPOSE).nonzero(as_tuple=True)[0]
         if len(idx):
             sub = {key: val[idx] for key, val in ob.items()}
@@ -274,7 +293,8 @@ class PolicyNet(nn.Module):
 def load_policy(path, map_location="cpu"):
     """Load a saved policy, recurrent or not (inferred from its parameters)."""
     sd = torch.load(path, map_location=map_location)
-    net = PolicyNet(recurrent=any(k.startswith("gru.") for k in sd))
+    net = PolicyNet(recurrent=any(k.startswith("gru.") for k in sd),
+                    demand=any(k.startswith("demand_head.") for k in sd))
     net.load_state_dict(sd)
     return net
 
@@ -288,7 +308,7 @@ def pad_obs(obs, N, M):
                mmask=np.zeros((B, M), bool), kind=np.zeros(B, np.int64),
                self_idx=np.zeros(B, np.int64), w=np.zeros((B, N), np.float32),
                q=np.zeros(B, np.float32), order=np.full((B, N - 1), -1, np.int64),
-               divisible=np.zeros(B, bool))
+               divisible=np.zeros(B, bool), close_ok=np.zeros(B, bool))
     for b, o in enumerate(obs):
         n, m = o["n"], o["m"]
         out["P"][b, :n] = o["P"]
@@ -301,6 +321,7 @@ def pad_obs(obs, N, M):
         if o["order"] is not None:
             out["order"][b, :n - 1] = o["order"]
         out["divisible"][b] = o["divisible"]
+        out["close_ok"][b] = o.get("close_ok", False)
     if any("mem" in o for o in obs):
         H = next(len(o["mem"]) for o in obs if "mem" in o)
         out["mem"] = np.stack([o.get("mem", np.zeros(H, np.float32)) for o in obs]).astype(np.float32)

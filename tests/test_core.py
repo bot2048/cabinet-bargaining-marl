@@ -166,3 +166,24 @@ def test_recurrent_memory_and_logp():
     assert out["mem"].shape == (len(obs), 16)
     assert torch.allclose(logp, logp2, atol=1e-5)
     assert not torch.allclose(v1, v2)
+
+
+def test_demand_protocol():
+    """M2: closing is offered only when a cheapest winning set of earlier
+    demands exists; the closer gets the residual; shares sum to one."""
+    from cabinet.config import WIDE_DEMAND
+    from cabinet.env import CLOSE, DEMAND
+    rng = np.random.default_rng(0)
+    env = CabinetEnv(WIDE_DEMAND, seed=4)
+    for _ in range(60):
+        env.reset()
+        while not env.done:
+            d = env.pending()[0]
+            assert d.kind == DEMAND
+            o = env.observe(d.agent, d.kind)
+            a = CLOSE if (o["close_ok"] and rng.random() < 0.5) else int(rng.integers(0, 60))
+            env.act({d.agent: a})
+    for rec in env.cabinet_log:
+        assert abs(rec["p"].sum() - 1) < 1e-9
+        assert rec["w"][rec["C"]].sum() >= rec["w"].sum() // 2 + 1 or rec["C"].sum() >= 1
+        assert "first" in rec

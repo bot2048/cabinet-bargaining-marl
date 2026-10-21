@@ -50,8 +50,8 @@ def _bf_cached(w: tuple, q: int, rho: tuple, delta: float):
 
 def bf_benchmark(rec: dict, divisible: bool):
     """Analytic formateur share for divisible levels with a stationary rule."""
-    if not divisible or rec["rho"] == "largest":
-        return None
+    if not divisible or rec["rho"] == "largest" or len(rec["w"]) > 5 or "first" in rec:
+        return None                      # exact benchmark used for n <= 5, proposal protocol
     w = rec["w"]
     n = len(w)
     if np.all(w == 1) and n % 2 == 1 and rec["rho"] == "uniform":
@@ -123,6 +123,26 @@ def gamson_regression(rows: np.ndarray):
     return dict(alpha=coef[0], beta=coef[1], gamma=coef[2], r2=r2)
 
 
+def demand_regression(log):
+    """Demand protocol: p = a + b s + g_close F_close + g_first F_first."""
+    Y, X = [], []
+    for rec in log:
+        if "first" not in rec:
+            continue
+        p, w = rec["p"], rec["w"]
+        Cp = p > 1e-9
+        if Cp.sum() <= 1:
+            continue
+        s = w / w[Cp].sum()
+        for j in np.flatnonzero(Cp):
+            Y.append(p[j])
+            X.append((1.0, s[j], float(j == rec["f"]), float(j == rec["first"])))
+    if len(Y) < 6:
+        return {}
+    coef, *_ = np.linalg.lstsq(np.array(X), np.array(Y), rcond=None)
+    return dict(dem_alpha=coef[0], dem_beta=coef[1], dem_gamma_close=coef[2], dem_gamma_first=coef[3])
+
+
 def summarise(log, episodes, m, divisible):
     cabs, rows, single = cabinet_rows(log, m, divisible)
     out = dict(cabinets=len(cabs), single_party=single)
@@ -139,6 +159,7 @@ def summarise(log, episodes, m, divisible):
         out["duration"] = float(np.mean(dur)) if dur else np.nan
         out["collapse_rate"] = float(np.mean([c["collapsed"] for c in cabs]))
     out.update({f"reg_{k}": v for k, v in gamson_regression(rows).items()})
+    out.update(demand_regression(log))
     if len(rows) >= 4 and rows.shape[1] >= 5:
         # RQ3 / H4: do shares follow seats or voting power?  Same regression with
         # the within-coalition Banzhaf share in place of the seat share.

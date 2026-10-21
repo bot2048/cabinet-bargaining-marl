@@ -29,9 +29,11 @@ import torch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from cabinet.bf_solver import solve_bf                      # noqa: E402
+from cabinet import config as C                              # noqa: E402
 from cabinet.config import estar_wide                       # noqa: E402
 from cabinet.env import CabinetEnv, PROPOSE                 # noqa: E402
-from cabinet.metrics import banzhaf, gamson_regression      # noqa: E402
+from cabinet.metrics import banzhaf, gamson_regression, summarise  # noqa: E402
+from cabinet.ppo import evaluate                              # noqa: E402
 from cabinet.policy import load_policy, pad_obs, to_torch   # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
@@ -114,6 +116,21 @@ def agent_split(net, cab, samples, seed):
     return shares / samples
 
 
+def own_cabinets(net, cabs, base, episodes, seed):
+    """Agents bargain freely in each real parliament (8 largest parties); their
+    own cabinets are pooled and summarised like the real ones."""
+    cab_log, ep_log = [], []
+    for i, c in enumerate(cabs):
+        k = min(MAX_N, len(c["seats"]))
+        cfg = base.with_(name=c["name"], seats=tuple(int(round(x)) for x in c["seats"][:k]),
+                         house=int(c["house"]), n_choices=(k,), seat_mode="fixed", T=1.0)
+        cl, el = evaluate(cfg, {"learn": net}, lambda env, rng: ["learn"] * env.n,
+                          episodes=episodes, seed=seed * 1000 + i)
+        cab_log += cl
+        ep_log += el
+    return summarise(cab_log, ep_log, base.m, base.divisible)
+
+
 def mae(pred, cab):
     mem = cab["member"]
     return float(np.mean(np.abs(pred[mem] - cab["share"][mem])))
@@ -142,6 +159,10 @@ def main():
     ap.add_argument("--samples", type=int, default=32)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--own", default=None,
+                    help="config name: instead of conditional predictions, summarise the cabinets "
+                         "the agents form themselves in the real parliaments")
+    ap.add_argument("--episodes", type=int, default=64)
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     cabs = load_cabinets()
@@ -166,6 +187,34 @@ def main():
     res["empirical_banzhaf"] = {k: float(v) for k, v in gamson_regression(np.array(bz_rows)).items()}
     print("empirical:", {k: round(v, 3) if isinstance(v, float) else v for k, v in res["empirical"].items()},
           "| banzhaf R2", round(res["empirical_banzhaf"]["r2"], 3), flush=True)
+
+    if a.own:
+        base = {"WideProposal": C.WIDE_DIV, "WideDemand": C.WIDE_DEMAND,
+                "EstarWide": C.estar_wide()}[a.own]
+        res["own"] = {}
+        import time
+        for tag in a.tags:
+            for seed in a.seeds:
+                p = os.path.join(ROOT, "models", tag, f"seed{seed}.pt")
+                waited = 0
+                while not os.path.exists(p) and waited < 8 * 3600:   # queued before training ended
+                    time.sleep(60)
+                    waited += 60
+                if not os.path.exists(p):
+                    continue
+                time.sleep(5)
+                o = own_cabinets(load_policy(p).eval(), cabs, base, a.episodes, seed)
+                res["own"][f"{tag}/s{seed}"] = {k: float(v) for k, v in o.items()
+                                               if isinstance(v, (int, float, np.floating)) and v == v}
+                print(f"it=1/1 t=0s eta=0s own {tag}/s{seed}: " + " ".join(
+                    f"{k}={o[k]:+.3f}" for k in ("reg_alpha", "reg_beta", "reg_gamma", "reg_r2",
+                                                  "dem_gamma_close", "dem_gamma_first", "size")
+                    if k in o and o[k] == o[k]), flush=True)
+        os.makedirs(os.path.join(ROOT, "results", "seki"), exist_ok=True)
+        with open(os.path.join(ROOT, "results", "seki", f"own_{a.own}.json"), "w") as f:
+            json.dump(res, f, indent=1)
+        print("DONE", flush=True)
+        return
 
     # ---- predictions
     preds = {"gamson": {}, "bf": {}}

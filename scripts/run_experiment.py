@@ -42,6 +42,8 @@ def get_config(name):
         return C.leave_one_out(name[6:])
     if name.startswith("Estar_Lam0"):
         return C.full_estar().with_(name=name, Lam=0)
+    if name in ("WideProposal", "WideDemand", "E0demand"):
+        return {"WideProposal": C.WIDE_DIV, "WideDemand": C.WIDE_DEMAND, "E0demand": C.E0_DEMAND}[name]
     if name == "Estar_m12":                # spec default of 12 ministries (finer shares)
         return C.full_estar().with_(name=name, m=12)
     if name == "EstarWide":
