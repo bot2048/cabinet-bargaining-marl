@@ -118,14 +118,15 @@ artefact (one \emph{close} action faces 101 demand bins): with more exploration 
 
 \begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{1.6pt}
 \caption{F2: who gets what in fixed parliaments (shares within the cabinet, divisible surplus,
-$\delta=0.9$; learned: \AfDemSeeds{} seeds, all coalitions that form).}\label{tab:fixed}
+$\delta=0.9$; learned: \AfDemSeeds{} seeds, all coalitions). $^\dagger$Large-party formateurs; a 5-seat
+formateur keeps \AtPropDumLo--\AtPropDumHi{} (BF \BfDummyForm).}\label{tab:fixed}
 \begin{tabular}{@{}lll@{}}\toprule
  & 45/35/20 (each pair) & 40/30/25/5 \\\midrule
 Gamson (seats) & largest 0.56--0.69 & dummy $>0$\\
 demand: exact eq. & 0.50/0.50 & 0.50/0.50, dummy 0\\
 demand: learned & $0.50\pm\AfDemMaxDev$ & $0.50\pm\AtDemMaxDev$, dummy \AtDemDummy\\
 proposal: weighted BF & form. $\approx$0.70 & form. $\approx$0.71\\
-proposal: learned & form. \AfPropFormLo--\AfPropFormHi & form. \AtPropFormLo--\AtPropFormHi\\
+proposal: learned & form. \AfPropFormLo--\AfPropFormHi & form. \AtPropBigLo--\AtPropBigHi$^\dagger$\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{1.4pt}
@@ -179,10 +180,10 @@ information and policy motives change the currency of the premium, not its exist
 comes closest to real cabinets, but these follow seats even where voting weights disagree, so Gamson's law likely also
 rests on rules outside these models, such as commitments before the split~\cite{ks} or within-party
 bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; approximate equilibria; the PM's party
-proxies the formateur; real shares count ministers (salience only via key ministries). \textbf{Not done}:
+proxies the formateur; real shares count ministers. \textbf{Not done}:
 party-specific manifesto salience (needs registered data access), a two-stage close/demand head
-(retraining), more seeds (every pre-registered effect is decisive at 10). Claims and
-sources: \code{docs/AUDIT.md}, \code{docs/SPEC\_COVERAGE.md}.
+(retraining), more seeds (effects are decisive). Sources of every claim:
+\code{docs/RESULTS\_AUDIT.md}.
 
 \begin{thebibliography}{99}\footnotesize\setlength{\itemsep}{0pt}
 \bibitem{bf} D. Baron, J. Ferejohn. Bargaining in legislatures. \emph{APSR} 83(4), 1989.

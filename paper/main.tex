@@ -175,11 +175,17 @@ forms a cabinet with the cheapest winning set of earlier demands whose sum is at
 members first) and takes the residual. If nobody closes, the round fails. This differs from
 \citet{morelli1999}, where the first mover chooses the order of moves.
 
-\paragraph{Payoffs.} A governing member receives $r_i=\sum_{k:\mu(k)=i}\nu_{ik}-\lambda\,\tfrac1d
-\sum_h|y_h-z_{ih}|$ per period: the value of its ministries minus a policy loss, where $z_i$ is its
-ideal point and, with ministerial policy, the holder of a dimension's lead ministry sets policy $y_h$ on
-that dimension. A member that exits receives a random exit bonus. Rewards are individual; there is no
-fairness term.
+\paragraph{Payoffs.} Each party $i$ has an ideal point $z_i\in[0,1]^d$ ($d=2$). The first $d$
+ministries are \emph{lead} ministries, one per policy dimension. In every period, governed or not, policy
+is $y_h=z_{\mu(h),h}$ (the ideal point of the party holding lead ministry $h$) while a cabinet governs,
+and the status quo $y_h=y^0=0.5$ in a caretaker period. Party $i$'s per-period reward is
+\begin{equation}\label{eq:reward}
+r_i=\underbrace{\textstyle\sum_{k:\mu(k)=i}\nu_{ik}}_{\text{office (members only)}}
+-\lambda\,\tfrac1d\textstyle\sum_{h=1}^d|y_h-z_{ih}|,
+\end{equation}
+so members and excluded parties alike bear the policy loss of the policy in force, and in a caretaker
+period nobody receives office. A member that exits receives its private exit bonus instead and the cabinet
+collapses. Rewards are individual; there is no fairness term. Parameter values are in \cref{app:params}.
 
 \paragraph{Mechanisms.} Each candidate explanation is a switch: repeated terms with elections (M1),
 the demand protocol (M2), private valuations (M4, with heterogeneous values M5), exits (M8), ministerial
@@ -198,8 +204,16 @@ formateur dummy (for real cabinets, the prime minister's party). Gamson's law is
 $(\alpha,\beta,\gamma)=(0,1,0)$; $\gamma$ is the seat-controlled formateur premium and our headline
 statistic. Because the premium may move to other currencies, we estimate~\eqref{eq:reg} also with each
 party's share of the value \emph{it} places on ministries (value premium) and its share of policy-setting
-ministries (lead premium), and with Banzhaf voting power or minimal integer voting weights in place of
-seats.
+ministries (lead premium), and with Banzhaf voting power or minimal integer voting weights in place of seats. With $m$ indivisible
+ministries exact proportionality is usually infeasible, so we also report statistics relative to the most
+proportional feasible allocation of the same cabinet,
+\[
+p^{\min}(C)=\arg\min_{\mu:\{1..m\}\to C}\ \textstyle\sum_{i\in C}|p_i(\mu)-s_i|,
+\]
+computed by Hamilton's largest-remainder rule for equal salience,
+the Gamson distance $D_G=\tfrac12\sum_{i\in C}|p_i-s_i|$, its floor-adjusted version
+$\tilde D_G=\E[D_G(p)-D_G(p^{\min})]$, and the floor-adjusted formateur premium
+$\tilde\Phi=\E[p_f-p^{\min}_f]$.
 
 \subsection{Theoretical benchmarks}\label{sec:theory}
 \begin{proposition}[Symmetric Baron--Ferejohn benchmark]\label{prop:bf}
@@ -247,7 +261,10 @@ memory across decisions.
 
 \paragraph{Training.} PPO \citep{schulman2017} with generalised advantage estimation
 \citep{schulman2016} is applied to each agent's own sequence of decisions, a semi-Markov decision process
-with interval discounts (\code{cabinet/ppo.py}). Advantages are normalised per decision type, and the
+(\code{cabinet/ppo.py}). Between an agent's decisions at periods $t$ and $t+\Delta$ it keeps receiving
+rewards, which enter its transition as $R_t=\sum_{\tau=0}^{\Delta-1}\delta^{\tau}r_{i,t+\tau}$ with
+discount $\delta^{\Delta}$ on the next value, so the advantage uses
+$R_t+\delta^{\Delta}V(o_{t+\Delta})-V(o_t)$; decisions within a period ($\Delta=0$) are undiscounted. Advantages are normalised per decision type, and the
 vote and exit heads get five times the entropy bonus so that responders keep learning. Each iteration
 collects 8192 decisions; runs last 500--2000 iterations. Variants: MAPPO with a centralised critic that
 sees private types \citep{yu2022}, fictitious self-play against a pool of past checkpoints
@@ -313,7 +330,11 @@ recognition rule and heterogeneous public valuations reduce it at most partially
 Two mechanisms remove the \emph{counted} premium when added alone: private valuations (\MfourGamma) and
 ministerial policy (\MnineGamma). In E$^\star$ the counted premium is small (\EstarGamma), and it returns
 (0.21--0.22) when private valuations, heterogeneous valuations (without which private types carry no
-information) or exits are removed, but not when ministerial policy is removed. But the premium does not vanish.
+information) or exits are removed, but not when ministerial policy is removed. The mechanisms therefore interact: on
+its own, ministerial policy turns the premium into policy control (lead coefficient \MnineGlead), but in
+E$^\star$ without private valuations the formateur keeps both more ministries and more lead ministries
+(lead coefficient 0.35). We report these interactions as exploratory; with three seeds per configuration we
+did not decompose them further. But the premium does not vanish.
 In each party's share of the value it places on ministries the formateur coefficient is \MfourGnu{}
 with private valuations and \EstarGnu{} in E$^\star$, and with ministerial policy the formateur holds the
 policy-setting ministries (coefficient \MnineGlead). Both persist with four times the training. The
@@ -325,28 +346,31 @@ On the same random 3--8-party parliaments (\NprotSeeds{} seeds per protocol), de
 the formateur coefficient by \HoneDiff{} relative to proposal bargaining (95\% CI \HoneLo--\HoneHi; exact
 permutation $p=\HoneP$, H1) and raises the seat slope by \HtwoDiff{} (\HtwoLo--\HtwoHi; H2). The demand
 coefficient is within $\pm0.05$ of zero (\HthreeMean, 90\% CI \HthreeLo{} to \HthreeHi; H3). All three
-pre-registered tests pass after Holm correction. The small negative value is an exploration artefact: the
-single close action competes with 101 demand bins, and with five times the entropy on the demand head the
-coefficient becomes \ExpDemG{} (seat slope \ExpDemB).
+pre-registered tests pass after Holm correction. The small negative value is an exploration artefact: with five times the entropy on the demand head
+the coefficient becomes \ExpDemG{} (seat slope \ExpDemB). We have not isolated why. Raising entropy does
+not make closing more likely a priori (one close action among 102), but it keeps demands from collapsing
+early onto a few values, so later movers keep meeting undercutting demands and cheap closing options.
 
 \begin{table}[t]\centering\footnotesize
 \caption{Who gets what in fixed parliaments (divisible surplus, $\delta=0.9$, seat-proportional
 recognition; learned: \AfDemSeeds{} seeds per protocol, every coalition that forms).}\label{tab:fixed}
-\begin{tabular}{@{}lll@{}}\toprule
+\begin{tabular}{@{}lp{0.3\linewidth}p{0.36\linewidth}@{}}\toprule
  & 45/35/20 (each pair) & 40/30/25/5 \\\midrule
 Gamson's law (seats) & larger party 0.56--0.69 & dummy gets $5/w(C)$ if included\\
 demand: exact equilibrium & 0.50/0.50 & 0.50/0.50, dummy never included\\
 demand: learned & $0.50\pm\AfDemMaxDev$ (seat slope \AfDemSlope) & $0.50\pm\AtDemMaxDev$, dummy included \AtDemDummy\\
-proposal: weighted BF & formateur $\approx0.70$ & formateur $\approx0.71$\\
-proposal: learned & formateur \AfPropFormLo--\AfPropFormHi & formateur \AtPropFormLo--\AtPropFormHi\\
+proposal: weighted BF & formateur $\approx0.70$ & large-party formateur \BfBigForm; dummy formateur \BfDummyForm\\
+proposal: learned & formateur \AfPropFormLo--\AfPropFormHi & large-party formateur \AtPropBigLo--\AtPropBigHi; dummy \AtPropDumLo--\AtPropDumHi\\
 \bottomrule\end{tabular}\end{table}
 
 Is this Gamson's law? The fixed parliaments of \cref{tab:fixed} separate seats from voting weights.
 Learned demand agents reproduce the exact equilibrium of \cref{sec:theory}: every 45/35/20 pair splits within \AfDemMaxDev{} of 50/50 (pre-registered prediction P1: every seed's
 slope below 0.5; seat slope \AfDemSlope, seed-level 95\% CI \PoneLo{} to \PoneHi{}, which excludes
 Gamson's slope of 1), and the
-dummy party in 40/30/25/5 is never included (P2). Learned proposal agents give the formateur
-\AfPropFormLo--\AfPropFormHi, close to the weighted Baron--Ferejohn solution (P3). Learned demand shares
+dummy party in 40/30/25/5 is never included (P2). Learned proposal agents give the formateur \AfPropFormLo--\AfPropFormHi, close to the weighted
+Baron--Ferejohn solution (P3). In 40/30/25/5 the 5-seat party is recognised in about 5\% of rounds
+(recognition is seat-proportional); it must then buy two large partners and keeps
+\AtPropDumLo--\AtPropDumHi, against \BfDummyForm{} in the weighted Baron--Ferejohn solution. Learned demand shares
 thus follow voting weights; the seat slope of 0.8 in random parliaments arises because seats and voting
 weights are correlated there. In symmetric demand games with default exploration the closer is
 under-paid (\LockinCloserThree{} with three parties, \LockinCloserFive{} with five) and a best response
@@ -389,11 +413,18 @@ seats, \RobWeightsG{} relative to minimal integer voting weights, as \citet{anso
 minister does not come from the largest partner). Seats fit better than weights and absorb the weight
 effect when both enter. The most direct comparison is between partners with \emph{equal} voting weight but different seats,
 where demand theory and our learned demand agents predict equal shares and Gamson's law predicts
-seat-proportional ones. Regressing each pair's difference in portfolio shares on its difference in seat
-shares, through the origin and with a prime-minister indicator, gives a seat slope of \WvsSlope{}; the
-95\% interval \WvsLo--\WvsHi{} comes from a bootstrap over countries, because pairs from the same
-cabinet or country are not independent. The estimate supports seat-based division but is imprecise, and
-it is weaker when the prime minister's party is not involved (\WvsNoPm, \WvsNoPmN{} pairs).
+seat-proportional ones. For every pair of members $i,j$ of cabinet $c$ with equal minimal integer weight and seat shares
+differing by more than 0.02 we estimate, without intercept,
+\begin{equation}\label{eq:pairs}
+p_{ic}-p_{jc}=\beta\,(s_{ic}-s_{jc})+\gamma\,(F_{ic}-F_{jc})+\varepsilon_{ijc},
+\end{equation}
+so that equal seats and no prime minister imply equal shares. Gamson's law predicts $\beta=1$; voting-weight
+theories, and our learned demand agents, predict $\beta=0$. We find $\hat\beta=\WvsSlope$ with a 95\%
+interval of \WvsLo--\WvsHi{} from a bootstrap over countries, because pairs from the same cabinet or
+country are not independent. Without the pairs that involve the prime minister's party,
+$\hat\beta=\WvsNoPm$ (\WvsNoPmLo--\WvsNoPmHi; \WvsNoPmN{} pairs from only \WvsNoPmCountries{}
+countries). Both intervals exclude zero, but they are wide: the estimate supports seat-based division
+without measuring it precisely.
 
 \paragraph{Key ministries.} If the real premium were hidden in quality, as with our agents, prime
 ministers' parties should hold more than their share of the key ministries. On \KeyN{} cabinets they hold
@@ -407,8 +438,13 @@ salience-weighted evidence \citep{warwick2006}.
 minister: mean absolute error per party with country-clustered 95\% CIs.}\label{fig:real}
 \end{figure}
 
-\paragraph{Prediction.} Given each real coalition and prime minister, policies trained only on random
-parliaments predict the split with mean absolute error \MaePrivLo--\MaePrivHi{} per party when they have
+\paragraph{Prediction.} To predict the split of a real cabinet, the agent of the prime minister's party
+acts as formateur in the real parliament (its eight largest parties) with the real number of ministries;
+the coalition-inclusion steps of its proposal head are fixed to the real coalition, and the ministry
+pointer head is sampled 32 times and averaged. Demand agents are not scored this way: fixing the coalition
+removes the outside options they were trained with (their demands then exceed the surplus in 12--22\% of
+cabinets, depending on the seed), so we evaluate them on the cabinets they form themselves (\cref{tab:own}). Given each real
+coalition and prime minister, proposal policies trained only on random parliaments predict the split with mean absolute error \MaePrivLo--\MaePrivHi{} per party when they have
 private valuations, and \MaePubLo--\MaePubHi{} with public valuations; Baron--Ferejohn errs by \MaeBF{}
 and Gamson's law by \MaeGamson{}, the best in every leave-one-country-out sample (\cref{fig:real}).
 
@@ -551,6 +587,32 @@ GAE $\lambda$ & 0.95 & PPO epochs, minibatches & 4, 4\\
 clip & 0.2 & value-loss weight & 0.5\\
 entropy bonus & $2\cdot10^{-2}\to2\cdot10^{-3}$ & entropy multiplier, vote/exit & 5\\
 embedding width & 64, 4 heads, 2 blocks & demand-entropy multiplier & 1 (5 with more exploration)\\
+\bottomrule\end{tabular}\end{table}
+
+\section{Environment parameters}\label{app:params}
+\begin{table}[h]\centering\footnotesize
+\caption{Environment parameters (\code{cabinet/config.py}, \code{cabinet/env.py}).}\label{tab:params}
+\begin{tabular}{@{}lp{0.62\linewidth}@{}}\toprule
+parliament (base game, E$^\star$) & $n\in\{3,4,5\}$ uniform; seat shares $\sim\mathrm{Dirichlet}(1.5)$ on a
+house of 100; quota $\lfloor W/2\rfloor+1$\\
+parliament (random 3--8 parties) & $n\in\{3,\dots,8\}$; Dirichlet concentration drawn from
+$\{0.5,1,2,3\}$; house of 150; seat-proportional recognition\\
+benchmark E0 & equal seats, $n\in\{3,5,7\}$, $\delta\in\{0.8,0.9,0.95\}$, uniform recognition, divisible surplus\\
+discount & $\delta=0.9$ unless stated\\
+ministries & $m=6$, equal salience $\sigma_k=1/m$\\
+valuations (M5, M4) & $\nu_{ik}=(1-\xi)\sigma_k+\xi\,\epsilon_{ik}$, $\xi=0.5$,
+$\epsilon_{i\cdot}\sim\mathrm{Dirichlet}(\kappa_\nu/m,\dots)$ with $\kappa_\nu=5$, rounded to 0.01;
+private under M4\\
+policy (M9) & $d=2$ dimensions; ideal points uniform on $[0,1]^2$ (grid 0.05); status quo $y^0=0.5$;
+$\lambda=0.5$; ministries 1 and 2 lead dimensions 1 and 2\\
+terms (M1) & $L=6$ periods per term; the game continues after each term with probability
+$\beta_T=1-1/T$, $T=3$; seats at an election $\sim\mathrm{Dirichlet}(\kappa_w\bar\chi)$ around the initial
+shares $\bar\chi$, $\kappa_w=200$; memory of the last $\Lambda=4$ cabinets\\
+patient repetition & $L=3$, $T=6$, $\delta=0.98$\\
+exits (M8) & each member's exit bonus $\bar e\cdot\mathrm{Exp}(1)$, $\bar e=0.05$, rounded to
+$\bar e/20$ and capped at $10\bar e$, drawn privately each governed period\\
+one-shot games & a cabinet governs forever; shares are paid once as per-period equivalents (embedding of
+\cref{app:proofs}); at most 40 formation rounds\\
 \bottomrule\end{tabular}\end{table}
 
 \section{Learning curves}\label{app:curves}

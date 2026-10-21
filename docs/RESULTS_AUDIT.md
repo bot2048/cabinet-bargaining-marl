@@ -26,7 +26,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | Exact equilibrium of our protocol | 3 equal 50/50; 5 equal ~1/3; 45/35/20 50/50; 40/30/25/5 dummy 0 | test `test_demand_solver_known_equilibria` | `cabinet/demand_solver.py` | |
 | P1: learned splits follow voting weights | 45/35/20: every pair within 0.02 of 50/50, slopes -0.02, 0.08, 0.12 (seed-level 95% CI -0.12 to 0.24) | `results/confirmatory.json` | `scripts/confirmatory.py` | `A452Demand` |
 | P2: dummy never included | 0% in 3 seeds | same | same | `A4305Demand` |
-| P3: proposal gives a formateur premium | formateur 0.65-0.71 vs weighted BF ~0.70 | same | same, `cabinet/bf_solver.py` | `A452Proposal`, `A4305Proposal` |
+| P3: proposal gives a formateur premium | large-party formateur 0.65-0.73 vs weighted BF 0.70-0.71; the 5-seat dummy as formateur (5% of rounds) keeps 0.36-0.39 vs BF 0.41 | same | same, `cabinet/bf_solver.py` | `A452Proposal`, `A4305Proposal` |
 
 ## F3: real cabinets
 
@@ -34,7 +34,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 |---|---|---|---|
 | Real regression | 0.031 + 0.896 s + 0.011 F, R^2 0.93, 195 cabinets, 31 countries | `results/seki/summary.json` | `scripts/seki_eval.py` |
 | Robustness | gamma +0.011 (seats), +0.019 (alpha/k), +0.059 (largest-party control), +0.074 (min. integer weights); wild-cluster CIs | `results/real_robustness.json` | `scripts/real_robustness.py` |
-| Equal voting weight, different seats | 42 pairs (36 cabinets, 13 countries): share difference follows seat difference, slope 0.84 [0.44, 1.07]; without the PM's party 0.52 (24 pairs) | `results/real_weights_vs_seats.json` | `scripts/real_weights_vs_seats.py` |
+| Equal voting weight, different seats | 42 pairs (36 cabinets, 13 countries): share difference follows seat difference, slope 0.84 [0.44, 1.07]; without the PM's party 0.52 [0.28, 1.15] (24 pairs, 7 countries) | `results/real_weights_vs_seats.json` | `scripts/real_weights_vs_seats.py` |
 | Leave-one-country-out | gamma in [-0.004, 0.013]; Gamson best in 31/31 | `results/seki/summary.json` (`loco`) | `scripts/seki_eval.py` |
 | Key ministries | 0.589 vs 0.573; diff +0.015 [-0.021, +0.056] (131 cabinets) | `results/seki/key_ministries.json` | `scripts/key_ministries.py` |
 | Predicting real splits | MAE: Gamson 0.052, private-type agents 0.087-0.090, public 0.13-0.17, BF 0.144 (183 cabinets) | `results/seki/summary.json` | `scripts/seki_eval.py` |
@@ -60,7 +60,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 * **Training on real parliaments.** Deliberately not done: real cabinets are a pure out-of-sample test.
 * **Imposed-coalition demand evaluation** (members demand in a fixed order, last takes the rest): kept in
   `results/seki/summary.json` but not used in the report, because it removes the outside options the agents
-  were trained with (demands exceed the pie in 18% of cabinets).
+  were trained with (demands exceed the pie in 12-22% of cabinets, by seed).
 * **Second seed and scripted controls for the proposal-agent best response on random parliaments**
   (`exploit_WideProposal_s0`): stopped after 7 h. Seed 1 gives 18% of a seat's payoff, the same as against
   demand agents, and the scripted controls were already run in E* and the BF benchmark.
