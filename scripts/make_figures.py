@@ -261,6 +261,22 @@ def fig_real():
     return res
 
 
+def own_runs(cfg, explore=False):
+    """Agents' own cabinets in the real parliaments, merged over the per-seed-group
+    files of the final evaluation (own_<cfg>_a.json, _b, ...); falls back to the
+    first run (own_<cfg>.json) when the final files are not there yet."""
+    files = sorted(glob.glob(os.path.join(ROOT, "results", "seki", f"own_{cfg}_*.json")))
+    files = [f for f in files if f.endswith("_explore.json") == explore]
+    if not files and not explore:
+        files = [os.path.join(ROOT, "results", "seki", f"own_{cfg}.json")]
+    runs = {}
+    for fp in files:
+        if os.path.exists(fp):
+            with open(fp) as f:
+                runs.update(json.load(f)["own"])
+    return list(runs.values())
+
+
 def macros():
     """report/numbers.tex: every number quoted in the report, recomputed here."""
     M = {}
@@ -392,11 +408,9 @@ def macros():
         put("GcBF", Mm["bf"]["gamma"], "{:.2f}")
     # agents' own cabinets in the 195 real parliaments (ranges over seeds)
     for cfg, name in (("WideDemand", "OwnDem"), ("WideProposal", "OwnProp"), ("EstarWide", "OwnWide")):
-        op = os.path.join(ROOT, "results", "seki", f"own_{cfg}.json")
-        if not os.path.exists(op):
+        own = own_runs(cfg)
+        if not own:
             continue
-        with open(op) as f:
-            own = list(json.load(f)["own"].values())
         for key, short, fmt in (("reg_alpha", "A", "{:.2f}"), ("reg_beta", "B", "{:.2f}"),
                                 ("reg_gamma", "G", "{:+.2f}"), ("reg_r2", "Rtwo", "{:.2f}"),
                                 ("phi_nu", "PhiNu", "{:+.2f}")):
@@ -446,6 +460,92 @@ def macros():
                       ("rec_Estar", "Rec"), ("mech_Estar_Lam0", "Lamzero"), ("mech_Estar_m12", "Mtwelve")):
         put(f"{name}Gnu", avg(tag, "regnu_gamma")[0])
         put(f"{name}Glead", avg(tag, "reglead_gamma")[0])
+    # ---- added after the outside review (see docs/AUDIT.md section 6)
+    cp = os.path.join(ROOT, "results", "confirmatory.json")
+    if os.path.exists(cp):
+        with open(cp) as f:
+            cf = json.load(f)
+        put("HoneDiff", cf["H1"]["diff"], "{:.2f}")
+        put("HoneLo", cf["H1"]["ci"][0], "{:.2f}")
+        put("HoneHi", cf["H1"]["ci"][1], "{:.2f}")
+        put("HtwoDiff", cf["H2"]["diff"], "{:.2f}")
+        put("HtwoLo", cf["H2"]["ci"][0], "{:.2f}")
+        put("HtwoHi", cf["H2"]["ci"][1], "{:.2f}")
+        e = int(np.floor(np.log10(max(cf["H1"]["p"], 1e-12))))
+        M["HoneP"] = f"{cf['H1']['p'] / 10 ** e:.0f}\\times10^{{{e}}}"
+        put("HthreeMean", cf["H3"]["mean"], "{:+.3f}")
+        put("HthreeLo", cf["H3"]["ci90"][0], "{:+.3f}")
+        put("HthreeHi", cf["H3"]["ci90"][1], "{:+.3f}")
+        put("NprotSeeds", len(cf["H1"]["proposal"]), "{:d}")
+        for tag, name in (("explore_A452Demand", "AfDem"), ("mech_A452Proposal", "AfProp"),
+                          ("explore_A4305Demand", "AtDem"), ("mech_A4305Proposal", "AtProp")):
+            runs = cf.get(tag, [])
+            if not runs:
+                continue
+            sl = [r["slope"] for r in runs]
+            M[f"{name}Slope"] = "{:+.2f}".format(min(sl)) + " to " + "{:+.2f}".format(max(sl))
+            put(f"{name}Seeds", len(runs), "{:d}")
+            fs = [v["formateur_share"] for r in runs for v in r["coalitions"].values() if v["freq"] > 0.05]
+            put(f"{name}FormLo", min(fs), "{:.2f}")
+            put(f"{name}FormHi", max(fs), "{:.2f}")
+            # largest deviation from an even split in any coalition that forms
+            dev = [max(abs(x - 0.5) for x in v["shares"].values()) for r in runs
+                   for v in r["coalitions"].values() if v["freq"] > 0.05 and len(v["shares"]) == 2]
+            put(f"{name}MaxDev", max(dev), "{:.2f}")
+            d = [r["dummy_included"] for r in runs if r["dummy_included"] is not None]
+            if d:
+                put(f"{name}Dummy", max(d), "{:.1%}")
+    bp = os.path.join(ROOT, "results", "bf_best_response.json")
+    if os.path.exists(bp):
+        with open(bp) as f:
+            br = json.load(f)["summary"]
+        for n, name in ((3, "Three"), (5, "Five"), (7, "Seven")):
+            g = [v["gain"] for k, v in br.items() if k.startswith(f"{n},") and k.endswith("stochastic")]
+            put(f"BrGain{name}", max(g), "{:.3f}")
+        put("BrSevenXbest", br["7,0.8,stochastic"]["x_best"], "{:.3f}")
+        put("BrSevenXlearned", br["7,0.8,stochastic"]["x_learned"], "{:.3f}")
+        # ex-ante per-period gain of one seat (formateur with probability 1/n), mean over cells
+        put("BrSeatGain", float(np.mean([v["gain"] / int(k.split(",")[0]) for k, v in br.items()
+                                         if k.endswith("stochastic")])), "{:.3f}")
+    rr = os.path.join(ROOT, "results", "real_robustness.json")
+    if os.path.exists(rr):
+        with open(rr) as f:
+            rob = json.load(f)
+        for key, name in (("baseline", "Base"), ("alpha_over_k", "Overk"), ("largest_party_control", "Largest"),
+                          ("min_integer_weights", "Weights"), ("weights_and_seats", "Both")):
+            put(f"Rob{name}G", rob[key]["gamma"], "{:+.3f}")
+            put(f"Rob{name}Lo", rob[key]["wild_ci"][0], "{:+.3f}")
+            put(f"Rob{name}Hi", rob[key]["wild_ci"][1], "{:+.3f}")
+            put(f"Rob{name}Rtwo", rob[key]["r2"], "{:.2f}")
+        put("RobPmNotLargest", rob["cabinets_pm_not_largest"], "{:d}")
+    for cfg, name in (("WideDemand", "OwnDem"), ("WideProposal", "OwnProp"), ("EstarWide", "OwnWide")):
+        own = own_runs(cfg)
+        for key, short, fmt in (("regbz_gamma", "Gbz", "{:+.2f}"), ("regbz_beta", "Bbz", "{:.2f}"),
+                                ("match_rate", "Match", "{:.0%}"), ("matched_reg_beta", "MatchB", "{:.2f}"),
+                                ("matched_regbz_beta", "MatchBbz", "{:.2f}"),
+                                ("matched_reg_gamma", "MatchG", "{:+.2f}"), ("regnu_gamma", "Gnu", "{:+.2f}")):
+            v = [o[key] for o in own if key in o]
+            if v:
+                lo, hi = fmt.format(min(v)), fmt.format(max(v))
+                M[f"{name}{short}"] = f"{lo} to {hi}" if min(v) < 0 else lo + "--" + hi.lstrip("+")
+        put(f"{name}Seeds", len(own), "{:d}")
+    sp = os.path.join(ROOT, "results", "seki", "summary.json")
+    if os.path.exists(sp):
+        with open(sp) as f:
+            sk = json.load(f)
+        put("RealGbz", sk["empirical_banzhaf"]["gamma"], "{:+.3f}")
+        if "loco" in sk:
+            put("LocoLo", sk["loco"]["empirical_gamma_range"][0], "{:+.3f}")
+            put("LocoHi", sk["loco"]["empirical_gamma_range"][1], "{:+.3f}")
+    # best-response gains relative to the payoff of a profile seat
+    for tag, name in (("exploit_Estar_br400", "GainLongRel"), ("exploit_mech_WideDemand_br400", "GainDemRel"),
+                      ("exploit_mech_WideProposal_br400", "GainPropRel")):
+        rel = []
+        for r in load(tag):
+            best = max(r["runs"].values(), key=lambda v: v["gain"])
+            rel.append(best["gain"] / best["u_base"])
+        if rel:
+            put(name, float(np.mean(rel)), "{:.0%}")
     # numbers whose experiments may not have finished yet: placeholder "--"
     for name in ("OwnDemA", "OwnDemB", "OwnDemG", "OwnDemRtwo", "OwnPropA", "OwnPropB", "OwnPropG",
                  "OwnPropRtwo", "OwnWideA", "OwnWideB", "OwnWideG", "OwnWideRtwo", "OwnWidePhiNu",
