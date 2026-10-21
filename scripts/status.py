@@ -76,12 +76,24 @@ def main():
         par = st.get("parallel", 5)
         print(f"\n== queue runner: {'RUNNING' if alive else 'NOT RUNNING (start: python scripts/jobs.py start)'}"
               f", {len(st['running'])} jobs active (limited by memory; cap {par})")
-        left_active = []
+        left_active, silent = [], []
         for j in st["running"]:
             p = parse(os.path.join("runs", "logs", f"{j['tag']}.log"))
             el = time.time() - j["start"]
-            eta = p[4] if p and p[4] is not None else max(j["est"] * 60 - el, 0)
+            if p and p[4] is not None:
+                eta = p[4]
+            else:
+                # no progress lines in the log (e.g. best-response training): fall back to
+                # the queue estimate, or, once that is exceeded, assume a third of the
+                # elapsed time is still left (marked as a guess below)
+                eta = j["est"] * 60 - el if el < j["est"] * 60 else el / 3
+                silent.append((j["tag"], el, j["est"], el >= j["est"] * 60, eta))
             left_active.append(eta)
+        if silent:
+            print("   jobs without progress output (finish time is a guess):")
+            for tag, el, est, over, eta in silent:
+                note = f"over its {est:.0f}-min estimate" if over else f"estimate {est:.0f} min"
+                print(f"   {tag:32s} running {hm(el)}, {note}; maybe done around {clock(eta)}")
         queued = []
         if os.path.exists(todo_p):
             with open(todo_p) as f:
