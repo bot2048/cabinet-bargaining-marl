@@ -254,3 +254,19 @@ def test_demand_solver_known_equilibria():
     V, out = solve([40, 30, 25, 5], 51, 0.9, recognition="seat", step=0.02)
     assert V[3] < 1e-9 and all(o["pay"][3] < 1e-9 for o in out)
     assert all(np.isclose(sorted(o["pay"])[-2:], [0.5, 0.5]).all() for o in out)
+
+
+def test_demand_solver_matches_independent_brute_force_and_env():
+    """The vectorised solver agrees with a plain recursive solver (own cheapest-set
+    routine) on every move order, and that routine picks the env's coalition."""
+    import os
+    import sys
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
+    from demand_solver_check import brute_solve, env_consistency
+    from cabinet.demand_solver import solve
+    for tie in ("close_high", "close_low"):
+        Vb, res, _ = brute_solve([45, 35, 20], 51, 0.9, "seat", 0.1, tie)
+        Vv, _ = solve([45, 35, 20], 51, 0.9, recognition="seat", step=0.1, tie=tie)
+        assert res < 1e-12 and np.allclose(Vb, Vv, atol=1e-6)
+    trials, bad = env_consistency(trials=300, seed=1)
+    assert bad == 0
