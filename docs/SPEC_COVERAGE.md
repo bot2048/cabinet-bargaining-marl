@@ -79,11 +79,12 @@ use a masked 1% grid instead (finer than the spec's 0.02 tolerance).
 | RQ1, H1, S1 | E0 benchmark, n ∈ {3,5,7}, δ ∈ {0.8,0.9,0.95}, 10 seeds; E1 weighted parliaments | `results/e0`, `results/e1` |
 | RQ2, M1-M10 | add-one-in from the base configuration, leave-one-out from E*, 3-5 seeds | `results/mech_*` |
 | RQ3, H4 | regression on seat shares vs Banzhaf power shares | `reg_*`, `regbz_*` in every result |
-| RQ4, S3 | real parliaments from ParlGov | `results/parlgov_*` (coalition prediction and calibrated allocation statistics; ParlGov has no portfolio counts, so observed Gamson coefficients come from the literature) |
+| RQ4, S3 | real cabinets: Seki-Williams ministers per party linked to ParlGov (195 cabinets, 31 countries); empirical regression, conditional split prediction against Gamson and BF, the agents' own cabinets in the real parliaments, key-ministry test; ParlGov coalition choice | `results/seki/`, `results/parlgov_*`, `scripts/seki_eval.py`, `scripts/key_ministries.py` |
 | RQ5 | delay, failure, collapse per configuration | `fail_rate`, `delay`, `collapse_rate` in every result |
 | RQ6, H7 | IPPO vs MAPPO vs FSP on E*, cross-play; memory variants | `results/mech_Estar`, `mappo_Estar`, `fsp_Estar`, `rec_Estar`, `Estar_Lam0`, `results/crossplay` |
 | RQ7, H8, S4 | transfer to held-out real parliaments | `results/parlgov_mech_EstarWide*` |
 | S2 | Gamson region with exploitability | `results/exploit_*` with scripted positive controls |
-| M2 demand protocol, M3 pre-electoral pacts | marked PLANNED in the spec itself | not done |
+| M2 demand protocol | Morelli (1999), divisible levels: `protocol="demand"` in `cabinet/config.py`, `CLOSE` action in `cabinet/env.py`; matched comparison WideDemand vs WideProposal | done (`results/mech_WideDemand`, `mech_WideProposal`, `seki/own_*`) |
+| M3 pre-electoral pacts | marked PLANNED in the spec itself | not done |
 | M6 measuring party strength | evaluation only (RQ3) | done |
 | M7 bounded rationality | entropy temperature (H9) | done |

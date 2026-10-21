@@ -13,6 +13,24 @@ move learned allocations towards proportionality.
 Everything here is reinforcement learning: agents learn only from environment rewards (no supervised
 targets, no hard-coded fairness); the scripted agents in `cabinet/baselines.py` are comparison baselines.
 
+## Main findings
+
+1. **Validated learner.** In the Baron-Ferejohn game the learned formateur share matches the closed
+   form (mean error 0.017 over 10 seeds).
+2. **Under proposal (closed-rule) bargaining the formateur premium never disappears; it changes
+   currency.** Base game: formateur coefficient 0.25, rising to 0.30 with 4x training. Repetition
+   (even patient, with memory), exits, the recognition rule and every learner (IPPO, MAPPO,
+   fictitious self-play, PSRO, GRU) leave it in place. Private valuations and policy motives drive
+   the *counted* premium to zero, but the formateur keeps it in the ministries it values most or in
+   the policy-setting ministries.
+3. **Real cabinets have no premium in any currency** (195 cabinets, Seki-Williams + ParlGov):
+   share = 0.031 + 0.896 seats + 0.011 formateur; the PM party holds key ministries in proportion;
+   Gamson's law predicts real splits best (MAE 0.052, agents 0.087-0.17, Baron-Ferejohn 0.144).
+4. **The protocol is what matters.** Under demand bargaining (Morelli 1999), agents trained only on
+   random parliaments form cabinets in the real parliaments with slope 0.81-0.85 and no formateur
+   premium, matching the real regression including its small-party bias; matched proposal agents
+   keep a premium of 0.21-0.31.
+
 ## RL formulation (summary)
 
 | | |
@@ -45,6 +63,10 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`notebooks/colab_run.ipynb`](notebooks/colab_run.ipynb) | run everything on Google Colab |
 | `models/` | trained policies (`<experiment>/seed<k>.pt`) |
 | `results/` | raw results (JSON) of every run |
+| [`scripts/seki_eval.py`](scripts/seki_eval.py) | real cabinets: empirical regression, split prediction vs Gamson/BF, agents' own cabinets in real parliaments |
+| [`scripts/key_ministries.py`](scripts/key_ministries.py) | do real prime-minister parties hold the key ministries? |
+| [`scripts/parlgov_eval.py`](scripts/parlgov_eval.py) | coalition choice in real ParlGov parliaments |
+| `data/` | ParlGov parliaments and Seki-Williams cabinets (see the NOTICE files; raw downloads via `scripts/*download*.sh`) |
 
 ## Installation
 
