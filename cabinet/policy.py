@@ -176,6 +176,9 @@ class PolicyNet(nn.Module):
             else:
                 a = dist.sample()
             a = torch.where(can_excl, a, torch.ones_like(a))   # forced include
+            if "force_inc" in ob:          # evaluation: impose a given coalition
+                fi = ob["force_inc"][:, t]
+                a = torch.where(fi >= 0, fi.float(), a)
             a = torch.where(valid, a, torch.zeros_like(a))
             free = can_excl.float()
             logp = logp + free * dist.log_prob(a)

@@ -14,3 +14,4 @@ models/*/seed99.pt
 data/parlgov/raw/
 report/build.txt
 report/*.toc
+data/seki_williams/raw/
