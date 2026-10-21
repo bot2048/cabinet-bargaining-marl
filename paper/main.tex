@@ -10,7 +10,7 @@
 \usepackage{mathtools,amssymb,amsthm}
 \usepackage{lmodern,microtype}
 \usepackage[a4paper,margin=25mm]{geometry}
-\usepackage{graphicx,booktabs,xcolor,enumitem}
+\usepackage{graphicx,booktabs,xcolor,enumitem,float}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[round,authoryear]{natbib}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
@@ -579,7 +579,7 @@ and $\delta\in\{0.5,0.9,0.95\}$. Automated tests cover the three-party and dummy
 agreement with the brute-force solver (\code{tests/test\_core.py}).
 
 \section{Hyper-parameters}\label{app:hp}
-\begin{table}[h]\centering\footnotesize
+\begin{table}[H]\centering\footnotesize
 \caption{PPO hyper-parameters (\code{cabinet/ppo.py}, \texttt{DEFAULT\_HP}), tuned on E0 only.}
 \begin{tabular}{@{}ll@{\qquad}ll@{}}\toprule
 learning rate & $3\cdot10^{-4}$ (Adam) & decisions per iteration & 8192 (64 environments)\\
@@ -590,7 +590,7 @@ embedding width & 64, 4 heads, 2 blocks & demand-entropy multiplier & 1 (5 with 
 \bottomrule\end{tabular}\end{table}
 
 \section{Environment parameters}\label{app:params}
-\begin{table}[h]\centering\footnotesize
+\begin{table}[H]\centering\footnotesize
 \caption{Environment parameters (\code{cabinet/config.py}, \code{cabinet/env.py}).}\label{tab:params}
 \begin{tabular}{@{}lp{0.62\linewidth}@{}}\toprule
 parliament (base game, E$^\star$) & $n\in\{3,4,5\}$ uniform; seat shares $\sim\mathrm{Dirichlet}(1.5)$ on a
@@ -616,7 +616,7 @@ one-shot games & a cabinet governs forever; shares are paid once as per-period e
 \bottomrule\end{tabular}\end{table}
 
 \section{Learning curves}\label{app:curves}
-\begin{figure}[h]\centering
+\begin{figure}[H]\centering
 \includegraphics[width=0.8\linewidth]{../figures/fig_curves.pdf}
 \caption{Training curves (mean over seeds; band: minimum to maximum). E0: gap of the learned formateur
 share to the closed form. Base game and E$^\star$: floor-adjusted formateur premium $\tilde\Phi=
