@@ -136,12 +136,13 @@ parliaments form themselves in the same 195 parliaments (ranges over seeds).}\la
  & $\hat\beta$ (seats) & $\hat\gamma$ (PM) & $\hat\gamma_{bz}$ & $R^2$\\\midrule
 real cabinets & \RealB & \RealG & \RealGbz & \RealRtwo\\
 demand bargaining & \OwnDemB & \OwnDemG & \OwnDemGbz & \OwnDemRtwo\\
+\quad more exploration & \OwnExpB & \OwnExpG & \OwnExpGbz & \OwnExpRtwo\\
 proposal bargaining & \OwnPropB & \OwnPropG & \OwnPropGbz & \OwnPropRtwo\\
 E* (all mechanisms) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{figure}[t]\centering
-\includegraphics[width=\columnwidth]{../figures/fig_real.pdf}
+\includegraphics[width=0.93\columnwidth]{../figures/fig_real.pdf}
 \caption{F3: predicting the portfolio split of real coalition cabinets given the real coalition and prime
 minister; country-clustered 95\% CIs.}\label{fig:real}
 \end{figure}
@@ -157,10 +158,11 @@ ministries (finance, foreign, interior, defence, justice; \KeyN{} cabinets) show
 \KeyShare{} held vs \KeyCount{} of all ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi).
 Given the real coalition and prime minister, Gamson's law errs by \MaeGamson{} per party, BF by \MaeBF{}
 and agents with private types by \MaePrivLo--\MaePrivHi{}, every one worse than Gamson
-(Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), no protocol
-matches everything: demand agents match the seat slope, E* agents the size of the premium on both
-scales, proposal agents overshoot it. Keeping only the cabinets that reproduce the real coalition barely
-moves the demand slope (\OwnDemMatchB), so coalition selection does not make it seat-like.
+(Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), demand agents with more
+exploration reproduce the real seat regression almost exactly, although their rule is voting weight (F2):
+in real parliaments the two are close, and real cabinets fit seats better than weights. Only the small
+premium relative to voting power is matched by E* instead; proposal agents overshoot. Keeping only cabinets
+that reproduce the real coalition barely moves the demand slope (\OwnDemMatchB).
 
 \textbf{Reliability.} Best responses trained by PPO (one seat learns against the frozen profile) gain
 \GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} of it against
@@ -170,12 +172,11 @@ test detects the gaps found above: learned profiles are approximate, not exact, 
 between independent runs costs \CmSame{} per period.
 
 \section{Implications and limitations}
-To the question of the project: self-interested learning parties do not allocate in proportion to seats.
-They favour the formateur exactly as far as the rules give it proposal power, and otherwise split by voting
-weight; information and policy motives change the currency of the premium, not its existence. Real cabinets
-are more seat-proportional than any protocol we trained, with at most a small premium relative to voting
-weights. Gamson's law therefore looks less like the outcome of the bargaining modelled by BF or Morelli
-than of rules outside it, such as coalition commitments made before the split~\cite{ks} or within-party
+To the question of the project: self-interested learning parties do not follow seats as such. They
+favour the formateur as far as the rules give it proposal power, and otherwise split by voting weight;
+information and policy motives change the currency of the premium, not its existence. Demand bargaining
+comes closest to real cabinets, but these fit seats better than voting weights, so Gamson's law likely also
+rests on rules outside these models, such as commitments before the split~\cite{ks} or within-party
 bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; approximate equilibria; the PM's party
 proxies the formateur; real shares count ministers (salience only via key ministries). \textbf{Not done}:
 party-specific manifesto salience (needs registered data access), a two-stage close/demand head

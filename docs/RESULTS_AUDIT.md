@@ -36,14 +36,14 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | Leave-one-country-out | gamma in [-0.004, 0.013]; Gamson best in 31/31 | `results/seki/summary.json` (`loco`) | `scripts/seki_eval.py` |
 | Key ministries | 0.589 vs 0.573; diff +0.015 [-0.021, +0.056] (131 cabinets) | `results/seki/key_ministries.json` | `scripts/key_ministries.py` |
 | Predicting real splits | MAE: Gamson 0.052, private-type agents 0.087-0.090, public 0.13-0.17, BF 0.144 (183 cabinets) | `results/seki/summary.json` | `scripts/seki_eval.py` |
-| Agents' own cabinets in real parliaments (Table 2) | ranges over seeds, incl. Banzhaf and matched-coalition statistics | `results/seki/own_*_{a,b,final,explore}.json` | `scripts/seki_eval.py --own` |
+| Agents' own cabinets in real parliaments (Table 2) | ranges over seeds, incl. Banzhaf and matched-coalition statistics; demand agents with more exploration: 0.05 + 0.86 s - 0.02..0.00 F, R^2 0.86-0.87 | `results/seki/own_*_{a,b,final,explore}.json` | `scripts/seki_eval.py --own` |
 
 ## Reliability
 
 | Claim | Number | Result files |
 |---|---|---|
 | Best-response gain, E* | 0.015 (10% of a seat's payoff); scripted Gamson 0.037, BF heuristic 0.088 | `results/exploit_Estar_br400/` |
-| Best-response gain, demand / BF benchmark | 18% of payoff / 0.040 (20%) | `results/exploit_mech_WideDemand_br400/`, `results/exploit_e0_br300/` |
+| Best-response gain, demand / BF benchmark | 19% of payoff / 0.040 (20%) | `results/exploit_mech_WideDemand_br400/`, `results/exploit_e0_br300/` |
 | Cross-play | 0.002 per period | `results/crossplay/` |
 
 ## Not run, and why

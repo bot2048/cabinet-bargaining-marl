@@ -551,6 +551,8 @@ def macros():
         v = [o[key] for o in own_ex if key in o]
         if v:
             lo, hi = fmt.format(min(v)), fmt.format(max(v))
+            lo, hi = (x.replace("-0.00", "0.00").replace("+0.00", "0.00") if x[-1] == "0" and x.endswith("0.00")
+                      else x for x in (lo, hi))
             M[f"OwnExp{short}"] = f"{lo} to {hi}" if min(v) < 0 else lo + "--" + hi.lstrip("+")
     e0x = load("exploit_e0_br300")
     if e0x:
