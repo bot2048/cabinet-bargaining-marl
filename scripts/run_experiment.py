@@ -164,7 +164,7 @@ def exp_exploit(config, seed, iters, br_iters, model_tag=None):
         out[init] = res
     gain = max(out["warm"]["gain"], out["scratch"]["gain"])
     controls = {}
-    if seed == 0:
+    if seed == 0 and cfg.protocol != "demand":   # scripted agents only play the proposal protocol
         for bot in ("gamson", "myopic"):
             r = exploitability(cfg, Scripted(bot, 7), br_iters, seed=77)
             r.pop("br_history")
