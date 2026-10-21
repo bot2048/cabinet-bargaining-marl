@@ -214,6 +214,8 @@ def main():
     ap.add_argument("--rec", action="store_true", help="recurrent memory core (spec Def. 3.1)")
     ap.add_argument("--model-tag", default=None, help="exploit: evaluate models/<tag> instead of mech_<config>")
     ap.add_argument("--tag", default=None, help="mech: result/model tag (default mech_<config>)")
+    ap.add_argument("--ent-demand-mult", type=float, default=None,
+                    help="entropy weight of the demand head relative to proposals (lock-in test)")
     ap.add_argument("--device", default="cpu", help="cpu or cuda (PPO update only)")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
@@ -229,7 +231,8 @@ def main():
     elif a.exp == "mech" and a.algo != "ippo":     # RQ6: LA2 / LA3 instead of LA1
         exp_mech(a.config, a.seed, a.iters, hp=dict(algo=a.algo), tag=f"{a.algo}_{a.config}")
     elif a.exp == "mech":
-        exp_mech(a.config, a.seed, a.iters, tag=a.tag)
+        hp = None if a.ent_demand_mult is None else dict(ent_demand_mult=a.ent_demand_mult)
+        exp_mech(a.config, a.seed, a.iters, hp=hp, tag=a.tag)
     elif a.exp == "entropy":     # H9: non-vanishing entropy temperature
         exp_mech(a.config, a.seed, a.iters, hp=dict(ent_end=a.ent_end),
                  tag=f"entropy_{a.config}_{a.ent_end:g}")
