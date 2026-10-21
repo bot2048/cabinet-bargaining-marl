@@ -47,9 +47,10 @@ We ask which of the two allocation rules self-interested parties arrive at when 
 Parties are modelled as reinforcement-learning agents in a configurable game of government formation,
 rewarded only by their own office and policy payoffs. A single permutation-equivariant policy is trained
 by proximal policy optimisation and checked against exact equilibria, which we derive for the proposal
-protocol and compute for the demand protocol. Three results emerge. (i)~Under proposal bargaining the learned formateur keeps a premium (seat-controlled coefficient
-\BaseGamma{} in the base game) that no institution we add removes: private valuations and ministerial
-policy remove it from the \emph{number} of ministries but not from their value or from policy control. (ii)~Under demand bargaining the premium
+protocol and compute for the demand protocol. Three results emerge. (i)~Under proposal bargaining the learned formateur takes a premium (seat-controlled coefficient
+\BaseGamma{} in the base game). Private valuations and ministerial policy bring the premium in the
+\emph{number} of ministries to about zero, but the formateur keeps an advantage in the value of the
+ministries it holds or in policy control. (ii)~Under demand bargaining the premium
 disappears (pre-registered test, exact permutation $p=\HoneP$), but learned shares follow
 \emph{voting weights}, not seats: in a 45/35/20 parliament every pair splits 50/50, as the exact
 equilibrium predicts and Gamson's law does not. (iii)~In \RealN{} real coalition cabinets the prime
@@ -234,9 +235,11 @@ check (\code{cabinet/bf\_solver.py}).
 compute the subgame-perfect equilibrium of the game as implemented, with demands on a finite grid; the
 solution is exact for that finite game, not for every demand-bargaining model. We compute it by backward induction over every history of grid demands and
 every move order, with failure payoffs $\delta V_i$ iterated to a fixed point in the ex-ante values $V$
-(\code{cabinet/demand\_solver.py}, \cref{app:solver}). It agrees with an independently written brute-force solver and with the environment's closing rule
-(\cref{app:solver}). The results do not depend on the tie-breaking rule, the grid (1\% and 2\%; 2.5\%
-and 4\% for five parties) or patience ($\delta\in\{0.5,0.9,0.95\}$):
+(\code{cabinet/demand\_solver.py}, \cref{app:solver}). The equilibria below are computed with demand grids of 1\% and 2\% (2.5\% and 4\% for five parties,
+where the state space is larger) and do not depend on the grid, the tie-breaking rule or patience
+($\delta\in\{0.5,0.9,0.95\}$). To verify the solver itself, we compare it on coarser grids (10\% and
+5\%), where a slow, independently written brute-force solver is feasible, and check its closing rule
+against the environment (\cref{app:solver}):
 \begin{itemize}
 \item three equal parties: the first two movers split 0.50/0.50; five equal parties: the first three
 movers take about one third each;
@@ -581,8 +584,8 @@ choice, it demands $a\in G$ and play moves to $(h,a)$; at the last position a de
 payoffs $\delta V$. Backward induction over all $|G|^k$ histories, vectorised over histories, gives every
 mover's optimal action; the ex-ante values $V$ are averaged over recognition and random orders and
 iterated to a fixed point. Indifferent movers break ties by a fixed rule (close first; then the highest
-or the lowest demand), and the reported equilibria are identical under both rules. \paragraph{Verification} (\code{scripts/demand\_solver\_check.py}). (i)~An independent implementation,
-a plain recursive backward induction over one history at a time with its own cheapest-set routine, gives
+or the lowest demand), and the reported equilibria are identical under both rules. \paragraph{Verification} (\code{scripts/demand\_solver\_check.py}). (i)~An independent implementation, a plain recursive backward induction over one history at a time
+with its own cheapest-set routine (slow, hence coarser grids than those of the reported equilibria), gives
 the same ex-ante values and the same on-path outcome for every move order in \SolverCompared{}
 configurations (three and five equal parties, 45/35/20, 40/30/25/5; grids of 10\% and 5\%, 10\% only for five parties; both tie
 rules), up to single-precision rounding ($10^{-8}$). (ii)~That cheapest-set routine selects the same
