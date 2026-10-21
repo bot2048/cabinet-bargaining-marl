@@ -126,7 +126,7 @@ def fig_mech(baselines):
     y = np.arange(len(found))[::-1]
     table = []
     for k, (c, lab, runs) in enumerate(found):
-        phi, phi_ci = mean_ci([r["overall"]["phi_adj"] for r in runs])
+        phi, phi_ci = mean_ci([r["overall"]["reg_gamma"] for r in runs])
         dg, dg_ci = mean_ci([r["overall"]["dg_adj"] for r in runs])
         col = MUTED if c in ("BASE", "Estar") else (BLUE if c.startswith("BASE+") else ORANGE)
         ax.barh(y[k], phi, height=0.62, color=col, xerr=phi_ci,
@@ -140,7 +140,7 @@ def fig_mech(baselines):
     ax.set_yticks(y)
     ax.set_yticklabels([lab for _, lab, _ in found])
     ax.axvline(0, color=MUTED, lw=0.8)
-    ax.set_xlabel("formateur premium $\\tilde\\Phi$ (mean, 95% CI over seeds)")
+    ax.set_xlabel("formateur coefficient $\\hat\\gamma$ in counted shares (mean, 95% CI)")
     ax.set_title("Add-one-in (blue) and leave-one-out (orange)", loc="left")
     fig.savefig(os.path.join(FIG, "fig_mechanisms.png"))
     fig.savefig(os.path.join(FIG, "fig_mechanisms.pdf"))
@@ -227,6 +227,40 @@ def fig_parlgov():
     return rows
 
 
+def fig_real():
+    """Real cabinets: error of each model's predicted split (country-clustered CI)."""
+    p = os.path.join(ROOT, "results", "seki", "summary.json")
+    if not os.path.exists(p):
+        return None
+    with open(p) as f:
+        res = json.load(f)
+    M = res["models"]
+    groups = [("Gamson's law", ["gamson"], MUTED),
+              ("agents, private types", [k for k in M if k.startswith("mech_EstarWide/")], BLUE),
+              ("agents, public types", [k for k in M if k.startswith("mech_EstarWidePub/")], ORANGE),
+              ("Baron-Ferejohn", ["bf"], MUTED)]
+    fig, ax = plt.subplots(figsize=(3.4, 1.35))
+    y = np.arange(len(groups))[::-1]
+    for k, (lab, keys, col) in enumerate(groups):
+        vals = [M[x]["mae"] for x in keys if x in M]
+        if not vals:
+            continue
+        m = float(np.mean(vals))
+        lo = min(M[x]["mae_ci"][0] for x in keys)
+        hi = max(M[x]["mae_ci"][1] for x in keys)
+        ax.barh(y[k], m, height=0.6, color=col, xerr=[[m - lo], [hi - m]],
+                error_kw=dict(ecolor=INK, lw=0.8, capsize=1.5))
+        ax.text(hi + 0.004, y[k], f"{m:.3f}", va="center", fontsize=6.5, color=INK)
+    ax.set_yticks(y)
+    ax.set_yticklabels([g[0] for g in groups])
+    ax.set_xlabel("error of predicted portfolio shares (MAE)")
+    ax.set_title(f"{res['n_common']} real cabinets (Seki-Williams, 31 countries)", loc="left")
+    fig.savefig(os.path.join(FIG, "fig_real.png"))
+    fig.savefig(os.path.join(FIG, "fig_real.pdf"))
+    plt.close(fig)
+    return res
+
+
 def macros():
     """report/numbers.tex: every number quoted in the report, recomputed here."""
     M = {}
@@ -302,6 +336,13 @@ def macros():
         if ps:
             put(f"Psro{name}Phi", float(np.mean([r["overall"]["phi_adj"] for r in ps])))
             put(f"Psro{name}Gain", float(np.mean([r["last_gain"] for r in ps])), "{:+.3f}")
+    exl = load("exploit_Estar_br400")
+    if exl:
+        put("GainLong", float(np.mean([r["gain"] for r in exl])), "{:+.3f}")
+        c0 = [r["controls"] for r in exl if r.get("controls")]
+        if c0:
+            put("GainLongGamson", c0[0]["gamson"]["gain"], "{:+.3f}")
+            put("GainLongMyopic", c0[0]["myopic"]["gain"], "{:+.3f}")
     exm = load("exploit_mappo_Estar")
     if exm:
         put("GainMappo", float(np.mean([r["gain"] for r in exm])), "{:+.3f}")
@@ -314,9 +355,70 @@ def macros():
             c = json.load(f)
         put("CmSame", c.get("mismatch_same_algorithm"), "{:+.4f}")
         put("CmAcross", c.get("mismatch_across_algorithms"), "{:+.4f}")
+    # real cabinets (Seki-Williams)
+    sp = os.path.join(ROOT, "results", "seki", "summary.json")
+    if os.path.exists(sp):
+        with open(sp) as f:
+            sk = json.load(f)
+        e = sk["empirical"]
+        put("RealA", e["alpha"], "{:.3f}")
+        put("RealB", e["beta"], "{:.3f}")
+        put("RealG", e["gamma"], "{:.3f}")
+        put("RealGlo", e["gamma_ci"][0], "{:.3f}")
+        put("RealGhi", e["gamma_ci"][1], "{:.3f}")
+        put("RealRtwo", e["r2"], "{:.2f}")
+        put("RealRtwoBz", sk["empirical_banzhaf"]["r2"], "{:.2f}")
+        put("RealN", sk["n_cabinets"], "{:d}")
+        put("RealNcommon", sk["n_common"], "{:d}")
+        Mm = sk["models"]
+        put("MaeGamson", Mm["gamson"]["mae"], "{:.3f}")
+        put("MaeBF", Mm["bf"]["mae"], "{:.3f}")
+        priv = [v for k, v in Mm.items() if k.startswith("mech_EstarWide/")]
+        pub = [v for k, v in Mm.items() if k.startswith("mech_EstarWidePub/")]
+        if priv:
+            put("MaePrivLo", min(v["mae"] for v in priv), "{:.3f}")
+            put("MaePrivHi", max(v["mae"] for v in priv), "{:.3f}")
+            put("GcPrivLo", min(v["gamma"] for v in priv), "{:.2f}")
+            put("GcPrivHi", max(v["gamma"] for v in priv), "{:.2f}")
+            put("DmaePrivLo", min(v["dmae_ci"][0] for v in priv), "{:+.3f}")
+        if pub:
+            put("MaePubLo", min(v["mae"] for v in pub), "{:.3f}")
+            put("MaePubHi", max(v["mae"] for v in pub), "{:.3f}")
+            put("GcPubLo", min(v["gamma"] for v in pub), "{:.2f}")
+            put("GcPubHi", max(v["gamma"] for v in pub), "{:.2f}")
+        put("GcBF", Mm["bf"]["gamma"], "{:.2f}")
+    kp = os.path.join(ROOT, "results", "seki", "key_ministries.json")
+    if os.path.exists(kp):
+        with open(kp) as f:
+            km = json.load(f)
+        put("KeyN", km["n_cabinets"], "{:d}")
+        put("KeyShare", km["mean_key_share"], "{:.3f}")
+        put("KeyCount", km["mean_count_share"], "{:.3f}")
+        put("KeySeat", km["mean_seat_share"], "{:.3f}")
+        put("KeyDiff", km["key_minus_count"]["mean"], "{:+.3f}")
+        put("KeyDiffLo", km["key_minus_count"]["ci"][0], "{:+.3f}")
+        put("KeyDiffHi", km["key_minus_count"]["ci"][1], "{:+.3f}")
+    # demand bargaining (M2) and its matched proposal control
+    for tag, name in (("mech_WideDemand", "Dem"), ("mech_WideProposal", "Prop")):
+        for key, short in (("reg_alpha", "A"), ("reg_beta", "B"), ("reg_gamma", "G"), ("reg_r2", "Rtwo"),
+                           ("dem_gamma_first", "First"), ("dem_gamma_close", "Close")):
+            v, k = avg(tag, key)
+            put(f"{name}{short}", v, "{:.2f}" if short in ("B", "Rtwo") else "{:+.3f}")
+        put(f"{name}Seeds", avg(tag, "reg_gamma")[1], "{:d}")
+    # long training (4x budget)
+    for tag, name in (("long_BASE", "LongBase"), ("long_BASE+M4_private", "LongMfour"),
+                      ("long_BASE+M9_policy", "LongMnine"), ("long_Estar", "LongEstar")):
+        for key, short in (("reg_gamma", "G"), ("phi_nu", "PhiNu"), ("regnu_gamma", "Gnu"),
+                           ("reglead_gamma", "Glead")):
+            put(f"{name}{short}", avg(tag, key)[0])
+    for tag, name in (("mech_BASE", "Base"), ("mech_BASE+M4_private", "Mfour"), ("mech_BASE+M5_hetero", "Mfive"),
+                      ("mech_BASE+M9_policy", "Mnine"), ("mech_Estar", "Estar"), ("mech_EstarWide", "Wide"),
+                      ("mech_EstarWidePub", "Pub")):
+        put(f"{name}Gnu", avg(tag, "regnu_gamma")[0])
+        put(f"{name}Glead", avg(tag, "reglead_gamma")[0])
     # numbers whose experiments may not have finished yet: placeholder "--"
     for name in ("CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
-                 "GainMappo", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
+                 "GainMappo", "GainLong", "GainLongGamson", "GainLongMyopic", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
                  "PgAllIdeology", "PgAllN", "PsroBasePhi", "PsroEstarPhi", "PsroBaseGain", "PsroEstarGain",
                  "GainEstarGamson", "GainEstarMyopic", "PgIdeoLearned", "EntLow", "EntMid", "EntHigh"):
         M.setdefault(name, "--")
@@ -335,6 +437,7 @@ def main():
            "baselines": base}
     fig_curves()
     out["parlgov"] = fig_parlgov()
+    out["real"] = fig_real()
     out["macros"] = macros()
     with open(os.path.join(ROOT, "results", "summary.json"), "w") as f:
         json.dump(out, f, indent=1, default=lambda x: float(x) if hasattr(x, "item") else str(x))
