@@ -497,6 +497,23 @@ def macros():
             d = [r["dummy_included"] for r in runs if r["dummy_included"] is not None]
             if d:
                 put(f"{name}Dummy", max(d), "{:.1%}")
+        # 40/30/25/5 under proposals: large-party formateurs (two-party cabinets) vs the
+        # 5-seat dummy as formateur (it must buy two large partners)
+        big = [v["formateur_share"] for r in cf.get("mech_A4305Proposal", [])
+               for v in r["coalitions"].values() if v["freq"] > 0.05 and len(v["shares"]) == 2]
+        dum = [v["formateur_share"] for r in cf.get("mech_A4305Proposal", [])
+               for k, v in r["coalitions"].items() if v["freq"] > 0.01 and "5" in k.split("+")]
+        if big:
+            put("AtPropBigLo", min(big), "{:.2f}")
+            put("AtPropBigHi", max(big), "{:.2f}")
+        if dum:
+            put("AtPropDumLo", min(dum), "{:.2f}")
+            put("AtPropDumHi", max(dum), "{:.2f}")
+        from cabinet.bf_solver import solve_bf
+        wv = np.array([40, 30, 25, 5])
+        v = solve_bf(wv, 51, wv / wv.sum(), 0.9)["v"]
+        put("BfDummyForm", 1 - 0.9 * (v[1] + v[2]), "{:.2f}")
+        put("BfBigForm", 1 - 0.9 * min(v[1], v[2]), "{:.2f}")
         if "P1_ci" in cf:
             put("PoneLo", cf["P1_ci"][0], "{:+.2f}")
             put("PoneHi", cf["P1_ci"][1], "{:+.2f}")
@@ -586,6 +603,10 @@ def macros():
         put("WvsHi", wv["seat_slope_ci"][1], "{:.2f}")
         put("WvsNoPm", wv["seat_slope_pairs_without_pm"], "{:.2f}")
         put("WvsNoPmN", wv["pairs_without_pm"], "{:d}")
+        if "seat_slope_pairs_without_pm_ci" in wv:
+            put("WvsNoPmLo", wv["seat_slope_pairs_without_pm_ci"][0], "{:.2f}")
+            put("WvsNoPmHi", wv["seat_slope_pairs_without_pm_ci"][1], "{:.2f}")
+            put("WvsNoPmCountries", wv["countries_without_pm"], "{:d}")
     # best-response gains relative to the payoff of a profile seat
     for tag, name in (("exploit_Estar_br400", "GainLongRel"), ("exploit_mech_WideDemand_br400", "GainDemRel"),
                       ("exploit_mech_WideProposal_br400", "GainPropRel")):

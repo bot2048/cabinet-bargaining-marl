@@ -18,13 +18,15 @@ def runs(tag):
 
 
 def mci(v):
+    """Mean and standard error over seeds (t-intervals with 2-3 seeds would be
+    dominated by the t critical value, e.g. 12.7 with two seeds)."""
     v = np.array([x for x in v if x is not None and x == x], float)
     if len(v) == 0:
         return "--"
     if len(v) == 1:
         return f"{v[0]:+.3f}"
-    h = stats.t.ppf(0.975, len(v) - 1) * v.std(ddof=1) / np.sqrt(len(v))
-    return f"{v.mean():+.3f} $\\pm$ {h:.3f}"
+    se = v.std(ddof=1) / np.sqrt(len(v))
+    return f"{v.mean():+.3f} $\\pm$ {se:.3f}"
 
 
 def f3(x, sign=True):
@@ -72,7 +74,7 @@ MECH = [("mech_BASE", "base game (all mechanisms off)"), ("mech_BASE+M1_repeat",
 def mech_table():
     L = [r"\begin{table}[t]\centering\footnotesize",
          r"\caption{Formateur coefficient $\hat\gamma$ of regression~\eqref{eq:reg} by configuration (mean "
-         r"$\pm$ 95\% half-width over seeds). Counted: share of ministries. Value: share of the value each "
+         r"$\pm$ standard error over seeds). Counted: share of ministries. Value: share of the value each "
          r"party places on ministries. Lead: share of policy-setting ministries (only with M9). "
          r"$\tilde D_G$: floor-adjusted Gamson distance. Configurations with 2--3 seeds are exploratory; "
          r"the confirmatory tests are in Section~\ref{sec:protocol}.}\label{tab:mech}",
@@ -109,7 +111,9 @@ def exploit_table():
     L = [r"\begin{table}[t]\centering\footnotesize",
          r"\caption{Estimated exploitability: per-period gain of a best response trained by PPO for one random "
          r"seat against the frozen profile (larger of a warm and a from-scratch start), also relative to the "
-         r"profile seat's payoff; scripted positive controls where the protocol allows them.}\label{tab:exploit}",
+         r"profile seat's payoff. Scripted positive controls (proposal protocol only) have no network weights to "
+         r"start from, so their best response is trained from scratch only; with a weak budget its gain can be "
+         r"slightly negative.}\label{tab:exploit}",
          r"\begin{tabular}{@{}lrcccc@{}}\toprule",
          r"profile & BR iters & gain & relative & Gamson ctrl. & BF-heur. ctrl.\\\midrule"]
     for tag, lab, it in rows:
