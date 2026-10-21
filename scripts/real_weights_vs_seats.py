@@ -58,10 +58,21 @@ def main():
     lo, hi = np.percentile(np.array(boot), [2.5, 97.5], axis=0)
     no_pm = pm == 0
     b_nopm = np.linalg.lstsq(ds[no_pm, None], dp[no_pm], rcond=None)[0][0]
+    by0 = defaultdict(list)
+    for k, p in enumerate(pairs):
+        if p["pm"] == 0:
+            by0[p["country"]].append(k)
+    keys0 = list(by0)
+    boot0 = []
+    for _ in range(2000):
+        idx = np.concatenate([by0[keys0[r]] for r in rng.integers(len(keys0), size=len(keys0))])
+        boot0.append(np.linalg.lstsq(ds[idx, None], dp[idx], rcond=None)[0][0])
+    lo0, hi0 = np.percentile(boot0, [2.5, 97.5])
     out = dict(pairs=len(pairs), cabinets=len({p["cab"] for p in pairs}),
                countries=len(keys), seat_slope=float(b[0]), seat_slope_ci=[float(lo[0]), float(hi[0])],
                pm_coef=float(b[1]), pm_ci=[float(lo[1]), float(hi[1])],
                seat_slope_pairs_without_pm=float(b_nopm), pairs_without_pm=int(no_pm.sum()),
+               seat_slope_pairs_without_pm_ci=[float(lo0), float(hi0)], countries_without_pm=len(keys0),
                larger_party_gets_more=float(np.mean(np.sign(dp[no_pm]) == np.sign(ds[no_pm]))))
     print(json.dumps(out, indent=1))
     json.dump(out, open(os.path.join(ROOT, "results", "real_weights_vs_seats.json"), "w"), indent=1)

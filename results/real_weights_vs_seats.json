@@ -14,5 +14,10 @@
  ],
  "seat_slope_pairs_without_pm": 0.5150483973692317,
  "pairs_without_pm": 24,
+ "seat_slope_pairs_without_pm_ci": [
+  0.283721639853049,
+  1.1508067695895001
+ ],
+ "countries_without_pm": 7,
  "larger_party_gets_more": 0.5
 }
