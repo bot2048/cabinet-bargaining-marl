@@ -59,3 +59,6 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 * **Imposed-coalition demand evaluation** (members demand in a fixed order, last takes the rest): kept in
   `results/seki/summary.json` but not used in the report, because it removes the outside options the agents
   were trained with (demands exceed the pie in 18% of cabinets).
+* **Second seed and scripted controls for the proposal-agent best response on random parliaments**
+  (`exploit_WideProposal_s0`): stopped after 7 h. Seed 1 gives 18% of a seat's payoff, the same as against
+  demand agents, and the scripted controls were already run in E* and the BF benchmark.
