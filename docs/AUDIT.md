@@ -78,6 +78,27 @@ payoff of a profile seat, each from separate evaluation episodes (3000). Payoffs
   consistent with Warwick & Druckman, while Ansolabehere et al. report a formateur bonus relative to voting
   weights. We do not adjudicate that measurement debate.
 
-## 6. Open
+## 6. External review (21 October): what we accepted, rejected and did
+
+We asked several outside reviewers (other AI systems) for critique. Their claims were checked against
+our code and data before acting on them.
+
+| Claim | Verdict | Action |
+|---|---|---|
+| Our demand protocol is not Morelli's game, so its equilibrium is unknown | correct | exact solver (`cabinet/demand_solver.py`): 3 equal 50/50, 5 equal ~1/3 each, 45/35/20 50/50 in any pair, 40/30/25/5 dummy gets 0 |
+| 3 equal parties: first mover 0.70, closer 0.30 (one reviewer) | wrong: ignores undercutting under the cheapest-set rule | solver gives 0.50/0.50 |
+| Demand theory predicts voting weights, not seats; the seat slope may be a learning bias | testable | fixed parliaments 45/35/20 and 40/30/25/5 moved to the front of the queue; predictions pre-registered (`PREREGISTRATION.md`) |
+| CLOSE is 1 of 102 actions in a flat demand head, so exploration starves closing | correct (code) | explains the default-exploration lock-in; exploration runs are the robustness check; stated as a limitation (no retraining) |
+| A non-pivotal party can close and take the residual | correct (code) | solver models the same rule; the dummy still gets 0 in equilibrium |
+| Lenient BF voters: the formateur may best-respond to noisy voters (no exploration failure) | rejected by test | `scripts/bf_best_response.py`: against the frozen voters a best response gains 0.01 (n=3) to 0.15 (n=7) per formation, so learned play is outcome-equivalent, not an equilibrium |
+| Shares sum to one within a cabinet, so a constant intercept is misspecified | correct | alpha/k specification: gamma 0.019 (was 0.011) |
+| PM party is usually the largest; 31 clusters need a wild bootstrap; weights vs seats | correct | `scripts/real_robustness.py`: gamma +0.011 vs seats, +0.059 with a largest-party control (20 cabinets identify it), +0.074 vs minimal integer weights (wild-cluster CIs exclude 0); seats fit better (R^2 0.93 vs 0.88) |
+| Imposed-coalition evaluation of demand agents removes outside options (off-distribution; demands exceed the pie in 18%) | correct | reported as off-distribution; the in-distribution test is agents' own cabinets, now also restricted to the real coalition (matched-coalition design) |
+| Report exploitability relative to payoffs | correct | gains reported per period and relative to the mean seat payoff |
+| Need >= 20 seeds per protocol | not needed | seed ranges do not overlap; the exact permutation test with 10 + 10 seeds reaches p ~ 1e-5 |
+| Train on pre-2000 cabinets, predict post-2000 | rests on a false premise | real cabinets are never used for training; the whole real-data test is out of sample |
+| Cross-protocol tournament; party-specific manifesto salience (MARPOR) | not feasible or not meaningful here | protocols are institutions, not agent types; MARPOR needs registration and portfolio coding; listed as future work |
+
+## 7. Open
 
 See the end of [`RESULTS_AUDIT.md`](RESULTS_AUDIT.md) for the experiments not run and why.
