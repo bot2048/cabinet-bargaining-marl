@@ -93,12 +93,13 @@ and it grows with training (\LongBaseG{} after 4$\times$ more updates). Repetiti
 agents and GRU memory, exits and the recognition rule leave it in place (Fig.~\ref{fig:mech}), as do
 MAPPO, fictitious self-play and PSRO; a companion implementation of the same question by our team finds
 0.20--0.24. In the full game E* every learner and memory variant (IPPO, MAPPO, fictitious self-play,
-GRU, memoryless, 12 ministries) gives a counted $\hat\gamma\le\MappoGamma$--$\EstarGamma$ but a value
-premium of \LamzeroPhiNu--\FspPhiNu. Two mechanisms remove the \emph{counted} premium: private types
+GRU, memoryless, 12 ministries) gives a counted coefficient of at most \FspGamma{} but a value
+coefficient of \LamzeroGnu--\FspGnu. Two mechanisms remove the \emph{counted} premium: private types
 ($\hat\gamma=\MfourGamma$) and ministerial policy ($\MnineGamma$), and removing private types from the
-full game restores it. But the premium moves: with private valuations the formateur's share of what
-\emph{it} values exceeds its seat share by \MfourPhiNu{} (base \BasePhiNu), and with policy it holds the
-policy-setting ministries (coefficient \MnineGlead{} on its share of them). The formateur trades the
+full game restores it. But the premium moves. Fitting the same seat-controlled regression to each
+party's share of the value it places on ministries, the formateur's coefficient is \MfourGnu{} with
+private types and \EstarGnu{} in E* (base game, counted: \BaseGamma); with policy, its coefficient on
+the policy-setting ministries is \MnineGlead. The formateur trades the
 number of ministries for their quality or for policy control, and this persists with 4$\times$ training
 (private types: counted \LongMfourG, value premium \LongMfourPhiNu).
 
@@ -148,7 +149,8 @@ matches the real one, small-party bias included (Table~\ref{tab:own}); proposal 
 In symmetric parliaments the learned demands first underpaid the closer (\LockinCloserThree{} of the
 pie with 3 parties, \LockinCloserFive{} with 5): an exploration lock-in, since with more exploration of
 demands the closer gets \ExploreCloserThree{} and \ExploreCloserFive{}, moving to the equal split
-(1/2, 1/3) that theory predicts.
+(1/2, 1/3) that theory predicts; a best response gains \GainDemand{} per period against the locked-in
+profile.
 
 \textbf{Reliability.} A best response trained for 400 PPO iterations gains \GainLong{} per period against
 E*, but \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles: the

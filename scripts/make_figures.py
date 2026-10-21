@@ -343,6 +343,9 @@ def macros():
         if c0:
             put("GainLongGamson", c0[0]["gamson"]["gain"], "{:+.3f}")
             put("GainLongMyopic", c0[0]["myopic"]["gain"], "{:+.3f}")
+    exd = load("exploit_mech_E0demand_br300")
+    if exd:
+        put("GainDemand", float(np.mean([r["gain"] for r in exd])), "{:+.2f}")
     exm = load("exploit_mappo_Estar")
     if exm:
         put("GainMappo", float(np.mean([r["gain"] for r in exm])), "{:+.3f}")
@@ -439,14 +442,15 @@ def macros():
             put(f"{name}{short}", avg(tag, key)[0])
     for tag, name in (("mech_BASE", "Base"), ("mech_BASE+M4_private", "Mfour"), ("mech_BASE+M5_hetero", "Mfive"),
                       ("mech_BASE+M9_policy", "Mnine"), ("mech_Estar", "Estar"), ("mech_EstarWide", "Wide"),
-                      ("mech_EstarWidePub", "Pub")):
+                      ("mech_EstarWidePub", "Pub"), ("mappo_Estar", "Mappo"), ("fsp_Estar", "Fsp"),
+                      ("rec_Estar", "Rec"), ("mech_Estar_Lam0", "Lamzero"), ("mech_Estar_m12", "Mtwelve")):
         put(f"{name}Gnu", avg(tag, "regnu_gamma")[0])
         put(f"{name}Glead", avg(tag, "reglead_gamma")[0])
     # numbers whose experiments may not have finished yet: placeholder "--"
     for name in ("OwnDemA", "OwnDemB", "OwnDemG", "OwnDemRtwo", "OwnPropA", "OwnPropB", "OwnPropG",
                  "OwnPropRtwo", "OwnWideA", "OwnWideB", "OwnWideG", "OwnWideRtwo", "OwnWidePhiNu",
                  "CmSame", "CmAcross", "GainBASE", "GainEstar", "GainBASEGamson", "GainBASEMyopic",
-                 "GainMappo", "GainLong", "GainLongGamson", "GainLongMyopic", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
+                 "GainMappo", "GainDemand", "GainLong", "GainLongGamson", "GainLongMyopic", "GainBASEMax", "GainEstarMax", "PgAllLearned", "PgAllRiker", "PgAllRandom",
                  "PgAllIdeology", "PgAllN", "PsroBasePhi", "PsroEstarPhi", "PsroBaseGain", "PsroEstarGain",
                  "GainEstarGamson", "GainEstarMyopic", "PgIdeoLearned", "EntLow", "EntMid", "EntHigh"):
         M.setdefault(name, "--")
