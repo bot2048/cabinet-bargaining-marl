@@ -12,11 +12,9 @@
 \setlength{\abovedisplayskip}{3pt}\setlength{\belowdisplayskip}{3pt}
 \newcommand{\repo}{https://github.com/bot2048/cabinet-bargaining-marl}
 \newcommand{\code}[1]{\href{\repo/blob/main/#1}{\texttt{\footnotesize #1}}}
-\newcommand{\GapBF}{\Delta_{\mathrm{BF}}}
-\newcommand{\TODO}[1]{\textbf{\color{red}[#1]}}
 \input{numbers}
 
-\title{\vspace{-1.0cm}\bfseries Bargaining over Cabinets: Multi-Agent RL for\\Portfolio Allocation in Coalition Governments}
+\title{\vspace{-1.0cm}\bfseries Gamson's Law or a Formateur Premium? Political Parties as\\Multi-Agent RL Agents Bargaining over Coalition Cabinets}
 \author{Arpan Jain (B23CS1089) \and Aradhya Mahajan (B23CS1088)\\[1pt]
 \small GitHub: \url{\repo}}
 \date{\vspace{-0.9cm}}
@@ -24,26 +22,26 @@
 \begin{document}
 \maketitle
 
-\section{Problem and findings}
-After an election without a majority, parties bargain over who governs and how ministries are split.
-Real coalition cabinets divide portfolios almost exactly in proportion to seats (\emph{Gamson's law}):
-on \RealN{} real cabinets, share $=\RealA+\RealB\,s+\RealG\,F$ ($s$: seat share in the coalition,
-$F$: prime minister's party; $R^2$ \RealRtwo). The leading bargaining theory, Baron--Ferejohn (BF),
-predicts instead that the \emph{formateur} (the party proposing the cabinet) captures a large premium.
-We model parties as reinforcement-learning agents in a multi-agent environment of government formation,
-rewarded only by their own office and policy payoffs (no fairness term), validate them against the
-exact BF equilibrium, and test which institutions remove the premium. Findings:
+\section{Question and answer}
+After an election without a majority, parties bargain over who governs and how the ministries are split.
+Real coalition cabinets divide portfolios almost exactly in proportion to seats (\emph{Gamson's law}~\cite{gamson}): on
+\RealN{} real cabinets, share $=\RealA+\RealB\,s+\RealG\,F$ ($s$: seat share in the coalition, $F$: prime
+minister's party; $R^2$ \RealRtwo). The leading bargaining theory, Baron--Ferejohn (BF)~\cite{bf}, says the
+\emph{formateur} who proposes the cabinet should take a large premium. \textbf{We ask which of the two
+self-interested parties produce}: we model parties as reinforcement-learning agents rewarded only by their
+own office and policy payoffs (no fairness term), check them against exact equilibria, vary the
+institutions, and confront the result with real cabinets. \textbf{Answer.} Learning parties favour the
+formateur whenever the rules give it proposal power, and split by \emph{voting weight} when parties
+bargain by demands; they never produce seat-proportionality as such. Real cabinets do: no premium relative
+to seats, and at most a small one (\RobWeightsG) relative to voting weights, far below BF.
 \begin{enumerate}[label=\textbf{F\arabic*}]
-\item \textbf{Validated learner.} In the BF game learned formateur shares match the closed form within
-\EzeroAbsGap{} (\EzeroSeeds{} seeds).
-\item \textbf{Under proposal bargaining the premium never disappears; it changes currency.} The base game
-gives a formateur coefficient $\hat\gamma=\BaseGamma$. Private valuations or policy motives drive the
-\emph{counted} premium to zero, but the formateur keeps it in the ministries it values most or in the
-policy-setting ministries.
-\item \textbf{Real cabinets have no premium in any currency.} Real prime-minister parties also hold the key
-ministries in proportion, and Gamson's law predicts real splits better than any learned agent or BF.
-\item \textbf{The protocol is what matters.} Under demand bargaining the agents' own cabinets follow
-Gamson's law with the small-party bias of real cabinets (slope \DemB, $\hat\gamma=\DemG$).
+\item \textbf{Proposal bargaining favours the formateur} as BF predicts (learner validated against the exact
+solution), and private values or policy motives only move the premium from the \emph{number} of
+ministries to their value or to policy control.
+\item \textbf{Demand bargaining removes the premium but follows voting weights, not seats}, exactly as the
+equilibrium of our protocol, which we solve (pre-registered tests).
+\item \textbf{Real cabinets follow seats}: no detectable premium in counts or key ministries; Gamson's law
+predicts real splits better than every learned policy.
 \end{enumerate}
 
 \section{RL formulation}
@@ -51,139 +49,153 @@ Gamson's law with the small-party bias of real cabinets (slope \DemB, $\hat\gamm
 game with $n$ parties (seats $w_i$, majority quota) and $m$ ministries. In a period without a cabinet a
 formateur $f\sim\rho$ proposes a winning coalition $C\ni f$ and an allocation $\mu:\{1..m\}\to C$; the
 cabinet forms if every partner accepts and pays per-period flows until the term ends or a member exits.
-Switchable mechanisms: repeated terms (M1), demand protocol (M2), private types (M4), heterogeneous
-values (M5), exits (M8), ministerial policy (M9), recognition rule (M10); level E0 is the exact BF game.
+Switchable mechanisms: repeated terms (M1), demand protocol (M2: a recognised first mover, then the others
+in random order, each demands a share or \emph{closes} a cabinet with the cheapest earlier demands and takes
+the rest), private types (M4), heterogeneous values (M5), exits (M8), ministerial policy (M9), recognition
+rule (M10). Level E0 is the exact BF game; E* has every mechanism on.
 
 \textbf{State $\mathcal S$.} A \emph{set} of $n$ party tokens (26 features: seats, recognition
 probability, roles, offers, last $\Lambda$ cabinets), $m$ ministry tokens (8: salience, own valuation,
-policy dimension led), pair features, a 17-dim context and 8 decision features; no labels, so one
-permutation-equivariant network serves any $n,m$.
+policy dimension led), pair features, context and decision features; no labels, so one permutation-equivariant
+network serves any $n,m$.
 \textbf{Action $\mathcal A$} (masked): the formateur includes/excludes each party (masks keep the coalition
-winning) and points each ministry to a member ($10^{19}$ proposals in $n{-}1{+}m$ steps); voters
-accept/reject; members stay/exit; under M2 a party demands a share (1\% grid) or closes.
+winning) and points each ministry to a member; voters accept/reject; members stay/exit; under M2 a party
+demands 0--100\% or closes.
 \textbf{Reward $\mathcal R$.} $r_i=\sum_{k:\mu(k)=i}\nu_{ik}-\lambda\frac1d\sum_h|y_h-z_{ih}|$ per governed
 period (value of own ministries minus policy loss; the holder of a lead ministry sets $y_h$), an exit
 bonus on leaving, 0 otherwise; discount $\delta$. Rewards are individual.
 
 \textbf{Algorithm} (\code{cabinet/policy.py}, \code{cabinet/ppo.py}): one shared attention network with
-masked autoregressive heads, trained by PPO with GAE on each agent's own decision sequence (semi-MDP);
-also MAPPO (central critic), fictitious self-play, PSRO (\code{cabinet/psro.py}) and a GRU memory.
-Baselines: the exact BF strategy from our solver (\code{cabinet/bf\_solver.py}), Gamson, myopic and random
-agents (\code{cabinet/baselines.py}). Metrics (\code{cabinet/metrics.py}): regression (1)
-$p=\alpha+\beta s+\gamma F$, its analogues for value and policy-ministry shares, and the floor-adjusted
-Gamson distance $\tilde D_G$. Scale: $n\le5$ ($3$--$8$ for real parliaments), $m=6$, 500--2000 PPO
-iterations per run, $\ge3$ seeds (10 for the main cells).
+masked autoregressive heads, trained by PPO~\cite{ppo} with GAE on each agent's own decision sequence (semi-MDP);
+also MAPPO~\cite{mappo}, fictitious self-play, PSRO (\code{cabinet/psro.py}) and a GRU memory. \textbf{Baselines}: exact BF
+(\code{cabinet/bf\_solver.py}), exact demand equilibrium (\code{cabinet/demand\_solver.py}), Gamson, myopic
+and random agents (\code{cabinet/baselines.py}). \textbf{Metric} (\code{cabinet/metrics.py}): regression (1)
+$p=\alpha+\beta s+\gamma F$ on the cabinets formed, $\gamma$ being the seat-controlled formateur premium,
+and its analogues for value and policy-ministry shares. 500--2000 PPO iterations per run, 3--10 seeds
+(the statistical units); hyper-parameters tuned on E0 only.
 
 \section{Results}
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_e0_benchmark.pdf}
-\caption{F1: learned formateur share (dots) vs the BF closed form (lines) in the symmetric game;
-dashed: Gamson's equal split.}\label{fig:e0}
+\caption{Learner check: learned formateur share (dots) vs the BF closed form (lines) in the symmetric
+game; dashed: Gamson's equal split.}\label{fig:e0}
 \end{figure}
 
-\textbf{F1, validation.} Learned shares follow the BF closed form (Fig.~\ref{fig:e0}; mean gap
-\EzeroGap, \EzeroCellsOK/9 cells within 0.02), including its decrease with patience $\delta$; errors
-grow with $n$, where each voter's threshold is learned less precisely. The same code then produces all
-other results, so differences between configurations come from the institutions, not the learner.
-
-
-
-\textbf{F2, the premium changes currency.} The base game keeps the BF premium ($\hat\gamma=\BaseGamma$),
-and it grows with training (\LongBaseG{} after 4$\times$ more updates). Repetition, even with patient
-agents and GRU memory, exits and the recognition rule leave it in place (Fig.~\ref{fig:mech}), as do
-MAPPO, fictitious self-play and PSRO; a companion implementation of the same question by our team finds
-0.20--0.24. In the full game E* every learner and memory variant (IPPO, MAPPO, fictitious self-play,
-GRU, memoryless, 12 ministries) gives a counted coefficient of at most \FspGamma{} but a value
-coefficient of \LamzeroGnu--\FspGnu. Two mechanisms remove the \emph{counted} premium: private types
-($\hat\gamma=\MfourGamma$) and ministerial policy ($\MnineGamma$), and removing private types from the
-full game restores it. But the premium moves. Fitting the same seat-controlled regression to each
-party's share of the value it places on ministries, the formateur's coefficient is \MfourGnu{} with
-private types and \EstarGnu{} in E* (base game, counted: \BaseGamma); with policy, its coefficient on
-the policy-setting ministries is \MnineGlead. The formateur trades the
-number of ministries for their quality or for policy control, and this persists with 4$\times$ training
-(private types: counted \LongMfourG, value premium \LongMfourPhiNu).
+\textbf{F1, proposal bargaining.} \emph{Learner check.} In the symmetric BF game learned shares follow the
+closed form (Fig.~\ref{fig:e0}; mean absolute gap \EzeroAbsGap, \EzeroCellsOK/9 cells within 0.02, mean
+signed gap \EzeroGap), including its decrease with patience $\delta$ for $n\le5$. This matches equilibrium
+\emph{outcomes}, not equilibrium \emph{play}: learned voters would accept far less than their reservation
+value $\delta/n$, and against these frozen voters a formateur best response would gain up to \BrGainSeven{}
+per formation at $n=7$ (\BrGainThree{} at $n=3$; \code{scripts/bf\_best\_response.py}). Formateurs never
+try low offers, so voters never learn to reject them, a self-confirming pattern~\cite{fl} that leaves
+proposers with less than theory at $n=7$, as in laboratory BF experiments~\cite{fkm}.
+\emph{Institutions.} The base game keeps a premium ($\hat\gamma=\BaseGamma$; \LongBaseG{} after 4$\times$
+training). Repetition, even with patient agents and memory, exits and the recognition rule leave it in
+place (Fig.~\ref{fig:mech}), as do MAPPO, fictitious self-play and PSRO. Two mechanisms remove the
+\emph{counted} premium, private types ($\MfourGamma$) and ministerial policy ($\MnineGamma$), and removing
+private types from E* restores it. But the premium moves: in each party's share of the value it places on
+ministries the formateur coefficient is \MfourGnu{} with private types and \EstarGnu{} in E*, and with
+policy it holds the policy-setting ministries (coefficient \MnineGlead). Both persist with 4$\times$ training.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_mechanisms.pdf}
-\caption{F2: formateur coefficient in counted shares when a mechanism is added to the base game (blue)
-or removed from the full game E* (orange); mean and 95\% CI over seeds.}\label{fig:mech}
+\caption{F1: formateur coefficient in counted shares when a mechanism is added to the base game (blue)
+or removed from E* (orange); mean and 95\% CI over seeds.}\label{fig:mech}
 \end{figure}
 
-\begin{table}[t]\centering\footnotesize\setlength{\tabcolsep}{3pt}
-\caption{Regression (1) on the cabinets that agents trained only on random parliaments form themselves
-in the 195 real parliaments (ranges over 3 seeds), against the real cabinets. E*: proposal bargaining
-with private types and policy.}\label{tab:own}
+\textbf{F2, demand bargaining and voting weights.} On the same random 3--8-party parliaments
+(\NprotSeeds{} seeds per protocol, tests fixed in advance in \code{docs/PREREGISTRATION.md}), demands
+instead of proposals lower the premium by \HoneDiff{} (95\% CI \HoneLo--\HoneHi; exact permutation
+$p=\HoneP$) and raise the seat slope by \HtwoDiff{} (\HtwoLo--\HtwoHi); the demand premium is within
+$\pm0.05$ (\HthreeMean, 90\% CI \HthreeLo{} to \HthreeHi). Is this Gamson's law? Our protocol is not
+Morelli's~\cite{morelli,mvp}, so we solved it exactly (backward induction over all demand histories):
+any two of 45/35/20 seats split \textbf{50/50}, because every pair wins, and in 40/30/25/5 the 5-seat party
+gets nothing; Gamson predicts 0.56/0.44 for 45+35. Learned demand agents reproduce the equilibrium
+(Table~\ref{tab:fixed}): every pair splits within \AfDemMaxDev{} of 50/50 (seat slope \AfDemSlope) and the
+dummy is never included. Learned splits follow voting weights; the seat slope of 0.8 in random parliaments
+arises because seats and voting weights are correlated there. With default exploration the closer is
+under-paid (exploration lock-in; a single \emph{close} action against 101 demand bins), which more
+exploration of demands corrects.
+
+\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\caption{F2: who gets what in fixed parliaments (shares within the cabinet, divisible surplus,
+$\delta=0.9$; learned: \AfDemSeeds{} seeds, all coalitions that form).}\label{tab:fixed}
+\begin{tabular}{@{}lll@{}}\toprule
+ & 45/35/20 (each pair) & 40/30/25/5 \\\midrule
+Gamson (seats) & largest 0.56--0.69 & dummy $>0$\\
+demand: exact eq. & 0.50/0.50 & 0.50/0.50, dummy 0\\
+demand: learned & $0.50\pm\AfDemMaxDev$ & $0.50\pm\AtDemMaxDev$, dummy \AtDemDummy\\
+proposal: weighted BF & form. $\approx$0.70 & form. $\approx$0.71\\
+proposal: learned & form. \AfPropFormLo--\AfPropFormHi & form. \AtPropFormLo--\AtPropFormHi\\
+\bottomrule\end{tabular}\end{table}
+
+\begin{table}[t]\centering\scriptsize\setlength{\tabcolsep}{2.5pt}
+\caption{F3: regression (1) with seat shares ($\hat\beta,\hat\gamma$) and with voting power
+($\hat\gamma_{bz}$, Banzhaf) on real cabinets and on the cabinets that agents trained only on random
+parliaments form themselves in the same 195 parliaments (ranges over seeds).}\label{tab:own}
 \begin{tabular}{@{}lcccc@{}}\toprule
- & $\hat\alpha$ & $\hat\beta$ (seats) & $\hat\gamma$ (PM) & $R^2$\\\midrule
-real cabinets & \RealA & \RealB & \RealG & \RealRtwo\\
-demand bargaining & \OwnDemA & \OwnDemB & \OwnDemG & \OwnDemRtwo\\
-proposal bargaining & \OwnPropA & \OwnPropB & \OwnPropG & \OwnPropRtwo\\
-E* (proposal) & \OwnWideA & \OwnWideB & \OwnWideG & \OwnWideRtwo\\
+ & $\hat\beta$ (seats) & $\hat\gamma$ (PM) & $\hat\gamma_{bz}$ & $R^2$\\\midrule
+real cabinets & \RealB & \RealG & \RealGbz & \RealRtwo\\
+demand bargaining & \OwnDemB & \OwnDemG & \OwnDemGbz & \OwnDemRtwo\\
+proposal bargaining & \OwnPropB & \OwnPropG & \OwnPropGbz & \OwnPropRtwo\\
+E* (all mechanisms) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../figures/fig_real.pdf}
-\caption{F3: predicting the portfolio split of real coalition cabinets, given the real coalition and
-prime minister; country-clustered 95\% CIs.}\label{fig:real}
+\caption{F3: predicting the portfolio split of real coalition cabinets given the real coalition and prime
+minister; country-clustered 95\% CIs.}\label{fig:real}
 \end{figure}
 
-\textbf{F3, real cabinets.} We imposed each real coalition and prime minister (Seki--Williams data linked
-to ParlGov) on policies trained only on random parliaments and compared their split with the real one
-(Fig.~\ref{fig:real}, \RealNcommon{} cabinets). Gamson's law errs by \MaeGamson, BF by \MaeBF{} (implied
-$\hat\gamma=\GcBF$). Agents with private types err by \MaePrivLo--\MaePrivHi{} (implied $\hat\gamma$
-\GcPrivLo--\GcPrivHi), much closer to Gamson than the same agents with public types
-(\MaePubLo--\MaePubHi, $\hat\gamma$ \GcPubLo--\GcPubHi, like BF), but every one is worse than Gamson's law
-(paired CI above \DmaePrivLo). Is the real premium hidden in quality, as in our agents? No: on \KeyN{}
-cabinets the prime minister's party holds \KeyShare{} of the key ministries (finance, foreign affairs,
-interior, defence, justice) against \KeyCount{} of all ministers, a difference of \KeyDiff{} (95\% CI
-\KeyDiffLo{} to \KeyDiffHi). Real seat shares also fit better than voting power ($R^2$ \RealRtwo{} vs
-\RealRtwoBz), whereas our agents' shares follow voting power. When the agents choose the coalition
-themselves in 242 real parliaments, they pick the governing one in \PgLearned{} of cases, like Riker's
-minimal-seat rule (\PgRiker), behind an ideological rule (\PgIdeology).
+\textbf{F3, real cabinets} (Seki--Williams~\cite{sw} linked to ParlGov~\cite{parlgov};
+\code{scripts/seki\_eval.py}, \code{scripts/real\_robustness.py}). Relative to seats the prime minister's
+party has no premium (\RobBaseG, wild-cluster 95\% CI \RobBaseLo{} to \RobBaseHi; leave-one-country-out
+\LocoLo{} to \LocoHi). Relative to minimal integer voting weights it has one, \RobWeightsG{}
+(\RobWeightsLo{} to \RobWeightsHi), as Ansolabehere et al.\ report~\cite{asw}; with a largest-party control
+\RobLargestG{} (\RobLargestLo{} to \RobLargestHi; identified by \RobPmNotLargest{} cabinets). Seats fit better
+than weights ($R^2$ \RobBaseRtwo{} vs \RobWeightsRtwo) and absorb the weight effect when both enter. Key
+ministries (finance, foreign, interior, defence, justice; \KeyN{} cabinets) show no detectable premium either, in line with salience-weighted evidence~\cite{wd}:
+\KeyShare{} held vs \KeyCount{} of all ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi).
+Given the real coalition and prime minister, Gamson's law errs by \MaeGamson{} per party, BF by \MaeBF{}
+and agents with private types by \MaePrivLo--\MaePrivHi{}, every one worse than Gamson
+(Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), no protocol
+matches everything: demand agents match the seat slope, E* agents the size of the premium on both
+scales, proposal agents overshoot it.
 
-\textbf{F4, the protocol.} Under demand bargaining (Morelli; each party in turn demands a share or
-closes a cabinet with earlier demanders and takes the rest) on the same random parliaments as a matched
-proposal game, the formateur coefficient falls from \PropG{} to \DemG{} and the seat slope rises from
-\PropB{} to \DemB. Placed in the real parliaments, demand-bargaining agents form cabinets whose regression
-matches the real one, small-party bias included (Table~\ref{tab:own}); proposal agents keep the premium.
-In symmetric parliaments the learned demands first underpaid the closer (\LockinCloserThree{} of the
-pie with 3 parties, \LockinCloserFive{} with 5): an exploration lock-in, since with more exploration of
-demands the closer gets \ExploreCloserThree{} and \ExploreCloserFive{}, moving to the equal split
-(1/2, 1/3) that theory predicts; a best response gains \GainDemand{} per period against the locked-in
-profile.
-
-\textbf{Reliability.} A best response trained for 400 PPO iterations gains \GainLong{} per period against
-E*, but \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles: the
-learned profiles are approximate equilibria at our budget, and the test has the power to tell. Cross-play
-between independent runs costs \CmSame{} per period.
+\textbf{Reliability.} Best responses trained by PPO (400 iterations) gain \GainLong{} per period against E*
+(\GainLongRel{} of a seat's payoff), \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and
+BF-heuristic profiles; cross-play between independent runs costs \CmSame. Because the analytic BF test above
+finds gains PPO best responses can miss, these are lower bounds.
 
 \section{Implications and limitations}
-Self-interested learning under the closed-rule proposal protocol reproduces bargaining theory, not
-Gamson's law: whatever the information, memory, exits or learner, the formateur keeps a premium, at
-most moving it from the number of ministries to their quality or to policy. Real cabinets show no
-premium in counts or in key ministries, so their proportionality is not a premium in disguise. What
-changes the outcome is the protocol: when parties make demands instead of answering a formateur's
-proposal, learned allocations become seat-proportional. Limitations: scaled-down sizes; exploitability
-tests refute but do not prove equilibrium; real allocations count ministers (salience only through the
-key-ministry test); the prime minister's party stands in for the formateur. Coverage of the
-specification: \code{docs/SPEC\_COVERAGE.md}.
+To the question of the project: self-interested learning parties do not allocate in proportion to seats.
+They favour the formateur exactly as far as the rules give it proposal power, and otherwise split by voting
+weight; information and policy motives change the currency of the premium, not its existence. Real cabinets
+are more seat-proportional than any protocol we trained, with at most a small premium relative to voting
+weights. Gamson's law therefore looks less like the outcome of the bargaining modelled by BF or Morelli
+than of rules outside it, such as coalition commitments made before the split~\cite{ks} or within-party
+bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; learned profiles are approximate, not exact,
+equilibria; the PM's party proxies the formateur; real shares count ministers (salience only through key
+ministries); a flat demand head under-explores closing. \textbf{Not done}, with reason: party-specific
+manifesto salience (needs registered data access and portfolio coding), a two-stage close/demand head
+(retraining every demand run), more seeds (every pre-registered effect is decisive at 10). Every claim and
+its source file: \code{docs/AUDIT.md}; specification coverage: \code{docs/SPEC\_COVERAGE.md}.
 
-\textbf{Key code} (beyond those above): \code{scripts/run\_experiment.py}, \code{scripts/seki\_eval.py},
-\code{scripts/key\_ministries.py}, \code{tests/test\_core.py}.
-
-\begin{thebibliography}{9}\footnotesize\setlength{\itemsep}{0pt}
+\begin{thebibliography}{99}\footnotesize\setlength{\itemsep}{0pt}
 \bibitem{bf} D. Baron, J. Ferejohn. Bargaining in legislatures. \emph{APSR} 83(4), 1989.
 \bibitem{gamson} W. Gamson. A theory of coalition formation. \emph{Am. Sociol. Rev.} 26(3), 1961.
-\bibitem{bf73} E. Browne, M. Franklin. Aspects of coalition payoffs in European parliamentary democracies. \emph{APSR} 67(2), 1973.
 \bibitem{wd} P. Warwick, J. Druckman. The portfolio allocation paradox. \emph{EJPR} 45(4), 2006.
-\bibitem{asw} S. Ansolabehere et al. Voting weights and formateur advantages in the formation of coalition governments. \emph{AJPS} 49(3), 2005.
+\bibitem{asw} S. Ansolabehere, J. Snyder, A. Strauss, M. Ting. Voting weights and formateur advantages in the formation of coalition governments. \emph{AJPS} 49(3), 2005.
+\bibitem{morelli} M. Morelli. Demand competition and policy compromise in legislative bargaining. \emph{APSR} 93(4), 1999.
+\bibitem{mvp} M. Montero, J. Vidal-Puga. Demand commitment in legislative bargaining. \emph{APSR} 101(4), 2007.
+\bibitem{fkm} G. Fr\'echette, J. Kagel, M. Morelli. Gamson's law versus non-cooperative bargaining theory. \emph{Games Econ. Behav.} 51(2), 2005.
+\bibitem{fl} D. Fudenberg, D. Levine. Self-confirming equilibrium. \emph{Econometrica} 61(3), 1993.
+\bibitem{ks} A. Kamm, S. Siegenthaler. Commitment timing in coalitional bargaining. \emph{Exp. Econ.} 27, 2024.
+\bibitem{cox} G. Cox. Nonunitary parties, government formation, and Gamson's law. \emph{APSR} 115(3), 2021.
 \bibitem{ppo} J. Schulman et al. Proximal policy optimization algorithms. arXiv:1707.06347, 2017.
 \bibitem{mappo} C. Yu et al. The surprising effectiveness of PPO in cooperative multi-agent games. NeurIPS, 2022.
-\bibitem{fsp} J. Heinrich, D. Silver. Deep reinforcement learning from self-play in imperfect-information games. arXiv:1603.01121, 2016.
 \bibitem{parlgov} H. D\"oring, P. Manow. ParlGov: Parliaments and governments database. parlgov.org.
 \bibitem{sw} K. Seki, L. Williams. Updating the party government data set. \emph{Electoral Studies} 34, 2014.
-\bibitem{morelli} M. Morelli. Demand competition and policy compromise in legislative bargaining. \emph{APSR} 93(4), 1999.
 \end{thebibliography}
-
 
 \end{document}
