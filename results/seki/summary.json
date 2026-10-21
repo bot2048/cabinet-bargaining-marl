@@ -17,6 +17,16 @@
   "gamma": 0.055780844250367556,
   "r2": 0.8725370170255612
  },
+ "demand_overflow": {
+  "mech_WideDemand/s0": 0.1711065573770492,
+  "mech_WideDemand/s1": 0.11629098360655737,
+  "mech_WideDemand/s2": 0.22455601092896174
+ },
+ "sample_trail": {
+  "cabinets_in_data": 195,
+  "member_outside_8_largest": 12,
+  "scored_by_every_model": 183
+ },
  "n_common": 183,
  "models": {
   "gamson": {
@@ -49,95 +59,351 @@
    "beta": 0.6110079436485265,
    "alpha": -0.008999635747901372
   },
-  "mech_EstarWide/s0": {
-   "mae": 0.09092555494128234,
+  "equal": {
+   "mae": 0.1697134040051548,
    "mae_ci": [
-    0.07012772978749568,
-    0.11634717543726325
+    0.12167951247321482,
+    0.22152684006051235
    ],
-   "dmae_vs_gamson": 0.03932147855072604,
+   "dmae_vs_gamson": 0.1181093276145986,
    "dmae_ci": [
-    0.018342565215900775,
-    0.0643825079707724
+    0.06701855584431149,
+    0.17058357508287228
    ],
-   "gamma": 0.15053526054073751,
-   "beta": 0.5370845421909476,
-   "alpha": 0.10745409041372471
+   "gamma": -0.06308198466455286,
+   "beta": 0.316776925250585,
+   "alpha": 0.2567177178059324
+  },
+  "mech_EstarWide/s0": {
+   "mae": 0.09016779010220732,
+   "mae_ci": [
+    0.06942560136050796,
+    0.1153054130306876
+   ],
+   "dmae_vs_gamson": 0.03856371371165104,
+   "dmae_ci": [
+    0.017725178287256,
+    0.06318548306060383
+   ],
+   "gamma": 0.14962978501034585,
+   "beta": 0.5379765268353136,
+   "alpha": 0.10745873107564728
   },
   "mech_EstarWide/s1": {
-   "mae": 0.08897917715007167,
+   "mae": 0.0885133634874614,
    "mae_ci": [
-    0.07210040057704084,
-    0.10652769623641353
+    0.07180033670516034,
+    0.10582820707918004
    ],
-   "dmae_vs_gamson": 0.03737510075951539,
+   "dmae_vs_gamson": 0.03690928709690509,
    "dmae_ci": [
-    0.02197932405384215,
-    0.05339419039905337
+    0.021386853386831696,
+    0.05288915069665047
    ],
-   "gamma": 0.18709196391234895,
-   "beta": 0.5850212811803033,
-   "alpha": 0.07838961681963279
+   "gamma": 0.18671110421368198,
+   "beta": 0.5829446246321345,
+   "alpha": 0.07923496545341291
   },
   "mech_EstarWide/s2": {
-   "mae": 0.08734190563715852,
+   "mae": 0.08748136310090937,
    "mae_ci": [
-    0.0666761159759923,
-    0.11148196581570458
+    0.06690003488215697,
+    0.11137894216834746
    ],
-   "dmae_vs_gamson": 0.03573782924660221,
+   "dmae_vs_gamson": 0.03587728671035309,
    "dmae_ci": [
-    0.015731611486166374,
-    0.05890769685723802
+    0.016176926684676594,
+    0.058748077497416666
    ],
-   "gamma": 0.11865261377708436,
-   "beta": 0.5964435784642014,
-   "alpha": 0.09800262560121198
+   "gamma": 0.11824660848723045,
+   "beta": 0.5969119171224441,
+   "alpha": 0.09798118385983014
   },
   "mech_EstarWidePub/s0": {
-   "mae": 0.13057931264739692,
+   "mae": 0.13049877693080558,
    "mae_ci": [
-    0.10823231182629166,
-    0.15646354763965195
+    0.10864878666842155,
+    0.15553269996475994
    ],
-   "dmae_vs_gamson": 0.07897523625684061,
+   "dmae_vs_gamson": 0.07889470054024926,
    "dmae_ci": [
-    0.057124383967578,
-    0.10127682197886656
+    0.05773340945653579,
+    0.10066962194280449
    ],
-   "gamma": 0.41351421522540266,
-   "beta": 0.5097030740089278,
-   "alpha": 0.026412097876160973
+   "gamma": 0.41301252560990653,
+   "beta": 0.5093045932511245,
+   "alpha": 0.0267217429481793
   },
   "mech_EstarWidePub/s1": {
-   "mae": 0.1505124406997749,
+   "mae": 0.15104858553242642,
    "mae_ci": [
-    0.1256048250322393,
-    0.17728177268324138
+    0.12605156708428056,
+    0.17807473048960676
    ],
-   "dmae_vs_gamson": 0.09890836430921864,
+   "dmae_vs_gamson": 0.0994445091418701,
    "dmae_ci": [
-    0.07410591076978636,
-    0.12407305686535171
+    0.07457962086688275,
+    0.12486929547536729
    ],
-   "gamma": 0.5124702861735208,
-   "beta": 0.387794567312446,
-   "alpha": 0.034307390624188236
+   "gamma": 0.5134271270585703,
+   "beta": 0.3875537683365947,
+   "alpha": 0.034061082974971554
   },
   "mech_EstarWidePub/s2": {
-   "mae": 0.16655635934331992,
+   "mae": 0.16672114122081677,
    "mae_ci": [
-    0.1343675857079793,
-    0.20048161633551304
+    0.13451238663044876,
+    0.20093312680827313
    ],
-   "dmae_vs_gamson": 0.11495228295276362,
+   "dmae_vs_gamson": 0.11511706483026046,
    "dmae_ci": [
-    0.08271106030371687,
-    0.14595347107290982
+    0.08290971821167281,
+    0.14609294340530113
    ],
-   "gamma": 0.5313023977373976,
-   "beta": 0.4666173894566751,
-   "alpha": 0.000715561923843385
+   "gamma": 0.5306501982556725,
+   "beta": 0.4688169777761596,
+   "alpha": 0.00018328343265934082
+  },
+  "mech_WideDemand/s0": {
+   "mae": 0.10004042194911549,
+   "mae_ci": [
+    0.06268585282276509,
+    0.14503651961348926
+   ],
+   "dmae_vs_gamson": 0.048436345558559184,
+   "dmae_ci": [
+    0.009430873162138377,
+    0.09349333981626487
+   ],
+   "gamma": 0.02910149206369339,
+   "beta": 0.5780517397243234,
+   "alpha": 0.13513338079472323
+  },
+  "mech_WideDemand/s1": {
+   "mae": 0.07316801260573212,
+   "mae_ci": [
+    0.05439502586560011,
+    0.09208928997462897
+   ],
+   "dmae_vs_gamson": 0.021563936215175803,
+   "dmae_ci": [
+    0.0038452323383606915,
+    0.04059218308836516
+   ],
+   "gamma": 0.03550140440452543,
+   "beta": 0.7503825276439403,
+   "alpha": 0.07365270758483221
+  },
+  "mech_WideDemand/s2": {
+   "mae": 0.08517757592324295,
+   "mae_ci": [
+    0.06595756459035501,
+    0.10574359925115474
+   ],
+   "dmae_vs_gamson": 0.033573499532686644,
+   "dmae_ci": [
+    0.013838449773002864,
+    0.05428726134081031
+   ],
+   "gamma": 0.027536952669240722,
+   "beta": 0.6795566128092045,
+   "alpha": 0.10075540886737666
   }
+ },
+ "loco": {
+  "empirical_gamma_range": [
+   -0.003813216651790463,
+   0.013368740232006071
+  ],
+  "gamson_best_in": 31,
+  "countries": 31,
+  "details": [
+   {
+    "country": "Australia",
+    "empirical_gamma": 0.0023137801731190066,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.01668547022491168
+   },
+   {
+    "country": "Austria",
+    "empirical_gamma": 0.008270243453882498,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.023499633017423006
+   },
+   {
+    "country": "Belgium",
+    "empirical_gamma": -0.0019094273037292275,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022142426421858485
+   },
+   {
+    "country": "Bulgaria",
+    "empirical_gamma": 0.001714895967708463,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02164644907535323
+   },
+   {
+    "country": "Cyprus",
+    "empirical_gamma": -0.003813216651790463,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022061187441535207
+   },
+   {
+    "country": "Czech Republic",
+    "empirical_gamma": 0.002429091916145487,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022670545180732013
+   },
+   {
+    "country": "Estonia",
+    "empirical_gamma": 0.005520922786758087,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021979680767185816
+   },
+   {
+    "country": "Finland",
+    "empirical_gamma": 0.004779090532508579,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.023125905792136962
+   },
+   {
+    "country": "France V",
+    "empirical_gamma": 0.002949249466984827,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.018001751029337737
+   },
+   {
+    "country": "Germany",
+    "empirical_gamma": 0.0027047457608846415,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.019790298752957527
+   },
+   {
+    "country": "Great Britain",
+    "empirical_gamma": 0.002453313624702802,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02199474956474598
+   },
+   {
+    "country": "Greece",
+    "empirical_gamma": 0.002236529410763133,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02171537386809364
+   },
+   {
+    "country": "Hungary",
+    "empirical_gamma": 0.0009237511511851482,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.023292570515777468
+   },
+   {
+    "country": "Iceland",
+    "empirical_gamma": 0.013368740232006071,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.023198828477568566
+   },
+   {
+    "country": "Ireland",
+    "empirical_gamma": 0.002554856900447211,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022085274047762962
+   },
+   {
+    "country": "Israel",
+    "empirical_gamma": -0.0004881688709328369,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02201540179215916
+   },
+   {
+    "country": "Italy",
+    "empirical_gamma": 0.0029286954948948285,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021931398102060955
+   },
+   {
+    "country": "Japan",
+    "empirical_gamma": 0.005254670300280706,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.015065035102498334
+   },
+   {
+    "country": "Latvia",
+    "empirical_gamma": 0.0009465124298113636,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021990896382451414
+   },
+   {
+    "country": "Lithuania",
+    "empirical_gamma": -0.00014374858781873723,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021929649152751966
+   },
+   {
+    "country": "Luxembourg",
+    "empirical_gamma": 0.0028209831624385062,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021416805637031
+   },
+   {
+    "country": "Netherlands",
+    "empirical_gamma": 0.0032798657233492623,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02301110463542886
+   },
+   {
+    "country": "New Zealand",
+    "empirical_gamma": 0.001836053876655308,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021033231362196154
+   },
+   {
+    "country": "Norway",
+    "empirical_gamma": 0.003224897773276947,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.0217838801578812
+   },
+   {
+    "country": "Poland",
+    "empirical_gamma": -0.0018523835250338072,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02238627580340566
+   },
+   {
+    "country": "Portugal",
+    "empirical_gamma": 0.0027141812164399592,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022361587971830438
+   },
+   {
+    "country": "Romania",
+    "empirical_gamma": 0.0026635813533655295,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021741752409276283
+   },
+   {
+    "country": "Slovakia",
+    "empirical_gamma": 0.00172549685603951,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021467350556741538
+   },
+   {
+    "country": "Slovenia",
+    "empirical_gamma": 0.004516850241215953,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.02190812021448895
+   },
+   {
+    "country": "Sweden",
+    "empirical_gamma": 0.002628374229006858,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.021739239316875568
+   },
+   {
+    "country": "Switzerland",
+    "empirical_gamma": -0.0033279952798661583,
+    "best": "gamson",
+    "gamson_minus_best_agent": -0.022589675346723875
+   }
+  ]
  }
 }
