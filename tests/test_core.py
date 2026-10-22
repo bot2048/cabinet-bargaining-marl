@@ -270,3 +270,36 @@ def test_demand_solver_matches_independent_brute_force_and_env():
         assert res < 1e-12 and np.allclose(Vb, Vv, atol=1e-6)
     trials, bad = env_consistency(trials=300, seed=1)
     assert bad == 0
+
+
+def test_reward_components_add_up():
+    """Spec v0.5 Def. 2.4: salience + taste + policy + exit components sum to the return."""
+    from cabinet.ppo import evaluate
+    from cabinet.baselines import Scripted
+    for cfg in (full_estar(), E0):
+        bot = Scripted("myopic", 0)
+        _, eps = evaluate(cfg, {"b": bot}, lambda env, rng: ["b"] * env.n, episodes=40, seed=3)
+    env = CabinetEnv(full_estar(), seed=5).reset()
+    bot = Scripted("myopic", 1)
+    while not env.done:
+        env.act({d.agent: bot.act(env, d.agent, d.kind) for d in env.pending()})
+    assert np.allclose(env.comp.sum(1), env.ret, atol=1e-9)
+
+
+def test_proposal_power_closed_forms():
+    """Spec v0.5 R22: Algorithm 4 recovers Corollary 2.13 in E0 (BF agent and the
+    Gamson agent, which has Psi_in = 0) and Proposition 2.12 in a weighted case."""
+    from cabinet.baselines import Scripted
+    from cabinet.config import fixed_divisible
+    from cabinet.proposal_power import probe
+    for n, d in ((3, 0.9), (5, 0.8)):
+        cfg = E0.with_(n_choices=(n,), delta_choices=(d,))
+        r = probe(cfg, {"learn": Scripted("bf", 1)}, n_states=20, n_rep=2, seed=1)
+        assert abs(r["psi_in"]["total"] - (1 - d * (n + 1) / (2 * n))) < 1e-6
+        assert abs(r["psi_ex"]["total"] - (1 - d / 2)) < 1e-6
+        r = probe(cfg, {"learn": Scripted("gamson", 1)}, n_states=20, n_rep=2, seed=1)
+        assert abs(r["psi_in"]["total"]) < 1e-9 and abs(r["psi_ex"]["total"] - 1 / (n + 1)) < 1e-6
+    # 45/35/20: every pair is winning and v = (1/3, 1/3, 1/3), so Psi_in = 1 - 0.9 * 2/3
+    cfg = fixed_divisible((45, 35, 20), "proposal", "A452")
+    r = probe(cfg, {"learn": Scripted("bf", 2)}, n_states=20, n_rep=2, seed=2)
+    assert abs(r["psi_in"]["total"] - (1 - 0.9 * 2 / 3)) < 1e-3
