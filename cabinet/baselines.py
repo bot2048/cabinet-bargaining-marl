@@ -60,6 +60,20 @@ class Scripted:
     def act(self, env, i, kind):
         return getattr(self, f"_{self.name}")(env, i, kind)
 
+    def act_forced(self, env, i, C):
+        """Proposal of i when its coalition is forced to C (spec v0.5 Algorithm 4):
+        the scripted rule's allocation over C."""
+        C = np.asarray(C, bool)
+        if self.name == "bf":
+            v, d = self._bf_values(env)["v"], env.delta
+            shares = np.where(C, d * v, 0.0)
+            shares[i] = 0.0
+            shares[i] = 1.0 - shares.sum()
+            return C, self._to_alloc(env, C, shares)
+        if self.name == "gamson":
+            return C, _allocate_proportional(env, C, self.rng)
+        raise NotImplementedError(self.name)
+
     # BL1 -------------------------------------------------------------- BF
     def _bf_values(self, env):
         key = (tuple(env.w), env.cfg.rho, env.delta)

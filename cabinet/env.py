@@ -116,6 +116,9 @@ class CabinetEnv:
                              omega=0.0)
         self.disc_global = 1.0
         self.ret = np.zeros(n)          # discounted return per seat (evaluation)
+        # discounted return per seat split into the components of spec v0.5 Def. 2.4:
+        # salience (sigma-share of held ministries), taste (nu - sigma), policy, exit bonus
+        self.comp = np.zeros((n, 4))
         self.bonus = np.zeros(n)
         self._start_term(first=True)
         return self
@@ -200,6 +203,21 @@ class CabinetEnv:
             self._pay_flows(self.cabinet)
             self._end_period()
 
+    def override_recognition(self, j):
+        """Counterfactual replay (spec v0.5 R21, Algorithm 4): in a formation state
+        whose recognition has just been drawn, make party j the formateur (proposal
+        protocol) or the first mover (demand protocol). Called on a copy of the
+        state, so every arm keeps the same random streams."""
+        if self.cfg.protocol == "demand":
+            assert self.phase == DEMAND and self.dem_k == 0
+            self.dem_order = [j] + [k for k in self.dem_order if k != j]
+            self.f = j
+            self._pending = [Decision(self, j, DEMAND)]
+        else:
+            assert self.phase == PROPOSE
+            self.f = j
+            self._pending = [Decision(self, j, PROPOSE)]
+
     def cheapest_close(self, i):
         """Earlier demanders that, with i, form a winning coalition whose demands
         sum to at most one; the cheapest such set (best for the closer)."""
@@ -265,6 +283,7 @@ class CabinetEnv:
             if exiters:
                 for j in exiters:
                     self._reward(j, self.bonus[j])
+                    self.comp[j, 3] += self.disc_global * self.bonus[j]
                 self.ep_stats["collapses"] += 1
                 self._close_cabinet(collapsed_by=exiters)
                 self._caretaker()
@@ -340,8 +359,18 @@ class CabinetEnv:
         y = self.policy_vector(cab)
         return self.cfg.lam * np.abs(y[None, :] - self.z).mean(axis=1)
 
+    def _salience(self, cab):
+        if self.cfg.divisible:
+            return cab.p.copy()
+        return np.bincount(cab.mu, weights=self.sigma, minlength=self.n)
+
     def _pay_flows(self, cab):
-        r = self._office(cab) - self._policy_loss(cab)
+        office, loss = self._office(cab), self._policy_loss(cab)
+        r = office - loss
+        sal = self._salience(cab)
+        self.comp[:, 0] += self.disc_global * sal
+        self.comp[:, 1] += self.disc_global * (office - sal)
+        self.comp[:, 2] -= self.disc_global * loss
         self.ep_stats["governed"] += 1
         for j in range(self.n):
             self._reward(j, r[j])
@@ -350,6 +379,7 @@ class CabinetEnv:
         r = -self._policy_loss(None)
         if self.cfg.L is None:            # per-period equivalent of one lost period
             r = (1 - self.delta) * r
+        self.comp[:, 2] += self.disc_global * r
         for j in range(self.n):
             self._reward(j, r[j])
 
