@@ -11,6 +11,7 @@
 \usepackage{lmodern,microtype}
 \usepackage[a4paper,margin=25mm]{geometry}
 \usepackage{graphicx,booktabs,xcolor,enumitem,float}
+\usepackage[section]{placeins}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[round,authoryear]{natbib}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
@@ -48,9 +49,10 @@ Parties are modelled as reinforcement-learning agents in a configurable game of 
 rewarded only by their own office and policy payoffs. A single permutation-equivariant policy is trained
 by proximal policy optimisation and checked against exact equilibria, which we derive for the proposal
 protocol and compute for the demand protocol. Three results emerge. (i)~Under proposal bargaining the learned formateur takes a premium (seat-controlled coefficient
-\BaseGamma{} in the base game). Private valuations and ministerial policy bring the premium in the
-\emph{number} of ministries to about zero, but the formateur keeps an advantage in the value of the
-ministries it holds or in policy control. (ii)~Under demand bargaining the premium
+\BaseGamma{} in the base game). Private valuations and ministerial policy bring the premium in the \emph{number} of ministries to about
+zero, but counterfactual replays of the same states with each coalition member as proposer show that the
+formateur role keeps its value (\PsiEstar{} per period in the full game), now in \emph{which} ministries
+the formateur takes or in the policy it sets. (ii)~Under demand bargaining the premium
 disappears (pre-registered test, exact permutation $p=\HoneP$), but learned shares follow
 \emph{voting weights}, not seats: in a 45/35/20 parliament every pair splits 50/50, as the exact
 equilibrium predicts and Gamson's law does not. (iii)~In \RealN{} real coalition cabinets the prime
@@ -108,8 +110,9 @@ result is that agents find it.
 \item Evidence that matching equilibrium \emph{outcomes} does not imply equilibrium \emph{play}: learned
 Baron--Ferejohn agents reproduce the closed-form shares while leaving a profitable formateur deviation
 untried (\cref{sec:bench}).
-\item A mechanism map of the learned formateur premium in three currencies: number of ministries, the
-formateur's own valuation, and policy-setting ministries (\cref{sec:mech}).
+\item A mechanism map of the learned formateur premium, measured both observationally (portfolio shares,
+comparable with real cabinets) and as the value of proposal power, estimated by counterfactual replays and
+split into the number of ministries, their composition and policy (\cref{sec:mech}).
 \item Pre-registered tests of the bargaining protocol, including a decisive test of whether learned
 shares follow seats or voting weights (\cref{sec:protocol}).
 \item An out-of-sample confrontation with \RealN{} real coalition cabinets, including the agents' own
@@ -217,8 +220,30 @@ p^{\min}(C)=\arg\min_{\mu:\{1..m\}\to C}\ \textstyle\sum_{i\in C}|p_i(\mu)-s_i|,
 \]
 computed by Hamilton's largest-remainder rule for equal salience,
 the Gamson distance $D_G=\tfrac12\sum_{i\in C}|p_i-s_i|$, its floor-adjusted version
-$\tilde D_G=\E[D_G(p)-D_G(p^{\min})]$, and the floor-adjusted formateur premium
-$\tilde\Phi=\E[p_f-p^{\min}_f]$.
+$\tilde D_G=\E[D_G(p)-D_G(p^{\min})]$, and the floor-adjusted formateur premium $\tilde\Phi=\E[p_f-p^{\min}_f]$. These \emph{observational}
+statistics weight ministries by the common salience $\sigma$, so they can be computed on real cabinets too.
+
+\paragraph{The value of proposal power.} Observational statistics compare shares with seats; they do not
+measure what the formateur role is worth to the party that holds it. A formateur can take its advantage in
+\emph{which} ministries it keeps (with private valuations) or in the policy it sets, and neither moves a
+$\sigma$-share. Following the project specification (v0.5), the primary premium measure is therefore
+counterfactual. Let $U_i$ be party $i$'s payoff from a formation state $s$ to the end of the term, in
+per-period units, and $\bar U_i(s;j,C)$ its expected value when $j$ is made formateur in $s$ and $j$'s
+coalition decisions are set to $C$, with the allocation and all later play drawn from the learned profile.
+The within-coalition value of proposal power is
+\begin{equation}\label{eq:psi}
+\Psi_{\mathrm{in}}=\E_{(s,C)}\Bigl[\tfrac{1}{|C|(|C|-1)}\textstyle\sum_{i\in C}\sum_{j\in C\setminus\{i\}}
+\bigl(\bar U_i(s;i,C)-\bar U_i(s;j,C)\bigr)\Bigr]:
+\end{equation}
+the same party, in the same state and coalition, as proposer rather than as partner. $\Psi_{\mathrm{ex}}$,
+the value of being recognised at all, compares $\bar U_i(s;i)$ with the recognition-weighted payoff when
+another party is recognised; it is positive even for a seat-proportional rule, because the formateur is
+always in the cabinet. Because the reward splits into a salience part $\sum_{k:\mu(k)=i}\sigma_k$, a taste
+part $\sum_{k:\mu(k)=i}(\nu_{ik}-\sigma_k)$, a policy part and an exit part, $\Psi_{\mathrm{in}}=
+\Psi_\sigma+\Psi_\nu+\Psi_{\mathrm{pol}}+\Psi_e$: the premium in how many ministries, in which ministries,
+in policy, and in exit bonuses. Shares weighted by a party's own valuation are not a premium measure: they
+are in a different unit for each party and compare no counterfactual, so a party with concentrated tastes
+can show a ``premium'' even when the formateur role is worth nothing. We use them only descriptively.
 
 \subsection{Theoretical benchmarks}\label{sec:theory}
 \begin{proposition}[Symmetric Baron--Ferejohn benchmark]\label{prop:bf}
@@ -284,6 +309,21 @@ the larger per-period gain over 3000 evaluation episodes. Scripted Gamson and Ba
 profiles serve as positive controls. A learned best response bounds exploitability from below, so a small
 gain means only that no exploit was found at the budget.
 
+\paragraph{Proposal-power probe.} $\Psi$ is estimated by counterfactual replays of the trained profile
+(\code{cabinet/proposal\_power.py}). For each of 2000 probe states per seed (the first formation state of
+an episode) we copy the environment with its random streams, so every arm uses common random numbers. We
+replay it four times with each party as formateur, and four times with each member of the coalition that
+the profile actually forms from that state as formateur, its coalition decisions forced to that coalition
+and everything else sampled from the profile. Forcing is exact on the equilibrium path, because the
+proposal factorises into coalition and allocation decisions; off-path behaviour of learned policies is not
+disciplined by training, so the primary $\Psi_{\mathrm{in}}$ keeps only pairs for which the forced
+coalition is on path for both proposers (probability at least 0.02, estimated from 64 sampled proposals)
+and the all-pairs value is a sensitivity check. On the exact Baron--Ferejohn and Gamson agents the probe
+reproduces the closed forms of the specification to machine precision: $\Psi_{\mathrm{in}}=1-\delta(n+1)/(2n)$
+and $\Psi_{\mathrm{ex}}=1-\delta/2$ in E0, $\Psi_{\mathrm{in}}=0$ for the Gamson agent, and
+$\Psi_{\mathrm{in}}=1-\delta\sum_{k\in C}v_k$ in a weighted parliament (automated tests). Under the demand
+protocol there is no proposer's coalition decision to force, so only $\Psi_{\mathrm{ex}}$ is defined.
+
 \paragraph{Statistics.} Training seeds are the independent units. Each seed's coefficients come from its
 own evaluation cabinets; we report means with 95\% intervals over seeds. Before the final runs finished
 we committed a pre-registration (\code{docs/PREREGISTRATION.md}) fixing three confirmatory tests with
@@ -306,6 +346,7 @@ of \cref{prop:bf}; dashed: Gamson's equal split.}\label{fig:e0}
 \end{figure}
 
 \input{tab_e0}
+\input{tab_psi_e0}
 
 Matching outcomes is not equilibrium play. Probing learned voters with synthetic offers shows acceptance
 thresholds well below the reservation value $\delta/n$ for $n\ge5$ (\cref{tab:e0}). At the offers
@@ -315,7 +356,11 @@ formation at $n=7$ and \BrGainFive{} at $n=5$, by offering far less
 (\code{scripts/bf\_best\_response.py}). Formateurs never try such offers, so voters are never taught to
 reject them: the self-confirming pattern of learning in games \citep{fudenberg1993,gale1995}. As in the
 laboratory \citep{frechette2003}, the proposer ends up with less than the theory gives it at large $n$.
-A best response trained by PPO against the E0 profile gains \GainEzero{} per period
+In the counterfactual measure of \cref{sec:theory}, the learned value of proposal power matches its
+closed form $1-\delta(n+1)/(2n)$ within 0.02 in \PsiEzeroCells/9 cells (mean absolute gap
+\PsiEzeroAbsGap; \cref{tab:psie0}), and falls short where the shares do (\PsiEzeroSevenEight{} against
+\PsiEzeroSevenEightBF{} at $n=7$, $\delta=0.8$). A best response trained by PPO against the E0 profile gains
+\GainEzero{} per period
 (\GainEzeroRel{} of a seat's payoff), confirming that the exploitability test detects such gaps.
 
 \subsection{Proposal bargaining: the premium changes currency}\label{sec:mech}
@@ -335,18 +380,38 @@ recognition rule and heterogeneous public valuations reduce it at most partially
 \end{figure}
 
 Two mechanisms remove the \emph{counted} premium when added alone: private valuations (\MfourGamma) and
-ministerial policy (\MnineGamma). In E$^\star$ the counted premium is small (\EstarGamma), and it returns
-(0.21--0.22) when private valuations, heterogeneous valuations (without which private types carry no
-information) or exits are removed, but not when ministerial policy is removed. The mechanisms therefore interact: on
-its own, ministerial policy turns the premium into policy control (lead coefficient \MnineGlead), but in
-E$^\star$ without private valuations the formateur keeps both more ministries and more lead ministries
-(lead coefficient 0.35). We report these interactions as exploratory; with three seeds per configuration we
-did not decompose them further. But the premium does not vanish.
-In each party's share of the value it places on ministries the formateur coefficient is \MfourGnu{}
-with private valuations and \EstarGnu{} in E$^\star$, and with ministerial policy the formateur holds the
-policy-setting ministries (coefficient \MnineGlead). Both persist with four times the training. The
-formateur gives partners more ministries but keeps the ones it values most, or keeps policy control:
-the premium changes currency.
+ministerial policy (\MnineGamma); in E$^\star$ it is small (\EstarGamma). Does the formateur role then
+become worthless, or does its value move where counts cannot see it? The counterfactual probe answers this
+(\cref{tab:psi}). In every proposal configuration the role is worth something: $\Psi_{\mathrm{in}}$ ranges
+from \PsiMnine{} to \PsiAfProp{} per period, all clearly above zero. In the base game the whole value is in
+how many ministries the formateur keeps ($\Psi_\sigma=\PsiBaseSig$). With private valuations the counted
+part vanishes ($\Psi_\sigma=\PsiMfourSig$) and the value is in \emph{which} ministries the formateur keeps
+($\Psi_\nu=\PsiMfourNu$); with ministerial policy the counted part vanishes ($\PsiMnineSig$) and the value
+is in policy ($\Psi_{\mathrm{pol}}=\PsiMninePol$). In E$^\star$, $\Psi_{\mathrm{in}}=\PsiEstar$, of which
+\PsiEstarNu{} is taste, \PsiEstarPol{} policy and only \PsiEstarSig{} counts; MAPPO, fictitious self-play, the GRU and the memoryless learner, 12 ministries and four times the
+training budget give the same picture: a taste component of 0.11--0.16 and a counted component of at most
+0.09. This is hypothesis H10 of the specification, and it meets its evidence standard: the
+observational premium is within tolerance ($|\tilde\Phi|\le0.02$) while $\Psi_\nu$ or $\Psi_{\mathrm{pol}}$ is
+positive with an interval excluding zero, and the result replicates on seeds trained after the pilot runs
+in which H10 was formulated (E$^\star$ seeds 3--9: $\Psi_\nu=\RepEstarNu$, 95\% CI
+\RepEstarNuLo{} to \RepEstarNuHi; private valuations, seeds 3--4: \RepMfourNu; policy: $\Psi_{\mathrm{pol}}=
+\RepMninePol$). Under the specification's strict tolerances these configurations stay in the formateur
+region rather than the observational Gamson region: the counted premium is gone, but indivisible
+ministries keep the Gamson distance at 0.07--0.09, above its tolerance of 0.05.
+
+The decomposition also resolves the interactions of the leave-one-out runs. Without private valuations the
+premium returns to counts ($\Psi_\sigma=\PsiLooMfourSig$, $\Psi_\nu=\PsiLooMfourNu$); without exits the
+formateur takes both more ministries and its favourite ones ($\Psi_\sigma=\PsiLooMeightSig$,
+$\Psi_\nu=\PsiLooMeightNu$, $\Psi_{\mathrm{in}}=\PsiLooMeight$): the threat of partners walking out is what
+keeps the premium out of counts once tastes are private. Removing ministerial policy changes nothing
+($\Psi_{\mathrm{in}}=\PsiLooMnine$), because private tastes already absorb the premium. More exploration
+lowers but does not remove the value of proposing (base game, entropy 0.002 to 0.05: \PsiEntLo{} to
+\PsiEntHi), as the specification's H9 expects of quantal responses. Shares weighted by each party's own
+valuation point the same way (formateur coefficient \MfourGnu{} with private valuations) but are reported
+only descriptively. The formateur gives partners more ministries but keeps the ones it values most, or
+keeps policy control: the premium changes currency.
+
+\input{tab_psi}
 
 \subsection{Demand bargaining follows voting weights}\label{sec:protocol}
 On the same random 3--8-party parliaments (\NprotSeeds{} seeds per protocol), demand bargaining lowers the formateur coefficient by \HoneDiff{} relative to proposal bargaining (95\% CI
@@ -362,6 +427,10 @@ zero: the interval lies slightly below zero. All three tests pass after Holm cor
 the coefficient becomes \ExpDemG{} (seat slope \ExpDemB). We have not isolated why. Raising entropy does
 not make closing more likely a priori (one close action among 102), but it keeps demands from collapsing
 early onto a few values, so later movers keep meeting undercutting demands and cheap closing options.
+On the same parliaments the proposal protocol gives the formateur $\Psi_{\mathrm{in}}=\PsiWideProp$, all
+in counts; under demands only the value of being recognised is defined, and it is smaller
+($\Psi_{\mathrm{ex}}=\PsiWideDemEx$ against \PsiWidePropEx), most of it being the first mover's certain
+place in the cabinet.
 
 \begin{table}[t]\centering\footnotesize
 \caption{Who gets what in fixed parliaments (divisible surplus, $\delta=0.9$, seat-proportional
@@ -439,6 +508,15 @@ $\hat\beta=\WvsNoPm$ (\WvsNoPmLo--\WvsNoPmHi; \WvsNoPmN{} pairs from only \WvsNo
 countries). Both intervals exclude zero, but they are wide: the estimate supports seat-based division
 without measuring it precisely.
 
+\paragraph{The same party as formateur and as partner.} The closest real-data analogue of
+$\Psi_{\mathrm{in}}$ compares a party with itself: its portfolio share when it holds the premiership
+against its share as a junior partner, net of its seat share, with party fixed effects. For the
+\WithinParties{} parties that appear in both roles (\WithinCabinets{} cabinets, \WithinCountries{}
+countries) the difference is \WithinG{} (wild-cluster 95\% CI \WithinLo{} to \WithinHi;
+\code{scripts/real\_within\_party.py}). Real data measure only the counted channel $\Psi_\sigma$, and
+there the formateur role is worth nothing detectable; the taste and policy channels, where our agents keep
+their premium, cannot be measured on observed cabinets.
+
 \paragraph{Key ministries.} If the real premium were hidden in quality, as with our agents, prime
 ministers' parties should hold more than their share of the key ministries. On \KeyN{} cabinets they hold
 \KeyShare{} of finance, foreign affairs, interior, defence and justice, against \KeyCount{} of all
@@ -505,9 +583,9 @@ stable across seeds, learners and training budgets.
 positively, as a question about what self-interested bargaining produces, our answer is: neither rule
 emerges unconditionally. Learning parties favour the formateur exactly as far as the rules give it
 proposal power (\cref{sec:mech}); when parties bargain by demands, the premium disappears but shares
-follow voting weights (\cref{sec:protocol}). Private information and policy motives do not remove the
-proposer's advantage; they move it into the ministries the formateur values or into policy control, which
-counting ministries cannot see. Real cabinets, in contrast, divide by seats even where voting weights
+follow voting weights (\cref{sec:protocol}). Private information and policy motives do not remove the proposer's advantage: replaying the same states
+with each coalition member as proposer shows that the role keeps its value, but in the ministries the
+formateur values or in policy control, which counting ministries cannot see. Real cabinets, in contrast, divide by seats even where voting weights
 disagree, show at most a small premium relative to voting weights, and no detectable premium in key
 ministries (\cref{sec:real}).
 
@@ -524,8 +602,10 @@ learned profile matches Baron--Ferejohn shares while leaving a profitable deviat
 \paragraph{Limitations.} Sizes are scaled down ($n\le5$ in the mechanism experiments, 3--8 in random and
 real parliaments, $m=6$). Learned profiles are approximate equilibria, and exploitability estimates are
 lower bounds. The prime minister's party is a proxy for the formateur. Real shares count ministers;
-salience enters only through the key-ministry test, and the test of the currency shift in real data with
-party-specific manifesto salience was not run. The demand head offers one close action against 101 demand
+salience enters only through the key-ministry test, and the taste and policy channels of the value of
+proposal power cannot be measured on observed cabinets (party-specific manifesto salience was not used). The
+probe uses the first formation state of each episode, not every formation state visited; under the demand
+protocol only the value of recognition is defined. The demand head offers one close action against 101 demand
 bins, which slows learning to close; the exploration runs show that our conclusions do not depend on it.
 The normative comparison of allocation conventions (delay, durability, welfare) was outside the scope of
 the experiments reported here.
@@ -534,8 +614,9 @@ the experiments reported here.
 \section{Conclusion}\label{sec:conclusion}
 Modelling parties as learning agents bargaining over cabinets shows that the formateur premium is a
 property of proposal power, not of strategic bargaining as such, and that its absence under demand
-bargaining yields division by voting weight, not by seats. Information and policy motives change where the
-premium appears rather than whether it exists. Where seats and voting weights disagree, real cabinets follow seats, unlike any protocol we trained;
+bargaining yields division by voting weight, not by seats. Information and policy motives change where the premium appears rather than whether it exists: measured
+as the value of proposal power, the formateur role is worth something in every proposal configuration we
+trained. Where seats and voting weights disagree, real cabinets follow seats, unlike any protocol we trained;
 the evidence for this rests on 42 partner pairs and its interval is wide, but it suggests that the
 explanation of Gamson's law must include rules or norms beyond the canonical bargaining models.
 
