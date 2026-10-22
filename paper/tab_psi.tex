@@ -3,45 +3,45 @@
 \caption{Value of proposal power (spec v0.5, Definition~1.8), estimated by counterfactual replays (Algorithm~4: 2000 probe states per seed, 4 replays per arm, common random numbers): $\Psi_{\mathrm{in}}$ (mean $\pm$ standard error over seeds) and its components in salience ($\Psi_\sigma$, ministry counts), taste ($\Psi_\nu$, which ministries), policy ($\Psi_{\mathrm{pol}}$) and exit bonuses ($\Psi_e$); $\Psi_{\mathrm{ex}}$: value of being recognised; cov.: on-path coverage. $\tilde\Phi$: observational floor-adjusted premium. Region (tolerances of S2): F formateur, D disguised premium, G Gamson. Under the demand protocol only $\Psi_{\mathrm{ex}}$ is defined.}\label{tab:psi}
 \begin{tabular}{@{}lccccccccc@{}}\toprule
 configuration & $\Psi_{\mathrm{in}}$ & $\Psi_\sigma$ & $\Psi_\nu$ & $\Psi_{\mathrm{pol}}$ & $\Psi_e$ & $\Psi_{\mathrm{ex}}$ & cov. & $\tilde\Phi$ & reg.\\\midrule
-base game & +0.229 $\pm$ 0.021 & +0.229 & +0.000 & +0.000 & +0.000 & +0.389 & 0.728 & +0.146 & F\\
-+ repeated terms & +0.299 $\pm$ 0.008 & +0.299 & +0.000 & +0.000 & +0.000 & +0.442 & 0.847 & +0.173 & F\\
-+ repeated, patient & +0.299 $\pm$ 0.007 & +0.299 & +0.000 & +0.000 & +0.000 & +0.435 & 0.851 & +0.192 & F\\
-+ repeated, patient, GRU & +0.270 $\pm$ 0.013 & +0.270 & +0.000 & +0.000 & +0.000 & +0.412 & 0.857 & +0.185 & F\\
-+ heterogeneous public values & +0.133 $\pm$ 0.013 & +0.166 & \ensuremath{-}0.033 & +0.000 & +0.000 & +0.346 & 0.736 & +0.111 & F\\
-+ private values & +0.088 $\pm$ 0.003 & \ensuremath{-}0.026 & +0.114 & +0.000 & +0.000 & +0.283 & 0.734 & \ensuremath{-}0.010 & F\\
-+ exits & +0.255 $\pm$ 0.021 & +0.256 & +0.000 & +0.000 & \ensuremath{-}0.000 & +0.395 & 0.807 & +0.132 & F\\
-+ ministerial policy & +0.080 $\pm$ 0.003 & \ensuremath{-}0.010 & +0.000 & +0.090 & +0.000 & +0.299 & 0.821 & \ensuremath{-}0.005 & F\\
-+ seat recognition & +0.148 $\pm$ 0.011 & +0.148 & +0.000 & +0.000 & +0.000 & +0.350 & 0.743 & +0.027 & F\\
+base game & +0.228 $\pm$ 0.022 & +0.228 & +0.000 & +0.000 & +0.000 & +0.389 & 0.729 & +0.146 & F\\
++ repeated terms & +0.300 $\pm$ 0.008 & +0.300 & +0.000 & +0.000 & +0.000 & +0.443 & 0.844 & +0.173 & F\\
++ repeated, patient & +0.299 $\pm$ 0.006 & +0.299 & +0.000 & +0.000 & +0.000 & +0.435 & 0.848 & +0.192 & F\\
++ repeated, patient, GRU & +0.270 $\pm$ 0.013 & +0.270 & +0.000 & +0.000 & +0.000 & +0.411 & 0.859 & +0.185 & F\\
++ heterogeneous public values & +0.132 $\pm$ 0.012 & +0.167 & \ensuremath{-}0.034 & +0.000 & +0.000 & +0.347 & 0.740 & +0.111 & F\\
++ private values & +0.088 $\pm$ 0.003 & \ensuremath{-}0.025 & +0.113 & +0.000 & +0.000 & +0.283 & 0.729 & \ensuremath{-}0.010 & F\\
++ exits & +0.254 $\pm$ 0.021 & +0.254 & +0.000 & +0.000 & \ensuremath{-}0.000 & +0.395 & 0.812 & +0.132 & F\\
++ ministerial policy & +0.080 $\pm$ 0.004 & \ensuremath{-}0.010 & +0.000 & +0.090 & +0.000 & +0.298 & 0.820 & \ensuremath{-}0.005 & F\\
++ seat recognition & +0.147 $\pm$ 0.010 & +0.147 & +0.000 & +0.000 & +0.000 & +0.350 & 0.746 & +0.027 & F\\
 \addlinespace
-E$^\star$ (all on) & +0.164 $\pm$ 0.009 & +0.036 & +0.114 & +0.016 & \ensuremath{-}0.001 & +0.379 & 0.871 & \ensuremath{-}0.008 & F\\
-E$^\star$ $-$ repeated terms & +0.133 $\pm$ 0.005 & +0.014 & +0.109 & +0.011 & \ensuremath{-}0.000 & +0.350 & 0.867 & \ensuremath{-}0.060 & F\\
-E$^\star$ $-$ private values & +0.213 $\pm$ 0.002 & +0.201 & \ensuremath{-}0.024 & +0.037 & \ensuremath{-}0.001 & +0.463 & 0.865 & +0.084 & F\\
-E$^\star$ $-$ heterog. values & +0.239 $\pm$ 0.024 & +0.208 & +0.000 & +0.033 & \ensuremath{-}0.001 & +0.408 & 0.793 & +0.073 & F\\
-E$^\star$ $-$ exits & +0.355 $\pm$ 0.037 & +0.201 & +0.110 & +0.044 & +0.000 & +0.543 & 0.858 & +0.061 & F\\
-E$^\star$ $-$ ministerial policy & +0.162 $\pm$ 0.009 & +0.043 & +0.121 & +0.000 & \ensuremath{-}0.001 & +0.353 & 0.858 & \ensuremath{-}0.009 & F\\
-E$^\star$ $-$ seat recognition & +0.187 $\pm$ 0.016 & +0.054 & +0.118 & +0.016 & \ensuremath{-}0.001 & +0.407 & 0.866 & +0.071 & F\\
+E$^\star$ (all on) & +0.163 $\pm$ 0.009 & +0.035 & +0.114 & +0.016 & \ensuremath{-}0.001 & +0.379 & 0.872 & \ensuremath{-}0.008 & F\\
+E$^\star$ $-$ repeated terms & +0.133 $\pm$ 0.006 & +0.015 & +0.108 & +0.011 & \ensuremath{-}0.000 & +0.350 & 0.871 & \ensuremath{-}0.060 & F\\
+E$^\star$ $-$ private values & +0.212 $\pm$ 0.001 & +0.200 & \ensuremath{-}0.024 & +0.037 & \ensuremath{-}0.001 & +0.463 & 0.870 & +0.084 & F\\
+E$^\star$ $-$ heterog. values & +0.240 $\pm$ 0.024 & +0.208 & +0.000 & +0.033 & \ensuremath{-}0.001 & +0.408 & 0.794 & +0.073 & F\\
+E$^\star$ $-$ exits & +0.355 $\pm$ 0.035 & +0.202 & +0.110 & +0.043 & +0.000 & +0.544 & 0.859 & +0.061 & F\\
+E$^\star$ $-$ ministerial policy & +0.163 $\pm$ 0.010 & +0.044 & +0.121 & +0.000 & \ensuremath{-}0.001 & +0.352 & 0.856 & \ensuremath{-}0.009 & F\\
+E$^\star$ $-$ seat recognition & +0.188 $\pm$ 0.015 & +0.054 & +0.119 & +0.017 & \ensuremath{-}0.001 & +0.406 & 0.866 & +0.071 & F\\
 \addlinespace
-E$^\star$, MAPPO & +0.175 $\pm$ 0.013 & +0.038 & +0.118 & +0.020 & \ensuremath{-}0.001 & +0.395 & 0.894 & \ensuremath{-}0.013 & F\\
-E$^\star$, fictitious self-play & +0.181 $\pm$ 0.021 & +0.049 & +0.117 & +0.017 & \ensuremath{-}0.001 & +0.395 & 0.864 & +0.001 & F\\
-E$^\star$, GRU & +0.147 $\pm$ 0.020 & +0.015 & +0.114 & +0.019 & \ensuremath{-}0.002 & +0.362 & 0.877 & \ensuremath{-}0.011 & F\\
-E$^\star$, memoryless & +0.165 $\pm$ 0.007 & +0.037 & +0.109 & +0.019 & \ensuremath{-}0.001 & +0.362 & 0.845 & \ensuremath{-}0.040 & F\\
-E$^\star$, 12 ministries & +0.212 $\pm$ 0.025 & \ensuremath{-}0.034 & +0.164 & +0.083 & \ensuremath{-}0.001 & +0.421 & 0.867 & \ensuremath{-}0.066 & F\\
+E$^\star$, MAPPO & +0.174 $\pm$ 0.013 & +0.039 & +0.118 & +0.020 & \ensuremath{-}0.001 & +0.396 & 0.893 & \ensuremath{-}0.013 & F\\
+E$^\star$, fictitious self-play & +0.180 $\pm$ 0.020 & +0.047 & +0.117 & +0.017 & \ensuremath{-}0.001 & +0.395 & 0.864 & +0.001 & F\\
+E$^\star$, GRU & +0.148 $\pm$ 0.019 & +0.015 & +0.115 & +0.020 & \ensuremath{-}0.002 & +0.362 & 0.878 & \ensuremath{-}0.011 & F\\
+E$^\star$, memoryless & +0.166 $\pm$ 0.006 & +0.039 & +0.109 & +0.019 & \ensuremath{-}0.001 & +0.363 & 0.847 & \ensuremath{-}0.040 & F\\
+E$^\star$, 12 ministries & +0.212 $\pm$ 0.025 & \ensuremath{-}0.034 & +0.164 & +0.083 & \ensuremath{-}0.001 & +0.418 & 0.869 & \ensuremath{-}0.066 & F\\
 \addlinespace
-base, 4$\times$ training & +0.264 $\pm$ 0.003 & +0.264 & +0.000 & +0.000 & +0.000 & +0.441 & 0.707 & +0.181 & F\\
-+ private values, 4$\times$ & +0.106 $\pm$ 0.006 & \ensuremath{-}0.012 & +0.118 & +0.000 & +0.000 & +0.312 & 0.697 & +0.006 & F\\
-+ policy, 4$\times$ & +0.107 $\pm$ 0.002 & +0.016 & +0.000 & +0.091 & +0.000 & +0.323 & 0.771 & +0.021 & F\\
-E$^\star$, 4$\times$ & +0.234 $\pm$ 0.027 & +0.093 & +0.119 & +0.023 & \ensuremath{-}0.002 & +0.442 & 0.820 & +0.005 & F\\
+base, 4$\times$ training & +0.264 $\pm$ 0.003 & +0.264 & +0.000 & +0.000 & +0.000 & +0.442 & 0.705 & +0.181 & F\\
++ private values, 4$\times$ & +0.109 $\pm$ 0.009 & \ensuremath{-}0.011 & +0.120 & +0.000 & +0.000 & +0.312 & 0.693 & +0.006 & F\\
++ policy, 4$\times$ & +0.105 $\pm$ 0.000 & +0.015 & +0.000 & +0.090 & +0.000 & +0.325 & 0.771 & +0.021 & F\\
+E$^\star$, 4$\times$ & +0.235 $\pm$ 0.027 & +0.094 & +0.119 & +0.024 & \ensuremath{-}0.002 & +0.442 & 0.825 & +0.005 & F\\
 \addlinespace
-base, entropy 0.002 & +0.220 $\pm$ 0.019 & +0.220 & +0.000 & +0.000 & +0.000 & +0.394 & 0.697 & +0.138 & F\\
-base, entropy 0.02 & +0.180 $\pm$ 0.034 & +0.180 & +0.000 & +0.000 & +0.000 & +0.356 & 0.738 & +0.124 & F\\
-base, entropy 0.05 & +0.169 $\pm$ 0.015 & +0.169 & +0.000 & +0.000 & +0.000 & +0.318 & 0.729 & +0.121 & F\\
+base, entropy 0.002 & +0.219 $\pm$ 0.020 & +0.219 & +0.000 & +0.000 & +0.000 & +0.394 & 0.700 & +0.138 & F\\
+base, entropy 0.02 & +0.176 $\pm$ 0.035 & +0.176 & +0.000 & +0.000 & +0.000 & +0.355 & 0.736 & +0.124 & F\\
+base, entropy 0.05 & +0.169 $\pm$ 0.013 & +0.169 & +0.000 & +0.000 & +0.000 & +0.319 & 0.722 & +0.121 & F\\
 \addlinespace
-E$^\star$, 3--8 parties & +0.137 $\pm$ 0.009 & +0.028 & +0.102 & +0.008 & \ensuremath{-}0.001 & +0.297 & 0.832 & +0.001 & F\\
-E$^\star$, 3--8, public types & +0.185 $\pm$ 0.004 & +0.168 & \ensuremath{-}0.013 & +0.031 & \ensuremath{-}0.001 & +0.402 & 0.819 & +0.096 & F\\
-weighted parliaments (E1) & +0.284 $\pm$ 0.017 & +0.284 & +0.000 & +0.000 & +0.000 & +0.447 & 0.775 & +0.192 & F\\
-proposal, 3--8 parties (divisible) & +0.296 $\pm$ 0.009 & +0.296 & +0.000 & +0.000 & +0.000 & +0.430 & 0.708 & +0.123 & F\\
-proposal, 45/35/20 & +0.367 $\pm$ 0.046 & +0.367 & +0.000 & +0.000 & +0.000 & +0.508 & 0.837 & +0.128 & F\\
-proposal, 40/30/25/5 & +0.267 $\pm$ 0.051 & +0.267 & +0.000 & +0.000 & +0.000 & +0.375 & 0.809 & +0.141 & F\\
+E$^\star$, 3--8 parties & +0.138 $\pm$ 0.010 & +0.029 & +0.102 & +0.008 & \ensuremath{-}0.001 & +0.296 & 0.833 & +0.001 & F\\
+E$^\star$, 3--8, public types & +0.185 $\pm$ 0.004 & +0.167 & \ensuremath{-}0.013 & +0.031 & \ensuremath{-}0.001 & +0.402 & 0.817 & +0.096 & F\\
+weighted parliaments (E1) & +0.282 $\pm$ 0.017 & +0.282 & +0.000 & +0.000 & +0.000 & +0.447 & 0.775 & +0.192 & F\\
+proposal, 3--8 parties (divisible) & +0.297 $\pm$ 0.010 & +0.297 & +0.000 & +0.000 & +0.000 & +0.430 & 0.708 & +0.123 & F\\
+proposal, 45/35/20 & +0.368 $\pm$ 0.046 & +0.368 & +0.000 & +0.000 & +0.000 & +0.510 & 0.836 & +0.128 & F\\
+proposal, 40/30/25/5 & +0.268 $\pm$ 0.050 & +0.268 & +0.000 & +0.000 & +0.000 & +0.377 & 0.810 & +0.141 & F\\
 \addlinespace
 demand, 3--8 parties & -- & -- & -- & -- & -- & +0.151 & -- & \ensuremath{-}0.020 & --\\
 demand, more exploration & -- & -- & -- & -- & -- & +0.147 & -- & \ensuremath{-}0.003 & --\\
