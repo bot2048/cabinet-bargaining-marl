@@ -56,7 +56,7 @@ def ms(v):
 
 
 def obs_stats(tag):
-    runs = [json.load(open(p)) for p in glob.glob(os.path.join(ROOT, "results", tag, "seed*.json"))]
+    runs = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(ROOT, "results", tag, "seed*.json")))]
     o = [r.get("overall", {}) for r in runs]
     get = lambda k: ms([x.get(k) for x in o if x.get(k) is not None and x.get(k) == x.get(k)])
     return dict(phi_adj=get("phi_adj"), dg_adj=get("dg_adj"), gamma=get("reg_gamma"))
