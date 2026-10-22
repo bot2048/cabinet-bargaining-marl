@@ -17,3 +17,4 @@ report/*.toc
 data/seki_williams/raw/
 *.bbl
 *.blg
+*.toc
