@@ -52,21 +52,8 @@ def main():
                          "where the value and lead-ministry regressions are informative")
     ap.add_argument("--missing-only", action="store_true",
                     help="skip results that already carry the value/lead-ministry regressions")
-    ap.add_argument("--wait-queue", action="store_true",
-                    help="wait until no other queued or running job is left")
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
-    if a.wait_queue:
-        import time
-        qd = os.path.join(ROOT, "runs", "queue")
-        while True:
-            todo = open(os.path.join(qd, "todo.txt")).read().strip() if os.path.exists(
-                os.path.join(qd, "todo.txt")) else ""
-            st = json.load(open(os.path.join(qd, "state.json")))
-            others = [j for j in st["running"] if not j["tag"].startswith("reevaluate")]
-            if not todo and not others:
-                break
-            time.sleep(120)
     for path in sorted(glob.glob(os.path.join(ROOT, "models", "*", "seed*.pt"))):
         tag = os.path.basename(os.path.dirname(path))
         seed = int(os.path.basename(path)[4:-3])

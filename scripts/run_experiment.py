@@ -150,13 +150,8 @@ def exp_exploit(config, seed, iters, br_iters, model_tag=None):
     cfg = get_config(config)
     tag = model_tag or f"mech_{config}"
     path = model_path(tag, seed)
-    waited = 0
-    while not os.path.exists(path):          # queued before its model finished
-        if waited > 8 * 3600:
-            raise FileNotFoundError(path)
-        time.sleep(60)
-        waited += 60
-    time.sleep(5)
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path}: train the model first")
     net = load_policy(path)
     out = {}
     for init in ("warm", "scratch"):

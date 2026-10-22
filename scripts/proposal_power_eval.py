@@ -48,7 +48,6 @@ def main():
     ap.add_argument("--states", type=int, default=2000)
     ap.add_argument("--rep", type=int, default=4)
     ap.add_argument("--threads", type=int, default=2)
-    ap.add_argument("--device", default="cpu")          # accepted for the queue runner; probes run on CPU
     a = ap.parse_args()
     torch.set_num_threads(a.threads)
     cfg = config_of(a.tag)

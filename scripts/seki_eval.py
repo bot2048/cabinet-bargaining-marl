@@ -244,17 +244,11 @@ def main():
         base = {"WideProposal": C.WIDE_DIV, "WideDemand": C.WIDE_DEMAND,
                 "EstarWide": C.estar_wide()}[a.own]
         res["own"] = {}
-        import time
         for tag in a.tags:
             for seed in a.seeds:
                 p = os.path.join(ROOT, "models", tag, f"seed{seed}.pt")
-                waited = 0
-                while not os.path.exists(p) and waited < 8 * 3600:   # queued before training ended
-                    time.sleep(60)
-                    waited += 60
                 if not os.path.exists(p):
                     continue
-                time.sleep(5)
                 o = own_cabinets(load_policy(p).eval(), cabs, base, a.episodes, seed)
                 res["own"][f"{tag}/s{seed}"] = {k: float(v) for k, v in o.items()
                                                if isinstance(v, (int, float, np.floating)) and v == v}

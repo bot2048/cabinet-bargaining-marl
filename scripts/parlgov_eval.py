@@ -21,7 +21,6 @@ import csv
 import json
 import os
 import sys
-import time
 from collections import defaultdict
 
 import numpy as np
@@ -89,13 +88,8 @@ def main():
     torch.set_num_threads(a.threads)
     rng = np.random.default_rng(a.seed)
     path = os.path.join(ROOT, "models", a.tag, f"seed{a.seed}.pt")
-    waited = 0
-    while not os.path.exists(path):          # queued before its model finished training
-        if waited > 8 * 3600:
-            raise FileNotFoundError(path)
-        time.sleep(60)
-        waited += 60
-    time.sleep(5)
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"{path}: train the model first")
     net = load_policy(path)
     net.eval()
     fname = "cabinets.json" if a.scope == "western" else "cabinets_all.json"
