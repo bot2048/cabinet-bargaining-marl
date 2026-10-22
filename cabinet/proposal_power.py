@@ -130,6 +130,7 @@ def _p_propose(net, env, j, C, samples=64):
 def probe(cfg, controllers, n_states=2000, n_rep=4, seed=0, eta_min=0.02, chunk=96, assign=None):
     """Algorithm 4. Returns per-state contributions and their averages."""
     rng = np.random.default_rng(seed)
+    torch.manual_seed(seed)                      # the profile's sampled actions: reproducible replays
     assign = assign or (lambda env: ["learn"] * env.n)
     demand = cfg.protocol == "demand"
     ex_rows, in_rows, in_all_rows, cover = [], [], [], []
