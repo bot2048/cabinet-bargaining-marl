@@ -70,12 +70,14 @@ also MAPPO~\cite{mappo}, fictitious self-play, PSRO (\code{cabinet/psro.py}) and
 (\code{cabinet/bf\_solver.py}), exact demand equilibrium (\code{cabinet/demand\_solver.py}), Gamson, myopic
 and random agents (\code{cabinet/baselines.py}). \textbf{Metric} (\code{cabinet/metrics.py}): regression (1)
 $p=\alpha+\beta s+\gamma F$ on the cabinets formed, $\gamma$ being the seat-controlled formateur premium,
-and its analogues for value and policy-ministry shares. 500--2000 PPO iterations per run, 3--10 seeds
+and the \emph{value of proposal power} $\Psi_{\mathrm{in}}$ (\code{cabinet/proposal\_power.py}): the same
+party's payoff as proposer minus as partner, in the same state and coalition, from counterfactual replays,
+split into counts ($\Psi_\sigma$), which ministries ($\Psi_\nu$) and policy ($\Psi_{\mathrm{pol}}$). 500--2000 PPO iterations per run, 3--10 seeds
 (the statistical units); hyper-parameters tuned on E0 only.
 
 \section{Results}
 \begin{figure}[t]\centering
-\includegraphics[width=0.93\columnwidth]{../figures/fig_e0_benchmark.pdf}
+\includegraphics[width=0.86\columnwidth]{../figures/fig_e0_benchmark.pdf}
 \caption{Learner check: learned formateur share (dots) vs the BF closed form (lines) in the symmetric
 game; dashed: Gamson's equal split.}\label{fig:e0}
 \end{figure}
@@ -92,12 +94,14 @@ laboratory BF experiments~\cite{fkm}, proposers get less than theory at $n=7$.
 training). Repetition (even patient, with memory), exits, the recognition rule, MAPPO, fictitious self-play
 and PSRO leave it in place (Fig.~\ref{fig:mech}). Two mechanisms remove the
 \emph{counted} premium, private types ($\MfourGamma$) and ministerial policy ($\MnineGamma$), and removing
-private types from E* restores it. But the premium moves: in each party's share of the value it places on
-ministries the formateur coefficient is \MfourGnu{} with private types and \EstarGnu{} in E*, and with
-policy it holds the policy-setting ministries (coefficient \MnineGlead). Both persist with 4$\times$ training.
+private types from E* restores it. But the premium moves. Replaying the same states with each coalition
+member as proposer, the role is worth $\Psi_{\mathrm{in}}=\PsiMfour$ with private types, all in which
+ministries the formateur keeps ($\Psi_\nu=\PsiMfourNu$, counts \PsiMfourSig), \PsiMnine{} with policy, all in
+policy ($\Psi_{\mathrm{pol}}=\PsiMninePol$), and \PsiEstar{} in E* (taste \PsiEstarNu, counts \PsiEstarSig),
+replicated on new seeds and every learner.
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.93\columnwidth]{../figures/fig_mechanisms.pdf}
+\includegraphics[width=0.86\columnwidth]{../figures/fig_mechanisms.pdf}
 \caption{F1: formateur coefficient in counted shares when a mechanism is added to the base game (blue)
 or removed from E* (orange); mean and 95\% CI over seeds.}\label{fig:mech}
 \end{figure}
@@ -142,7 +146,7 @@ E* (all mech.) & \OwnWideB & \OwnWideG & \OwnWideGbz & \OwnWideRtwo\\
 \bottomrule\end{tabular}\end{table}
 
 \begin{figure}[t]\centering
-\includegraphics[width=0.93\columnwidth]{../figures/fig_real.pdf}
+\includegraphics[width=0.86\columnwidth]{../figures/fig_real.pdf}
 \caption{F3: predicting the portfolio split of real coalition cabinets given the real coalition and prime
 minister; country-clustered 95\% CIs.}\label{fig:real}
 \end{figure}
@@ -157,7 +161,8 @@ than weights ($R^2$ \RobBaseRtwo{} vs \RobWeightsRtwo), and decisively where the
 follow seat differences with slope \WvsSlope{} (95\% CI \WvsLo--\WvsHi; Gamson 1, voting weight 0, our
 demand agents \AfDemSlope), though less clearly without the PM's party (\WvsNoPm, \WvsNoPmN{} pairs). Key
 ministries (finance, foreign, interior, defence, justice; \KeyN{} cabinets) show no detectable premium either~\cite{wd}:
-\KeyShare{} held vs \KeyCount{} of all ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi).
+\KeyShare{} held vs \KeyCount{} of all ministers (difference \KeyDiff, 95\% CI \KeyDiffLo{} to \KeyDiffHi). A party gets no more as prime minister than as junior partner (party fixed effects: \WithinG,
+CI \WithinLo{} to \WithinHi).
 Given the real coalition and prime minister, Gamson's law errs by \MaeGamson{} per party, BF by \MaeBF{}
 and agents with private types by \MaePrivLo--\MaePrivHi{}, every one worse than Gamson
 (Fig.~\ref{fig:real}). Left to bargain freely in the real parliaments (Table~\ref{tab:own}), demand agents with more
@@ -168,9 +173,8 @@ proposal agents overshoot.
 \textbf{Reliability.} Best responses trained by PPO (one seat learns against the frozen profile) gain
 \GainLong{} per period against E* (\GainLongRel{} of a seat's payoff) and \GainDemRel{} and \GainPropRel{}
 against demand and proposal agents on random parliaments, \GainLongGamson{} and \GainLongMyopic{} against scripted Gamson and BF-heuristic profiles.
-In the BF game they gain \GainEzero{} (\GainEzeroRel), more than the analytic formateur deviation, so the
-test detects the gaps found above: learned profiles are approximate, not exact, equilibria. Cross-play
-between independent runs costs \CmSame{} per period.
+In the BF game they gain \GainEzero{} (\GainEzeroRel), so the test detects the gaps above: learned
+profiles are approximate equilibria. Cross-play costs \CmSame{} per period.
 
 \section{Implications and limitations}
 To the question of the project: self-interested learning parties do not follow seats as such. They
@@ -180,8 +184,8 @@ comes closest to real cabinets, but these follow seats even where voting weights
 rests on rules outside these models, such as commitments before the split~\cite{ks} or within-party
 bargaining~\cite{cox}. \textbf{Limitations}: scaled-down sizes; approximate equilibria; the PM's party
 proxies the formateur; real shares count ministers. \textbf{Not done}:
-party-specific manifesto salience (needs registered data access), a two-stage close/demand head
-(retraining), more seeds (effects are decisive). Sources of every claim:
+manifesto salience (needs data access), a two-stage close/demand head
+(retraining), more seeds. Sources:
 \code{docs/RESULTS\_AUDIT.md}.
 
 \begin{thebibliography}{99}\footnotesize\setlength{\itemsep}{0pt}
