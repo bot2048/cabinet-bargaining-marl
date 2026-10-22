@@ -1,0 +1,208 @@
+{
+ "tag": "mech_WideDemand",
+ "config": "WideDemand",
+ "states": 2000,
+ "rep": 4,
+ "seeds": {
+  "0": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.16577378195655748,
+    "ci": [
+     0.1615175803613593,
+     0.16988258538207923
+    ],
+    "sigma": 0.16577378195655748,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "1": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.1553409233949016,
+    "ci": [
+     0.15078567566782922,
+     0.15939508706849162
+    ],
+    "sigma": 0.1553409233949016,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "2": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.16137937705247157,
+    "ci": [
+     0.1569003398033034,
+     0.16564877252675525
+    ],
+    "sigma": 0.16137937705247157,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "3": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14630810186364,
+    "ci": [
+     0.14199329013262293,
+     0.15106542431542697
+    ],
+    "sigma": 0.14630810186364,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "4": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.15007466380158338,
+    "ci": [
+     0.1451922453963854,
+     0.154401798703482
+    ],
+    "sigma": 0.15007466380158338,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "5": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14312805842985904,
+    "ci": [
+     0.13945814201499046,
+     0.14706281506333757
+    ],
+    "sigma": 0.14312805842985904,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "6": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.15343283648260694,
+    "ci": [
+     0.14836054858097422,
+     0.15820741469218697
+    ],
+    "sigma": 0.15343283648260694,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "7": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14821513213112614,
+    "ci": [
+     0.14395897198675955,
+     0.1523279924557302
+    ],
+    "sigma": 0.14821513213112614,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "8": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14230615526180332,
+    "ci": [
+     0.13857402471003957,
+     0.14637959768013095
+    ],
+    "sigma": 0.14230615526180332,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "9": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14437491210104691,
+    "ci": [
+     0.14000345708572634,
+     0.14828624661044068
+    ],
+    "sigma": 0.14437491210104691,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  }
+ }
+}

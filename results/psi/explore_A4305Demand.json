@@ -1,0 +1,68 @@
+{
+ "tag": "explore_A4305Demand",
+ "config": "A4305Demand",
+ "states": 2000,
+ "rep": 4,
+ "seeds": {
+  "0": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.30210018005952377,
+    "ci": [
+     0.301764135453869,
+     0.30244164921874994
+    ],
+    "sigma": 0.30210018005952377,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "1": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.25802867931547613,
+    "ci": [
+     0.25764655479910703,
+     0.2584047407924107
+    ],
+    "sigma": 0.25802867931547613,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "2": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.21427174255952383,
+    "ci": [
+     0.21388605814732148,
+     0.2146849774553572
+    ],
+    "sigma": 0.21427174255952383,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  }
+ }
+}

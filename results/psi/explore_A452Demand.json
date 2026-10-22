@@ -1,0 +1,68 @@
+{
+ "tag": "explore_A452Demand",
+ "config": "A452Demand",
+ "states": 2000,
+ "rep": 4,
+ "seeds": {
+  "0": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.22895251748251752,
+    "ci": [
+     0.22793708976180072,
+     0.22984084178321681
+    ],
+    "sigma": 0.22895251748251752,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "1": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.30483324300699305,
+    "ci": [
+     0.30391566229603734,
+     0.30571252724358977
+    ],
+    "sigma": 0.30483324300699305,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "2": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.33449185897435907,
+    "ci": [
+     0.3336851650641027,
+     0.33526273076923085
+    ],
+    "sigma": 0.33449185897435907,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  }
+ }
+}

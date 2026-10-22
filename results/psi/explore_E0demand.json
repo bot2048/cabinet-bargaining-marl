@@ -1,0 +1,48 @@
+{
+ "tag": "explore_E0demand",
+ "config": "E0demand",
+ "states": 2000,
+ "rep": 4,
+ "seeds": {
+  "0": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.22846218750000002,
+    "ci": [
+     0.22557174218750006,
+     0.23142220312500006
+    ],
+    "sigma": 0.22846218750000002,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "1": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.28161,
+    "ci": [
+     0.2764424921875,
+     0.2863759062500001
+    ],
+    "sigma": 0.28161,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  }
+ }
+}

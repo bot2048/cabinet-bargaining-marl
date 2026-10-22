@@ -1,0 +1,68 @@
+{
+ "tag": "explore_WideDemand",
+ "config": "WideDemand",
+ "states": 2000,
+ "rep": 4,
+ "seeds": {
+  "0": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.15637140023473525,
+    "ci": [
+     0.15214087668988402,
+     0.1605440490593677
+    ],
+    "sigma": 0.15637140023473525,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "1": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.14729465598047897,
+    "ci": [
+     0.14289536140370257,
+     0.1513521327078834
+    ],
+    "sigma": 0.14729465598047897,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  },
+  "2": {
+   "psi_in": null,
+   "psi_in_all": null,
+   "psi_ex": {
+    "total": 0.13859220102585892,
+    "ci": [
+     0.1345522362313862,
+     0.1426929298033661
+    ],
+    "sigma": 0.13859220102585892,
+    "nu": 0.0,
+    "pol": 0.0,
+    "e": 0.0,
+    "states": 2000
+   },
+   "on_path_coverage": null,
+   "n_states": 2000,
+   "n_rep": 4,
+   "eta_min": 0.02
+  }
+ }
+}
