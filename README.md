@@ -24,8 +24,10 @@ and otherwise split by *voting weight*; they never produce seat-proportionality 
    Learned shares match the exact Baron-Ferejohn solution (mean absolute gap 0.017, 10 seeds), but the
    profile is not an exact equilibrium: learned voters accept far less than their reservation value and
    formateurs never exploit it (`scripts/bf_best_response.py`). Private valuations and policy motives
-   remove the *counted* premium, but the formateur keeps it in the ministries it values most or in the
-   policy-setting ministries.
+   remove the *counted* premium, but the value of proposal power (spec v0.5: the same party as proposer vs
+   as partner, from counterfactual replays, `cabinet/proposal_power.py`) stays positive in every proposal
+   configuration: with private values it lies in which ministries the formateur keeps, with policy in the
+   policy it sets.
 2. **Demand bargaining removes the premium but follows voting weights, not seats.** Pre-registered tests
    (`docs/PREREGISTRATION.md`, 10 seeds per protocol): premium -0.34 and seat slope +0.36 vs proposal
    bargaining (exact permutation p = 5e-6). The exact equilibrium of our demand protocol
@@ -68,6 +70,7 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`cabinet/ppo.py`](cabinet/ppo.py) | PPO self-play on agent-level decision sequences, best-response training, evaluation |
 | [`cabinet/bf_solver.py`](cabinet/bf_solver.py) | Baron-Ferejohn closed form and certified solver for weighted parliaments |
 | [`cabinet/demand_solver.py`](cabinet/demand_solver.py) | exact equilibrium of our demand protocol (backward induction over demand histories) |
+| [`cabinet/proposal_power.py`](cabinet/proposal_power.py) | value of proposal power (spec v0.5 Algorithm 4): counterfactual replays with the formateur overridden and the coalition forced |
 | [`cabinet/metrics.py`](cabinet/metrics.py) | formateur premium, Gamson distance, Hamilton floor, Gamson regression |
 | [`cabinet/baselines.py`](cabinet/baselines.py) | scripted baselines: BF agent, Gamson agent, myopic BF heuristic, random |
 | [`cabinet/diagnostics.py`](cabinet/diagnostics.py) | probing learned voters' acceptance thresholds |
@@ -83,6 +86,8 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`scripts/parlgov_eval.py`](scripts/parlgov_eval.py) | coalition choice in real ParlGov parliaments |
 | [`scripts/real_robustness.py`](scripts/real_robustness.py) | real-cabinet regression: cabinet size, largest party, wild cluster bootstrap, voting weights |
 | [`scripts/real_weights_vs_seats.py`](scripts/real_weights_vs_seats.py) | real partners with equal voting weight but different seats: do shares follow seats? |
+| [`scripts/proposal_power_eval.py`](scripts/proposal_power_eval.py), [`scripts/psi_summary.py`](scripts/psi_summary.py) | proposal-power probe of every trained model; summary, regions and paper tables |
+| [`scripts/real_within_party.py`](scripts/real_within_party.py) | real data: the same party as prime minister vs junior partner (party fixed effects) |
 | [`scripts/confirmatory.py`](scripts/confirmatory.py) | the pre-registered tests ([`docs/PREREGISTRATION.md`](docs/PREREGISTRATION.md)) |
 | [`scripts/bf_best_response.py`](scripts/bf_best_response.py) | formateur best response against frozen learned voters (no training) |
 | [`scripts/benchmark_table.py`](scripts/benchmark_table.py) | per-cell comparison with the BF closed form |
@@ -98,7 +103,7 @@ cd cabinet-bargaining-marl
 python -m venv .venv && source .venv/bin/activate
 pip install --index-url https://download.pytorch.org/whl/cpu torch   # CPU build is enough
 pip install -r requirements.txt
-python -m pytest -q          # 32 tests, ~45 s
+python -m pytest -q          # 34 tests, ~1 min
 ```
 
 ## Running

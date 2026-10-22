@@ -11,7 +11,9 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | ... but not equilibrium play | a formateur best response against frozen voters gains up to 0.013 / 0.056 / 0.153 per formation (n = 3/5/7) | `results/bf_best_response.json` | `scripts/bf_best_response.py` | `E0` models |
 | Base game keeps a premium | gamma 0.25 (5 seeds), 0.30 at 4x training | `results/mech_BASE/`, `results/long_BASE/` | `scripts/run_experiment.py --exp mech` | `BASE` |
 | Mechanisms added / removed | Fig. 2 | `results/mech_BASE+*/`, `results/mech_Estar-*/` | same | `add_one_in`, `leave_one_out` |
-| Currency shift | value gamma 0.11 (private types), 0.21 (E*); lead-ministry gamma 0.80 (policy) | `regnu_gamma`, `reglead_gamma` in the same files | `cabinet/metrics.py::summarise` | |
+| Currency shift (spec v0.5 H10) | value of proposal power Psi_in by counterfactual replays: private values 0.088 (counts -0.026, taste +0.114), policy 0.080 (counts -0.010, policy +0.090), E* 0.164 (counts 0.036, taste 0.114, policy 0.016); replicated on E* seeds 3-9 (taste 0.114 [0.108, 0.119]) | `results/psi/*.json`, `results/psi_summary.json` | `cabinet/proposal_power.py`, `scripts/proposal_power_eval.py`, `scripts/psi_summary.py` | all trained proposal models |
+| Psi benchmark | learned Psi_in matches 1 - delta(n+1)/(2n) within 0.02 in 6/9 E0 cells; probe exact on scripted BF and Gamson agents | `results/psi/e0.json`; `test_proposal_power_closed_forms` | same | E0 |
+| Own-valuation shares (descriptive only, spec R23) | formateur coefficient 0.11 (private values), 0.21 (E*) | `regnu_gamma` in `results/mech_*` | `cabinet/metrics.py::summarise` | |
 | Robust to the learner | MAPPO, FSP, PSRO, GRU, memoryless, 12 ministries | `results/mappo_Estar/`, `fsp_Estar/`, `psro_*/`, `rec_*/`, `mech_Estar_Lam0/`, `mech_Estar_m12/` | `scripts/run_experiment.py`, `cabinet/psro.py` | |
 
 ## F2: demand bargaining
@@ -36,6 +38,7 @@ below; nothing is typed by hand. Seeds are the statistical units. Configurations
 | Robustness | gamma +0.011 (seats), +0.019 (alpha/k), +0.059 (largest-party control), +0.074 (min. integer weights); wild-cluster CIs | `results/real_robustness.json` | `scripts/real_robustness.py` |
 | Equal voting weight, different seats | 42 pairs (36 cabinets, 13 countries): share difference follows seat difference, slope 0.84 [0.44, 1.07]; without the PM's party 0.52 [0.28, 1.15] (24 pairs, 7 countries) | `results/real_weights_vs_seats.json` | `scripts/real_weights_vs_seats.py` |
 | Leave-one-country-out | gamma in [-0.004, 0.013]; Gamson best in 31/31 | `results/seki/summary.json` (`loco`) | `scripts/seki_eval.py` |
+| Same party as PM vs junior partner (party fixed effects) | +0.001 [-0.042, 0.047], 33 parties, 105 cabinets, 16 countries | `results/real_within_party.json` | `scripts/real_within_party.py` |
 | Key ministries | 0.589 vs 0.573; diff +0.015 [-0.021, +0.056] (131 cabinets) | `results/seki/key_ministries.json` | `scripts/key_ministries.py` |
 | Predicting real splits | MAE: Gamson 0.052, private-type agents 0.087-0.090, public 0.13-0.17, BF 0.144 (183 cabinets) | `results/seki/summary.json` | `scripts/seki_eval.py` |
 | Agents' own cabinets in real parliaments (Table 2) | ranges over seeds, incl. Banzhaf and matched-coalition statistics; demand agents with more exploration: 0.05 + 0.86 s - 0.02..0.00 F, R^2 0.86-0.87 | `results/seki/own_*_{a,b,final,explore}.json` | `scripts/seki_eval.py --own` |

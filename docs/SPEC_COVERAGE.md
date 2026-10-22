@@ -1,7 +1,8 @@
 # Coverage of the project specification
 
 This repository implements the specification *Bargaining over Cabinets: A Multi-Agent Reinforcement
-Learning Study of Portfolio Allocation in Coalition Governments* (v0.4, 15 October 2026). This file maps
+Learning Study of Portfolio Allocation in Coalition Governments* (v0.4, 15 October 2026, and the
+additions of v0.5, 22 October 2026, listed at the end). This file maps
 every identifier of the specification to the code, test or result that addresses it, and lists every
 deviation. Status: **done**, **partial** (implemented with a stated simplification), **not done**.
 
@@ -88,3 +89,22 @@ use a masked 1% grid instead (finer than the spec's 0.02 tolerance).
 | M3 pre-electoral pacts | marked PLANNED in the spec itself | not done |
 | M6 measuring party strength | evaluation only (RQ3) | done |
 | M7 bounded rationality | entropy temperature (H9) | done |
+
+## Additions of specification v0.5 (22 October 2026)
+
+v0.5 makes the value of proposal power the primary measure of a formateur premium.
+
+| ID | What | Where | Status |
+|---|---|---|---|
+| Def 1.8 | within-coalition value of proposal power Psi_in and ex-ante value Psi_ex | `cabinet/proposal_power.py` | done |
+| Def 2.4 | payoff to the end of the term in per-period units, split into salience, taste, policy and exit | `env.comp` in `cabinet/env.py`; `test_reward_components_add_up` | done |
+| Algorithm 4 | proposal-power probe: saved formation states, overridden formateur, forced coalition, common random numbers, on-path filter | `cabinet/proposal_power.py::probe`; `scripts/proposal_power_eval.py` | done (probe states are the first formation state of each episode; N_probe = 2000, N_rep = 4, eta_min = 0.02 estimated from 64 sampled proposals) |
+| Lemma 3.13 | coalition forcing exact on path | forcing reuses the policy's teacher-forced inclusion decisions (`force_inc`); primary Psi_in keeps only on-path pairs | done |
+| Prop 2.12, Cor 2.13 | closed forms of Psi in E0 and E1, Psi_in = 0 for the Gamson agent | `test_proposal_power_closed_forms` (exact) | done |
+| R21 | save/restore formation states with random streams, override the formateur, force coalition decisions | states are deep-copied with their generators; `CabinetEnv.override_recognition`; `force_inc` | done |
+| R22 | rewards logged per component; Algorithm 4; unit tests against Cor 2.13, Prop 2.12 and BL2 | as above | done |
+| R23 | premium claims rest on Psi or on observational statistics; own-valuation shares descriptive only | paper and report: the currency shift is stated with Psi components; own-valuation regressions are reported as descriptive only | done |
+| Problem 1.10 regions | observational Gamson, Gamson, disguised-premium and formateur regions | `scripts/psi_summary.py` (tolerances: the thresholds of S2, eps_G = 0.05, eps_Phi = eps_Psi = eps_F = 0.02, because the spec's Section 4 does not yet fix them) | done |
+| H10 | private values or policy drive Phi to zero while Psi_in stays positive, in Psi_nu or Psi_pol | `results/psi_summary.json` (`h10_replication`: seeds trained after the pilot runs) | done |
+| 4.4 (planned) | within-party analogue of Psi_in on real data | `scripts/real_within_party.py` | done |
+| M2 analogue of Psi_in | the spec defers it to Section 4 | only Psi_ex reported for demand runs, as the spec states | n/a |

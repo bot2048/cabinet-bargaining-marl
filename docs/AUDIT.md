@@ -36,7 +36,7 @@ with learning agents, of the importance of the protocol.
 
 | Earlier claim | Problem | Now |
 |---|---|---|
-| "Private information removes the formateur premium" | measured in value or policy currencies the premium remains | reported as a change of currency |
+| "Private information removes the formateur premium" | measured in value or policy currencies the premium remains | reported as a change of currency; since spec v0.5 measured by the value of proposal power (counterfactual replays), not by own-valuation shares (R23) |
 | Raw premium p_f - s_f as the headline | under seat-proportional recognition it falls mechanically | seat-controlled coefficient gamma throughout |
 | "Real cabinets have no premium in key ministries" | the CI (-0.021, +0.056) does not exclude a modest premium | "no detectable premium" |
 | "Learned play recovers BF" | shares match on average, but learned voters accept below delta/n for n >= 5 | outcome match, not equilibrium play; tested by best responses (§3) |
@@ -99,6 +99,17 @@ our code and data before acting on them.
 | Train on pre-2000 cabinets, predict post-2000 | rests on a false premise | real cabinets are never used for training; the whole real-data test is out of sample |
 | Cross-protocol tournament; party-specific manifesto salience (MARPOR) | not feasible or not meaningful here | protocols are institutions, not agent types; MARPOR needs registration and portfolio coding; listed as future work |
 
-## 7. Open
+## 7. Specification v0.5 (22 October)
+
+The specification now makes the value of proposal power the primary premium measure and forbids own-valuation
+shares as one (R23), because they are in a different unit for each party and compare no counterfactual. We
+implemented the probe (Algorithm 4), tested it against the closed forms, and re-measured every trained
+proposal model. The currency shift survives under the stricter measure: with private values the formateur
+role is worth 0.088 per period, all of it in which ministries it keeps; with policy, 0.080, all in policy.
+Own-valuation shares are now reported only descriptively. One nuance: no configuration enters the formal
+disguised-premium region, because the floor-adjusted Gamson distance stays at 0.07-0.09 (tolerance 0.05);
+the counted premium is within its tolerance.
+
+## 8. Open
 
 See the end of [`RESULTS_AUDIT.md`](RESULTS_AUDIT.md) for the experiments not run and why.
