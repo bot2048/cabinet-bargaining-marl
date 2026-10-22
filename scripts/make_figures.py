@@ -608,6 +608,68 @@ def macros():
             put("WvsNoPmLo", wv["seat_slope_pairs_without_pm_ci"][0], "{:.2f}")
             put("WvsNoPmHi", wv["seat_slope_pairs_without_pm_ci"][1], "{:.2f}")
             put("WvsNoPmCountries", wv["countries_without_pm"], "{:d}")
+    # value of proposal power (spec v0.5 Def. 1.8), from scripts/psi_summary.py
+    pp = os.path.join(ROOT, "results", "psi_summary.json")
+    if os.path.exists(pp):
+        with open(pp) as f:
+            ps = json.load(f)
+        names = {"mech_BASE": "Base", "mech_BASE+M1_repeat": "Mone", "mech_BASE+M1_patient": "Mpatient",
+                 "mech_BASE+M5_hetero": "Mfive", "mech_BASE+M4_private": "Mfour", "mech_BASE+M8_exits": "Meight",
+                 "mech_BASE+M9_policy": "Mnine", "mech_BASE+M10_seatrho": "Mten", "mech_Estar": "Estar",
+                 "mech_Estar-M4_private": "LooMfour", "mech_Estar-M9_policy": "LooMnine",
+                 "mech_Estar-M5_hetero": "LooMfive", "mech_Estar-M8_exits": "LooMeight",
+                 "mech_Estar-M1_repeat": "LooMone", "mech_Estar-M10_seatrho": "LooMten",
+                 "mappo_Estar": "Mappo", "fsp_Estar": "Fsp", "rec_Estar": "Rec", "long_Estar": "LongEstar",
+                 "long_BASE+M4_private": "LongMfour", "long_BASE+M9_policy": "LongMnine", "long_BASE": "LongBase",
+                 "mech_WideProposal": "WideProp", "mech_WideDemand": "WideDem", "explore_WideDemand": "ExpDem",
+                 "mech_A452Proposal": "AfProp", "explore_A452Demand": "AfDem", "e1": "Eone",
+                 "entropy_BASE_0.002": "EntLo", "entropy_BASE_0.02": "EntMd", "entropy_BASE_0.05": "EntHi"}
+        for tag, nm in names.items():
+            r = ps["rows"].get(tag)
+            if not r:
+                continue
+            for key, suf in (("psi_in", ""), ("psi_in_sigma", "Sig"), ("psi_in_nu", "Nu"), ("psi_in_pol", "Pol"),
+                             ("psi_in_e", "Exit"), ("psi_ex", "Ex"), ("psi_in_all", "All")):
+                if r.get(key):
+                    put(f"Psi{nm}{suf}", r[key]["mean"], "{:+.3f}")
+            if r.get("psi_in"):
+                put(f"Psi{nm}Se", r["psi_in"]["se"], "{:.3f}")
+            if r.get("coverage"):
+                put(f"Psi{nm}Cov", r["coverage"]["mean"], "{:.2f}")
+            M[f"Psi{nm}Reg"] = r.get("region", "--")
+        for tag, nm in (("mech_Estar", "Estar"), ("mappo_Estar", "Mappo"), ("mech_BASE+M4_private", "Mfour"),
+                        ("mech_BASE+M9_policy", "Mnine")):
+            rep = ps.get("h10_replication", {}).get(tag)
+            if not rep:
+                continue
+            for c, suf in (("nu", "Nu"), ("pol", "Pol"), ("sigma", "Sig")):
+                put(f"Rep{nm}{suf}", rep[c]["mean"], "{:+.3f}")
+                put(f"Rep{nm}{suf}Lo", rep[c]["ci"][0], "{:+.3f}")
+                put(f"Rep{nm}{suf}Hi", rep[c]["ci"][1], "{:+.3f}")
+            put(f"Rep{nm}Seeds", len(rep["seeds"]), "{:d}")
+        covs = [r["coverage"]["mean"] for r in ps["rows"].values() if r and r.get("coverage")]
+        if covs:
+            put("PsiCovLo", min(covs), "{:.2f}")
+            put("PsiCovHi", max(covs), "{:.2f}")
+        if ps.get("e0"):
+            gaps = [c["psi_in"]["mean"] - c["bf_in"] for c in ps["e0"].values() if c["psi_in"]]
+            put("PsiEzeroAbsGap", float(np.mean(np.abs(gaps))), "{:.3f}")
+            put("PsiEzeroCells", int(sum(abs(g) <= 0.02 for g in gaps)), "{:d}")
+            for key, nm in (("5,0.9", "FiveNine"), ("7,0.8", "SevenEight"), ("3,0.9", "ThreeNine")):
+                c = ps["e0"].get(key)
+                if c and c["psi_in"]:
+                    put(f"PsiEzero{nm}", c["psi_in"]["mean"], "{:.3f}")
+                    put(f"PsiEzero{nm}BF", c["bf_in"], "{:.3f}")
+    wp = os.path.join(ROOT, "results", "real_within_party.json")
+    if os.path.exists(wp):
+        with open(wp) as f:
+            wpr = json.load(f)
+        put("WithinG", wpr["gamma"], "{:+.3f}")
+        put("WithinLo", wpr["wild_ci"][0], "{:+.3f}")
+        put("WithinHi", wpr["wild_ci"][1], "{:+.3f}")
+        put("WithinParties", wpr["parties"], "{:d}")
+        put("WithinCabinets", wpr["cabinets"], "{:d}")
+        put("WithinCountries", wpr["countries"], "{:d}")
     # best-response gains relative to the payoff of a profile seat
     for tag, name in (("exploit_Estar_br400", "GainLongRel"), ("exploit_mech_WideDemand_br400", "GainDemRel"),
                       ("exploit_mech_WideProposal_br400", "GainPropRel")):

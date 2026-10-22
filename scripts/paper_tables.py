@@ -73,21 +73,21 @@ MECH = [("mech_BASE", "base game (all mechanisms off)"), ("mech_BASE+M1_repeat",
 
 def mech_table():
     L = [r"\begin{table}[t]\centering\footnotesize",
-         r"\caption{Formateur coefficient $\hat\gamma$ of regression~\eqref{eq:reg} by configuration (mean "
-         r"$\pm$ standard error over seeds). Counted: share of ministries. Value: share of the value each "
-         r"party places on ministries. Lead: share of policy-setting ministries (only with M9). "
+         r"\caption{Observational statistics by configuration (mean $\pm$ standard error over seeds): formateur "
+         r"coefficient $\hat\gamma$ of regression~\eqref{eq:reg} in counted shares and in the share of "
+         r"policy-setting ministries (lead; only with M9), floor-adjusted premium $\tilde\Phi$. "
          r"$\tilde D_G$: floor-adjusted Gamson distance. Configurations with 2--3 seeds are exploratory; "
          r"the confirmatory tests are in Section~\ref{sec:protocol}.}\label{tab:mech}",
          r"\begin{tabular}{@{}lccccc@{}}\toprule",
-         r"configuration & $\hat\gamma$ counted & $\hat\gamma$ value & $\hat\gamma$ lead & $\tilde D_G$ & seeds\\\midrule"]
+         r"configuration & $\hat\gamma$ counted & $\hat\gamma$ lead & $\tilde\Phi$ & $\tilde D_G$ & seeds\\\midrule"]
     for tag, lab in MECH:
         R = runs(tag)
         if not R:
             continue
         o = [r["overall"] for r in R]
         lead = [x.get("reglead_gamma") for x in o]
-        L.append(f"{lab} & {mci([x['reg_gamma'] for x in o])} & {mci([x.get('regnu_gamma') for x in o])} & "
-                 f"{mci(lead) if any(v is not None for v in lead) else '--'} & "
+        L.append(f"{lab} & {mci([x['reg_gamma'] for x in o])} & "
+                 f"{mci(lead) if any(v is not None for v in lead) else '--'} & {mci([x['phi_adj'] for x in o])} & "
                  f"{np.mean([x['dg_adj'] for x in o]):.3f} & {len(R)}\\\\")
         if tag in ("mech_BASE+M10_seatrho", "mech_Estar-M10_seatrho", "mech_Estar_m12"):
             L.append(r"\addlinespace")
