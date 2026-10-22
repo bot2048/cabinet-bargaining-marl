@@ -78,16 +78,16 @@ payoff of a profile seat, each from separate evaluation episodes (3000). Payoffs
   consistent with Warwick & Druckman, while Ansolabehere et al. report a formateur bonus relative to voting
   weights. We do not adjudicate that measurement debate.
 
-## 6. External review (21 October): what we accepted, rejected and did
+## 6. Critical review (21 October): what we accepted, rejected and did
 
-We asked several outside reviewers (other AI systems) for critique. Their claims were checked against
-our code and data before acting on them.
+We sought critique of the design and results from several independent reviews. Every claim was checked
+against our code and data before acting on it.
 
 | Claim | Verdict | Action |
 |---|---|---|
 | Our demand protocol is not Morelli's game, so its equilibrium is unknown | correct | exact solver (`cabinet/demand_solver.py`): 3 equal 50/50, 5 equal ~1/3 each, 45/35/20 50/50 in any pair, 40/30/25/5 dummy gets 0 |
-| 3 equal parties: first mover 0.70, closer 0.30 (one reviewer) | wrong: ignores undercutting under the cheapest-set rule | solver gives 0.50/0.50 |
-| Demand theory predicts voting weights, not seats; the seat slope may be a learning bias | testable | fixed parliaments 45/35/20 and 40/30/25/5 moved to the front of the queue; predictions pre-registered (`PREREGISTRATION.md`) |
+| 3 equal parties: first mover 0.70, closer 0.30 | wrong: ignores undercutting under the cheapest-set rule | solver gives 0.50/0.50 |
+| Demand theory predicts voting weights, not seats; the seat slope may be a learning bias | testable | fixed parliaments 45/35/20 and 40/30/25/5 run under both protocols; predictions pre-registered (`PREREGISTRATION.md`) |
 | CLOSE is 1 of 102 actions in a flat demand head, so exploration starves closing | correct (code) | explains the default-exploration lock-in; exploration runs are the robustness check; stated as a limitation (no retraining) |
 | A non-pivotal party can close and take the residual | correct (code) | solver models the same rule; the dummy still gets 0 in equilibrium |
 | Lenient BF voters: the formateur may best-respond to noisy voters (no exploration failure) | rejected by test | `scripts/bf_best_response.py`: against the frozen voters a best response gains 0.01 (n=3) to 0.15 (n=7) per formation, so learned play is outcome-equivalent, not an equilibrium |

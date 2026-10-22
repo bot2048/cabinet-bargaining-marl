@@ -75,7 +75,8 @@ specification is covered (and every deviation): [`docs/SPEC_COVERAGE.md`](docs/S
 | [`cabinet/baselines.py`](cabinet/baselines.py) | scripted baselines: BF agent, Gamson agent, myopic BF heuristic, random |
 | [`cabinet/diagnostics.py`](cabinet/diagnostics.py) | probing learned voters' acceptance thresholds |
 | [`scripts/run_experiment.py`](scripts/run_experiment.py) | train + evaluate one experiment cell |
-| [`scripts/run_all.sh`](scripts/run_all.sh) | every experiment of the report, in parallel |
+| [`scripts/reproduce_all.sh`](scripts/reproduce_all.sh) | every command behind the results, in order |
+| [`scripts/trace_episode.py`](scripts/trace_episode.py) | one episode of a trained agent, printed step by step |
 | [`scripts/make_figures.py`](scripts/make_figures.py) | figures and summary tables from `results/` |
 | [`tests/test_core.py`](tests/test_core.py) | tests tying the code to the theory (closed form, masks, equivariance, welfare identity, ...) |
 | [`notebooks/colab_run.ipynb`](notebooks/colab_run.ipynb) | run everything on Google Colab |
@@ -115,40 +116,19 @@ python scripts/run_experiment.py --exp e0 --seed 0 --threads 4
 # one mechanism configuration, e.g. base + repeated terms
 python scripts/run_experiment.py --exp mech --config BASE+M1_repeat --seed 0
 
-# everything in the report: queues every missing experiment and starts the queue runner
-bash scripts/run_all.sh
+# every command behind the results, in order (several days on one machine)
+bash scripts/reproduce_all.sh
 
 # figures and tables -> figures/*.png|pdf, results/summary.json
 python scripts/make_figures.py
+
+# one episode of a trained agent, step by step
+python scripts/trace_episode.py --tag mech_BASE --seed 0
 ```
 
-### Long campaigns: the job queue
-
-`scripts/run_all.sh` does not run jobs itself; it appends them to a persistent queue
-(`runs/queue/todo.txt`, one line per job: `tag | estimated minutes | command`) that
-`scripts/queue_runner.py` works through, a few jobs at a time, in the background. The runner keeps
-going when the terminal closes, re-reads the queue whenever a slot frees (so jobs can be added,
-removed or reordered while it runs) and waits instead of exiting when the queue is empty.
-
-```bash
-./ctl.sh             # progress of every job, queued hours, expected finish time
-./ctl.sh watch       # live view (refreshes every 30 s)
-./ctl.sh eta         # just the expected finish time
-./ctl.sh check       # anything wrong? tells you whether a restart is needed
-./ctl.sh restart     # after a crash or reboot: interrupted jobs are re-queued and resume
-./ctl.sh log <tag>   # follow one job's log
-./ctl.sh stop        # finish the running jobs, then stop
-python scripts/jobs.py list | remove <tag> | parallel <k>   # edit the queue
-```
-
-**Robustness.** Training saves a checkpoint every 25 iterations (`runs/ckpt/`) and resumes from it
-when restarted, so a power cut costs at most a few minutes per job. The runner keeps at least 1 GB of
-RAM free: it starts a job only if enough memory remains afterwards, and if free memory drops below
-600 MB it stops the newest job and re-queues it (`runs/queue/reserve_mb` changes the reserve).
-Restarting the runner while jobs are running is safe: it adopts them instead of starting them again.
-
-With a CUDA build of PyTorch in `.venv-gpu`, queued jobs run the PPO update on the GPU
-(`--device cuda`, about 2x faster per iteration in the main environment); rollouts always run on the CPU.
+Training saves a checkpoint every 25 iterations (`runs/ckpt/`) and resumes from it when restarted.
+`--device cuda` runs the PPO updates on a GPU (about 2x faster per iteration in the main environment);
+the game simulation always runs on the CPU.
 
 Configurations: `E0`...`E6`, `BASE`, `BASE+<M>` (add-one-in), `Estar` (all mechanisms on), `Estar-<M>`
 (leave-one-out) and `Estar_Lam0` (memoryless), with `<M>` one of `M1_repeat`, `M4_private`, `M5_hetero`,
