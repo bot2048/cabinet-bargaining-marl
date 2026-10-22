@@ -265,12 +265,10 @@ def fig_real():
 
 def own_runs(cfg, explore=False):
     """Agents' own cabinets in the real parliaments, merged over the per-seed-group
-    files of the final evaluation (own_<cfg>_a.json, _b, ...); falls back to the
-    first run (own_<cfg>.json) when the final files are not there yet."""
+    files of the evaluation (own_<cfg>_a.json, _b, _final; _explore for the runs with
+    more exploration of demands)."""
     files = sorted(glob.glob(os.path.join(ROOT, "results", "seki", f"own_{cfg}_*.json")))
     files = [f for f in files if f.endswith("_explore.json") == explore]
-    if not files and not explore:
-        files = [os.path.join(ROOT, "results", "seki", f"own_{cfg}.json")]
     runs = {}
     for fp in files:
         if os.path.exists(fp):
